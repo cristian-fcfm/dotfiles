@@ -1,7 +1,7 @@
 palette = "tokyo_night"
 
 format = """
-[◖](fg:overlay0)$os$username[◗](fg:overlay0) $directory$fill$git_branch$git_commit
+[◖](fg:overlay0)$os$username[◗](fg:overlay0) $directory$fill$git_branch$git_commit$git_status
 │ $aws $python$fill$cmd_duration$battery$time
 ╰─$character
 """
@@ -24,6 +24,21 @@ format = "[$symbol$branch]($style) "
 [git_commit]
 style = "bold pink"
 format = "[\\($hash\\)]($style)"
+
+# 🧩 Git Status: Minimalista y visual
+[git_status]
+format = '([\[$all_status\]]($style)) '
+style = 'bold flamingo'
+
+staged = "+"
+modified = "!"
+deleted = "✘"
+conflicted = "="
+untracked = "?"
+stashed = "$"
+ahead = "⇡"
+behind = "⇣"
+diverged = "⇕"
 
 # 📁 Directorio
 [directory]
