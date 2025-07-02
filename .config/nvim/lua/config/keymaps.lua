@@ -1,5 +1,8 @@
--- Atajos de teclado personalizados
+-- Define la tecla leader como espacio
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
+-- Atajos de teclado personalizados
 local map = vim.keymap.set
 
 -- Abre/cierra el explorador de archivos (nvim-tree)
