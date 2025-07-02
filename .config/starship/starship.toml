@@ -1,7 +1,7 @@
 palette = "tokyo_night"
 
 format = """
-[◖](fg:overlay0)$os$username[◗](fg:overlay0) $directory$fill$git_branch$git_commit$git_status
+[◖](fg:overlay0)$os$username[◗](fg:overlay0) $directory$fill$git_branch$git_commit$git_status$git_metrics
 │ $aws $python$fill$cmd_duration$battery$time
 ╰─$character
 """
@@ -14,37 +14,28 @@ format = "[$user]($style)"
 disabled = false
 show_always = true
 
-# 🌿 Git Branch
+#  Git configurationt
 [git_branch]
 symbol = " "
-style = "bold mauve"
-format = "[$symbol$branch]($style) "
+style = "bold lavender"
 
-# 🔨 Git Commit
 [git_commit]
-style = "bold pink"
-format = "[\\($hash\\)]($style)"
+only_detached = false
+style = "bold lavender"
 
-# 🧩 Git Status: Minimalista y visual
 [git_status]
-format = '([\[$all_status\]]($style)) '
-style = 'bold flamingo'
+format = '([\[$all_status\]]($style))'
+style = 'bold lavender'
+disabled = false
 
-staged = "+"
-modified = "!"
-deleted = "✘"
-conflicted = "="
-untracked = "?"
-stashed = "$"
-ahead = "⇡"
-behind = "⇣"
-diverged = "⇕"
+[git_metrics]
+disabled = false
 
-# 📁 Directorio
+#  Directorio
 [directory]
 style = "bold sky"
-read_only = " "
-format = "[$path]($style)[$read_only]($style)"
+read_only = ""
+read_only_style = "red"
 
 # ⌛ Cmd Duration
 [cmd_duration]
@@ -64,11 +55,6 @@ symbol = " "
 style = "bold green"
 
 # 🔋 Batería con símbolos Nerd Font visibles
-[battery]
-full_symbol = "󰁹 "
-charging_symbol = "󰂄 "
-discharging_symbol = "󰁺 "
-
 [[battery.display]]
 threshold = 10
 style = "bold red"
@@ -99,6 +85,7 @@ style = "bg:overlay0 fg:blue"
 
 [os.symbols]
 Arch = " "
+Macos = " "
 
 [character]
 format = "$symbol"
@@ -133,3 +120,4 @@ surface0 = "#1f2335"
 base = "#1a1b26"
 mantle = "#16161e"
 crust = "#13141c"
+
