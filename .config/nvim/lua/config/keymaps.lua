@@ -13,3 +13,7 @@ map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { noremap = true, silent
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap = true, silent = true })
 map('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap = true, silent = true })
 map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = true, silent = true })
+
+-- Atajos generales
+vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true, desc = "Mover al panel izquierdo" })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true, desc = "Mover al panel derecho" })
