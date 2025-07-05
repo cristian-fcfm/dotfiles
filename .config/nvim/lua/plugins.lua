@@ -20,4 +20,5 @@ require("lazy").setup({
   { import = "config.plugins.treesitter" },  -- Resaltado de sintaxis avanzado
   { import = "config.plugins.telescope" },   -- Buscador tipo fuzzy
   { import = "config.plugins.nvimtree" },    -- Explorador de archivos
+  { import = "config.plugins.lualine" },     -- Barra de estado
 })
