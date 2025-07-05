@@ -21,4 +21,7 @@ require("lazy").setup({
   { import = "config.plugins.telescope" },   -- Buscador tipo fuzzy
   { import = "config.plugins.nvimtree" },    -- Explorador de archivos
   { import = "config.plugins.lualine" },     -- Barra de estado
+  { import = "config.plugins.alpha" },       -- Dashboard nvim
+  { import = "config.plugins.comment"},      -- Maneja comentario de lineas:w
+
 })
