@@ -16,12 +16,15 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Carga los plugins desde los archivos en config/plugins/
 require("lazy").setup({
-  { import = "config.plugins.colorscheme" }, -- Tema de colores
-  { import = "config.plugins.treesitter" },  -- Resaltado de sintaxis avanzado
-  { import = "config.plugins.telescope" },   -- Buscador tipo fuzzy
-  { import = "config.plugins.nvimtree" },    -- Explorador de archivos
-  { import = "config.plugins.lualine" },     -- Barra de estado
-  { import = "config.plugins.alpha" },       -- Dashboard nvim
-  { import = "config.plugins.comment"},      -- Maneja comentario de lineas:w
-
+  { import = "config.plugins.colorscheme" },     -- Tema de colores
+  { import = "config.plugins.treesitter" },      -- Resaltado de sintaxis avanzado
+  { import = "config.plugins.telescope" },       -- Buscador tipo fuzzy
+  { import = "config.plugins.nvimtree" },        -- Explorador de archivos
+  { import = "config.plugins.lualine" },         -- Barra de estado
+  { import = "config.plugins.alpha" },           -- Dashboard nvim
+  { import = "config.plugins.comment" },         -- Maneja comentario de lineas
+  { import = "config.plugins.indentline" },      -- Linea en la identacion del codigo
+  { import = "config.plugins.lsp" },             -- LSP
+  { import = "config.plugins.completion" },      -- Completado de codigo
+  { import = "config.plugins.formatting" },      -- Formateo de codigo
 })
