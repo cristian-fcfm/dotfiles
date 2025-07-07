@@ -27,4 +27,5 @@ require("lazy").setup({
   { import = "config.plugins.lsp" },             -- LSP
   { import = "config.plugins.completion" },      -- Completado de codigo
   { import = "config.plugins.formatting" },      -- Formateo de codigo
+  { import = "config.plugins.molten" },          -- Jupyyrt notebook 
 })
