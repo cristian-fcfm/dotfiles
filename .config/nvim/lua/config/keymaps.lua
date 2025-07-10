@@ -60,9 +60,6 @@ map('v', '>', '>gv', opts)
 -- Keep last yanked when pasting
 map('v', 'p', '"_dP', opts)
 
--- Abre/cierra el explorador de archivos (nvim-tree)
-map('n', '<leader>e', ':NvimTreeToggle<CR>', opts)
-
 -- Atajos para Telescope (buscador de archivos, texto, buffers, ayuda)
 map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', opts) 
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', opts) 
