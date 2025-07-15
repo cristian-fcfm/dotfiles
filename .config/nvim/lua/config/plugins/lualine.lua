@@ -1,7 +1,7 @@
 -- Plugin para la barra de estado lualine
 return {
   "nvim-lualine/lualine.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" }, -- Para iconos bonitos
+  dependencies = { "echasnovski/mini.icons" },
   config = function()
     require("lualine").setup({
       options = {
@@ -9,6 +9,7 @@ return {
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
         icons_enabled = true,
+        globalstatus = true,
       },
       sections = {
         lualine_a = { "mode" },
@@ -27,7 +28,7 @@ return {
         lualine_z = {},
       },
       tabline = {},
-      extensions = {"nvim-tree"},
+      extensions = {},
     })
   end,
 }

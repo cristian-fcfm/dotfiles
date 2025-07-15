@@ -20,7 +20,7 @@ require("lazy").setup({
   { import = "config.plugins.whichkey" },        -- Mostrar atajos de teclado
   { import = "config.plugins.treesitter" },      -- Resaltado de sintaxis avanzado
   { import = "config.plugins.telescope" },       -- Buscador tipo fuzzy
-  { import = "config.plugins.nvimtree" },        -- Explorador de archivos
+  { import = "config.plugins.oil" },        -- Explorador de archivos
   { import = "config.plugins.lualine" },         -- Barra de estado
   { import = "config.plugins.alpha" },           -- Dashboard nvim
   { import = "config.plugins.comment" },         -- Maneja comentario de lineas

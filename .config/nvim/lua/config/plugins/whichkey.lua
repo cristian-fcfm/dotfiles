@@ -5,7 +5,7 @@ return {
     plugins = { spelling = true },
     defaults = {},
     spec = {
-      require("config.whichkey.nvimtree")
+      -- require("config.whichkey.nvimtree")
     },
   },
   config = function(_, opts)
