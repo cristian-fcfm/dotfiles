@@ -2,61 +2,126 @@ return {
   -- Mason para instalar LSPs
   {
     "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup({
-        ui = {
-          icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗"
-          }
+    opts = {
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗"
         }
-      })
-    end,
+      }
+    }
   },
 
-  -- Mason LSP config
+  -- Mason LSP config + mason-tool-installer
   {
     "williamboman/mason-lspconfig.nvim",
-    dependencies = { "williamboman/mason.nvim" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+    },
     config = function()
+      local servers = {
+        pyright = {},
+        bashls = {},
+        jsonls = {},
+        yamlls = {},
+        marksman = {},
+        dockerls = {},
+        lua_ls = {},
+      }
       require("mason-lspconfig").setup({
-        ensure_installed = {
-          "pyright",      -- Python
-          "bashls",       -- Bash
-          "jsonls",       -- JSON
-          "yamlls",       -- YAML
-          "marksman",     -- Markdown
-          "dockerls",     -- Docker
-          "lua_ls",       -- Lua
-        },
+        ensure_installed = vim.tbl_keys(servers),
         automatic_installation = true,
       })
+      require("mason-tool-installer").setup {
+        ensure_installed = vim.tbl_keys(servers),
+      }
     end,
   },
 
   -- LSP Config
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "williamboman/mason-lspconfig.nvim" },
+    dependencies = {
+      { "williamboman/mason-lspconfig.nvim" },
+      { "j-hui/fidget.nvim", opts = {} },
+      { "b0o/schemastore.nvim", lazy = true },
+      { "ibhagwan/fzf-lua" }, 
+    },
     config = function()
       local lspconfig = require("lspconfig")
-      
-      -- Función común para todos los LSPs
+      local fzf = require("fzf-lua")
+
       local on_attach = function(client, bufnr)
-        local opts = { noremap = true, silent = true, buffer = bufnr }
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', '<leader>f', function()
-          vim.lsp.buf.format({ async = true })
-        end, opts)
+        local map = function(keys, func, desc, mode)
+          mode = mode or 'n'
+          vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = 'LSP: ' .. (desc or "") })
+        end
+
+        -- Jump to the definition of the word under your cursor.
+        --  This is where a variable was first declared, or where a function is defined, etc.
+        --  To jump back, press <C-t>.
+        map('gd', fzf.lsp_definitions, '[G]oto [D]efinition')
+
+        -- Find references for the word under your cursor.
+        map('gr', fzf.lsp_references, '[G]oto [R]eferences')
+
+        -- Jump to the implementation of the word under your cursor.
+        --  Useful when your language has ways of declaring types without an actual implementation.
+        map('gI', fzf.lsp_implementations, '[G]oto [I]mplementation')
+        map('<leader>D', fzf.lsp_typedefs, 'Type [D]efinition')
+        map('<leader>ds', fzf.lsp_document_symbols, '[D]ocument [S]ymbols')
+        map('<leader>ws', fzf.lsp_live_workspace_symbols, '[W]orkspace [S]ymbols')
+        map('<leader>cr', vim.lsp.buf.rename, '[R]e[n]ame')
+        map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+        map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+        map('K', vim.lsp.buf.hover, 'Hover')
+        map('<leader>f', function() vim.lsp.buf.format({ async = true }) end, 'Format')
+
+        -- Resaltado de referencias
+        if client.server_capabilities.documentHighlightProvider then
+          local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = false })
+          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+            group = group,
+            buffer = bufnr,
+            callback = vim.lsp.buf.document_highlight,
+          })
+          vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+            group = group,
+            buffer = bufnr,
+            callback = vim.lsp.buf.clear_references,
+          })
+        end
+
+        -- Inlay hints toggle
+        if client.server_capabilities.inlayHintProvider then
+          map('<leader>th', function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr })
+          end, '[T]oggle Inlay [H]ints')
+        end
       end
 
-      -- Python
+      -- Diagnóstico personalizado
+      vim.diagnostic.config {
+        severity_sort = true,
+        float = { border = 'rounded', source = 'if_many' },
+        underline = { severity = vim.diagnostic.severity.ERROR },
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = '󰅚 ',
+            [vim.diagnostic.severity.WARN] = '󰀪 ',
+            [vim.diagnostic.severity.INFO] = '󰋽 ',
+            [vim.diagnostic.severity.HINT] = '󰌶 ',
+          },
+        },
+        virtual_text = {
+          source = 'if_many',
+          spacing = 2,
+        },
+      }
+
+      -- Configuración de cada LSP
       lspconfig.pyright.setup({
         on_attach = on_attach,
         settings = {
@@ -69,11 +134,7 @@ return {
           }
         }
       })
-
-      -- Bash
       lspconfig.bashls.setup({ on_attach = on_attach })
-
-      -- JSON con esquemas AWS
       lspconfig.jsonls.setup({
         on_attach = on_attach,
         settings = {
@@ -83,8 +144,6 @@ return {
           },
         },
       })
-
-      -- YAML con esquemas AWS
       lspconfig.yamlls.setup({
         on_attach = on_attach,
         settings = {
@@ -95,14 +154,8 @@ return {
           },
         },
       })
-
-      -- Docker
       lspconfig.dockerls.setup({ on_attach = on_attach })
-      
-     -- Markdown
       lspconfig.marksman.setup({ on_attach = on_attach })
-
-      -- Lua
       lspconfig.lua_ls.setup({
         on_attach = on_attach,
         settings = {
@@ -113,11 +166,5 @@ return {
         },
       })
     end,
-  },
-
-  -- Esquemas para JSON/YAML
-  {
-    "b0o/schemastore.nvim",
-    lazy = true,
   },
 }
