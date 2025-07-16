@@ -17,7 +17,7 @@ return {
       scope = { enabled = true },
       whitespace = { remove_blankline_trail = true },
       exclude = {
-        filetypes = { "help", "dashboard", "NvimTree", "Trouble", "lazy" },
+        filetypes = { "help", "dashboard", "Trouble", "lazy" },
         buftypes = { "terminal", "nofile" },
       },
     },
