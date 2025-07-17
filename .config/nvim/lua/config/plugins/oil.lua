@@ -1,5 +1,5 @@
 return {
-    "stevearc/oil.nvim",
+    'stevearc/oil.nvim',
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {
@@ -7,6 +7,6 @@ return {
             show_hidden = true,
         },
     },
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
     lazy = false,
 }
