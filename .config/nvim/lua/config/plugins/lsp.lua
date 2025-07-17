@@ -1,24 +1,24 @@
 return {
   -- Mason para instalar LSPs
   {
-    "williamboman/mason.nvim",
+    'williamboman/mason.nvim',
     opts = {
       ui = {
         icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗"
+          package_installed = '✓',
+          package_pending = '➜',
+          package_uninstalled = '✗'
         }
       }
     }
   },
 
-  -- Mason LSP config + mason-tool-installer
+  -- Configuración de Mason LSP + mason-tool-installer
   {
-    "williamboman/mason-lspconfig.nvim",
+    'williamboman/mason-lspconfig.nvim',
     dependencies = {
-      "williamboman/mason.nvim",
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
+      'williamboman/mason.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
     },
     config = function()
       local servers = {
@@ -30,54 +30,74 @@ return {
         dockerls = {},
         lua_ls = {},
       }
-      require("mason-lspconfig").setup({
+      require('mason-lspconfig').setup({
         ensure_installed = vim.tbl_keys(servers),
         automatic_installation = true,
       })
-      require("mason-tool-installer").setup {
+      require('mason-tool-installer').setup {
         ensure_installed = vim.tbl_keys(servers),
       }
     end,
   },
 
-  -- LSP Config
+  -- Configuración LSP
   {
-    "neovim/nvim-lspconfig",
+    'neovim/nvim-lspconfig',
     dependencies = {
-      { "williamboman/mason-lspconfig.nvim" },
-      { "j-hui/fidget.nvim", opts = {} },
-      { "b0o/schemastore.nvim", lazy = true },
-      { "ibhagwan/fzf-lua" }, 
+      { 'williamboman/mason-lspconfig.nvim' },
+      { 'j-hui/fidget.nvim', opts = {} },
+      { 'b0o/schemastore.nvim', lazy = true },
+      { 'ibhagwan/fzf-lua' },
     },
     config = function()
-      local lspconfig = require("lspconfig")
-      local fzf = require("fzf-lua")
+      local lspconfig = require('lspconfig')
+      local fzf = require('fzf-lua')
 
       local on_attach = function(client, bufnr)
         local map = function(keys, func, desc, mode)
           mode = mode or 'n'
-          vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = 'LSP: ' .. (desc or "") })
+          vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = 'LSP: ' .. (desc or '') })
         end
 
-        -- Jump to the definition of the word under your cursor.
-        --  This is where a variable was first declared, or where a function is defined, etc.
-        --  To jump back, press <C-t>.
-        map('gd', fzf.lsp_definitions, '[G]oto [D]efinition')
+        -- Saltar a la definición de la palabra bajo el cursor.
+        -- Aquí es donde una variable fue declarada por primera vez, o donde se define una función, etc.
+        -- Para volver atrás, presiona <C-t>.
+        map('gd', fzf.lsp_definitions, '[I]r a [D]efinición')
 
-        -- Find references for the word under your cursor.
-        map('gr', fzf.lsp_references, '[G]oto [R]eferences')
+        -- Encontrar referencias para la palabra bajo el cursor.
+        map('gr', fzf.lsp_references, '[I]r a [R]eferencias')
 
-        -- Jump to the implementation of the word under your cursor.
-        --  Useful when your language has ways of declaring types without an actual implementation.
-        map('gI', fzf.lsp_implementations, '[G]oto [I]mplementation')
-        map('<leader>D', fzf.lsp_typedefs, 'Type [D]efinition')
-        map('<leader>ds', fzf.lsp_document_symbols, '[D]ocument [S]ymbols')
-        map('<leader>ws', fzf.lsp_live_workspace_symbols, '[W]orkspace [S]ymbols')
-        map('<leader>cr', vim.lsp.buf.rename, '[R]e[n]ame')
-        map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
-        map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-        map('K', vim.lsp.buf.hover, 'Hover')
-        map('<leader>f', function() vim.lsp.buf.format({ async = true }) end, 'Format')
+        -- Saltar a la implementación de la palabra bajo el cursor.
+        -- Útil cuando tu lenguaje tiene formas de declarar tipos sin una implementación real.
+        map('gI', fzf.lsp_implementations, '[I]r a [I]mplementación')
+
+        -- Saltar al tipo de la palabra bajo el cursor.
+        -- Útil cuando no estás seguro de qué tipo es una variable y quieres ver
+        -- la definición de su *tipo*, no donde fue *definida*.
+        map('<leader>D', fzf.lsp_typedefs, '[D]efinición de Tipo')
+
+        -- Búsqueda difusa de todos los símbolos en tu documento actual.
+        -- Los símbolos son cosas como variables, funciones, tipos, etc.
+        map('<leader>ds', fzf.lsp_document_symbols, '[S]ímbolos del [D]ocumento')
+
+        -- Búsqueda difusa de todos los símbolos en tu espacio de trabajo actual.
+        -- Similar a los símbolos del documento, excepto que busca en todo tu proyecto.
+        map('<leader>ws', fzf.lsp_live_workspace_symbols, '[S]ímbolos del [E]spacio de trabajo')
+
+        -- Renombrar la variable bajo el cursor.
+        -- La mayoría de los Language Servers soportan renombrado entre archivos, etc.
+        map('<leader>cr', vim.lsp.buf.rename, '[R]enombrar')
+
+        -- Ejecutar una acción de código, usualmente tu cursor necesita estar encima de un error
+        -- o una sugerencia de tu LSP para que esto se active.
+        map('<leader>ca', vim.lsp.buf.code_action, '[A]cción de [C]ódigo', { 'n', 'x' })
+
+        -- ADVERTENCIA: Esto no es Ir a Definición, esto es Ir a Declaración.
+        -- Por ejemplo, en C esto te llevaría al header.
+        map('gD', vim.lsp.buf.declaration, '[I]r a [D]eclaración')
+
+        -- Formatear documento
+        map('cf', function() vim.lsp.buf.format({ async = true }) end, 'Formatear')
 
         -- Resaltado de referencias
         if client.server_capabilities.documentHighlightProvider then
@@ -94,15 +114,15 @@ return {
           })
         end
 
-        -- Inlay hints toggle
+        -- Alternar inlay hints
         if client.server_capabilities.inlayHintProvider then
           map('<leader>th', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr })
-          end, '[T]oggle Inlay [H]ints')
+          end, '[A]lternar Inlay [H]ints')
         end
       end
 
-      -- Diagnóstico personalizado
+      -- Configuración de diagnóstico personalizada
       vim.diagnostic.config {
         severity_sort = true,
         float = { border = 'rounded', source = 'if_many' },
@@ -127,7 +147,7 @@ return {
         settings = {
           python = {
             analysis = {
-              typeCheckingMode = "basic",
+              typeCheckingMode = 'basic',
               autoSearchPaths = true,
               useLibraryCodeForTypes = true,
             }
@@ -161,7 +181,7 @@ return {
         settings = {
           Lua = {
             diagnostics = { globals = { 'vim' } },
-            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+            workspace = { library = vim.api.nvim_get_runtime_file('', true) },
           },
         },
       })
