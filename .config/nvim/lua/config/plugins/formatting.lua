@@ -1,35 +1,28 @@
 return {
   {
-    "nvimtools/none-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local none_ls = require("null-ls")
+    'stevearc/conform.nvim',
+    opts = {
+      formatters_by_ft = {
+        -- Python
+        python = { 'isort', 'black' },
 
-      none_ls.setup({
-        sources = {
-          -- Python
-          none_ls.builtins.formatting.black,
-          none_ls.builtins.formatting.isort,
-          none_ls.builtins.diagnostics.flake8,
+        -- JSON/YAML/Markdown
+        json = { 'prettier' },
+        yaml = { 'prettier' },
+        markdown = { 'prettier' },
 
-          -- JSON/YAML
-          none_ls.builtins.formatting.prettier.with({
-            filetypes = { "json", "yaml", "markdown" },
-          }),
-          none_ls.builtins.diagnostics.yamllint,
-
-          -- Bash
-          none_ls.builtins.diagnostics.shellcheck,
-          none_ls.builtins.formatting.shfmt,
-        },
-        on_attach = function(client, bufnr)
-          if client.supports_method("textDocument/formatting") then
-            vim.keymap.set("n", "<leader>f", function()
-              vim.lsp.buf.format({ bufnr = bufnr })
-            end, { buffer = bufnr, desc = "[lsp] format" })
-          end
-        end,
-      })
-    end,
+        -- Bash
+        bash = { 'shfmt' },
+        sh = { 'shfmt' },
+      },
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_format = 'fallback',
+      },
+      formatters = {
+        shfmt = {
+          prepend_args = { '-i', '2' }, },
+      },
+    },
   },
 }
