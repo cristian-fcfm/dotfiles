@@ -22,7 +22,7 @@ return {
     },
     config = function()
       local servers = {
-        pyright = {},
+        ty = {},
         bashls = {},
         jsonls = {},
         yamlls = {},
@@ -45,8 +45,8 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = {
       { 'williamboman/mason-lspconfig.nvim' },
-      { 'j-hui/fidget.nvim', opts = {} },
-      { 'b0o/schemastore.nvim', lazy = true },
+      { 'j-hui/fidget.nvim',                opts = {} },
+      { 'b0o/schemastore.nvim',             lazy = true },
       { 'ibhagwan/fzf-lua' },
     },
     config = function()
@@ -142,17 +142,8 @@ return {
       }
 
       -- Configuración de cada LSP
-      lspconfig.pyright.setup({
+      lspconfig.ty.setup({
         on_attach = on_attach,
-        settings = {
-          python = {
-            analysis = {
-              typeCheckingMode = 'basic',
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-            }
-          }
-        }
       })
       lspconfig.bashls.setup({ on_attach = on_attach })
       lspconfig.jsonls.setup({
