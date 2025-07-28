@@ -4,7 +4,7 @@ return {
     opts = {
       formatters_by_ft = {
         -- Python
-        python = { 'isort', 'black' },
+        python = { 'ruff' },
 
         -- JSON/YAML/Markdown
         json = { 'prettier' },
