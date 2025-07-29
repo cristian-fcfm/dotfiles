@@ -9,6 +9,17 @@ return {
         split = '<leader>hS',
         vsplit = '<leader>hV',
       },
+      -- Configuraciones para controlar el tamaño del hover
+      auto_split = {
+        enable = true,
+        split_command = 'split',
+        vsplit_command = 'vsplit',
+      },
+      -- Configurar el tamaño de las ventanas divididas
+      split_options = {
+        split_height = 15, -- Altura para split horizontal
+        vsplit_width = 80, -- Ancho para split vertical
+      },
     })
   end,
 }
