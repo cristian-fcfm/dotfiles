@@ -29,4 +29,5 @@ require('lazy').setup({
   { import = 'config.plugins.completion' },  -- Completado de codigo
   { import = 'config.plugins.formatting' },  -- Formateo de codigo
   { import = 'config.plugins.iron' },        -- REPL
+  { import = 'config.plugins.hoversplit' },  -- Pantala de hover dividida
 })
