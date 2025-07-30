@@ -22,7 +22,8 @@ return {
     },
     config = function()
       local servers = {
-        ty = {},
+        basedpyright = {},
+        sqlls = {},
         bashls = {},
         jsonls = {},
         yamlls = {},
@@ -142,8 +143,37 @@ return {
       }
 
       -- Configuración de cada LSP
-      lspconfig.ty.setup({
+      lspconfig.basedpyright.setup({
         on_attach = on_attach,
+        settings = {
+          basedpyright = {
+            analysis = {
+              typeCheckingMode = 'basic',
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              autoImportCompletions = true,
+              diagnosticMode = 'workspace',
+            },
+          },
+        },
+      })
+      lspconfig.sqlls.setup({
+        on_attach = on_attach,
+        settings = {
+          sqlLanguageServer = {
+            lint = {
+              rules = {
+                'align-column-to-the-first',
+                'column-new-line',
+                'linebreak-after-clause-keyword',
+                'reserved-word-case',
+                'space-surrounding-operators',
+                'where-clause-new-line',
+                'align-where-clause-to-the-first'
+              }
+            }
+          },
+        },
       })
       lspconfig.bashls.setup({ on_attach = on_attach })
       lspconfig.jsonls.setup({
