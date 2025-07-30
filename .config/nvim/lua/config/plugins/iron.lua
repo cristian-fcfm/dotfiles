@@ -16,12 +16,7 @@ return {
           },
         },
         -- Ventana flotante en lugar de división lateral
-        repl_open_cmd = view.center({
-          width = 80,
-          height = 20,
-          winfixwidth = false,
-          winfixheight = false,
-        }),
+        repl_open_cmd = view.center('80%'),
         send_chunk = true,
       },
       keymaps = {
