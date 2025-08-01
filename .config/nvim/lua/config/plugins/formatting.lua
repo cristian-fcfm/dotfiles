@@ -7,11 +7,11 @@ return {
         python = { 'ruff_format', 'ruff_organize_imports' },
 
         -- SQL - optimizado para Athena/Presto
-        sql = { 'sql_formatter' },
+        sql = { 'sqlfluff' },
 
         -- Jinja2 templates (solo archivos .jinja, .jinja2)
-        jinja = { 'djlint' },
-        jinja2 = { 'djlint' },
+        jinja = { 'sqlfluff' },
+        jinja2 = { 'sqlfluff' },
 
         -- JSON/YAML/Markdown
         json = { 'prettier' },
@@ -23,7 +23,7 @@ return {
         sh = { 'shfmt' },
       },
       format_on_save = {
-        timeout_ms = 500,
+        timeout_ms = 2000,
         lsp_format = 'fallback',
       },
       formatters = {
@@ -40,19 +40,22 @@ return {
           args = { 'check', '--select', 'I', '--fix', '--stdin-filename', '$FILENAME', '-' },
           stdin = true,
         },
-        sql_formatter = {
-          command = 'sql-formatter',
+        sqlfluff = {
+          command = 'sqlfluff',
           args = {
-            '--language', 'trino',
-            '--uppercase', 'true',
-            '--lines-between-queries', '2'
+            'format',
+            '--dialect=trino', -- Usar trino para Athena/Presto
+            '--stdin-filename', '$FILENAME',
+            '-'
           },
           stdin = true,
-        },
-        djlint = {
-          command = 'djlint',
-          args = { '--reformat', '-' },
-          stdin = true,
+          timeout_ms = 8000, -- SQLFluff necesita tiempo para procesar
+          condition = function(self, ctx)
+            -- Solo procesar archivos no muy grandes
+            local max_size = 100 * 1024 -- 100KB
+            local stat = vim.loop.fs_stat(ctx.filename)
+            return stat and stat.size < max_size
+          end,
         },
       },
     },
