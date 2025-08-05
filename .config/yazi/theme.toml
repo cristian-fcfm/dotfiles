@@ -1,0 +1,188 @@
+[flavor]
+use = ""
+
+[manager]
+cwd = { fg = "#7aa2f7" }
+
+# Hovered
+hovered         = { fg = "#c0caf5", bg = "#283457" }
+preview_hovered = { underline = true }
+
+# Find
+find_keyword  = { fg = "#e0af68", bold = true, italic = true }
+find_position = { fg = "#bb9af7", bg = "reset", bold = true, italic = true }
+
+# Marker
+marker_copied   = { fg = "#9ece6a", bg = "#9ece6a" }
+marker_cut      = { fg = "#f7768e", bg = "#f7768e" }
+marker_selected = { fg = "#e0af68", bg = "#e0af68" }
+
+# Tab
+tab_active   = { fg = "#1a1b26", bg = "#7aa2f7" }
+tab_inactive = { fg = "#a9b1d6", bg = "#3b4252" }
+tab_width    = 1
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#414868" }
+
+# Highlighting
+syntect_theme = ""
+
+# Permissions
+permissions_t = { fg = "#7aa2f7" }
+permissions_r = { fg = "#e0af68" }
+permissions_w = { fg = "#f7768e" }
+permissions_x = { fg = "#9ece6a" }
+permissions_s = { fg = "#414868" }
+
+[status]
+separator_open  = ""
+separator_close = ""
+separator_style = { fg = "#414868", bg = "#414868" }
+
+# Mode
+mode_normal = { fg = "#1a1b26", bg = "#7aa2f7", bold = true }
+mode_select = { fg = "#1a1b26", bg = "#e0af68", bold = true }
+mode_unset  = { fg = "#1a1b26", bg = "#c53b53", bold = true }
+
+# Progress
+progress_label  = { fg = "#c0caf5", bold = true }
+progress_normal = { fg = "#7aa2f7", bg = "#414868" }
+progress_error  = { fg = "#f7768e", bg = "#414868" }
+
+# Permissions
+permissions_t = { fg = "#7aa2f7" }
+permissions_r = { fg = "#e0af68" }
+permissions_w = { fg = "#f7768e" }
+permissions_x = { fg = "#9ece6a" }
+permissions_s = { fg = "#414868" }
+
+[input]
+border   = { fg = "#7aa2f7" }
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+[select]
+border   = { fg = "#7aa2f7" }
+active   = { fg = "#bb9af7" }
+inactive = {}
+
+[tasks]
+border  = { fg = "#7aa2f7" }
+title   = {}
+hovered = { underline = true }
+
+[which]
+mask            = { bg = "#1a1b26" }
+cand            = { fg = "#7dcfff" }
+rest            = { fg = "#a9b1d6" }
+desc            = { fg = "#bb9af7" }
+separator       = "  "
+separator_style = { fg = "#545c7e" }
+
+[help]
+on      = { fg = "#bb9af7" }
+exec    = { fg = "#7dcfff" }
+desc    = { fg = "#a9b1d6" }
+hovered = { bg = "#283457", bold = true }
+footer  = { fg = "#414868", bg = "#24283b" }
+
+[filetype]
+rules = [
+  # Imágenes
+  { mime = "image/*", fg = "#7dcfff" },
+  
+  # Videos
+  { mime = "video/*", fg = "#e0af68" },
+  
+  # Audio
+  { mime = "audio/*", fg = "#e0af68" },
+  
+  # Archivos
+  { mime = "application/zip",             fg = "#bb9af7" },
+  { mime = "application/gzip",            fg = "#bb9af7" },
+  { mime = "application/x-tar",           fg = "#bb9af7" },
+  { mime = "application/x-bzip",          fg = "#bb9af7" },
+  { mime = "application/x-bzip2",         fg = "#bb9af7" },
+  { mime = "application/x-7z-compressed", fg = "#bb9af7" },
+  { mime = "application/x-rar",           fg = "#bb9af7" },
+  
+  # Documentos
+  { mime = "application/pdf", fg = "#f7768e" },
+  { mime = "application/doc", fg = "#7aa2f7" },
+  
+  # Código y configuración
+  { name = "*.py",     fg = "#e0af68" },
+  { name = "*.sql",    fg = "#7dcfff" },
+  { name = "*.jinja",  fg = "#f7768e" },
+  { name = "*.jinja2", fg = "#f7768e" },
+  { name = "*.j2",     fg = "#f7768e" },
+  { name = "*.sh",     fg = "#9ece6a" },
+  { name = "*.bash",   fg = "#9ece6a" },
+  { name = "*.lua",    fg = "#7aa2f7" },
+  { name = "*.vim",    fg = "#9ece6a" },
+  { name = "*.conf",   fg = "#a9b1d6" },
+  { name = "*.yaml",   fg = "#bb9af7" },
+  { name = "*.yml",    fg = "#bb9af7" },
+  { name = "*.toml",   fg = "#bb9af7" },
+  { name = "*.json",   fg = "#e0af68" },
+  { name = "*.md",     fg = "#7aa2f7" },
+  
+  # Directorios especiales
+  { name = ".git",     fg = "#ff9e64" },
+  { name = "Desktop",  fg = "#7aa2f7" },
+  { name = "Documents", fg = "#7aa2f7" },
+  { name = "Downloads", fg = "#7aa2f7" },
+  { name = "Pictures", fg = "#7aa2f7" },
+  { name = "Music",    fg = "#7aa2f7" },
+  { name = "Movies",   fg = "#7aa2f7" },
+  { name = "Videos",   fg = "#7aa2f7" },
+  
+  # Fallback
+  { name = "*",  fg = "#c0caf5" },
+  { name = "*/", fg = "#7aa2f7" },
+]
+
+[icon]
+rules = [
+  # Código
+  { name = "*.py",     text = "", fg = "#519aba" },
+  { name = "*.ipynb",  text = "", fg = "#519aba" },
+  { name = "*.sql",    text = "", fg = "#dad8d8" },
+  { name = "*.lua",    text = "", fg = "#51a0cf" },
+  { name = "*.vim",    text = "", fg = "#019833" },
+  { name = "*.sh",     text = "", fg = "#89e051" },
+  { name = "*.bash",   text = "", fg = "#89e051" },
+  
+  # Config
+  { name = "*.conf",   text = "", fg = "#6d8086" },
+  { name = "*.toml",   text = "", fg = "#9c4221" },
+  { name = "*.yaml",   text = "", fg = "#6d8086" },
+  { name = "*.yml",    text = "", fg = "#6d8086" },
+  { name = "*.json",   text = "", fg = "#cbcb41" },
+  
+  # Texto
+  { name = "*.md",     text = "", fg = "#519aba" },
+  { name = "*.txt",    text = "", fg = "#89e051" },
+  
+  # Git
+  { name = ".git",          text = "", fg = "#f54d27" },
+  { name = ".gitignore",    text = "", fg = "#f54d27" },
+  { name = ".gitmodules",   text = "", fg = "#f54d27" },
+  { name = ".gitattributes", text = "", fg = "#f54d27" },
+  
+  # Directorios
+  { name = "Desktop/",     text = "", fg = "#7aa2f7" },
+  { name = "Documents/",   text = "", fg = "#7aa2f7" },
+  { name = "Downloads/",   text = "", fg = "#7aa2f7" },
+  { name = "Pictures/",    text = "", fg = "#7aa2f7" },
+  { name = "Music/",       text = "", fg = "#7aa2f7" },
+  { name = "Movies/",      text = "", fg = "#7aa2f7" },
+  { name = "Videos/",      text = "󰕧", fg = "#7aa2f7" },
+  
+  # Default
+  { name = "*",  text = "" },
+  { name = "*/", text = "" },
+]

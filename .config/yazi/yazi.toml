@@ -1,0 +1,134 @@
+[manager]
+# Ratio de los paneles (parent : current : preview)
+ratio = [ 1, 4, 3 ]
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+linemode = "size"
+show_hidden = false
+show_symlink = true
+
+[preview]
+# Tamaño máximo del archivo para preview
+max_width = 600
+max_height = 900
+cache_dir = ""
+image_quality = 90
+
+[opener]
+# Abrir archivos con Neovim por defecto
+edit = [
+  { run = 'nvim "$@"', desc = "Neovim", block = true },
+]
+
+# Configuración específica por sistema
+reveal = [
+  { run = 'xdg-open "$(dirname "$0")"', desc = "Reveal in file manager", for = "linux" },
+  { run = 'open -R "$0"', desc = "Reveal in Finder", for = "macos" },
+]
+
+open = [
+  # Linux
+  { run = 'xdg-open "$@"', desc = "Open", for = "linux" },
+  # macOS
+  { run = 'open "$@"', desc = "Open", for = "macos" },
+]
+
+# Aplicaciones específicas
+[opener.text]
+run = 'nvim "$@"'
+desc = "Neovim"
+block = true
+for = "linux"
+
+[opener.text]
+run = 'nvim "$@"'
+desc = "Neovim"
+block = true
+for = "macos"
+
+[opener.image]
+run = 'feh "$@"'
+desc = "feh"
+for = "linux"
+
+[opener.image]
+run = 'open -a Preview "$@"'
+desc = "Preview"
+for = "macos"
+
+[opener.video]
+run = 'mpv "$@"'
+desc = "mpv"
+for = "linux"
+
+[opener.video]
+run = 'open -a "IINA" "$@"'
+desc = "IINA"
+for = "macos"
+
+[opener.pdf]
+run = 'zathura "$@"'
+desc = "zathura"
+for = "linux"
+
+[opener.pdf]
+run = 'open -a Preview "$@"'
+desc = "Preview"
+for = "macos"
+
+[opener.archive]
+run = 'ouch d "$@"'
+desc = "Extract with ouch"
+
+[open]
+rules = [
+  # Texto y código
+  { name = "*.md", use = ["edit", "reveal"] },
+  { name = "*.py", use = ["edit", "reveal"] },
+  { name = "*.sql", use = ["edit", "reveal"] },
+  { name = "*.jinja", use = ["edit", "reveal"] },
+  { name = "*.jinja2", use = ["edit", "reveal"] },
+  { name = "*.j2", use = ["edit", "reveal"] },
+  { name = "*.sh", use = ["edit", "reveal"] },
+  { name = "*.bash", use = ["edit", "reveal"] },
+  { name = "*.lua", use = ["edit", "reveal"] },
+  { name = "*.toml", use = ["edit", "reveal"] },
+  { name = "*.yaml", use = ["edit", "reveal"] },
+  { name = "*.yml", use = ["edit", "reveal"] },
+  { name = "*.json", use = ["edit", "reveal"] },
+  { name = "*.conf", use = ["edit", "reveal"] },
+  { name = "*.txt", use = ["edit", "reveal"] },
+  { name = "*.vim", use = ["edit", "reveal"] },
+  
+  # Imágenes
+  { mime = "image/*", use = ["image", "reveal"] },
+  
+  # Videos
+  { mime = "video/*", use = ["video", "reveal"] },
+  
+  # PDFs
+  { name = "*.pdf", use = ["pdf", "reveal"] },
+  
+  # Archivos
+  { name = "*.tar.gz", use = ["archive", "reveal"] },
+  { name = "*.tar.xz", use = ["archive", "reveal"] },
+  { name = "*.zip", use = ["archive", "reveal"] },
+  { name = "*.7z", use = ["archive", "reveal"] },
+  { name = "*.rar", use = ["archive", "reveal"] },
+  
+  # Por defecto
+  { name = "*", use = ["open", "reveal"] },
+]
+
+[log]
+enabled = false
+
+[input]
+# Configuración del cursor en el input
+cursor_blink = false
+
+[select]
+# Comportamiento al seleccionar
+open_offset = "auto"
