@@ -1,30 +1,67 @@
-local yazi = require("yazi")
-
--- Función para abrir en Neovim en nueva pestaña de Kitty
-local function open_in_kitty_tab(state, args)
-  local selected = state.selected
+-- Función para abrir en Neovim en nueva ventana de tmux
+local function open_in_tmux_window()
+  local selected = ya.selected()
   if #selected == 0 then
-    selected = { state.hovered }
+    selected = { ya.hovered() }
   end
 
   for _, file in ipairs(selected) do
-    os.execute(string.format(
-      'kitty @ launch --type=tab --cwd=current nvim "%s"',
-      file.url
-    ))
+    ya.manager_emit("shell", {
+      string.format('tmux new-window -c "$(dirname "%s")" "nvim \\"%s\\""', tostring(file.url), tostring(file.url)),
+      confirm = false,
+      block = false,
+    })
   end
 end
 
--- Función para abrir terminal en el directorio actual
-local function open_terminal_here(state)
-  os.execute(string.format(
-    'kitty @ launch --type=window --cwd="%s"',
-    state.cwd
-  ))
+-- Función para abrir en Neovim en nuevo panel de tmux
+local function open_in_tmux_pane()
+  local selected = ya.selected()
+  if #selected == 0 then
+    selected = { ya.hovered() }
+  end
+
+  for _, file in ipairs(selected) do
+    ya.manager_emit("shell", {
+      string.format('tmux split-window -c "$(dirname "%s")" "nvim \\"%s\\""', tostring(file.url), tostring(file.url)),
+      confirm = false,
+      block = false,
+    })
+  end
 end
 
--- Registrar las funciones
-yazi.setup({
-  open_in_kitty_tab = open_in_kitty_tab,
-  open_terminal_here = open_terminal_here,
-})
+-- Función para abrir terminal en nueva ventana de tmux
+local function open_terminal_window()
+  local cwd = cx.active.current.cwd
+  ya.manager_emit("shell", {
+    string.format('tmux new-window -c "%s"', tostring(cwd)),
+    confirm = false,
+    block = false,
+  })
+end
+
+-- Función para abrir terminal en nuevo panel de tmux
+local function open_terminal_pane()
+  local cwd = cx.active.current.cwd
+  ya.manager_emit("shell", {
+    string.format('tmux split-window -c "%s"', tostring(cwd)),
+    confirm = false,
+    block = false,
+  })
+end
+
+-- Registrar los comandos personalizados
+return {
+  entry = function(_, args)
+    local command = args[1]
+    if command == "open_in_tmux_window" then
+      open_in_tmux_window()
+    elseif command == "open_in_tmux_pane" then
+      open_in_tmux_pane()
+    elseif command == "open_terminal_window" then
+      open_terminal_window()
+    elseif command == "open_terminal_pane" then
+      open_terminal_pane()
+    end
+  end,
+}
