@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 keymap = [
   # Navegación
   { on = [ "j" ], run = "arrow 1", desc = "Move cursor down" },
@@ -94,6 +94,12 @@ keymap = [
   
   # Tareas
   { on = [ "w" ], run = "tasks_show", desc = "Show tasks" },
+
+  # Funciones personalizadas con tmux
+  { on = [ "<C-n>" ], run = "plugin --sync init --args=open_in_tmux_window", desc = "Open window in tmux" },
+  { on = [ "<C-p>" ], run = "plugin --sync init --args=open_in_tmux_pane", desc = "Open pane in tmux" },
+  { on = [ "<C-t>" ], run = "plugin --sync init --args=open_terminal_window", desc = "Open term in tmux windows" },
+  { on = [ "<C-s>" ], run = "plugin --sync init --args=open_terminal_pane", desc = "Open term in tmux pane" },
 ]
 
 [tasks]

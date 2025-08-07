@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 # Ratio de los paneles (parent : current : preview)
 ratio = [ 1, 4, 3 ]
 sort_by = "natural"
@@ -36,71 +36,49 @@ open = [
 ]
 
 # Aplicaciones específicas
-[opener.text]
-run = 'nvim "$@"'
-desc = "Neovim"
-block = true
-for = "linux"
+text = [
+  { run = 'nvim "$@"', desc = "Neovim", block = true, for = "linux" },
+  { run = 'nvim "$@"', desc = "Neovim", block = true, for = "macos" },
+]
 
-[opener.text]
-run = 'nvim "$@"'
-desc = "Neovim"
-block = true
-for = "macos"
+image = [
+  { run = 'feh "$@"', desc = "feh", for = "linux" },
+  { run = 'open -a Preview "$@"', desc = "Preview", for = "macos" },
+]
 
-[opener.image]
-run = 'feh "$@"'
-desc = "feh"
-for = "linux"
+video = [
+  { run = 'mpv "$@"', desc = "mpv", for = "linux" },
+  { run = 'open -a "IINA" "$@"', desc = "IINA", for = "macos" },
+]
 
-[opener.image]
-run = 'open -a Preview "$@"'
-desc = "Preview"
-for = "macos"
+pdf = [
+  { run = 'zathura "$@"', desc = "zathura", for = "linux" },
+  { run = 'open -a Preview "$@"', desc = "Preview", for = "macos" },
+]
 
-[opener.video]
-run = 'mpv "$@"'
-desc = "mpv"
-for = "linux"
-
-[opener.video]
-run = 'open -a "IINA" "$@"'
-desc = "IINA"
-for = "macos"
-
-[opener.pdf]
-run = 'zathura "$@"'
-desc = "zathura"
-for = "linux"
-
-[opener.pdf]
-run = 'open -a Preview "$@"'
-desc = "Preview"
-for = "macos"
-
-[opener.archive]
-run = 'ouch d "$@"'
-desc = "Extract with ouch"
+archive = [
+  { run = 'ouch d "$@"', desc = "Extract with ouch" },
+]
 
 [open]
 rules = [
   # Texto y código
-  { name = "*.md", use = ["edit", "reveal"] },
-  { name = "*.py", use = ["edit", "reveal"] },
-  { name = "*.sql", use = ["edit", "reveal"] },
-  { name = "*.jinja", use = ["edit", "reveal"] },
-  { name = "*.jinja2", use = ["edit", "reveal"] },
-  { name = "*.j2", use = ["edit", "reveal"] },
-  { name = "*.sh", use = ["edit", "reveal"] },
-  { name = "*.bash", use = ["edit", "reveal"] },
-  { name = "*.lua", use = ["edit", "reveal"] },
-  { name = "*.toml", use = ["edit", "reveal"] },
-  { name = "*.yaml", use = ["edit", "reveal"] },
-  { name = "*.yml", use = ["edit", "reveal"] },
-  { name = "*.json", use = ["edit", "reveal"] },
-  { name = "*.conf", use = ["edit", "reveal"] },
-  { name = "*.txt", use = ["edit", "reveal"] },
-  { name = "*.vim", use = ["edit", "reveal"] },
+  { name = "*.md", use = ["text", "reveal"] },
+  { name = "*.py", use = ["text", "reveal"] },
+  { name = "*.sql", use = ["text", "reveal"] },
+  { name = "*.jinja", use = ["text", "reveal"] },
+  { name = "*.jinja2", use = ["text", "reveal"] },
+  { name = "*.j2", use = ["text", "reveal"] },
+  { name = "*.sh", use = ["text", "reveal"] },
+  { name = "*.bash", use = ["text", "reveal"] },
+  { name = "*.lua", use = ["text", "reveal"] },
+  { name = "*.toml", use = ["text", "reveal"] },
+  { name = "*.yaml", use = ["text", "reveal"] },
+  { name = "*.yml", use = ["text", "reveal"] },
+  { name = "*.json", use = ["text", "reveal"] },
+  { name = "*.conf", use = ["text", "reveal"] },
+  { name = "*.txt", use = ["text", "reveal"] },
+  { name = "*.vim", use = ["text", "reveal"] },
   
   # Imágenes
   { mime = "image/*", use = ["image", "reveal"] },
