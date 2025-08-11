@@ -15,8 +15,8 @@ keymap = [
   # Navegación por pestañas (similar a Neovim)
   { on = [ "<Tab>" ], run = "tab_switch 1", desc = "Switch to next tab" },
   { on = [ "<S-Tab>" ], run = "tab_switch -1", desc = "Switch to previous tab" },
-  { on = [ "<C-t>" ], run = "tab_create --current", desc = "Create a new tab" },
-  { on = [ "<C-w>" ], run = "close", desc = "Close current tab" },
+  { on = [ "t" ], run = "tab_create --current", desc = "Create a new tab" },
+  { on = [ "T" ], run = "close", desc = "Close current tab" },
   { on = [ "1" ], run = "tab_switch 0", desc = "Switch to tab 1" },
   { on = [ "2" ], run = "tab_switch 1", desc = "Switch to tab 2" },
   { on = [ "3" ], run = "tab_switch 2", desc = "Switch to tab 3" },
@@ -84,6 +84,10 @@ keymap = [
   { on = [ "g", "p" ], run = "cd ~/Projects", desc = "Go to projects" },
   { on = [ "g", "n" ], run = "cd ~/.config/nvim", desc = "Go to Neovim config" },
   
+  # Copiar path
+  { on = [ "c" ], run = "copy path", desc = "Copy absolute path" },
+  { on = [ "C" ], run = "copy dirname", desc = "Copy directory path" },
+  
   # Ayuda
   { on = [ "~" ], run = "help", desc = "Help" },
   { on = [ "<F1>" ], run = "help", desc = "Help" },
@@ -123,10 +127,32 @@ keymap = [
 
 [input]
 keymap = [
+  # Navegación básica
   { on = [ "<Esc>" ], run = "close", desc = "Cancel input" },
   { on = [ "<Enter>" ], run = "close --submit", desc = "Submit input" },
+  
+  # Borrado de texto
   { on = [ "<C-u>" ], run = "delete --cut", desc = "Delete to start" },
+  { on = [ "<C-k>" ], run = "kill", desc = "Delete to end" },
   { on = [ "<C-w>" ], run = "backward --kill", desc = "Delete word backward" },
+  { on = [ "<A-Backspace>" ], run = "backward --kill", desc = "Delete word backward (Alt)" },
+  { on = [ "<C-h>" ], run = "backspace", desc = "Backspace" },
+  { on = [ "<Backspace>" ], run = "backspace", desc = "Backspace" },
+  { on = [ "<Delete>" ], run = "delete", desc = "Delete character forward" },
+  
+  # Movimiento del cursor
+  { on = [ "<C-a>" ], run = "move --in-operating=start", desc = "Move to start" },
+  { on = [ "<C-e>" ], run = "move --in-operating=end", desc = "Move to end" },
+  { on = [ "<C-b>" ], run = "move --in-operating=-1", desc = "Move left" },
+  { on = [ "<C-f>" ], run = "move --in-operating=1", desc = "Move right" },
+  { on = [ "<Left>" ], run = "move --in-operating=-1", desc = "Move left" },
+  { on = [ "<Right>" ], run = "move --in-operating=1", desc = "Move right" },
+  
+  # Movimiento por palabras
+  { on = [ "<A-b>" ], run = "backward", desc = "Move word backward" },
+  { on = [ "<A-f>" ], run = "forward", desc = "Move word forward" },
+  { on = [ "<C-Left>" ], run = "backward", desc = "Move word backward" },
+  { on = [ "<C-Right>" ], run = "forward", desc = "Move word forward" },
 ]
 
 [help]
