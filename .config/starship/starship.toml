@@ -2,11 +2,11 @@ palette = "tokyo_night"
 
 format = """
 [◖](fg:overlay0)$os$username[◗](fg:overlay0) $directory$fill$git_branch$git_commit$git_status$git_metrics
-│ $aws $python$fill$cmd_duration$battery$time
+│ $aws $conda $python$fill$cmd_duration$battery$time
 ╰─$character
 """
 
-# 👤 Usuario
+#  Usuario
 [username]
 style_user = "bold bg:overlay0 fg:green"
 style_root = "bold bg:overlay0 fg:red"
@@ -14,9 +14,9 @@ format = "[$user]($style)"
 disabled = false
 show_always = true
 
-#  Git configurationt
+#  Git configurationt
 [git_branch]
-symbol = " "
+symbol = "󰊢 "
 style = "bold lavender"
 
 [git_commit]
@@ -31,30 +31,38 @@ disabled = false
 [git_metrics]
 disabled = false
 
-#  Directorio
+#  Directorio
 [directory]
 style = "bold sky"
-read_only = ""
+read_only = " "
 read_only_style = "red"
 
-# ⌛ Cmd Duration
+#  Cmd Duration
 [cmd_duration]
 min_time = 500
-format = "⏱ took [$duration ]($style)"
+format = " took [$duration ]($style)"
 style = "bold yellow"
 
 # 🅰 AWS
 [aws]
 format = "on [$symbol($profile)(\\($region\\))]($style)"
 style = "bold peach"
-symbol = "🅰 "
+symbol = " "
 
-# 🐍 Python
+# Python
 [python]
-symbol = " "
+symbol = " "
 style = "bold green"
 
-# 🔋 Batería con símbolos Nerd Font visibles
+# Conda/Mamba Environment
+[conda]
+truncation_length = 1
+format = "via [$symbol$environment]($style) "
+symbol = " "
+style = "bold green"
+ignore_base = true
+
+# 󰁹 Batería con símbolos Nerd Font visibles
 [[battery.display]]
 threshold = 10
 style = "bold red"
@@ -71,7 +79,7 @@ style = "bold green"
 threshold = 100
 style = "bold teal"
 
-# ⏳ Hora
+# 󰥔 Hora
 [time]
 disabled = false
 format = "⏳[$time]($style) "
@@ -84,15 +92,15 @@ disabled = false
 style = "bg:overlay0 fg:blue"
 
 [os.symbols]
-Arch = " "
-Macos = " "
+Arch = "󰣇 "
+Macos = " "
 
 [character]
 format = "$symbol"
-success_symbol = '[](fg:bold white)'
+success_symbol = '[](fg:bold white)'
 error_symbol = '[×](fg:bold red)'
 
-# 🎨 Paleta Tokyo Night
+#  Paleta Tokyo Night
 [palettes.tokyo_night]
 rosewater = "#ff9e64"
 flamingo = "#c0a36e"
@@ -120,4 +128,3 @@ surface0 = "#1f2335"
 base = "#1a1b26"
 mantle = "#16161e"
 crust = "#13141c"
-
