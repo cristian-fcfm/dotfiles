@@ -13,6 +13,9 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 # └───────────────────────────────────────────────────────────────────────────┘
 export ZSH="$HOME/.oh-my-zsh"
 
+# Tema - Comentado porque usas Starship
+# ZSH_THEME="robbyrussell"
+
 # Plugins - Los esenciales para productividad
 plugins=(
     git                      # Aliases útiles para git
@@ -49,29 +52,15 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "bat -
 # │                          Conda/Mamba Configuration                         │
 # └───────────────────────────────────────────────────────────────────────────┘
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/.local/share/mamba/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$HOME/.local/share/mamba/etc/profile.d/conda.sh" ]; then
-        . "$HOME/.local/share/mamba/etc/profile.d/conda.sh"
-    else
-        export PATH="$HOME/.local/share/mamba/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
 # >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE="$HOME/.local/bin/mamba"
-export MAMBA_ROOT_PREFIX="$HOME/.local/share/mamba"
+# !! Contents within this block are managed by 'mamba shell init' !!
+export MAMBA_EXE='/usr/local/bin/mamba';
+export MAMBA_ROOT_PREFIX='/usr/local/Caskroom/miniforge/base/';
 __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"
 else
-    alias mamba="$MAMBA_EXE"  # Fallback on "mamba" not being in the path
+    alias mamba="$MAMBA_EXE"  # Fallback on help from mamba activate
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
@@ -201,9 +190,8 @@ alias ...='z ../..'
 alias home='z ~'
 
 # ─── Combinaciones útiles ───────────────────────────────────────────────────
-alias proj='z ~/Projects && ll'           # Ir a proyectos y listar
-alias configlg='z ~/.config && lg'        # Ir a config y abrir lazygit
-alias dotslg='z ~/dotfiles && lg'         # Ir a dotfiles y abrir lazygit
+alias proj='z ~/Documents/development/ && ll'           # Ir a proyectos y listar
+alias dotslg='z ~/Documents/development/personal/dotfiles/ && lg'         # Ir a dotfiles y abrir lazygit
 
 # ┌───────────────────────────────────────────────────────────────────────────┐
 # │                             Custom Functions                               │
