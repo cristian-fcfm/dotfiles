@@ -53,14 +53,14 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "bat -
 # └───────────────────────────────────────────────────────────────────────────┘
 
 # >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba shell init' !!
-export MAMBA_EXE='/usr/local/bin/mamba';
-export MAMBA_ROOT_PREFIX='/usr/local/Caskroom/miniforge/base/';
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE='/usr/local/Caskroom/miniforge/base/bin/mamba'
+export MAMBA_ROOT_PREFIX='/usr/local/Caskroom/miniforge/base'
 __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"
 else
-    alias mamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+    alias mamba="$MAMBA_EXE"
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
@@ -299,6 +299,103 @@ env_info() {
         mamba list | grep -E "(numpy|pandas|matplotlib|scikit-learn|jupyter)" | awk '{print "   " $1 " " $2}'
     else
         echo "❌ No hay entorno conda/mamba activo"
+    fi
+}
+
+# ─── Gestión avanzada de entornos virtuales ───────────────────────────────
+# Lista entornos con información detallada
+envs() {
+    echo "🌍 Entornos disponibles:"
+    mamba env list | tail -n +3 | while read name path; do
+        if [[ "$name" == "$CONDA_DEFAULT_ENV" ]]; then
+            echo "   ✅ $name (activo) - $path"
+        else
+            echo "   📦 $name - $path"
+        fi
+    done
+}
+
+# Activar entorno con autocompletado
+activate() {
+    if [[ -z "$1" ]]; then
+        echo "📋 Entornos disponibles:"
+        mamba env list | tail -n +3 | awk '{print "   " $1}'
+        echo "💡 Uso: activate <nombre_entorno>"
+        return 1
+    fi
+    mamba activate "$1"
+    echo "✅ Entorno '$1' activado"
+    env_info
+}
+
+# Crear entorno rápido con Python específico
+mkenv() {
+    local env_name="${1:-myenv}"
+    local python_version="${2:-3.11}"
+    
+    echo "🐍 Creando entorno: $env_name con Python $python_version"
+    mamba create -n "$env_name" python="$python_version" -y
+    echo "✅ Entorno '$env_name' creado"
+    echo "💡 Actívalo con: activate $env_name"
+}
+
+# Eliminar entorno con confirmación
+rmenv() {
+    if [[ -z "$1" ]]; then
+        echo "❌ Especifica el nombre del entorno"
+        echo "📋 Entornos disponibles:"
+        mamba env list | tail -n +3 | awk '{print "   " $1}'
+        return 1
+    fi
+    
+    if [[ "$1" == "base" ]]; then
+        echo "⚠️  No puedes eliminar el entorno 'base'"
+        return 1
+    fi
+    
+    echo "⚠️  ¿Estás seguro de eliminar el entorno '$1'? (y/N)"
+    read -q "response"
+    echo
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        mamba env remove -n "$1"
+        echo "🗑️  Entorno '$1' eliminado"
+    else
+        echo "❌ Operación cancelada"
+    fi
+}
+
+# Exportar entorno actual
+export_env() {
+    if [[ -z "$CONDA_DEFAULT_ENV" ]]; then
+        echo "❌ No hay entorno activo"
+        return 1
+    fi
+    
+    local filename="${1:-${CONDA_DEFAULT_ENV}_environment.yml}"
+    mamba env export > "$filename"
+    echo "📄 Entorno '$CONDA_DEFAULT_ENV' exportado a: $filename"
+}
+
+# Importar entorno desde archivo
+import_env() {
+    if [[ -z "$1" ]]; then
+        echo "❌ Especifica el archivo environment.yml"
+        echo "💡 Uso: import_env <archivo.yml> [nombre_entorno]"
+        return 1
+    fi
+    
+    if [[ ! -f "$1" ]]; then
+        echo "❌ El archivo '$1' no existe"
+        return 1
+    fi
+    
+    local env_name="$2"
+    if [[ -n "$env_name" ]]; then
+        mamba env create -f "$1" -n "$env_name"
+        echo "✅ Entorno '$env_name' creado desde $1"
+    else
+        mamba env create -f "$1"
+        echo "✅ Entorno creado desde $1"
     fi
 }
 
