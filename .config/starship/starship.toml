@@ -27,9 +27,24 @@ style = "bold lavender"
 format = '([\[$all_status\]]($style))'
 style = 'bold lavender'
 disabled = false
+conflicted = "󰞇 "
+ahead = "󰜷 "
+behind = "󰜮 "
+diverged = "󰹺 "
+up_to_date = ""
+untracked = "󰋖 "
+stashed = "󰏗 "
+modified = "󰝤 "
+staged = "󰐗 "
+renamed = "󰑕 "
+deleted = "󰍵 "
 
 [git_metrics]
 disabled = false
+added_style = "bold green"
+deleted_style = "bold red"
+only_nonzero_diffs = true
+format = ' ([ $added]($added_style) )([ $deleted]($deleted_style) )'
 
 #  Directorio
 [directory]
@@ -82,8 +97,8 @@ style = "bold teal"
 # 󰥔 Hora
 [time]
 disabled = false
-format = "⏳[$time]($style) "
-time_format = "%T"
+format = "[󰔚 $time]($style) "
+time_format = "%H:%M"
 style = "bold rosewater"
 
 # simbolo del sistema
@@ -97,7 +112,7 @@ Macos = " "
 
 [character]
 format = "$symbol"
-success_symbol = '[](fg:bold white)'
+success_symbol = '[>](fg:bold white)'
 error_symbol = '[×](fg:bold red)'
 
 #  Paleta Tokyo Night
