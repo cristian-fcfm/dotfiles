@@ -84,6 +84,107 @@ function ya() {
 }
 
 # ┌───────────────────────────────────────────────────────────────────────────┐
+# │                              AWS Configuration                             │
+# └───────────────────────────────────────────────────────────────────────────┘
+
+# ─── AWS Profile Management ────────────────────────────────────────────────
+# Aliases para cambiar perfiles AWS rápidamente
+alias aws-prod='export AWS_PROFILE="632266566629_DataScientistAnalyticsOperator" && echo "✅ AWS Profile: PRODUCTION"'
+alias aws-dev='export AWS_PROFILE="260306441297_DataScientistAnalyticsOperator" && echo "✅ AWS Profile: DEVELOPMENT"'
+alias aws-profile='echo "🔍 Current AWS Profile: ${AWS_PROFILE:-default}"'
+alias aws-clear='unset AWS_PROFILE && echo "🔄 AWS Profile cleared (using default)"'
+
+# ─── AWS Utility Functions ─────────────────────────────────────────────────
+# Función para mostrar información del perfil actual
+aws-info() {
+    if [[ -z "$AWS_PROFILE" ]]; then
+        echo "📋 Using default AWS profile"
+    else
+        echo "🔍 Current AWS Profile: $AWS_PROFILE"
+        if [[ "$AWS_PROFILE" == *"632266566629"* ]]; then
+            echo "🏢 Environment: PRODUCTION"
+            echo "⚠️  CUIDADO: Estás en producción!"
+        elif [[ "$AWS_PROFILE" == *"260306441297"* ]]; then
+            echo "🏢 Environment: DEVELOPMENT" 
+            echo "🚀 Perfecto para desarrollo"
+        fi
+    fi
+    
+    # Mostrar información de la cuenta si AWS CLI está configurado
+    if command -v aws &> /dev/null; then
+        echo "📊 Account Info:"
+        aws sts get-caller-identity 2>/dev/null || echo "❌ No se pudo obtener información de la cuenta"
+    fi
+}
+
+# Función para listar todos los perfiles disponibles
+aws-list() {
+    echo "📋 AWS Profiles disponibles:"
+    if [ -f ~/.aws/config ]; then
+        grep '\[profile' ~/.aws/config | sed 's/\[profile \(.*\)\]/  📦 \1/'
+    fi
+    if [ -f ~/.aws/credentials ]; then
+        grep '\[' ~/.aws/credentials | grep -v 'profile' | sed 's/\[\(.*\)\]/  🔑 \1/'
+    fi
+    echo ""
+    aws-info
+}
+
+# Función interactiva para cambiar perfiles con fzf
+aws-switch() {
+    if ! command -v fzf &> /dev/null; then
+        echo "❌ fzf no está instalado. Usa aws-dev o aws-prod directamente."
+        return 1
+    fi
+    
+    local profiles=()
+    profiles+=("632266566629_DataScientistAnalyticsOperator  🏢 PRODUCTION")
+    profiles+=("260306441297_DataScientistAnalyticsOperator  🚀 DEVELOPMENT")
+    profiles+=("default  📋 DEFAULT")
+    profiles+=("clear  🔄 CLEAR PROFILE")
+    
+    local choice
+    choice=$(printf '%s\n' "${profiles[@]}" | fzf --height 40% --layout=reverse --border --prompt="🔍 Select AWS Profile: ")
+    
+    if [[ -n "$choice" ]]; then
+        local profile_name=$(echo "$choice" | awk '{print $1}')
+        case "$profile_name" in
+            "632266566629_DataScientistAnalyticsOperator")
+                aws-prod
+                ;;
+            "260306441297_DataScientistAnalyticsOperator")
+                aws-dev
+                ;;
+            "clear")
+                aws-clear
+                ;;
+            "default")
+                export AWS_PROFILE=""
+                echo "📋 Using default AWS profile"
+                ;;
+        esac
+        aws-info
+    fi
+}
+
+# Función para verificar conexión AWS
+aws-test() {
+    if ! command -v aws &> /dev/null; then
+        echo "❌ AWS CLI no está instalado"
+        return 1
+    fi
+    
+    echo "🔍 Testing AWS connection..."
+    if aws sts get-caller-identity > /dev/null 2>&1; then
+        echo "✅ AWS connection successful"
+        aws-info
+    else
+        echo "❌ AWS connection failed"
+        echo "💡 Verifica tus credenciales y perfil"
+    fi
+}
+
+# ┌───────────────────────────────────────────────────────────────────────────┐
 # │                                 Aliases                                    │
 # └───────────────────────────────────────────────────────────────────────────┘
 
