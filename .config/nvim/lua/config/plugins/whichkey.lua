@@ -13,5 +13,6 @@ return {
     require('config.whichkey.tabs')
     require('config.whichkey.slime')
     require('config.whichkey.fzflua')
+    require('config.whichkey.todocomments')
   end,
 }
