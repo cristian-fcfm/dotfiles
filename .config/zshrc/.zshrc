@@ -354,9 +354,8 @@ clone_and_lg() {
 create_ds_env() {
     uv init --python 3.11
     
-    uv add numpy pandas matplotlib \
-        scikit-learn ipython 
-    
+    uv add numpy pandas matplotlib scikit-learn
+
     echo " Entorno virtual creado"
     echo " Actívalo con: source .venv/bin/activate"
 }
