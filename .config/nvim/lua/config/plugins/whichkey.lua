@@ -14,5 +14,6 @@ return {
     require('config.whichkey.slime')
     require('config.whichkey.fzflua')
     require('config.whichkey.todocomments')
+    require('config.whichkey.buffers')
   end,
 }
