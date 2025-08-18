@@ -26,11 +26,6 @@ map('n', '<C-u>', '<C-u>zz', opts)
 map('n', 'n', 'nzzzv', opts)
 map('n', 'N', 'Nzzzv', opts)
 
--- Buffers
-map('n', '<Tab>', ':bnext<CR>', opts)
-map('n', '<S-Tab>', ':bprevious<CR>', opts)
-map('n', '<leader>x', ':bdelete!<CR>', opts)   -- close buffer
-map('n', '<leader>b', '<cmd> enew <CR>', opts) -- new buffer
 
 -- Navigate between splits
 map('n', '<C-k>', ':wincmd k<CR>', opts)
