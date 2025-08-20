@@ -30,4 +30,5 @@ require('lazy').setup({
   { import = 'config.plugins.formatting' },   -- Formateo de codigo
   { import = 'config.plugins.slime' },        -- REPL
   { import = 'config.plugins.todocomments' }, -- TODO comments con fzf-lua
+  { import = 'config.plugins.neorg' },        -- Neorg note-taking
 })
