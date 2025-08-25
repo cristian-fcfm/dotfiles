@@ -56,6 +56,11 @@ wk.add({
     { '<leader>nds', '<Plug>(neorg.qol.todo-items.todo.task-cycle)', desc = 'Cycle task state', icon = '🔄' },
     { '<leader>ndS', '<Plug>(neorg.qol.todo-items.todo.task-cycle-reverse)', desc = 'Cycle task state reverse', icon = '🔄' },
 
+    -- Templates
+    { '<leader>ne', group = 'Templates', icon = '📄' },
+    { '<leader>ner', function() require('config.neorg.neorg-templater').replace_with_template() end, desc = 'Reemplazar con template', icon = '🔄' },
+    { '<leader>nea', function() require('config.neorg.neorg-templater').append_template() end, desc = 'Añadir template', icon = '➕' },
+
 
 
 })
