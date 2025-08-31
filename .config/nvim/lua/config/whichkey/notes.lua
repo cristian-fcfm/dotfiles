@@ -61,6 +61,14 @@ wk.add({
     { '<leader>ner', function() require('config.neorg.neorg-templater').replace_with_template() end, desc = 'Reemplazar con template', icon = '🔄' },
     { '<leader>nea', function() require('config.neorg.neorg-templater').append_template() end, desc = 'Añadir template', icon = '➕' },
 
+    -- Folding
+    { '<leader>nf', group = 'Folding', icon = '󰘖' },
+    { '<leader>nff', 'za', desc = 'Toggle fold', icon = '󰘖' },
+    { '<leader>nfo', 'zo', desc = 'Open fold', icon = '󰘕' },
+    { '<leader>nfc', 'zc', desc = 'Close fold', icon = '󰘖' },
+    { '<leader>nfm', 'zM', desc = 'Close all folds', icon = '󰘖' },
+    { '<leader>nfr', 'zR', desc = 'Open all folds', icon = '󰘕' },
+
 
 
 })

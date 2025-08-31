@@ -116,4 +116,3 @@ function M.append_template()
 end
 
 return M
-
