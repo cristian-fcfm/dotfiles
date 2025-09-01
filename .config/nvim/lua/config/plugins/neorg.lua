@@ -17,10 +17,11 @@ return {
                     config = {
                         workspaces = {
                             notes = "~/Documents/notes/",
-                            reviews = "~/Documents/notes/0. Reviews/",
-                            projects = "~/Documents/notes/1. Projects/",
-                            areas = "~/Documents/notes/2. Areas/",
-                            resources = "~/Documents/notes/3. Resources/",
+                            reviews = "~/Documents/notes/0.reviews/",
+                            projects = "~/Documents/notes/1.projects/",
+                            areas = "~/Documents/notes/2.areas/",
+                            resources = "~/Documents/notes/3.resources/",
+                            moc = "~/Documents/notes/3.resources/3.2.MOC/"
                         },
                         default_workspace = "notes",
                     },
@@ -28,7 +29,7 @@ return {
                 },
                 ["core.journal"] = {
                     config = {
-                        journal_folder = "0.4. Daily",
+                        journal_folder = "0.4.daily",
                         strategy = "flat",
                         workspace = "reviews"
                     }
