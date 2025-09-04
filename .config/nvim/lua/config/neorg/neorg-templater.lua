@@ -1,7 +1,7 @@
 local M = {}
 
--- Directorio por defecto de templates (en workspace de notas)
-M.templates_dir = vim.fn.expand("~/Documents/notes/3. Resources/Templates/")
+-- Directorio por defecto de templates (en workspace de resources de neorg)
+M.templates_dir = vim.fn.expand("~/Documents/notes/3.resources/3.1.templates/")
 
 -- Función para configurar el directorio de templates
 function M.setup(opts)
@@ -82,8 +82,19 @@ function M.select_template(action)
         table.insert(items, template.name)
     end
 
+    -- Crear tabla con path completo para el previewer
+    local fzf_items = {}
+    for _, template in ipairs(templates) do
+        fzf_items[template.name] = template.path
+    end
+
     fzf.fzf_exec(items, {
         prompt = 'Templates > ',
+        previewer = "builtin",
+        preview_opts = "hidden",
+        fn_transform = function(x)
+            return fzf_items[x]
+        end,
         actions = {
             ['default'] = function(selected)
                 if selected and #selected > 0 then
