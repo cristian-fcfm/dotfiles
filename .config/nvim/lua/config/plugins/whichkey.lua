@@ -15,6 +15,5 @@ return {
         require('config.whichkey.fzflua')
         require('config.whichkey.todocomments')
         require('config.whichkey.buffers')
-        require('config.whichkey.notes')
     end,
 }
