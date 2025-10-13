@@ -9,6 +9,11 @@ wk.add({
     { '<leader>sl', '<Plug>SlimeLineSend', desc = 'Send line', icon = '󰘤' },
     { '<leader>sf', 'ggVG<Plug>SlimeRegionSend', desc = 'Send entire file', icon = '󰈙' },
 
+    -- Navegación de celdas
+    { '<leader>sj', '<Plug>SlimeCellsNext', desc = 'Next cell', icon = '' },
+    { '<leader>sk', '<Plug>SlimeCellsPrev', desc = 'Previous cell', icon = '' },
+    { '<leader>sC', '<Plug>SlimeCellsSendAndGoToNext', desc = 'Send cell & go next', icon = '󰒭' },
+
     -- Comandos IPython básicos
     { '<leader>sr', ':SlimeSend1 %reset -f<CR>', desc = 'Reset IPython', icon = '󰑓' },
     { '<leader>si', ':SlimeSend1 whos<CR>', desc = 'Show variables', icon = '󰋽' },
