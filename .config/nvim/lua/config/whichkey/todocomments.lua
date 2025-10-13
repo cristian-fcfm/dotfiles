@@ -1,7 +1,7 @@
 local wk = require('which-key')
 
 wk.add({
-    { '<leader>a', group = 'TODO Comments', icon = '' },
+    { '<leader>a', group = 'TODO', icon = '' },
 
     -- Búsqueda de TODOs
     { '<leader>aa', '<cmd>TodoFzfLua<cr>', desc = 'Search TODOs', icon = '' },
