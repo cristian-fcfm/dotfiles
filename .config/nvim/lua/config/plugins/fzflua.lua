@@ -1,6 +1,6 @@
 return {
-  'ibhagwan/fzf-lua',
-  event = 'VeryLazy',
-  dependencies = { 'echasnovski/mini.icons' },
-  opts = {},
+    'ibhagwan/fzf-lua',
+    event = 'VeryLazy',
+    dependencies = { 'echasnovski/mini.icons' },
+    opts = {},
 }

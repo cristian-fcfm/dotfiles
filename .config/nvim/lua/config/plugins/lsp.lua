@@ -23,7 +23,6 @@ return {
         config = function()
             local servers = {
                 basedpyright = {},
-                sqlls = {},
                 bashls = {},
                 jsonls = {},
                 yamlls = {},
@@ -75,30 +74,30 @@ return {
                 -- Saltar al tipo de la palabra bajo el cursor.
                 -- Útil cuando no estás seguro de qué tipo es una variable y quieres ver
                 -- la definición de su *tipo*, no donde fue *definida*.
-                map('<leader>D', fzf.lsp_typedefs, '[D]efinición de Tipo')
+                map('gy', fzf.lsp_typedefs, '[D]efinición de Tipo')
 
                 -- Búsqueda difusa de todos los símbolos en tu documento actual.
                 -- Los símbolos son cosas como variables, funciones, tipos, etc.
-                map('<leader>ds', fzf.lsp_document_symbols, '[S]ímbolos del [D]ocumento')
+                map('gs', fzf.lsp_document_symbols, '[S]ímbolos del [D]ocumento')
 
                 -- Búsqueda difusa de todos los símbolos en tu espacio de trabajo actual.
                 -- Similar a los símbolos del documento, excepto que busca en todo tu proyecto.
-                map('<leader>ws', fzf.lsp_live_workspace_symbols, '[S]ímbolos del [E]spacio de trabajo')
+                map('gS', fzf.lsp_live_workspace_symbols, '[S]ímbolos del [E]spacio de trabajo')
 
                 -- Renombrar la variable bajo el cursor.
                 -- La mayoría de los Language Servers soportan renombrado entre archivos, etc.
-                map('<leader>cr', vim.lsp.buf.rename, '[R]enombrar')
+                map('gn', vim.lsp.buf.rename, '[R]enombrar')
 
                 -- Ejecutar una acción de código, usualmente tu cursor necesita estar encima de un error
                 -- o una sugerencia de tu LSP para que esto se active.
-                map('<leader>ca', vim.lsp.buf.code_action, '[A]cción de [C]ódigo', { 'n', 'x' })
+                map('ga', vim.lsp.buf.code_action, '[A]cción de [C]ódigo', { 'n', 'x' })
 
                 -- ADVERTENCIA: Esto no es Ir a Definición, esto es Ir a Declaración.
                 -- Por ejemplo, en C esto te llevaría al header.
                 map('gD', vim.lsp.buf.declaration, '[I]r a [D]eclaración')
 
                 -- Formatear documento
-                map('cf', function() vim.lsp.buf.format({ async = true }) end, 'Formatear')
+                map('gf', function() vim.lsp.buf.format({ async = true }) end, 'Formatear')
 
                 -- Resaltado de referencias
                 if client.server_capabilities.documentHighlightProvider then
@@ -117,7 +116,7 @@ return {
 
                 -- Alternar inlay hints
                 if client.server_capabilities.inlayHintProvider then
-                    map('<leader>th', function()
+                    map('gh', function()
                         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr })
                     end, '[A]lternar Inlay [H]ints')
                 end
@@ -154,24 +153,6 @@ return {
                             autoImportCompletions = true,
                             diagnosticMode = 'openFilesOnly',
                         },
-                    },
-                },
-            })
-            lspconfig.sqlls.setup({
-                on_attach = on_attach,
-                settings = {
-                    sqlLanguageServer = {
-                        lint = {
-                            rules = {
-                                'align-column-to-the-first',
-                                'column-new-line',
-                                'linebreak-after-clause-keyword',
-                                'reserved-word-case',
-                                'space-surrounding-operators',
-                                'where-clause-new-line',
-                                'align-where-clause-to-the-first'
-                            }
-                        }
                     },
                 },
             })
