@@ -10,8 +10,8 @@ wk.add({
     { '<leader>sf', 'ggVG<Plug>SlimeRegionSend', desc = 'Send entire file', icon = '󰈙' },
 
     -- Navegación de celdas
-    { '<leader>sj', '<Plug>SlimeCellsNext', desc = 'Next cell', icon = '' },
-    { '<leader>sk', '<Plug>SlimeCellsPrev', desc = 'Previous cell', icon = '' },
+    { '<leader>sj', '<Plug>SlimeCellsNext', desc = 'Next cell', icon = '󰼧' },
+    { '<leader>sk', '<Plug>SlimeCellsPrev', desc = 'Previous cell', icon = '󰼨' },
     { '<leader>sC', '<Plug>SlimeCellsSendAndGoToNext', desc = 'Send cell & go next', icon = '󰒭' },
 
     -- Comandos IPython básicos
@@ -19,17 +19,6 @@ wk.add({
     { '<leader>si', ':SlimeSend1 whos<CR>', desc = 'Show variables', icon = '󰋽' },
     { '<leader>sm', ':SlimeSend1 %matplotlib inline<CR>', desc = 'Enable matplotlib', icon = '' },
     { '<leader>sp', ':SlimeSend1 %pwd<CR>', desc = 'Show current dir', icon = '󰉋' },
-
-    -- Navegación y control
-    {
-        '<leader>sn',
-        function()
-            vim.cmd('SlimeSendCell')
-            vim.cmd('normal! /# %%<CR>:nohlsearch<CR>')
-        end,
-        desc = 'Send cell & next',
-        icon = '󰒭'
-    },
     { '<leader>s:', ':SlimeSend1 ', desc = 'Send command...', icon = '󰞷' },
     { '<leader>sv', '<Plug>SlimeConfig', desc = 'Configure target', icon = '' },
 
