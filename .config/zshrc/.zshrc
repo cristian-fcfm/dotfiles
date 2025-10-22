@@ -57,7 +57,7 @@ eval "$(starship init zsh)"
 # │                             Yazi Integration                               │
 # └───────────────────────────────────────────────────────────────────────────┘
 # Función mejorada para Yazi con cd al salir
-function ya() {
+function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
     yazi "$@" --cwd-file="$tmp"
     if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
@@ -172,10 +172,9 @@ aws-test() {
 # └───────────────────────────────────────────────────────────────────────────┘
 
 # ─── Yazi ───────────────────────────────────────────────────────────────────
-alias y='ya'                    # Abrir Yazi
-alias yy='ya .'                 # Abrir Yazi en directorio actual
-alias yc='ya ~/.config'         # Abrir Yazi en config
-alias yn='ya ~/.config/nvim'    # Abrir Yazi en config de Neovim
+alias yy='y .'                  # Abrir Yazi en directorio actual
+alias yc='y ~/.config'          # Abrir Yazi en config
+alias yn='y ~/.config/nvim'     # Abrir Yazi en config de Neovim
 
 # ─── Navegación ─────────────────────────────────────────────────────────────
 alias ..='cd ..'
