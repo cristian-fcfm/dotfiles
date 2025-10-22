@@ -43,7 +43,7 @@ disabled = false
 added_style = "bold green"
 deleted_style = "bold red"
 only_nonzero_diffs = true
-format = ' ([ $added]($added_style) )([ $deleted]($deleted_style) )'
+format = '([ $added]($added_style)) ([ $deleted]($deleted_style))'
 
 #  Directorio
 [directory]
@@ -67,11 +67,12 @@ symbol = " "
 [python]
 symbol = " "
 style = "bold green"
+format = " [$symbol$version]($style)"
 
 # Conda/Mamba Environment
 [conda]
 truncation_length = 1
-format = "[$symbol$environment]($style) "
+format = "[$symbol$environment]($style)"
 symbol = " "
 style = "bold green"
 ignore_base = true
