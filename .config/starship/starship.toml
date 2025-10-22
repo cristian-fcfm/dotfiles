@@ -1,8 +1,7 @@
 palette = "tokyo_night"
 
 format = """
-[◖](fg:overlay0)$os$username[◗](fg:overlay0) $directory$fill$git_branch$git_commit$git_status$git_metrics
-│ $aws $conda $python$fill$cmd_duration$battery$time
+[◖](fg:overlay0)$os$username[◗](fg:overlay0) $directory $git_branch$git_commit$git_status$git_metrics$fill$cmd_duration$battery$aws$python
 ╰─$character
 """
 
@@ -56,11 +55,11 @@ read_only_style = "red"
 [cmd_duration]
 min_time = 500
 format = " took [$duration ]($style)"
-style = "bold yellow"
+style = "bold sky"
 
 # 🅰 AWS
 [aws]
-format = "on [$symbol($profile)(\\($region\\))]($style)"
+format = "[$symbol($profile)(\\($region\\))]($style)"
 style = "bold peach"
 symbol = " "
 
@@ -72,7 +71,7 @@ style = "bold green"
 # Conda/Mamba Environment
 [conda]
 truncation_length = 1
-format = "via [$symbol$environment]($style) "
+format = "[$symbol$environment]($style) "
 symbol = " "
 style = "bold green"
 ignore_base = true
