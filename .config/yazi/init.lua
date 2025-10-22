@@ -1,3 +1,6 @@
+-- Setup full-border plugin
+require("full-border"):setup()
+
 -- Función para abrir en Neovim en nueva ventana de tmux
 local function open_in_tmux_window()
   local selected = ya.selected()

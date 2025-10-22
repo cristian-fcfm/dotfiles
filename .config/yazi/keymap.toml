@@ -96,6 +96,9 @@ keymap = [
 	{ on = [ "e", "g" ], run = "shell 'tar -xzvf \"$@\"' --confirm",           desc = "Extract TAR.GZ" },
 	{ on = [ "e", "b" ], run = "shell 'tar -xjvf \"$@\"' --confirm",           desc = "Extract TAR.BZ2" },
 
+	# === CUSTOM: Mount plugin ===
+	{ on = "M", run = "plugin mount", desc = "Mount/unmount drives" },
+
 	# Linemode
 	{ on = [ "m", "s" ], run = "linemode size",        desc = "Linemode: size" },
 	{ on = [ "m", "p" ], run = "linemode permissions", desc = "Linemode: permissions" },
