@@ -1,7 +1,7 @@
 palette = "tokyo_night"
 
 format = """
-[◖](fg:overlay0)$os$username[◗](fg:overlay0) $directory $git_branch$git_commit$git_status$git_metrics$fill$cmd_duration$battery$aws$python
+[◖](fg:overlay0)$os$username[◗](fg:overlay0) $directory$git_branch$git_commit$git_status $git_metrics$fill$cmd_duration$battery$aws$python
 ╰─$character
 """
 
@@ -54,7 +54,7 @@ read_only_style = "red"
 #  Cmd Duration
 [cmd_duration]
 min_time = 500
-format = " took [$duration ]($style)"
+format = "[  $duration ]($style)"
 style = "bold sky"
 
 # 🅰 AWS
