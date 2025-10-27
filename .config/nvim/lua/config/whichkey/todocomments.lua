@@ -19,9 +19,24 @@ wk.add({
     { '<leader>aj', function() require('todo-comments').jump_next() end, desc = 'Next TODO', icon = '󰙢' },
     { '<leader>ak', function() require('todo-comments').jump_prev() end, desc = 'Previous TODO', icon = '󰙤' },
 
-    -- Navegación rápida con atajos cortos
-    { ']t', function() require('todo-comments').jump_next() end, desc = 'Next TODO' },
-    { '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous TODO' },
-    { ']b', function() require('todo-comments').jump_next({ keywords = { "FIX", "FIXME", "BUG" } }) end, desc = 'Next FIXME' },
-    { '[b', function() require('todo-comments').jump_prev({ keywords = { "FIX", "FIXME", "BUG" } }) end, desc = 'Previous FIXME' },
+    -- Navegación rápida con atajos cortos (estilo treesitter)
+    -- Todos los TODOs (cualquier tipo)
+    { ']t', function() require('todo-comments').jump_next() end, desc = 'Next TODO (any)' },
+    { '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous TODO (any)' },
+
+    -- TODOs específicos
+    { ']T', function() require('todo-comments').jump_next({ keywords = { "TODO" } }) end, desc = 'Next TODO' },
+    { '[T', function() require('todo-comments').jump_prev({ keywords = { "TODO" } }) end, desc = 'Previous TODO' },
+
+    -- FIXME/BUG (usando ]x / [x para evitar conflicto con ]f de funciones)
+    { ']x', function() require('todo-comments').jump_next({ keywords = { "FIX", "FIXME", "BUG" } }) end, desc = 'Next FIXME/BUG' },
+    { '[x', function() require('todo-comments').jump_prev({ keywords = { "FIX", "FIXME", "BUG" } }) end, desc = 'Previous FIXME/BUG' },
+
+    -- NOTE
+    { ']n', function() require('todo-comments').jump_next({ keywords = { "NOTE" } }) end, desc = 'Next NOTE' },
+    { '[n', function() require('todo-comments').jump_prev({ keywords = { "NOTE" } }) end, desc = 'Previous NOTE' },
+
+    -- HACK
+    { ']h', function() require('todo-comments').jump_next({ keywords = { "HACK" } }) end, desc = 'Next HACK' },
+    { '[h', function() require('todo-comments').jump_prev({ keywords = { "HACK" } }) end, desc = 'Previous HACK' },
 })
