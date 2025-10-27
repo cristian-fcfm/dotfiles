@@ -2,8 +2,9 @@ local wk = require('which-key')
 
 wk.add({
     { '<leader>t', group = 'Tabs', icon = '󰓩' },
-    { '<leader>to', ':tabnew<CR>', desc = 'Abrir nueva tab', icon = '󰝜' },
-    { '<leader>tx', ':tabclose<CR>', desc = 'Cerrar tab actual', icon = '󰭌' },
-    { '<leader>tn', ':tabn<CR>', desc = 'Siguiente tab', icon = '' },
-    { '<leader>tp', ':tabp<CR>', desc = 'Tab anterior', icon = '' },
+    { '<leader>tn', ':tabnew<CR>', desc = 'New tab', icon = '󰝜' },
+    { '<leader>tc', ':tabclose<CR>', desc = 'Close tab', icon = '󰭌' },
+    { '<leader>t]', ':tabn<CR>', desc = 'Next tab', icon = '' },
+    { '<leader>t[', ':tabp<CR>', desc = 'Previous tab', icon = '' },
+    { '<leader>to', ':tabonly<CR>', desc = 'Close other tabs', icon = '󰖰' },
 })
