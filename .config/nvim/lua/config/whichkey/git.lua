@@ -6,7 +6,7 @@ wk.add({
     { '<leader>hp', gs.preview_hunk, desc = '[P]review hunk', icon = '󰙤' },
     { '<leader>hb', function() gs.blame_line { full = true } end, desc = '[B]lame hunk', icon = '' },
     {
-        ']c',
+        ']g',
         function()
             if vim.wo.diff then
                 return "]c"
@@ -16,12 +16,12 @@ wk.add({
             end)
             return "<Ignore>"
         end,
-        desc = 'Next hunk',
+        desc = 'Next git hunk',
         expr = true,
         icon = '󰙢'
     },
     {
-        '[c',
+        '[g',
         function()
             if vim.wo.diff then
                 return "[c"
@@ -31,8 +31,34 @@ wk.add({
             end)
             return "<Ignore>"
         end,
-        desc = 'Previous hunk',
+        desc = 'Previous git hunk',
         expr = true,
         icon = '󰙤'
     },
+
+    -- Navegación de conflictos de merge
+    {
+        ']m',
+        function()
+            vim.cmd([[/^<<<<<<< ]])
+        end,
+        desc = 'Next merge conflict',
+        icon = ''
+    },
+    {
+        '[m',
+        function()
+            vim.cmd([[?^<<<<<<< ]])
+        end,
+        desc = 'Previous merge conflict',
+        icon = ''
+    },
+
+    -- Comandos útiles para resolver conflictos
+    { '<leader>hm', group = 'Merge conflicts', icon = '' },
+    { '<leader>hmo', '<cmd>GitConflictChooseOurs<CR>', desc = 'Choose ours (current)', icon = '' },
+    { '<leader>hmt', '<cmd>GitConflictChooseTheirs<CR>', desc = 'Choose theirs (incoming)', icon = '' },
+    { '<leader>hmb', '<cmd>GitConflictChooseBoth<CR>', desc = 'Choose both', icon = '' },
+    { '<leader>hmn', '<cmd>GitConflictChooseNone<CR>', desc = 'Choose none', icon = '' },
+    { '<leader>hml', '<cmd>GitConflictListQf<CR>', desc = 'List conflicts', icon = '' },
 })
