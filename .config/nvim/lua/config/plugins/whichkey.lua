@@ -17,5 +17,6 @@ return {
         require('config.whichkey.buffers')
         require('config.whichkey.comment')
         require('config.whichkey.gitsigns')
+        require('config.whichkey.lsp')
     end,
 }
