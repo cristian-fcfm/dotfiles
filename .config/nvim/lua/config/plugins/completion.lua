@@ -42,6 +42,9 @@ return {
             auto_insert = false,
           },
         },
+        ghost_text = {
+          enabled = true,
+        },
       },
 
       signature = {
@@ -60,7 +63,7 @@ return {
       },
 
       cmdline = {
-        enabled = false,
+        enabled = true,
       },
 
       fuzzy = {

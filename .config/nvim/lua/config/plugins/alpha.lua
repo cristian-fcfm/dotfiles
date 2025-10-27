@@ -32,27 +32,33 @@ return {
     }
 
     -- Footer dinámico con estadísticas de lazy.nvim
+    dashboard.section.footer.opts.hl = "Comment"
+
     local function footer()
       local stats = require("lazy").stats()
       local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
       local version = vim.version()
       local nvim_version = "v" .. version.major .. "." .. version.minor .. "." .. version.patch
 
-      return {
-        "",
-        "⚡ Neovim "
-          .. nvim_version
-          .. " loaded "
-          .. stats.loaded
-          .. "/"
-          .. stats.count
-          .. " plugins in "
-          .. ms
-          .. "ms",
-      }
+      return "⚡ Neovim "
+        .. nvim_version
+        .. " loaded "
+        .. stats.loaded
+        .. "/"
+        .. stats.count
+        .. " plugins in "
+        .. ms
+        .. "ms"
     end
 
-    dashboard.section.footer.val = footer()
+    -- Actualizar footer dinámicamente
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "LazyVimStarted",
+      callback = function()
+        dashboard.section.footer.val = footer()
+        pcall(vim.cmd.AlphaRedraw)
+      end,
+    })
 
     -- Configuración de layout
     dashboard.opts.layout = {
