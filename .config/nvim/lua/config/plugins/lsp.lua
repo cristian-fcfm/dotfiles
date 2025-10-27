@@ -122,9 +122,20 @@ return {
         -- Signature help
         map("<C-k>", vim.lsp.buf.signature_help, "Mostrar firma de función")
 
-        -- Desactivar hover de ruff para evitar duplicados con pyright
+        -- Navegación de diagnósticos mejorada
+        map("[d", vim.diagnostic.goto_prev, "Previous diagnostic")
+        map("]d", vim.diagnostic.goto_next, "Next diagnostic")
+        map("[e", function()
+          vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+        end, "Previous error")
+        map("]e", function()
+          vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+        end, "Next error")
+
+        -- Desactivar hover y formatting de ruff para evitar duplicados con pyright
         if client.name == "ruff" then
           client.server_capabilities.hoverProvider = false
+          client.server_capabilities.documentFormattingProvider = false
         end
 
         -- Resaltado de referencias
@@ -274,6 +285,27 @@ return {
           },
         },
       })
+
+      -- Comandos para toggle de diagnósticos
+      vim.api.nvim_create_user_command("DiagnosticsToggle", function()
+        vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+      end, { desc = "Toggle diagnostics on/off" })
+
+      vim.api.nvim_create_user_command("DiagnosticsDisable", function()
+        vim.diagnostic.enable(false)
+      end, { desc = "Disable diagnostics" })
+
+      vim.api.nvim_create_user_command("DiagnosticsEnable", function()
+        vim.diagnostic.enable(true)
+      end, { desc = "Enable diagnostics" })
+
+      vim.api.nvim_create_user_command("DiagnosticsDisableBuffer", function()
+        vim.diagnostic.enable(false, { bufnr = 0 })
+      end, { desc = "Disable diagnostics for current buffer" })
+
+      vim.api.nvim_create_user_command("DiagnosticsEnableBuffer", function()
+        vim.diagnostic.enable(true, { bufnr = 0 })
+      end, { desc = "Enable diagnostics for current buffer" })
     end,
   },
 }

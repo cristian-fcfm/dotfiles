@@ -1,29 +1,29 @@
 local wk = require('which-key')
 
 wk.add({
-    { '<leader>w', group = 'Workspace (LSP)', icon = '' },
+    { '<leader>W', group = 'LSP Workspace', icon = '' },
     {
-        '<leader>wa',
+        '<leader>Wa',
         function()
             vim.lsp.buf.add_workspace_folder()
         end,
-        desc = 'Agregar carpeta al workspace',
+        desc = 'Add workspace folder',
         icon = ''
     },
     {
-        '<leader>wr',
+        '<leader>Wr',
         function()
             vim.lsp.buf.remove_workspace_folder()
         end,
-        desc = 'Remover carpeta del workspace',
+        desc = 'Remove workspace folder',
         icon = ''
     },
     {
-        '<leader>wl',
+        '<leader>Wl',
         function()
             vim.print(vim.lsp.buf.list_workspace_folders())
         end,
-        desc = 'Listar carpetas del workspace',
+        desc = 'List workspace folders',
         icon = ''
     },
 })
