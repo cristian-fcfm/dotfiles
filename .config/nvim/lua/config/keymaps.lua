@@ -37,3 +37,9 @@ map("v", ">", ">gv", opts)
 
 -- Keep last yanked when pasting
 map("v", "p", '"_dP', opts)
+
+-- Turn the word under cursor to upper case (Insert mode)
+map("i", "<A-u>", "<Esc>viwUea", opts)
+
+-- Turn the current word into title case (Insert mode)
+map("i", "<A-t>", "<Esc>b~lea", opts)
