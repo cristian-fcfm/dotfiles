@@ -13,6 +13,7 @@ wk.add({
   { "<leader>sj", "<Plug>SlimeCellsNext", desc = "Next cell", icon = "󰒭" },
   { "<leader>sk", "<Plug>SlimeCellsPrev", desc = "Previous cell", icon = "󰒮" },
   { "<leader>sC", "<Plug>SlimeCellsSendAndGoToNext", desc = "Send cell & go next", icon = "󰮰" },
+  { "<leader>sd", "o# %%<Esc>", desc = "Insert cell divider", icon = "󱞣" },
 
   -- Comandos IPython básicos
   { "<leader>sr", ":SlimeSend1 %reset -f<CR>", desc = "Reset IPython", icon = "󰑓" },
