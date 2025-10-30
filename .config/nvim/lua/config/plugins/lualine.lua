@@ -123,7 +123,7 @@ return {
           },
           {
             virtual_env,
-            color = { fg = 'black', bg = '#F1CA81' },
+            color = { bg = '#F1CA81' },
           },
           {
             spell,

@@ -5,7 +5,7 @@ vim.loader.enable()
 local utils = require("utils")
 
 -- Verifica versión mínima requerida de Neovim
-local expected_version = "0.11.3"
+local expected_version = "0.11.4"
 utils.is_compatible_version(expected_version)
 
 -- Cargar variables globales y desactivar providers/plugins innecesarios
