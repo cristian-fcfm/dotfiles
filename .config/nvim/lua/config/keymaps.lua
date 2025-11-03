@@ -22,6 +22,10 @@ map("n", "<C-q>", "<cmd> q <CR>", opts)
 map("n", "<C-d>", "<C-d>zz", opts)
 map("n", "<C-u>", "<C-u>zz", opts)
 
+-- Fast line navigation
+map({ "n", "v" }, "H", "^", opts)
+map({ "n", "v" }, "L", "$", opts)
+
 -- Navigate between splits
 map("n", "<C-k>", ":wincmd k<CR>", opts)
 map("n", "<C-j>", ":wincmd j<CR>", opts)
