@@ -156,7 +156,7 @@ return {
         -- Alternar inlay hints
         if client.server_capabilities.inlayHintProvider then
           map("gh", function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
           end, "[A]lternar Inlay [H]ints")
         end
       end
