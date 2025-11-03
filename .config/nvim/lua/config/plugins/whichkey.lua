@@ -40,7 +40,6 @@ return {
     require("config.whichkey.fzflua")
     require("config.whichkey.todocomments")
     require("config.whichkey.buffers")
-    require("config.whichkey.comment")
     require("config.whichkey.git")
     require("config.whichkey.lsp")
   end,

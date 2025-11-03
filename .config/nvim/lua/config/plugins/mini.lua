@@ -104,4 +104,42 @@ return {
       },
     },
   },
+
+  -- Mini.comment: Comentar código de forma inteligente
+  {
+    "echasnovski/mini.comment",
+    version = false,
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      options = {
+        -- Usar comentarios treesitter para mejor detección
+        custom_commentstring = function()
+          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+        end,
+      },
+      mappings = {
+        comment = "gc",      -- Toggle comment en Normal y Visual
+        comment_line = "gcc", -- Toggle comment de línea actual
+        comment_visual = "gc", -- Toggle comment en Visual mode
+        textobject = "gc",   -- Text object de comentario
+      },
+    },
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    },
+  },
+
+  -- Mini.splitjoin: Dividir y unir argumentos/listas
+  {
+    "echasnovski/mini.splitjoin",
+    version = false,
+    keys = {
+      { "gS", mode = { "n", "v" }, desc = "Toggle split/join" },
+    },
+    opts = {
+      mappings = {
+        toggle = "gS", -- Toggle split/join
+      },
+    },
+  },
 }
