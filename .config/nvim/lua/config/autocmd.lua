@@ -19,6 +19,10 @@ api.nvim_create_autocmd("BufWritePre", {
   group = api.nvim_create_augroup("auto_create_dir", { clear = true }),
   desc = "Crear directorios automáticamente si no existen",
   callback = function(ctx)
+    -- Ignorar buffers de Oil
+    if vim.bo[ctx.buf].filetype == "oil" then
+      return
+    end
     local dir = vim.fn.fnamemodify(ctx.file, ":p:h")
     utils.may_create_dir(dir)
   end,
