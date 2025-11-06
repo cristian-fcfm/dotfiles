@@ -55,7 +55,6 @@ return {
       { "ibhagwan/fzf-lua" },
     },
     config = function()
-      local lspconfig = require("lspconfig")
       local fzf = require("fzf-lua")
 
       -- Capabilities compartidas por todos los LSPs
@@ -196,7 +195,7 @@ return {
         focusable = false,
       })
 
-      -- Configuración de cada LSP
+      -- Configuración de cada LSP usando vim.lsp.config
       local python_capabilities = vim.tbl_deep_extend("force", capabilities, {
         textDocument = {
           publishDiagnostics = {
@@ -205,9 +204,10 @@ return {
         },
       })
 
-      lspconfig.basedpyright.setup({
-        on_attach = on_attach,
-        capabilities = python_capabilities,
+      vim.lsp.config.basedpyright = {
+        cmd = { "basedpyright-langserver", "--stdio" },
+        filetypes = { "python" },
+        root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json" },
         settings = {
           basedpyright = {
             disableOrganizeImports = true,
@@ -224,27 +224,30 @@ return {
             },
           },
         },
-      })
+      }
 
-      lspconfig.bashls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
+      vim.lsp.config.bashls = {
+        cmd = { "bash-language-server", "start" },
+        filetypes = { "sh", "bash" },
+        root_markers = { ".git" },
+      }
 
-      lspconfig.jsonls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
+      vim.lsp.config.jsonls = {
+        cmd = { "vscode-json-language-server", "--stdio" },
+        filetypes = { "json", "jsonc" },
+        root_markers = { ".git" },
         settings = {
           json = {
             schemas = require("schemastore").json.schemas(),
             validate = { enable = true },
           },
         },
-      })
+      }
 
-      lspconfig.yamlls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
+      vim.lsp.config.yamlls = {
+        cmd = { "yaml-language-server", "--stdio" },
+        filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+        root_markers = { ".git" },
         settings = {
           yaml = {
             schemas = require("schemastore").yaml.schemas(),
@@ -254,21 +257,24 @@ return {
             format = { enable = true },
           },
         },
-      })
+      }
 
-      lspconfig.dockerls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
+      vim.lsp.config.dockerls = {
+        cmd = { "docker-langserver", "--stdio" },
+        filetypes = { "dockerfile" },
+        root_markers = { ".git" },
+      }
 
-      lspconfig.marksman.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
+      vim.lsp.config.marksman = {
+        cmd = { "marksman", "server" },
+        filetypes = { "markdown", "markdown.mdx" },
+        root_markers = { ".git", ".marksman.toml" },
+      }
 
-      lspconfig.lua_ls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
+      vim.lsp.config.lua_ls = {
+        cmd = { "lua-language-server" },
+        filetypes = { "lua" },
+        root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
         settings = {
           Lua = {
             runtime = { version = "LuaJIT" },
@@ -284,6 +290,27 @@ return {
             format = { enable = false },
           },
         },
+      }
+
+      -- Habilitar los servidores con on_attach y capabilities
+      vim.lsp.enable({ "basedpyright", "bashls", "jsonls", "yamlls", "dockerls", "marksman", "lua_ls" })
+
+      -- Configurar on_attach para todos los servidores
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          local bufnr = args.buf
+          if client then
+            -- Aplicar capabilities personalizados para Python
+            if client.name == "basedpyright" then
+              client.server_capabilities = vim.tbl_deep_extend("force", client.server_capabilities or {}, python_capabilities)
+            else
+              client.server_capabilities = vim.tbl_deep_extend("force", client.server_capabilities or {}, capabilities)
+            end
+
+            on_attach(client, bufnr)
+          end
+        end,
       })
 
       -- Comandos para toggle de diagnósticos
