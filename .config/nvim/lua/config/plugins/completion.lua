@@ -6,9 +6,52 @@ return {
     opts = {},
   },
   {
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
+    build = "make install_jsregexp",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+    },
+    config = function()
+      local luasnip = require("luasnip")
+
+      -- Cargar snippets de friendly-snippets
+      require("luasnip.loaders.from_vscode").lazy_load()
+
+      -- Cargar tus snippets personalizados
+      require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/snippets" })
+
+      luasnip.config.setup({
+        history = true,
+        updateevents = "TextChanged,TextChangedI",
+        enable_autosnippets = true,
+      })
+
+      -- Keymaps para navegar entre placeholders
+      vim.keymap.set({ "i", "s" }, "<C-l>", function()
+        if luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        end
+      end, { silent = true, desc = "LuaSnip: Expand or jump forward" })
+
+      vim.keymap.set({ "i", "s" }, "<C-h>", function()
+        if luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        end
+      end, { silent = true, desc = "LuaSnip: Jump backward" })
+
+      vim.keymap.set({ "i", "s" }, "<C-j>", function()
+        if luasnip.choice_active() then
+          luasnip.change_choice(1)
+        end
+      end, { silent = true, desc = "LuaSnip: Change choice" })
+    end,
+  },
+  {
     "saghen/blink.cmp",
     dependencies = {
       "rafamadriz/friendly-snippets",
+      "L3MON4D3/LuaSnip",
     },
     version = "1.*",
     event = { "InsertEnter", "CmdlineEnter" },
@@ -60,6 +103,10 @@ return {
             min_keyword_length = 4,
           },
         },
+      },
+
+      snippets = {
+        preset = "luasnip",
       },
 
       cmdline = {
