@@ -1,19 +1,29 @@
 -- Plugin para la barra de estado lualine
 return {
-  'nvim-lualine/lualine.nvim',
-  event = 'VeryLazy',
-  dependencies = { 'echasnovski/mini.icons' },
+  "nvim-lualine/lualine.nvim",
+  event = "VeryLazy",
+  dependencies = { "echasnovski/mini.icons" },
   config = function()
-    -- Función para mostrar entorno virtual de Python (uv/venv)
-    local function virtual_env()
+    -- Función para mostrar versión de Python del entorno virtual
+    local function python_version()
       if vim.bo.filetype ~= "python" then
         return ""
       end
 
       local venv_path = os.getenv("VIRTUAL_ENV")
       if venv_path then
-        local venv_name = vim.fn.fnamemodify(venv_path, ":t")
-        return string.format(" %s", venv_name)
+        -- Obtener la versión de Python del venv
+        local python_bin = venv_path .. "/bin/python"
+        local handle = io.popen(python_bin .. " --version 2>&1")
+        if handle then
+          local result = handle:read("*a")
+          handle:close()
+          -- Extraer solo la versión (ej: "3.11.5" de "Python 3.11.5")
+          local version = result:match("Python%s+([%d%.]+)")
+          if version then
+            return string.format(" %s", version)
+          end
+        end
       end
 
       return ""
@@ -82,11 +92,11 @@ return {
       return msg
     end
 
-    require('lualine').setup({
+    require("lualine").setup({
       options = {
-        theme = 'auto',
-        section_separators = { left = '', right = '' },
-        component_separators = { left = '|', right = '|' },
+        theme = "auto",
+        section_separators = { left = "", right = "" },
+        component_separators = { left = "|", right = "|" },
         icons_enabled = true,
         globalstatus = true,
         refresh = {
@@ -95,39 +105,40 @@ return {
       },
       sections = {
         lualine_a = {
-          'mode',
+          "mode",
         },
         lualine_b = {
           {
-            'branch',
-            icon = '󰊢',
+            "branch",
+            icon = "󰊢",
+            color = { fg = "#e69875" },
             fmt = function(name)
               return string.sub(name, 1, 20) -- Truncar nombres largos
             end,
           },
           {
             get_git_ahead_behind,
-            color = { fg = '#E0C479' },
+            color = { fg = "#E0C479" },
           },
           {
-            'diff',
-            symbols = { added = ' ', modified = ' ', removed = ' ' },
+            "diff",
+            symbols = { added = " ", modified = " ", removed = " " },
+          },
+          {
+            python_version,
+            color = { fg = "#e5c890" },
           },
         },
         lualine_c = {
           {
-            'filename',
+            "filename",
             symbols = {
-              readonly = '󰈡',
+              readonly = "󰈡",
             },
           },
           {
-            virtual_env,
-            color = { bg = '#F1CA81' },
-          },
-          {
             spell,
-            color = { fg = 'black', bg = '#a7c080' },
+            color = { fg = "black", bg = "#a7c080" },
           },
         },
         lualine_x = {
@@ -135,38 +146,38 @@ return {
             get_active_lsp,
           },
           {
-            'diagnostics',
-            sources = { 'nvim_diagnostic' },
-            symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
+            "diagnostics",
+            sources = { "nvim_diagnostic" },
+            symbols = { error = " ", warn = " ", info = " ", hint = " " },
           },
         },
         lualine_y = {
-          { 'encoding', fmt = string.upper },
+          { "encoding", fmt = string.upper },
           {
-            'fileformat',
+            "fileformat",
             symbols = {
-              unix = 'unix',
-              dos = 'win',
-              mac = 'mac',
+              unix = "UNIX",
+              dos = "WIN",
+              mac = "MAC",
             },
           },
-          'filetype',
+          "filetype",
         },
         lualine_z = {
-          'location',
-          'progress',
+          "location",
+          "progress",
         },
       },
       inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = { 'filename' },
-        lualine_x = { 'location' },
+        lualine_c = { "filename" },
+        lualine_x = { "location" },
         lualine_y = {},
         lualine_z = {},
       },
       tabline = {},
-      extensions = { 'quickfix', 'oil' },
+      extensions = { "quickfix", "oil" },
     })
   end,
 }
