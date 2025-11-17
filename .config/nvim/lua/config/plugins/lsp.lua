@@ -57,87 +57,70 @@ return {
     config = function()
       local fzf = require("fzf-lua")
 
-      -- Capabilities compartidas por todos los LSPs
+      -- ========================================================================
+      -- CAPABILITIES
+      -- ========================================================================
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
+      local python_capabilities = vim.tbl_deep_extend("force", capabilities, {
+        textDocument = {
+          publishDiagnostics = {
+            tagSupport = { valueSet = { 2 } },
+          },
+        },
+      })
+
+      -- ========================================================================
+      -- ON_ATTACH - KEYMAPS Y CONFIGURACIÓN POR CLIENTE
+      -- ========================================================================
       local on_attach = function(client, bufnr)
+        -- Desactivar formateo LSP para todos los servidores (usa conform.nvim)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+
+        -- Helper para mapear teclas
         local map = function(keys, func, desc, mode)
           mode = mode or "n"
-          vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. (desc or "") })
+          vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
         end
 
-        -- Saltar a la definición de la palabra bajo el cursor.
-        -- Aquí es donde una variable fue declarada por primera vez, o donde se define una función, etc.
-        -- Para volver atrás, presiona <C-t>.
-        map("gd", fzf.lsp_definitions, "[I]r a [D]efinición")
+        -- ===== Keymaps generales para todos los LSP =====
+        -- Navegación
+        map("gd", fzf.lsp_definitions, "Ir a definición")
+        map("gr", fzf.lsp_references, "Ir a referencias")
+        map("gI", fzf.lsp_implementations, "Ir a implementación")
+        map("gy", fzf.lsp_typedefs, "Definición de tipo")
+        map("gD", vim.lsp.buf.declaration, "Ir a declaración")
 
-        -- Encontrar referencias para la palabra bajo el cursor.
-        map("gr", fzf.lsp_references, "[I]r a [R]eferencias")
+        -- Símbolos
+        map("gs", fzf.lsp_document_symbols, "Símbolos del documento")
+        map("gS", fzf.lsp_live_workspace_symbols, "Símbolos del workspace")
 
-        -- Saltar a la implementación de la palabra bajo el cursor.
-        -- Útil cuando tu lenguaje tiene formas de declarar tipos sin una implementación real.
-        map("gI", fzf.lsp_implementations, "[I]r a [I]mplementación")
-
-        -- Saltar al tipo de la palabra bajo el cursor.
-        -- Útil cuando no estás seguro de qué tipo es una variable y quieres ver
-        -- la definición de su *tipo*, no donde fue *definida*.
-        map("gy", fzf.lsp_typedefs, "[D]efinición de Tipo")
-
-        -- Búsqueda difusa de todos los símbolos en tu documento actual.
-        -- Los símbolos son cosas como variables, funciones, tipos, etc.
-        map("gs", fzf.lsp_document_symbols, "[S]ímbolos del [D]ocumento")
-
-        -- Búsqueda difusa de todos los símbolos en tu espacio de trabajo actual.
-        -- Similar a los símbolos del documento, excepto que busca en todo tu proyecto.
-        map("gS", fzf.lsp_live_workspace_symbols, "[S]ímbolos del [E]spacio de trabajo")
-
-        -- Renombrar la variable bajo el cursor.
-        -- La mayoría de los Language Servers soportan renombrado entre archivos, etc.
-        map("gn", vim.lsp.buf.rename, "[R]enombrar")
-
-        -- Ejecutar una acción de código, usualmente tu cursor necesita estar encima de un error
-        -- o una sugerencia de tu LSP para que esto se active.
-        map("ga", vim.lsp.buf.code_action, "[A]cción de [C]ódigo", { "n", "x" })
-
-        -- ADVERTENCIA: Esto no es Ir a Definición, esto es Ir a Declaración.
-        -- Por ejemplo, en C esto te llevaría al header.
-        map("gD", vim.lsp.buf.declaration, "[I]r a [D]eclaración")
-
-        -- Formatear documento
+        -- Acciones
+        map("gn", vim.lsp.buf.rename, "Renombrar")
+        map("ga", vim.lsp.buf.code_action, "Code actions", { "n", "x" })
         map("gf", function()
-          vim.lsp.buf.format({ async = true })
+          require("conform").format({ async = true, lsp_format = "fallback" })
         end, "Formatear")
 
-        -- Hover mejorado con configuración personalizada
+        -- Documentación
         map("K", function()
-          vim.lsp.buf.hover({
-            border = "single",
-            max_height = 20,
-            max_width = 130,
-          })
+          vim.lsp.buf.hover({ border = "single", max_height = 20, max_width = 130 })
         end, "Mostrar documentación")
-
-        -- Signature help
         map("<C-k>", vim.lsp.buf.signature_help, "Mostrar firma de función")
 
-        -- Navegación de diagnósticos mejorada
-        map("[d", vim.diagnostic.goto_prev, "Previous diagnostic")
-        map("]d", vim.diagnostic.goto_next, "Next diagnostic")
+        -- Diagnósticos
+        map("[d", vim.diagnostic.goto_prev, "Diagnóstico anterior")
+        map("]d", vim.diagnostic.goto_next, "Diagnóstico siguiente")
         map("[e", function()
           vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
-        end, "Previous error")
+        end, "Error anterior")
         map("]e", function()
           vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
-        end, "Next error")
+        end, "Error siguiente")
 
-        -- Desactivar hover y formatting de ruff para evitar duplicados con pyright
-        if client.name == "ruff" then
-          client.server_capabilities.hoverProvider = false
-          client.server_capabilities.documentFormattingProvider = false
-        end
-
-        -- Resaltado de referencias
+        -- ===== Resaltado de referencias =====
         if client.server_capabilities.documentHighlightProvider then
           local group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -152,15 +135,17 @@ return {
           })
         end
 
-        -- Alternar inlay hints
+        -- ===== Inlay hints =====
         if client.server_capabilities.inlayHintProvider then
           map("gh", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
-          end, "[A]lternar Inlay [H]ints")
+          end, "Alternar Inlay Hints")
         end
       end
 
-      -- Configuración de diagnóstico personalizada
+      -- ========================================================================
+      -- CONFIGURACIÓN DE DIAGNÓSTICOS
+      -- ========================================================================
       vim.diagnostic.config({
         severity_sort = true,
         float = {
@@ -183,7 +168,12 @@ return {
         update_in_insert = false,
       })
 
-      -- Handlers personalizados para ventanas flotantes
+      -- Configurar highlight para código obsoleto/innecesario (strikethrough)
+      vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { strikethrough = true, sp = "gray" })
+
+      -- ========================================================================
+      -- HANDLERS PERSONALIZADOS
+      -- ========================================================================
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
         border = "single",
         max_width = 130,
@@ -195,19 +185,22 @@ return {
         focusable = false,
       })
 
-      -- Configuración de cada LSP usando vim.lsp.config
-      local python_capabilities = vim.tbl_deep_extend("force", capabilities, {
-        textDocument = {
-          publishDiagnostics = {
-            tagSupport = { valueSet = { 2 } },
-          },
-        },
-      })
+      -- ========================================================================
+      -- CONFIGURACIÓN DE SERVIDORES LSP
+      -- ========================================================================
 
+      -- Python
       vim.lsp.config.basedpyright = {
         cmd = { "basedpyright-langserver", "--stdio" },
         filetypes = { "python" },
-        root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json" },
+        root_markers = {
+          "pyproject.toml",
+          "setup.py",
+          "setup.cfg",
+          "requirements.txt",
+          "Pipfile",
+          "pyrightconfig.json",
+        },
         settings = {
           basedpyright = {
             disableOrganizeImports = true,
@@ -226,12 +219,14 @@ return {
         },
       }
 
+      -- Bash
       vim.lsp.config.bashls = {
         cmd = { "bash-language-server", "start" },
         filetypes = { "sh", "bash" },
         root_markers = { ".git" },
       }
 
+      -- JSON
       vim.lsp.config.jsonls = {
         cmd = { "vscode-json-language-server", "--stdio" },
         filetypes = { "json", "jsonc" },
@@ -244,6 +239,7 @@ return {
         },
       }
 
+      -- YAML
       vim.lsp.config.yamlls = {
         cmd = { "yaml-language-server", "--stdio" },
         filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
@@ -259,22 +255,42 @@ return {
         },
       }
 
+      -- Docker
       vim.lsp.config.dockerls = {
         cmd = { "docker-langserver", "--stdio" },
         filetypes = { "dockerfile" },
         root_markers = { ".git" },
       }
 
+      -- Markdown
       vim.lsp.config.marksman = {
         cmd = { "marksman", "server" },
         filetypes = { "markdown", "markdown.mdx" },
-        root_markers = { ".git", ".marksman.toml" },
+        root_markers = { ".marksman.toml" },
       }
 
+      -- Zk (Zettelkasten)
+      vim.lsp.config.zk = {
+        cmd = { "zk", "lsp" },
+        filetypes = { "zk" },
+        root_markers = { ".zk" },
+        settings = {},
+      }
+
+      -- Lua
       vim.lsp.config.lua_ls = {
         cmd = { "lua-language-server" },
         filetypes = { "lua" },
-        root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
+        root_markers = {
+          ".luarc.json",
+          ".luarc.jsonc",
+          ".luacheckrc",
+          ".stylua.toml",
+          "stylua.toml",
+          "selene.toml",
+          "selene.yml",
+          ".git",
+        },
         settings = {
           Lua = {
             runtime = { version = "LuaJIT" },
@@ -292,10 +308,14 @@ return {
         },
       }
 
-      -- Habilitar los servidores con on_attach y capabilities
-      vim.lsp.enable({ "basedpyright", "bashls", "jsonls", "yamlls", "dockerls", "marksman", "lua_ls" })
+      -- ========================================================================
+      -- HABILITAR SERVIDORES
+      -- ========================================================================
+      vim.lsp.enable({ "basedpyright", "bashls", "jsonls", "yamlls", "dockerls", "marksman", "zk", "lua_ls" })
 
-      -- Configurar on_attach para todos los servidores
+      -- ========================================================================
+      -- AUTOCOMMAND LSPATTACH
+      -- ========================================================================
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -303,7 +323,8 @@ return {
           if client then
             -- Aplicar capabilities personalizados para Python
             if client.name == "basedpyright" then
-              client.server_capabilities = vim.tbl_deep_extend("force", client.server_capabilities or {}, python_capabilities)
+              client.server_capabilities =
+                vim.tbl_deep_extend("force", client.server_capabilities or {}, python_capabilities)
             else
               client.server_capabilities = vim.tbl_deep_extend("force", client.server_capabilities or {}, capabilities)
             end
@@ -313,7 +334,9 @@ return {
         end,
       })
 
-      -- Comandos para toggle de diagnósticos
+      -- ========================================================================
+      -- COMANDOS DE USUARIO
+      -- ========================================================================
       vim.api.nvim_create_user_command("DiagnosticsToggle", function()
         vim.diagnostic.enable(not vim.diagnostic.is_enabled())
       end, { desc = "Toggle diagnostics on/off" })
