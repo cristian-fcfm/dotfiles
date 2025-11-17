@@ -42,5 +42,6 @@ return {
     require("config.whichkey.buffers")
     require("config.whichkey.git")
     require("config.whichkey.lsp")
+    require("config.whichkey.zk")
   end,
 }
