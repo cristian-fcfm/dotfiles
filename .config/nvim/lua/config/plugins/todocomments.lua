@@ -2,7 +2,8 @@ return {
   "folke/todo-comments.nvim",
   dependencies = { "nvim-lua/plenary.nvim", "ibhagwan/fzf-lua" },
   event = { "BufReadPost", "BufNewFile" },
-  opts = {
+  config = function()
+    require("todo-comments").setup({
     signs = true, -- Mostrar iconos en la columna de signos
     sign_priority = 8, -- Prioridad de los signos
 
@@ -55,5 +56,37 @@ return {
       max_line_len = 250, -- Reducido para mejor performance
       exclude = {},
     },
-  },
+    })
+
+    -- Crear comandos para insertar TODOs
+    local function insert_todo_comment(keyword)
+      local commentstring = vim.bo.commentstring
+      if commentstring == "" then
+        commentstring = "# %s"
+      end
+
+      local comment = commentstring:format(keyword .. ": ")
+      local line = vim.api.nvim_get_current_line()
+      local indent = line:match("^%s*")
+
+      vim.api.nvim_set_current_line(indent .. comment)
+      vim.cmd("startinsert!")
+    end
+
+    vim.api.nvim_create_user_command("InsertTodo", function()
+      insert_todo_comment("TODO")
+    end, { desc = "Insert TODO comment" })
+
+    vim.api.nvim_create_user_command("InsertFixme", function()
+      insert_todo_comment("FIXME")
+    end, { desc = "Insert FIXME comment" })
+
+    vim.api.nvim_create_user_command("InsertNote", function()
+      insert_todo_comment("NOTE")
+    end, { desc = "Insert NOTE comment" })
+
+    vim.api.nvim_create_user_command("InsertHack", function()
+      insert_todo_comment("HACK")
+    end, { desc = "Insert HACK comment" })
+  end,
 }
