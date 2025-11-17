@@ -19,6 +19,7 @@ return {
         formatters_by_ft.json = { "prettier" }
         formatters_by_ft.yaml = { "prettier" }
         formatters_by_ft.markdown = { "prettier" }
+        formatters_by_ft.zk = { "prettier" }
       end
 
       -- Bash - solo si shfmt está disponible
