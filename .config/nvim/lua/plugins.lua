@@ -30,9 +30,8 @@ require("lazy").setup({
   { import = "config.plugins.todocomments" }, -- TODO comments con fzf-lua
   { import = "config.plugins.mini" }, -- Mini plugins (pairs, etc)
   { import = "config.plugins.gitsigns" }, -- Muestra cambios de git
-  { import = "config.plugins.tiny-inline-diagnostic" }, -- Diagnósticos inline
   { import = "config.plugins.bufferline" }, -- Buffer line mejorada
   { import = "config.plugins.hlslens" }, -- Mejora visual de búsquedas
-  { import = "config.plugins.lightbulb" }, -- Indicador de code actions disponibles
   { import = "config.plugins.notify" }, -- Sistema de notificaciones mejorado
+  { import = "config.plugins.zk" }, -- Zettelkasten y renderizado Markdown
 })
