@@ -25,8 +25,8 @@ return {
 
     -- Botones mejorados con iconos consistentes
     dashboard.section.buttons.val = {
-      dashboard.button("f", "󰈞  Find File", ":FzfLua files<CR>"),
-      dashboard.button("r", "󱋡  Recent Files", ":FzfLua oldfiles<CR>"),
+      dashboard.button("f", "󰈞  Find File", ":lua require('fzf-lua').files({ cwd = vim.fn.getcwd() })<CR>"),
+      dashboard.button("r", "󱋡  Recent Files", ":lua require('fzf-lua').oldfiles({ cwd_only = true })<CR>"),
       dashboard.button("g", "󰷊  Find Text", ":FzfLua live_grep<CR>"),
       dashboard.button("c", "  Configuration", ":FzfLua files cwd=" .. vim.fn.stdpath("config") .. "<CR>"),
       dashboard.button("n", "󰓩  New File", ":enew<CR>"),
