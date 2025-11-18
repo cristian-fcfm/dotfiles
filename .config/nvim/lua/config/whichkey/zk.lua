@@ -113,13 +113,7 @@ wk.add({
   {
     "<leader>zdt",
     function()
-      local today = os.time()
-      local yesterday = os.date("%Y-%m-%d", today - 86400)
-      local tomorrow = os.date("%Y-%m-%d", today + 86400)
-      require("zk").new({
-        dir = "0.reviews/4.daily",
-        extra = { yesterday = yesterday, tomorrow = tomorrow },
-      })
+      require("zktools.dates").create_daily_note(0)
     end,
     desc = "[T]oday",
     icon = "󰃭",
@@ -127,15 +121,7 @@ wk.add({
   {
     "<leader>zdy",
     function()
-      local yesterday_time = os.time() - 86400
-      local day_before = os.date("%Y-%m-%d", yesterday_time - 86400)
-      local today = os.date("%Y-%m-%d", os.time())
-      local yesterday = os.date("%Y-%m-%d", yesterday_time)
-      require("zk").new({
-        dir = "0.reviews/4.daily",
-        date = yesterday,
-        extra = { yesterday = day_before, tomorrow = today },
-      })
+      require("zktools.dates").create_daily_note(-1)
     end,
     desc = "[Y]esterday",
     icon = "󰃮",
@@ -143,15 +129,7 @@ wk.add({
   {
     "<leader>zdm",
     function()
-      local tomorrow_time = os.time() + 86400
-      local today = os.date("%Y-%m-%d", os.time())
-      local tomorrow = os.date("%Y-%m-%d", tomorrow_time)
-      local day_after = os.date("%Y-%m-%d", tomorrow_time + 86400)
-      require("zk").new({
-        dir = "0.reviews/4.daily",
-        date = tomorrow,
-        extra = { yesterday = today, tomorrow = day_after },
-      })
+      require("zktools.dates").create_daily_note(1)
     end,
     desc = "To[m]orrow",
     icon = "󰃯",
@@ -163,5 +141,43 @@ wk.add({
     end,
     desc = "[O]pen daily note",
     icon = "󱨋",
+  },
+
+  -- Weekly notes
+  { "<leader>zw", group = "[W]eekly notes", icon = "󱨳" },
+  {
+    "<leader>zwn",
+    function()
+      require("zktools.dates").create_weekly_note()
+    end,
+    desc = "[N]ew weekly note",
+    icon = "󱘒",
+  },
+  {
+    "<leader>zwo",
+    function()
+      require("zk").edit({ hrefs = { "0.reviews/3.weekly" } }, { multi_select = false })
+    end,
+    desc = "[O]pen weekly note",
+    icon = "󱨋",
+  },
+
+  -- Habits tracker
+  { "<leader>zh", group = "[H]abits tracker", icon = "󰄬" },
+  {
+    "<leader>zhu",
+    function()
+      require("zktools.habits").update_table_in_buffer()
+    end,
+    desc = "[U]pdate habits table",
+    icon = "󰑓",
+  },
+  {
+    "<leader>zhi",
+    function()
+      require("zktools.habits").insert_marker_and_table()
+    end,
+    desc = "[I]nsert habits tracker",
+    icon = "󰄬",
   },
 })
