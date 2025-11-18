@@ -25,11 +25,12 @@ require("lazy").setup({
   { import = "config.plugins.alpha" }, -- Dashboard nvim
   { import = "config.plugins.lsp" }, -- LSP
   { import = "config.plugins.completion" }, -- Completado de codigo
+  { import = "config.plugins.autopairs" }, -- Auto-pairing inteligente
   { import = "config.plugins.formatting" }, -- Formateo de codigo
   { import = "config.plugins.linting" }, -- Linting de codigo
   { import = "config.plugins.slime" }, -- REPL
   { import = "config.plugins.todocomments" }, -- TODO comments con fzf-lua
-  { import = "config.plugins.mini" }, -- Mini plugins (pairs, etc)
+  { import = "config.plugins.mini" }, -- Mini plugins (move, surround, comment, etc)
   { import = "config.plugins.gitsigns" }, -- Muestra cambios de git
   { import = "config.plugins.bufferline" }, -- Buffer line mejorada
   { import = "config.plugins.hlslens" }, -- Mejora visual de búsquedas
