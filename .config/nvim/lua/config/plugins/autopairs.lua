@@ -23,12 +23,7 @@ return {
       },
     })
 
-    -- Integración con blink.cmp
-    local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-    local cmp = require("blink.cmp")
-    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    -- NOTA: Blink.cmp tiene auto_brackets integrado (completion.accept.auto_brackets)
+    -- No requiere integración adicional con nvim-autopairs
   end,
-  dependencies = {
-    "saghen/blink.cmp",
-  },
 }
