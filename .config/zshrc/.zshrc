@@ -16,11 +16,20 @@ export ZSH="$HOME/.oh-my-zsh"
 # Tema - Comentado porque usas Starship
 # ZSH_THEME="robbyrussell"
 
+# ─── Lazy loading para mejor performance ───────────────────────────────────
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+
 # Plugins - Los esenciales para productividad
 plugins=(
     git                      # Aliases útiles para git
     zsh-autosuggestions      # Sugerencias basadas en historial
     zsh-syntax-highlighting  # Resaltado de sintaxis en la terminal
+    sudo                     # Doble ESC para anteponer sudo
+    extract                  # Función universal para extraer archivos
+    command-not-found        # Sugerencias cuando comando no existe
+    colored-man-pages        # Man pages con colores
+    dirhistory              # Alt+Left/Right para navegar directorios
 )
 
 # Configuración de actualizaciones
@@ -45,8 +54,25 @@ export BROWSER=firefox
 export TERMINAL=kitty
 
 # Para mejor integración con herramientas
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "bat --style=numbers --color=always --line-range :500 {}"'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude node_modules'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git --exclude node_modules'
+
+export FZF_DEFAULT_OPTS='
+--height 60%
+--layout=reverse
+--border rounded
+--info=inline
+--preview "bat --style=numbers --color=always --line-range :500 {}"
+--preview-window=right:50%:wrap
+--bind "ctrl-/:toggle-preview"
+--bind "ctrl-u:preview-half-page-up"
+--bind "ctrl-d:preview-half-page-down"
+--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9
+--color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9
+--color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6
+--color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4
+'
 
 # ┌───────────────────────────────────────────────────────────────────────────┐
 # │                              Starship Prompt                               │
@@ -216,6 +242,18 @@ alias glog='git log --oneline --graph --decorate'
 alias lg='lazygit'
 alias lazygit='lazygit'
 
+# ─── Tmux ───────────────────────────────────────────────────────────────────
+alias t='tmux'
+alias ta='tmux attach-session -t'
+alias tls='tmux list-sessions'
+alias tn='tmux new-session -s'
+alias tkill='tmux kill-session -t'
+alias tkillall='tmux kill-server'
+alias tw='tmux new-session -As work -c ~/Documents/development/work'
+alias tp='tmux new-session -As personal -c ~/Documents/development/personal'
+alias tnotes='tmux new-session -As notes'
+alias tconfig='tmux new-session -As config -c ~/Documents/development/personal/dotfiles'
+
 # ─── Neovim ─────────────────────────────────────────────────────────────────
 alias v='nvim'
 alias vi='nvim'
@@ -347,6 +385,44 @@ clone_and_lg() {
     echo " Clonando $repo_name..."
     git clone "$1" && cd "$repo_name" && lazygit
 }
+
+# ─── Funciones Tmux ─────────────────────────────────────────────────────────
+# Función para crear sesión tmux con nombre del proyecto
+tmux-new() {
+    if [ -z "$1" ]; then
+        local session_name=$(basename "$PWD")
+    else
+        local session_name="$1"
+    fi
+    tmux new-session -s "$session_name"
+}
+
+# Función para adjuntar a sesión tmux con fzf
+tmux-attach() {
+    if ! command -v fzf &> /dev/null; then
+        echo " fzf no está instalado. Usa 'ta <nombre>' directamente."
+        return 1
+    fi
+
+    local session
+    session=$(tmux list-sessions -F "#S" 2>/dev/null | fzf --prompt="󱘖 Select tmux session: " --height 40% --border rounded) && tmux attach-session -t "$session"
+}
+
+# Función para matar sesión tmux con fzf
+tmux-kill() {
+    if ! command -v fzf &> /dev/null; then
+        echo " fzf no está instalado. Usa 'tkill <nombre>' directamente."
+        return 1
+    fi
+
+    local session
+    session=$(tmux list-sessions -F "#S" 2>/dev/null | fzf --prompt=" Kill tmux session: " --height 40% --border rounded) && tmux kill-session -t "$session"
+}
+
+# Auto-attach a tmux si no estamos en una sesión (solo en SSH)
+if [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
+    tmux attach-session -t default || tmux new-session -s default
+fi
 
 # ─── Funciones para Data Science ───────────────────────────────────────────
 # Crear proyecto de data science con UV
