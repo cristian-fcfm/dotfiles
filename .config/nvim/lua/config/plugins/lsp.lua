@@ -204,6 +204,14 @@ return {
       vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { strikethrough = true, sp = "gray" })
 
       -- ========================================================================
+      -- CONFIGURACIÓN GLOBAL DE CAPABILITIES
+      -- ========================================================================
+      -- Aplicar capabilities base a todos los servidores LSP
+      vim.lsp.config['*'] = {
+        capabilities = capabilities,
+      }
+
+      -- ========================================================================
       -- HANDLERS PERSONALIZADOS
       -- ========================================================================
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -216,14 +224,6 @@ return {
         border = "single",
         focusable = false,
       })
-
-      -- ========================================================================
-      -- CONFIGURACIÓN GLOBAL DE CAPABILITIES
-      -- ========================================================================
-      -- Aplicar capabilities base a todos los servidores LSP
-      vim.lsp.config['*'] = {
-        capabilities = capabilities,
-      }
 
       -- ========================================================================
       -- CONFIGURACIÓN DE SERVIDORES LSP
