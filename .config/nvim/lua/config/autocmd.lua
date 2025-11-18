@@ -89,6 +89,25 @@ api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
   end,
 })
 
+-- Toggle cursorcolumn en insert mode
+local cursorcolumn_toggle = api.nvim_create_augroup("cursorcolumn_toggle", { clear = true })
+
+api.nvim_create_autocmd("InsertEnter", {
+  group = cursorcolumn_toggle,
+  desc = "Activar cursorcolumn en insert mode",
+  callback = function()
+    vim.wo.cursorcolumn = true
+  end,
+})
+
+api.nvim_create_autocmd("InsertLeave", {
+  group = cursorcolumn_toggle,
+  desc = "Desactivar cursorcolumn al salir de insert mode",
+  callback = function()
+    vim.wo.cursorcolumn = false
+  end,
+})
+
 -- Optimización para archivos grandes (> 0.5MB)
 api.nvim_create_autocmd("BufReadPre", {
   group = api.nvim_create_augroup("large_file", { clear = true }),
