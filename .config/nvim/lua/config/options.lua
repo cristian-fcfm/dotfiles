@@ -1,10 +1,9 @@
 -- Opciones básicas de Neovim
 
 -- Performance y velocidad
-vim.opt.timeoutlen = 500 -- Tiempo en ms para esperar secuencias de teclas mapeadas
+vim.opt.timeoutlen = 300 -- Tiempo en ms para esperar secuencias de teclas mapeadas
 vim.opt.updatetime = 500 -- Tiempo en ms para CursorHold (diagnósticos, gitsigns)
 vim.opt.synmaxcol = 250 -- No resaltar sintaxis después de esta columna (mejora performance)
-vim.opt.lazyredraw = true -- No redibujar pantalla durante macros y comandos
 
 -- UI y apariencia
 vim.opt.number = true -- Mostrar números de línea

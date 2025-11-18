@@ -34,12 +34,38 @@ return {
         dockerls = {},
         lua_ls = {},
       }
+
+      -- Linters
+      local linters = {
+        "ruff", -- Python
+        "shellcheck", -- Bash
+        "yamllint", -- YAML
+        "markdownlint", -- Markdown
+        "hadolint", -- Docker
+        "selene", -- Lua
+      }
+
+      -- Formatters (adicionales a los configurados en conform)
+      local formatters = {
+        "stylua", -- Lua
+        "shfmt", -- Bash
+        "prettier", -- JSON, YAML, Markdown
+      }
+
+      -- Combinar todas las herramientas para mason-tool-installer
+      local tools = vim.tbl_keys(servers)
+      vim.list_extend(tools, linters)
+      vim.list_extend(tools, formatters)
+
       require("mason-lspconfig").setup({
         ensure_installed = vim.tbl_keys(servers),
         automatic_installation = true,
       })
+
       require("mason-tool-installer").setup({
-        ensure_installed = vim.tbl_keys(servers),
+        ensure_installed = tools,
+        auto_update = false,
+        run_on_start = true,
       })
     end,
   },
@@ -114,7 +140,7 @@ return {
         map("K", function()
           vim.lsp.buf.hover({ border = "single", max_height = 20, max_width = 130 })
         end, "Mostrar documentación")
-        map("<C-k>", vim.lsp.buf.signature_help, "Mostrar firma de función")
+        map("<C-K>", vim.lsp.buf.signature_help, "Mostrar firma de función")
 
         -- Diagnósticos
         map("[d", vim.diagnostic.goto_prev, "Diagnóstico anterior")
@@ -192,11 +218,20 @@ return {
       })
 
       -- ========================================================================
+      -- CONFIGURACIÓN GLOBAL DE CAPABILITIES
+      -- ========================================================================
+      -- Aplicar capabilities base a todos los servidores LSP
+      vim.lsp.config['*'] = {
+        capabilities = capabilities,
+      }
+
+      -- ========================================================================
       -- CONFIGURACIÓN DE SERVIDORES LSP
       -- ========================================================================
 
       -- Python
       vim.lsp.config.basedpyright = {
+        capabilities = python_capabilities,
         cmd = { "basedpyright-langserver", "--stdio" },
         filetypes = { "python" },
         root_markers = {
@@ -219,6 +254,14 @@ return {
               diagnosticMode = "workspace",
               diagnosticSeverityOverrides = {
                 deprecateTypingAliases = false,
+                reportUnusedImport = "information",
+                reportUnusedVariable = "warning",
+              },
+              inlayHints = {
+                variableTypes = true,
+                functionReturnTypes = true,
+                callArgumentNames = true,
+                parameterTypes = true,
               },
             },
           },
@@ -327,14 +370,6 @@ return {
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           local bufnr = args.buf
           if client then
-            -- Aplicar capabilities personalizados para Python
-            if client.name == "basedpyright" then
-              client.server_capabilities =
-                vim.tbl_deep_extend("force", client.server_capabilities or {}, python_capabilities)
-            else
-              client.server_capabilities = vim.tbl_deep_extend("force", client.server_capabilities or {}, capabilities)
-            end
-
             on_attach(client, bufnr)
           end
         end,

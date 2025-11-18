@@ -7,6 +7,7 @@ return {
       local utils = require("utils")
 
       -- Configura formatters dinámicamente según disponibilidad
+      -- Nota: Los formatters se instalan automáticamente vía mason-tool-installer (ver lsp.lua)
       local formatters_by_ft = {}
 
       -- Python - solo si ruff está disponible
