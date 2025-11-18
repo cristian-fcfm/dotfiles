@@ -101,7 +101,13 @@ return {
         map("gn", vim.lsp.buf.rename, "Renombrar")
         map("ga", vim.lsp.buf.code_action, "Code actions", { "n", "x" })
         map("gf", function()
-          require("conform").format({ async = true, lsp_format = "fallback" })
+          require("conform").format({ async = true, lsp_format = "fallback" }, function(err)
+            if err then
+              vim.notify("Error al formatear: " .. tostring(err), vim.log.levels.ERROR)
+            else
+              vim.notify("✓ Formateado exitosamente", vim.log.levels.INFO)
+            end
+          end)
         end, "Formatear")
 
         -- Documentación
