@@ -17,14 +17,6 @@ return {
     end,
   },
 
-  -- Mini.pairs: Auto-pairing de brackets, comillas, etc.
-  {
-    "echasnovski/mini.pairs",
-    version = false,
-    event = "InsertEnter",
-    -- Optimización: Usar opts en lugar de config para evitar función anónima
-    opts = {},
-  },
 
   -- Mini.move: Mover líneas y bloques de texto
   {
