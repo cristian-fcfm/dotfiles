@@ -35,10 +35,18 @@ return {
 
       require("conform").setup({
         formatters_by_ft = formatters_by_ft,
-        format_on_save = {
-          timeout_ms = 2000,
-          lsp_format = "fallback",
-        },
+        format_on_save = function(bufnr)
+          return {
+            timeout_ms = 2000,
+            lsp_format = "fallback",
+          }, function(err)
+            if err then
+              vim.notify("Error al formatear: " .. tostring(err), vim.log.levels.ERROR)
+            else
+              vim.notify("✓ Formateado exitosamente", vim.log.levels.INFO)
+            end
+          end
+        end,
         formatters = {
           shfmt = {
             prepend_args = { "-i", "2" },
