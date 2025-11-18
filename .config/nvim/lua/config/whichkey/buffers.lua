@@ -13,6 +13,4 @@ wk.add({
   -- Buffer navigation
   { "<Tab>", "<cmd>BufferLineCycleNext<CR>", desc = "Next buffer", icon = "󰒭" },
   { "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer", icon = "󰒮" },
-  { "<S-l>", "<cmd>BufferLineCycleNext<CR>", desc = "Next buffer", icon = "󰒭" },
-  { "<S-h>", "<cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer", icon = "󰒮" },
 })
