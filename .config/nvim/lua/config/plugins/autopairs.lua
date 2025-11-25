@@ -10,7 +10,7 @@ return {
         javascript = { "template_string" },
         python = { "string" },
       },
-      disable_filetype = { "TelescopePrompt", "vim", "fzf" },
+      disable_filetype = { "vim", "fzf" },
       fast_wrap = {
         map = "<M-e>", -- Alt+e para envolver rápido
         chars = { "{", "[", "(", '"', "'" },
@@ -22,8 +22,5 @@ return {
         highlight_grey = "Comment",
       },
     })
-
-    -- NOTA: Blink.cmp tiene auto_brackets integrado (completion.accept.auto_brackets)
-    -- No requiere integración adicional con nvim-autopairs
   end,
 }

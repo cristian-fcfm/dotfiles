@@ -1,7 +1,3 @@
-------------------------------------------------------------------------
---                      Autocmds generales útiles                     --
-------------------------------------------------------------------------
-
 local api = vim.api
 local utils = require("utils")
 
@@ -133,7 +129,7 @@ api.nvim_create_autocmd("BufRead", {
   callback = function()
     local exclude_ft = { "oil", "alpha" }
     if not vim.tbl_contains(exclude_ft, vim.bo.filetype) and vim.bo.fileencoding ~= "utf-8" then
-      vim.notify("⚠️  Archivo no está en UTF-8: " .. vim.bo.fileencoding, vim.log.levels.WARN)
+      vim.notify("Archivo no está en UTF-8: " .. vim.bo.fileencoding, vim.log.levels.WARN)
     end
   end,
 })
