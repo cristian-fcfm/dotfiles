@@ -74,6 +74,15 @@ return {
     end,
   },
 
+  -- Parser de D2 para treesitter
+  {
+    "ravsii/tree-sitter-d2",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    version = "*", -- usa el último tag en lugar de main
+    build = "make nvim-install",
+    ft = { "d2" },
+  },
+
   -- Treesitter textobjects para movimiento y selección avanzada
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
