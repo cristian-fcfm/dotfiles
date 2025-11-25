@@ -33,6 +33,9 @@ return {
       formatters_by_ft.lua = { "stylua" }
     end
 
+    -- Typst - usa el formateador del LSP (tinymist con typstyle integrado)
+    formatters_by_ft.typst = { "lsp_format" }
+
     require("conform").setup({
       formatters_by_ft = formatters_by_ft,
       format_on_save = function(bufnr)
