@@ -25,7 +25,7 @@ return {
         diagnostics = false,
         custom_filter = function(bufnr)
           -- Filtrar buffers que no queremos mostrar
-          local exclude_ft = { "qf", "fugitive", "git", "alpha" }
+          local exclude_ft = { "fugitive", "git", "alpha" }
           local cur_ft = vim.bo[bufnr].filetype
           local should_filter = vim.tbl_contains(exclude_ft, cur_ft)
 

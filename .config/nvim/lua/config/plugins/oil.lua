@@ -2,7 +2,6 @@ return {
   "stevearc/oil.nvim",
   ---@module 'oil'
   ---@type oil.SetupOpts
-  -- Lazy-loading: cargar al usar comandos o keymaps
   cmd = "Oil",
   keys = {
     { ".", "<cmd>Oil<cr>", desc = "Open Oil (normal)" },

@@ -1,25 +1,16 @@
 local utils = require("utils")
 
-------------------------------------------------------------------------
---                          custom variables                          --
-------------------------------------------------------------------------
--- Detección de sistema operativo (útil para configuraciones específicas)
+-- Detección de sistema operativo
 vim.g.is_win = (utils.has("win32") or utils.has("win64")) and true or false
 vim.g.is_linux = (utils.has("unix") and (not utils.has("macunix"))) and true or false
 vim.g.is_mac = utils.has("macunix") and true or false
 
-------------------------------------------------------------------------
---                    desactivar providers innecesarios               --
-------------------------------------------------------------------------
--- Mejora significativamente el tiempo de inicio
+-- Desactivar providers innecesarios
 vim.g.loaded_perl_provider = 0 -- Desactivar provider de Perl
 vim.g.loaded_ruby_provider = 0 -- Desactivar provider de Ruby
 vim.g.loaded_node_provider = 0 -- Desactivar provider de Node.js
 
-------------------------------------------------------------------------
---                   desactivar plugins builtin                       --
-------------------------------------------------------------------------
--- Desactivar netrw (usamos oil.nvim como explorador de archivos)
+-- Desactivar netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 

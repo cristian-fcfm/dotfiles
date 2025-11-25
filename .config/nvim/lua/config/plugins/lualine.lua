@@ -1,4 +1,3 @@
--- Plugin para la barra de estado lualine
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
