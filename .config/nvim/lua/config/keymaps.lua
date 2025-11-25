@@ -6,44 +6,44 @@ vim.g.maplocalleader = " "
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- Disable the spacebar key's default behavior in Normal and Visual modes
+-- Deshabilitar comportamiento por defecto de la barra espaciadora en modos Normal y Visual
 map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
--- save file
+-- Guardar archivo
 map("n", "<C-s>", "<cmd> w <CR>", opts)
 
--- save file without auto-formatting
+-- Guardar archivo sin auto-formateo
 map("n", "<C-S-s>", "<cmd>noautocmd w <CR>", opts)
 
--- quit file
+-- Salir del archivo
 map("n", "<C-q>", "<cmd> q <CR>", opts)
 
--- Vertical scroll and center
+-- Scroll vertical y centrar
 map("n", "<C-d>", "<C-d>zz", opts)
 map("n", "<C-u>", "<C-u>zz", opts)
 
--- Fast line navigation
+-- Navegación rápida de línea
 map({ "n", "v" }, "H", "^", opts)
 map({ "n", "v" }, "L", "$", opts)
 
--- Navigate between splits
+-- Navegar entre splits
 map("n", "<C-k>", ":wincmd k<CR>", opts)
 map("n", "<C-j>", ":wincmd j<CR>", opts)
 map("n", "<C-h>", ":wincmd h<CR>", opts)
 map("n", "<C-l>", ":wincmd l<CR>", opts)
 
--- Toggle line wrapping
+-- Alternar line wrapping
 map("n", "lw", "<cmd>set wrap!<CR>", opts)
 
--- Stay in indent mode
+-- Permanecer en modo indent
 map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)
 
--- Keep last yanked when pasting
+-- Mantener último yank al pegar
 map("v", "p", '"_dP', opts)
 
--- Turn the word under cursor to upper case (Insert mode)
+-- Convertir la palabra bajo el cursor a mayúsculas (modo Insert)
 map("i", "<A-u>", "<Esc>viwUea", opts)
 
--- Turn the current word into title case (Insert mode)
+-- Convertir la palabra actual a título (modo Insert)
 map("i", "<A-t>", "<Esc>b~lea", opts)
