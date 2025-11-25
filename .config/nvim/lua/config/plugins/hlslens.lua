@@ -53,20 +53,20 @@ return {
     -- Navegación básica
     vim.keymap.set("n", "n", function()
       activate_hlslens("n")
-    end, { desc = "Next search result" })
+    end, { desc = "Siguiente resultado de búsqueda" })
 
     vim.keymap.set("n", "N", function()
       activate_hlslens("N")
-    end, { desc = "Previous search result" })
+    end, { desc = "Resultado anterior de búsqueda" })
 
     -- Búsqueda de palabra bajo cursor
     vim.keymap.set("n", "*", function()
       search_word("forward")
-    end, { desc = "Search word under cursor forward" })
+    end, { desc = "Buscar palabra bajo cursor hacia adelante" })
 
     vim.keymap.set("n", "#", function()
       search_word("backward")
-    end, { desc = "Search word under cursor backward" })
+    end, { desc = "Buscar palabra bajo cursor hacia atrás" })
 
     vim.keymap.set("n", "g*", function()
       local cursor_word_empty, cursor_word = check_cursor_word()
@@ -77,7 +77,7 @@ return {
       local escaped_enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
       vim.fn.execute(cmd .. escaped_enter .. "N")
       hlslens.start()
-    end, { desc = "Search word under cursor (no boundary)" })
+    end, { desc = "Buscar palabra bajo cursor (sin límites)" })
 
     vim.keymap.set("n", "g#", function()
       local cursor_word_empty, cursor_word = check_cursor_word()
@@ -88,7 +88,7 @@ return {
       local escaped_enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
       vim.fn.execute(cmd .. escaped_enter .. "N")
       hlslens.start()
-    end, { desc = "Search word under cursor backward (no boundary)" })
+    end, { desc = "Buscar palabra bajo cursor hacia atrás (sin límites)" })
 
     -- Auto-start hlslens cuando inicias búsqueda con / o ?
     vim.api.nvim_create_autocmd("CmdlineEnter", {
