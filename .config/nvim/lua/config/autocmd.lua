@@ -137,3 +137,13 @@ api.nvim_create_autocmd("BufRead", {
     end
   end,
 })
+
+-- Activar spell check para Markdown y archivos Zettelkasten
+api.nvim_create_autocmd("FileType", {
+  group = api.nvim_create_augroup("markdown_spell", { clear = true }),
+  desc = "Activar corrección ortográfica en Markdown y Zettelkasten",
+  pattern = { "markdown", "zk" },
+  callback = function()
+    vim.opt_local.spell = true
+  end,
+})
