@@ -1,19 +1,19 @@
 local wk = require("which-key")
 
 wk.add({
-  { "<leader>t", group = "TODO", icon = "" },
+  { "<leader>T", group = "TODO", icon = "" },
 
   -- Búsqueda de TODOs
-  { "<leader>ts", "<cmd>TodoFzfLua<cr>", desc = "Search TODOs", icon = "󱎸" },
-  { "<leader>tl", "<cmd>TodoLocList<cr>", desc = "TODOs in location list", icon = "" },
-  { "<leader>tq", "<cmd>TodoQuickFix<cr>", desc = "TODOs in quickfix", icon = "󱃕" },
+  { "<leader>Ts", "<cmd>TodoFzfLua<cr>", desc = "Search TODOs", icon = "󱎸" },
+  { "<leader>Tl", "<cmd>TodoLocList<cr>", desc = "TODOs in location list", icon = "" },
+  { "<leader>Tq", "<cmd>TodoQuickFix<cr>", desc = "TODOs in quickfix", icon = "󱃕" },
 
   -- Insertar TODOs rápidamente
-  { "<leader>ti", group = "Insert TODO", icon = "" },
-  { "<leader>tit", "<cmd>InsertTodo<cr>", desc = "Insert TODO", icon = "" },
-  { "<leader>tif", "<cmd>InsertFixme<cr>", desc = "Insert FIXME", icon = "󰁨" },
-  { "<leader>tin", "<cmd>InsertNote<cr>", desc = "Insert NOTE", icon = "" },
-  { "<leader>tih", "<cmd>InsertHack<cr>", desc = "Insert HACK", icon = "" },
+  { "<leader>Ti", group = "Insert TODO", icon = "" },
+  { "<leader>Tit", "<cmd>InsertTodo<cr>", desc = "Insert TODO", icon = "" },
+  { "<leader>Tif", "<cmd>InsertFixme<cr>", desc = "Insert FIXME", icon = "󰁨" },
+  { "<leader>Tin", "<cmd>InsertNote<cr>", desc = "Insert NOTE", icon = "" },
+  { "<leader>Tih", "<cmd>InsertHack<cr>", desc = "Insert HACK", icon = "" },
 
   -- Navegación rápida con atajos cortos (estilo treesitter)
   -- Todos los TODOs (cualquier tipo)
