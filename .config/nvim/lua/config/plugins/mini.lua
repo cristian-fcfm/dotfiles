@@ -17,7 +17,6 @@ return {
     end,
   },
 
-
   -- Mini.move: Mover líneas y bloques de texto
   {
     "echasnovski/mini.move",
@@ -55,14 +54,10 @@ return {
         pattern = {
           "help",
           "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
           "trouble",
           "lazy",
           "mason",
           "notify",
-          "toggleterm",
           "fzf",
           "oil",
         },
@@ -78,20 +73,20 @@ return {
     "echasnovski/mini.surround",
     version = false,
     keys = {
-      { "sa", mode = { "n", "v" }, desc = "Add surrounding" },
-      { "sd", mode = "n", desc = "Delete surrounding" },
-      { "sr", mode = "n", desc = "Replace surrounding" },
-      { "sf", mode = "n", desc = "Find surrounding" },
-      { "sh", mode = "n", desc = "Highlight surrounding" },
+      { "sa", mode = { "n", "v" }, desc = "Agregar surrounding" },
+      { "sd", mode = "n", desc = "Eliminar surrounding" },
+      { "sr", mode = "n", desc = "Reemplazar surrounding" },
+      { "sf", mode = "n", desc = "Buscar surrounding" },
+      { "sh", mode = "n", desc = "Resaltar surrounding" },
     },
     opts = {
       mappings = {
-        add = "sa",            -- Add surrounding in Normal and Visual modes
-        delete = "sd",         -- Delete surrounding
-        find = "sf",           -- Find surrounding (to the right)
-        find_left = "sF",      -- Find surrounding (to the left)
-        highlight = "sh",      -- Highlight surrounding
-        replace = "sr",        -- Replace surrounding
+        add = "sa", -- Add surrounding in Normal and Visual modes
+        delete = "sd", -- Delete surrounding
+        find = "sf", -- Find surrounding (to the right)
+        find_left = "sF", -- Find surrounding (to the left)
+        highlight = "sh", -- Highlight surrounding
+        replace = "sr", -- Replace surrounding
         update_n_lines = "sn", -- Update `n_lines`
       },
     },
@@ -110,10 +105,10 @@ return {
         end,
       },
       mappings = {
-        comment = "gc",      -- Toggle comment en Normal y Visual
+        comment = "gc", -- Toggle comment en Normal y Visual
         comment_line = "gcc", -- Toggle comment de línea actual
         comment_visual = "gc", -- Toggle comment en Visual mode
-        textobject = "gc",   -- Text object de comentario
+        textobject = "gc", -- Text object de comentario
       },
     },
     dependencies = {
