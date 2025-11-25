@@ -43,5 +43,6 @@ return {
     require("config.whichkey.git")
     require("config.whichkey.lsp")
     require("config.whichkey.zk")
+    require("config.whichkey.d2")
   end,
 }
