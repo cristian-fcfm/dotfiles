@@ -26,5 +26,5 @@ require("plugins")
 
 -- Verifica dependencias opcionales después de cargar plugins
 vim.defer_fn(function()
-  require("config.healthcheck").check_optional_deps()
+  require("config.healthcheck").run_check()
 end, 1000)
