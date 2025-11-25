@@ -31,6 +31,7 @@ return {
         "regex",
         "sql",
         "toml",
+        "typst",
         "vim",
         "vimdoc",
         "xml",

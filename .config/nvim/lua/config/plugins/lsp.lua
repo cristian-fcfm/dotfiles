@@ -33,6 +33,7 @@ return {
         marksman = {},
         dockerls = {},
         lua_ls = {},
+        tinymist = {},
       }
 
       -- Linters
@@ -207,7 +208,7 @@ return {
       -- CONFIGURACIÓN GLOBAL DE CAPABILITIES
       -- ========================================================================
       -- Aplicar capabilities base a todos los servidores LSP
-      vim.lsp.config['*'] = {
+      vim.lsp.config["*"] = {
         capabilities = capabilities,
       }
 
@@ -326,7 +327,7 @@ return {
         settings = {},
       }
 
-      -- Lua
+      -- Lua (configuración específica en .luarc.json)
       vim.lsp.config.lua_ls = {
         cmd = { "lua-language-server" },
         filetypes = { "lua" },
@@ -342,25 +343,37 @@ return {
         },
         settings = {
           Lua = {
-            runtime = { version = "LuaJIT" },
-            diagnostics = {
-              globals = { "vim", "require" },
-              disable = { "missing-fields" },
-            },
-            workspace = {
-              library = vim.api.nvim_get_runtime_file("", true),
-              checkThirdParty = false,
-            },
             telemetry = { enable = false },
             format = { enable = false },
           },
         },
       }
 
+      -- Typst
+      vim.lsp.config.tinymist = {
+        cmd = { "tinymist" },
+        filetypes = { "typst" },
+        root_markers = { ".git" },
+        settings = {
+          exportPdf = "never",
+          formatterMode = "typstyle",
+        },
+      }
+
       -- ========================================================================
       -- HABILITAR SERVIDORES
       -- ========================================================================
-      vim.lsp.enable({ "basedpyright", "bashls", "jsonls", "yamlls", "dockerls", "marksman", "zk", "lua_ls" })
+      vim.lsp.enable({
+        "basedpyright",
+        "bashls",
+        "jsonls",
+        "yamlls",
+        "dockerls",
+        "marksman",
+        "zk",
+        "lua_ls",
+        "tinymist",
+      })
 
       -- ========================================================================
       -- AUTOCOMMAND LSPATTACH
@@ -380,23 +393,23 @@ return {
       -- ========================================================================
       vim.api.nvim_create_user_command("DiagnosticsToggle", function()
         vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-      end, { desc = "Toggle diagnostics on/off" })
+      end, { desc = "Alternar diagnósticos" })
 
       vim.api.nvim_create_user_command("DiagnosticsDisable", function()
         vim.diagnostic.enable(false)
-      end, { desc = "Disable diagnostics" })
+      end, { desc = "Deshabilitar diagnósticos" })
 
       vim.api.nvim_create_user_command("DiagnosticsEnable", function()
         vim.diagnostic.enable(true)
-      end, { desc = "Enable diagnostics" })
+      end, { desc = "Habilitar diagnósticos" })
 
       vim.api.nvim_create_user_command("DiagnosticsDisableBuffer", function()
         vim.diagnostic.enable(false, { bufnr = 0 })
-      end, { desc = "Disable diagnostics for current buffer" })
+      end, { desc = "Deshabilitar diagnósticos para el buffer actual" })
 
       vim.api.nvim_create_user_command("DiagnosticsEnableBuffer", function()
         vim.diagnostic.enable(true, { bufnr = 0 })
-      end, { desc = "Enable diagnostics for current buffer" })
+      end, { desc = "Habilitar diagnósticos para el buffer actual" })
     end,
   },
 }
