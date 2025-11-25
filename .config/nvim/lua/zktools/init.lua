@@ -8,5 +8,6 @@ M.frontmatter = require("zktools.frontmatter")
 M.habits = require("zktools.habits")
 M.utils = require("zktools.utils")
 M.dates = require("zktools.dates")
+M.projects = require("zktools.projects")
 
 return M
