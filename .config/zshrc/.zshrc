@@ -53,6 +53,9 @@ export VISUAL=nvim
 export BROWSER=firefox
 export TERMINAL=kitty
 
+# Zk notebook directory
+export ZK_NOTEBOOK_DIR="$HOME/Documents/notes"
+
 # Para mejor integración con herramientas
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude node_modules'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
