@@ -26,7 +26,7 @@ return {
     },
     config = function()
       local servers = {
-        basedpyright = {},
+        pyrefly = {},
         bashls = {},
         jsonls = {},
         yamlls = {},
@@ -89,14 +89,6 @@ return {
       -- ========================================================================
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
-
-      local python_capabilities = vim.tbl_deep_extend("force", capabilities, {
-        textDocument = {
-          publishDiagnostics = {
-            tagSupport = { valueSet = { 2 } },
-          },
-        },
-      })
 
       -- ========================================================================
       -- ON_ATTACH - KEYMAPS Y CONFIGURACIÓN POR CLIENTE
@@ -231,9 +223,8 @@ return {
       -- ========================================================================
 
       -- Python
-      vim.lsp.config.basedpyright = {
-        capabilities = python_capabilities,
-        cmd = { "basedpyright-langserver", "--stdio" },
+      vim.lsp.config.pyrefly = {
+        cmd = { "uvx", "pyrefly", "lsp" },
         filetypes = { "python" },
         root_markers = {
           "pyproject.toml",
@@ -241,32 +232,8 @@ return {
           "setup.cfg",
           "requirements.txt",
           "Pipfile",
-          "pyrightconfig.json",
         },
-        settings = {
-          basedpyright = {
-            disableOrganizeImports = true,
-            disableTaggedHints = false,
-            analysis = {
-              typeCheckingMode = "standard",
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-              autoImportCompletions = true,
-              diagnosticMode = "workspace",
-              diagnosticSeverityOverrides = {
-                deprecateTypingAliases = false,
-                reportUnusedImport = "information",
-                reportUnusedVariable = "warning",
-              },
-              inlayHints = {
-                variableTypes = true,
-                functionReturnTypes = true,
-                callArgumentNames = true,
-                parameterTypes = true,
-              },
-            },
-          },
-        },
+        settings = {},
       }
 
       -- Bash
@@ -364,7 +331,7 @@ return {
       -- HABILITAR SERVIDORES
       -- ========================================================================
       vim.lsp.enable({
-        "basedpyright",
+        "pyrefly",
         "bashls",
         "jsonls",
         "yamlls",
