@@ -34,6 +34,7 @@ return {
         dockerls = {},
         lua_ls = {},
         tinymist = {},
+        rust_analyzer = {},
       }
 
       -- Linters
@@ -327,6 +328,37 @@ return {
         },
       }
 
+      -- Rust
+      vim.lsp.config.rust_analyzer = {
+        cmd = { "rust-analyzer" },
+        filetypes = { "rust" },
+        root_markers = { "Cargo.toml", "rust-project.json" },
+        settings = {
+          ["rust-analyzer"] = {
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
+              buildScripts = {
+                enable = true,
+              },
+            },
+            checkOnSave = {
+              command = "clippy",
+              extraArgs = { "--all", "--", "-W", "clippy::all" },
+            },
+            procMacro = {
+              enable = true,
+            },
+            diagnostics = {
+              enable = true,
+              experimental = {
+                enable = true,
+              },
+            },
+          },
+        },
+      }
+
       -- ========================================================================
       -- HABILITAR SERVIDORES
       -- ========================================================================
@@ -340,6 +372,7 @@ return {
         "zk",
         "lua_ls",
         "tinymist",
+        "rust_analyzer",
       })
 
       -- ========================================================================
