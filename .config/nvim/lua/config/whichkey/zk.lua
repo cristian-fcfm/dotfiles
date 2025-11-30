@@ -218,22 +218,6 @@ wk.add({
     desc = "[O]pen project",
     icon = "󱨋",
   },
-  {
-    "<leader>zps",
-    function()
-      require("zktools.projects").search_projects()
-    end,
-    desc = "[S]earch projects",
-    icon = "󱙓",
-  },
-  {
-    "<leader>zpm",
-    function()
-      require("zktools.projects").create_meeting_interactive()
-    end,
-    desc = "New [M]eeting",
-    icon = "󰥔",
-  },
 
   -- Areas
   { "<leader>za", group = "[A]reas", icon = "󰹕" },
@@ -265,75 +249,11 @@ wk.add({
     icon = "󱘒",
   },
   {
-    "<leader>zrz",
-    function()
-      require("zktools.projects").create_zettel()
-    end,
-    desc = "New [Z]ettel",
-    icon = "󱞁",
-  },
-  {
     "<leader>zro",
     function()
       require("zktools.projects").open_resources()
     end,
     desc = "[O]pen resources",
     icon = "󱨋",
-  },
-  {
-    "<leader>zrl",
-    function()
-      require("zk").pick_notes({ tags = { "zettel" } }, { multi_select = false }, function(notes)
-        require("zk").insert_link(notes)
-      end)
-    end,
-    desc = "[L]ink to zettel",
-    icon = "󰹕",
-  },
-  {
-    "<leader>zrg",
-    function()
-      require("zk").edit({ tags = { "zettel" }, linkedBy = { vim.api.nvim_buf_get_name(0) } }, { multi_select = false })
-    end,
-    desc = "Zettel [G]raph (backlinks)",
-    icon = "󰘦",
-  },
-
-  -- Archives
-  { "<leader>zx", group = "Archi[x]e", icon = "󰮁" },
-  {
-    "<leader>zxo",
-    function()
-      require("zktools.projects").open_archives()
-    end,
-    desc = "[O]pen archives",
-    icon = "󱨋",
-  },
-  {
-    "<leader>zxa",
-    function()
-      require("zktools.projects").archive_current_note()
-    end,
-    desc = "[A]rchive current",
-    icon = "󰮁",
-  },
-
-  -- Habits tracker
-  { "<leader>zh", group = "[H]abits tracker", icon = "󰄬" },
-  {
-    "<leader>zhu",
-    function()
-      require("zktools.habits").update_table_in_buffer()
-    end,
-    desc = "[U]pdate habits table",
-    icon = "󰑓",
-  },
-  {
-    "<leader>zhi",
-    function()
-      require("zktools.habits").insert_marker_and_table()
-    end,
-    desc = "[I]nsert habits tracker",
-    icon = "󰄬",
   },
 })
