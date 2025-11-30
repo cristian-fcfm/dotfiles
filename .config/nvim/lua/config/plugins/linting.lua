@@ -43,6 +43,11 @@ return {
       linters_by_ft.lua = { "luacheck" }
     end
 
+    -- Rust - clippy para linting (requiere rustup)
+    if utils.executable("cargo") then
+      linters_by_ft.rust = { "clippy" }
+    end
+
     lint.linters_by_ft = linters_by_ft
 
     -- Autocommands para ejecutar linting

@@ -33,6 +33,11 @@ return {
       formatters_by_ft.lua = { "stylua" }
     end
 
+    -- Rust - solo si rustfmt está disponible
+    if utils.executable("rustfmt") then
+      formatters_by_ft.rust = { "rustfmt" }
+    end
+
     -- Typst - usa el formateador del LSP (tinymist con typstyle integrado)
     formatters_by_ft.typst = { "lsp_format" }
 
