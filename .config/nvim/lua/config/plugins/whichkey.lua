@@ -45,5 +45,6 @@ return {
     require("config.whichkey.zk")
     require("config.whichkey.d2")
     require("config.whichkey.typst")
+    require("config.whichkey.trouble")
   end,
 }

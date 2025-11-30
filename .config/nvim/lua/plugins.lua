@@ -40,4 +40,5 @@ require("lazy").setup({
   { import = "config.plugins.d2" }, -- D2 para diagramas de arquitectura cloud
   { import = "config.plugins.typst" }, -- Typst para composición tipográfica
   { import = "config.plugins.pqf" }, -- Mejora visual del quickfix list
+  { import = "config.plugins.trouble" }, -- Diagnósticos LSP y navegación
 })
