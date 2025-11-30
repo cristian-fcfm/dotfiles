@@ -37,6 +37,7 @@ require("lazy").setup({
   { import = "config.plugins.hlslens" }, -- Mejora visual de búsquedas
   { import = "config.plugins.notify" }, -- Sistema de notificaciones mejorado
   { import = "config.plugins.zk" }, -- Zettelkasten y renderizado Markdown
+  { import = "config.plugins.livepreview" }, -- Live preview para Markdown/HTML
   { import = "config.plugins.d2" }, -- D2 para diagramas de arquitectura cloud
   { import = "config.plugins.typst" }, -- Typst para composición tipográfica
   { import = "config.plugins.pqf" }, -- Mejora visual del quickfix list

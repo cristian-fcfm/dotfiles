@@ -2,7 +2,7 @@ return {
   -- zk-nvim: note-taking with zk
   {
     "zk-org/zk-nvim",
-    cmd = { "ZkNew", "ZkNotes", "ZkTags", "ZkMatch" },
+    cmd = { "ZkNew", "ZkNotes", "ZkTags", "ZkMatch", "ZkCd" },
     ft = "zk",
     config = function()
       require("zk").setup({
