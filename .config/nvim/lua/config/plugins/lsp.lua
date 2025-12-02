@@ -80,10 +80,9 @@ return {
       { "williamboman/mason-lspconfig.nvim" },
       { "j-hui/fidget.nvim", opts = {} },
       { "b0o/schemastore.nvim", lazy = true },
-      { "ibhagwan/fzf-lua" },
     },
     config = function()
-      local fzf = require("fzf-lua")
+      -- Snacks picker es usado para navegación LSP
 
       -- ========================================================================
       -- CAPABILITIES
@@ -107,15 +106,15 @@ return {
 
         -- ===== Keymaps generales para todos los LSP =====
         -- Navegación
-        map("gd", fzf.lsp_definitions, "Ir a definición")
-        map("gr", fzf.lsp_references, "Ir a referencias")
-        map("gI", fzf.lsp_implementations, "Ir a implementación")
-        map("gy", fzf.lsp_typedefs, "Definición de tipo")
+        map("gd", function() Snacks.picker.lsp_definitions() end, "Ir a definición")
+        map("gr", function() Snacks.picker.lsp_references() end, "Ir a referencias")
+        map("gI", function() Snacks.picker.lsp_implementations() end, "Ir a implementación")
+        map("gy", function() Snacks.picker.lsp_type_definitions() end, "Definición de tipo")
         map("gD", vim.lsp.buf.declaration, "Ir a declaración")
 
         -- Símbolos
-        map("gs", fzf.lsp_document_symbols, "Símbolos del documento")
-        map("gS", fzf.lsp_live_workspace_symbols, "Símbolos del workspace")
+        map("gs", function() Snacks.picker.lsp_symbols() end, "Símbolos del documento")
+        map("gS", function() Snacks.picker.lsp_workspace_symbols() end, "Símbolos del workspace")
 
         -- Acciones
         map("gn", vim.lsp.buf.rename, "Renombrar")
@@ -287,14 +286,6 @@ return {
         root_markers = { ".marksman.toml" },
       }
 
-      -- Zk (Zettelkasten)
-      vim.lsp.config.zk = {
-        cmd = { "zk", "lsp" },
-        filetypes = { "zk" },
-        root_markers = { ".zk" },
-        settings = {},
-      }
-
       -- Lua (configuración específica en .luarc.json)
       vim.lsp.config.lua_ls = {
         cmd = { "lua-language-server" },
@@ -369,7 +360,6 @@ return {
         "yamlls",
         "dockerls",
         "marksman",
-        "zk",
         "lua_ls",
         "tinymist",
         "rust_analyzer",
