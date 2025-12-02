@@ -1,23 +1,11 @@
 return {
-  -- zk-nvim: note-taking with zk
-  {
-    "zk-org/zk-nvim",
-    cmd = { "ZkNew", "ZkNotes", "ZkTags", "ZkMatch", "ZkCd" },
-    ft = "zk",
-    config = function()
-      require("zk").setup({
-        picker = "fzf_lua",
-      })
-    end,
-  },
-
   -- Markdown preview and rendering
   {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    ft = { "markdown", "zk" },
+    ft = { "markdown" },
     opts = {
-      file_types = { "markdown", "zk" },
+      file_types = { "markdown" },
       code = {
         sign = false,
         width = "block",

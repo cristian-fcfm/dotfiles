@@ -40,11 +40,11 @@ return {
     require("config.whichkey.fzflua")
     require("config.whichkey.todocomments")
     require("config.whichkey.buffers")
+    require("config.whichkey.explorer")
     require("config.whichkey.git")
     require("config.whichkey.lsp")
-    require("config.whichkey.zk")
-    require("config.whichkey.d2")
-    require("config.whichkey.typst")
     require("config.whichkey.trouble")
+    require("config.whichkey.typst")
+    require("config.whichkey.snacks")
   end,
 }

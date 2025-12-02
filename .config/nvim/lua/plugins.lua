@@ -22,7 +22,6 @@ require("lazy").setup({
   { import = "config.plugins.fzflua" }, -- Buscador tipo fuzzy
   { import = "config.plugins.oil" }, -- Explorador de archivos
   { import = "config.plugins.lualine" }, -- Barra de estado
-  { import = "config.plugins.alpha" }, -- Dashboard nvim
   { import = "config.plugins.lsp" }, -- LSP
   { import = "config.plugins.completion" }, -- Completado de codigo
   { import = "config.plugins.autopairs" }, -- Auto-pairing inteligente
@@ -35,11 +34,10 @@ require("lazy").setup({
   { import = "config.plugins.gitsigns" }, -- Muestra cambios de git
   { import = "config.plugins.bufferline" }, -- Buffer line mejorada
   { import = "config.plugins.hlslens" }, -- Mejora visual de búsquedas
-  { import = "config.plugins.notify" }, -- Sistema de notificaciones mejorado
-  { import = "config.plugins.zk" }, -- Zettelkasten y renderizado Markdown
+  { import = "config.plugins.markdown" }, -- Renderizado Markdown
   { import = "config.plugins.livepreview" }, -- Live preview para Markdown/HTML
-  { import = "config.plugins.d2" }, -- D2 para diagramas de arquitectura cloud
   { import = "config.plugins.typst" }, -- Typst para composición tipográfica
   { import = "config.plugins.pqf" }, -- Mejora visual del quickfix list
   { import = "config.plugins.trouble" }, -- Diagnósticos LSP y navegación
+  { import = "config.plugins.snacks" }, -- Snacks: QoL plugins (image, bigfile, notifier, etc.)
 })
