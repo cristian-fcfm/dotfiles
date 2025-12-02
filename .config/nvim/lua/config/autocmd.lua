@@ -58,7 +58,10 @@ api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.wo.number = false
     vim.wo.relativenumber = false
-    vim.cmd("startinsert")
+    -- No entrar en insert mode si es el dashboard de snacks
+    if vim.bo.filetype ~= "snacks_dashboard" then
+      vim.cmd("startinsert")
+    end
   end,
 })
 
@@ -127,19 +130,39 @@ api.nvim_create_autocmd("BufRead", {
   group = api.nvim_create_augroup("non_utf8_file", { clear = true }),
   desc = "Advertir si el archivo no está en UTF-8",
   callback = function()
-    local exclude_ft = { "oil", "alpha" }
+    local exclude_ft = { "oil", "snacks_dashboard" }
     if not vim.tbl_contains(exclude_ft, vim.bo.filetype) and vim.bo.fileencoding ~= "utf-8" then
       vim.notify("Archivo no está en UTF-8: " .. vim.bo.fileencoding, vim.log.levels.WARN)
     end
   end,
 })
 
--- Activar spell check para Markdown, Zettelkasten y Typst
+-- Activar spell check para Markdown y Typst
 api.nvim_create_autocmd("FileType", {
   group = api.nvim_create_augroup("markdown_spell", { clear = true }),
-  desc = "Activar corrección ortográfica en Markdown, Zettelkasten y Typst",
-  pattern = { "markdown", "zk", "typst" },
+  desc = "Activar corrección ortográfica en Markdown y Typst",
+  pattern = { "markdown", "typst" },
   callback = function()
     vim.opt_local.spell = true
+  end,
+})
+
+-- Forzar modo normal en dashboard de snacks
+api.nvim_create_autocmd("FileType", {
+  group = api.nvim_create_augroup("snacks_dashboard_normal", { clear = true }),
+  desc = "Forzar modo normal en dashboard de snacks",
+  pattern = "snacks_dashboard",
+  callback = function()
+    vim.cmd("stopinsert")
+  end,
+})
+
+api.nvim_create_autocmd("BufEnter", {
+  group = "snacks_dashboard_normal",
+  desc = "Forzar modo normal al entrar al dashboard",
+  callback = function()
+    if vim.bo.filetype == "snacks_dashboard" then
+      vim.cmd("stopinsert")
+    end
   end,
 })

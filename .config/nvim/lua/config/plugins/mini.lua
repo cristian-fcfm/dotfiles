@@ -31,43 +31,6 @@ return {
     opts = {},
   },
 
-  -- Mini.indentscope: Indicador visual de scope por indentación
-  {
-    "echasnovski/mini.indentscope",
-    version = false,
-    -- Optimización: Cargar solo después de leer archivos
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    opts = {
-      symbol = "󰇙",
-      options = { try_as_border = true },
-      draw = {
-        delay = 100,
-        -- Optimización: Sin animación para mejor performance
-        animation = function()
-          return 0
-        end,
-      },
-    },
-    init = function()
-      -- Optimización: Desactivar en filetypes que no lo necesitan
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "help",
-          "alpha",
-          "trouble",
-          "lazy",
-          "mason",
-          "notify",
-          "fzf",
-          "oil",
-        },
-        callback = function()
-          vim.b.miniindentscope_disable = true
-        end,
-      })
-    end,
-  },
-
   -- Mini.surround: Encerrar texto en paréntesis, comillas, etc.
   {
     "echasnovski/mini.surround",
