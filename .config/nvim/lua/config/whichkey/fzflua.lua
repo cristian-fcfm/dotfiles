@@ -1,12 +1,11 @@
 local wk = require("which-key")
-local fzf = require("fzf-lua")
 
 wk.add({
-  { "<leader>f", group = "FZF", icon = "" },
+  { "<leader>f", group = "Find", icon = "" },
   {
     "<leader>ff",
     function()
-      fzf.files()
+      Snacks.picker.files()
     end,
     desc = "[F]ind [F]iles in directory",
     icon = "󰈞",
@@ -14,7 +13,7 @@ wk.add({
   {
     "<leader>fg",
     function()
-      fzf.live_grep()
+      Snacks.picker.grep()
     end,
     desc = "[F]ind [G]repping in project",
     icon = "󰨭",
@@ -22,15 +21,15 @@ wk.add({
   {
     "<leader>fc",
     function()
-      fzf.files({ cwd = vim.fn.stdpath("config") })
+      Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
     end,
     desc = "[F]ind in [C]onfigurations",
-    icon = "",
+    icon = "",
   },
   {
     "<leader>fh",
     function()
-      fzf.helptags()
+      Snacks.picker.help()
     end,
     desc = "[F]ind [H]elp",
     icon = "󰋖",
@@ -38,73 +37,65 @@ wk.add({
   {
     "<leader>fk",
     function()
-      fzf.keymaps()
+      Snacks.picker.keymaps()
     end,
     desc = "[F]ind [K]eymaps",
-    icon = "",
+    icon = "",
   },
   {
     "<leader>fb",
     function()
-      fzf.builtin()
+      Snacks.picker.pickers()
     end,
-    desc = "[F]ind [B]uiltin FZF",
-    icon = "",
+    desc = "[F]ind [B]uiltin Pickers",
+    icon = "",
   },
   {
     "<leader>fw",
     function()
-      fzf.grep_cword()
+      Snacks.picker.grep_word()
     end,
     desc = "[F]ind current [W]ord",
     icon = "󱎸",
   },
   {
-    "<leader>fW",
-    function()
-      fzf.grep_cWORD()
-    end,
-    desc = "[F]ind current [W]ORD",
-    icon = "󱎸",
-  },
-  {
     "<leader>fd",
     function()
-      fzf.diagnostics_document()
+      Snacks.picker.diagnostics()
     end,
     desc = "[F]ind [D]iagnostics",
-    icon = "",
+    icon = "",
   },
   {
     "<leader>fr",
     function()
-      fzf.resume()
+      Snacks.picker.resume()
     end,
     desc = "[F]ind [R]esume",
-    icon = "",
+    icon = "",
   },
   {
     "<leader>fo",
     function()
-      fzf.oldfiles()
+      Snacks.picker.recent()
     end,
     desc = "[F]ind [O]ld Files",
-    icon = "",
+    icon = "",
   },
   {
     "<leader>f<leader>",
     function()
-      fzf.buffers()
+      Snacks.picker.buffers()
     end,
     desc = "[ ] Find existing buffers",
-    icon = "",
+    icon = "",
   },
   {
     "<leader>f/",
     function()
-      fzf.lgrep_curbuf()
+      Snacks.picker.lines()
     end,
     desc = "[/] Live grep the current buffer",
-    icon = "",
+    icon = "",
   },
 })

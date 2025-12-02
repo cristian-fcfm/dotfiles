@@ -1,5 +1,6 @@
 return {
   "ibhagwan/fzf-lua",
+  enabled = false, -- Deshabilitado: usando snacks.nvim picker
   cmd = "FzfLua",
   dependencies = { "echasnovski/mini.icons" },
   cond = function()

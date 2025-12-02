@@ -4,7 +4,14 @@ wk.add({
   { "<leader>T", group = "TODO", icon = "" },
 
   -- Búsqueda de TODOs
-  { "<leader>Ts", "<cmd>TodoFzfLua<cr>", desc = "Search TODOs", icon = "󱎸" },
+  {
+    "<leader>Ts",
+    function()
+      Snacks.picker.grep({ search = "TODO|FIXME|HACK|WARN|PERF|NOTE|TEST" })
+    end,
+    desc = "Search TODOs",
+    icon = "󱎸"
+  },
   { "<leader>Tl", "<cmd>TodoLocList<cr>", desc = "TODOs in location list", icon = "" },
   { "<leader>Tq", "<cmd>TodoQuickFix<cr>", desc = "TODOs in quickfix", icon = "󱃕" },
 
