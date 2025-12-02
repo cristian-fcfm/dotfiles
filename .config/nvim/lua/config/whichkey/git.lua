@@ -68,4 +68,31 @@ wk.add({
   { "<leader>hmb", "<cmd>GitConflictChooseBoth<CR>", desc = "Choose both", icon = "" },
   { "<leader>hmn", "<cmd>GitConflictChooseNone<CR>", desc = "Choose none", icon = "󰝾" },
   { "<leader>hml", "<cmd>GitConflictListQf<CR>", desc = "List conflicts", icon = "" },
+
+  -- Lazygit (Snacks)
+  { "<leader>g", group = "Git", icon = "" },
+  {
+    "<leader>gg",
+    function()
+      Snacks.lazygit()
+    end,
+    desc = "Lazygit",
+    icon = "",
+  },
+  {
+    "<leader>gf",
+    function()
+      Snacks.lazygit.log_file()
+    end,
+    desc = "Lazygit File History",
+    icon = "󰉛",
+  },
+  {
+    "<leader>gl",
+    function()
+      Snacks.lazygit.log()
+    end,
+    desc = "Lazygit Log",
+    icon = "󰜘",
+  },
 })
