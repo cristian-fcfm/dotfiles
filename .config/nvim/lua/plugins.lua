@@ -35,6 +35,7 @@ require("lazy").setup({
   { import = "config.plugins.bufferline" }, -- Buffer line mejorada
   { import = "config.plugins.hlslens" }, -- Mejora visual de búsquedas
   { import = "config.plugins.markdown" }, -- Renderizado Markdown
+  { import = "config.plugins.neorg" }, -- Organización y notas con Neorg
   { import = "config.plugins.livepreview" }, -- Live preview para Markdown/HTML
   { import = "config.plugins.typst" }, -- Typst para composición tipográfica
   { import = "config.plugins.pqf" }, -- Mejora visual del quickfix list
