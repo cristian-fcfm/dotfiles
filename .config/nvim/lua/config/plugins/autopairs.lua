@@ -4,15 +4,15 @@ return {
   config = function()
     local npairs = require("nvim-autopairs")
     npairs.setup({
-      check_ts = true, -- Usa treesitter para mejor detección de contexto
+      check_ts = true,
       ts_config = {
-        lua = { "string" }, -- No autopair en strings de lua
+        lua = { "string" },
         javascript = { "template_string" },
         python = { "string" },
       },
       disable_filetype = { "vim", "fzf" },
       fast_wrap = {
-        map = "<M-e>", -- Alt+e para envolver rápido
+        map = "<M-e>",
         chars = { "{", "[", "(", '"', "'" },
         pattern = [=[[%'%"%>%]%)%}%,]]=],
         end_key = "$",
