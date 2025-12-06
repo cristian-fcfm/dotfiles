@@ -26,6 +26,7 @@ return {
         "luap",
         "markdown",
         "markdown_inline",
+        "norg",
         "python",
         "query",
         "regex",
