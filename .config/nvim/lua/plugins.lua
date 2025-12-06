@@ -24,6 +24,7 @@ require("lazy").setup({
   { import = "config.plugins.lualine" }, -- Barra de estado
   { import = "config.plugins.lsp" }, -- LSP
   { import = "config.plugins.completion" }, -- Completado de codigo
+  { import = "config.plugins.yanky" }, -- Gestión avanzada del clipboard
   { import = "config.plugins.autopairs" }, -- Auto-pairing inteligente
   { import = "config.plugins.formatting" }, -- Formateo de codigo
   { import = "config.plugins.linting" }, -- Linting de codigo

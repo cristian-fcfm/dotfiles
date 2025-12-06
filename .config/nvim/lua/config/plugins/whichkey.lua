@@ -47,5 +47,6 @@ return {
     require("config.whichkey.typst")
     require("config.whichkey.snacks")
     require("config.whichkey.neorg")
+    require("config.whichkey.yanky")
   end,
 }
