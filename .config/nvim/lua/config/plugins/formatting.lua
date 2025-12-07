@@ -48,9 +48,9 @@ return {
           lsp_format = "fallback",
         }, function(err)
           if err then
-            vim.notify("Error al formatear: " .. tostring(err), vim.log.levels.ERROR)
+            vim.notify("Error al formatear: " .. tostring(err), vim.log.levels.ERROR, { title = "Conform" })
           else
-            vim.notify("✓ Formateado exitosamente", vim.log.levels.INFO)
+            vim.notify("✓ Formateado exitosamente", vim.log.levels.INFO, { title = "Conform" })
           end
         end
       end,
