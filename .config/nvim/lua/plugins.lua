@@ -33,8 +33,6 @@ require("lazy").setup({
   { import = "config.plugins.mini" }, -- Mini plugins (move, surround, comment, etc)
   { import = "config.plugins.tmux" }, -- Integración Tmux-Neovim
   { import = "config.plugins.gitsigns" }, -- Muestra cambios de git
-  { import = "config.plugins.bufferline" }, -- Buffer line mejorada
-  { import = "config.plugins.hlslens" }, -- Mejora visual de búsquedas
   { import = "config.plugins.markdown" }, -- Renderizado Markdown
   { import = "config.plugins.neorg" }, -- Organización y notas con Neorg
   { import = "config.plugins.livepreview" }, -- Live preview para Markdown/HTML
