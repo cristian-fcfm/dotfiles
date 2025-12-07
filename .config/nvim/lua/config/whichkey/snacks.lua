@@ -34,4 +34,13 @@ wk.add({
     desc = "Dashboard",
     icon = "",
   },
+  { "<leader>u", group = "UI", icon = "󰙵" },
+  {
+    "<leader>ut",
+    function()
+      Snacks.picker.colorschemes()
+    end,
+    desc = "Theme Picker",
+    icon = "󰏘",
+  },
 })

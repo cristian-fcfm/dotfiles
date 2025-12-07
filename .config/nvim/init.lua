@@ -23,3 +23,6 @@ require("config.autocmd")
 
 -- Carga la configuración de plugins (usando lazy.nvim)
 require("plugins")
+
+-- cargar colorscheme
+vim.cmd.colorscheme("kanagawa")
