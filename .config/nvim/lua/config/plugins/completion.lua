@@ -90,9 +90,6 @@ return {
             auto_insert = false,
           },
         },
-        ghost_text = {
-          enabled = true,
-        },
       },
 
       signature = {
@@ -101,7 +98,7 @@ return {
       },
 
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = { "lsp", "path", "snippets", "buffer", "emoji", "nerdfont", "dotenv", "yanky" },
         providers = {
           buffer = {
             max_items = 4,
@@ -117,6 +114,7 @@ return {
             module = "blink.compat.source",
             name = "nerdfont",
             score_offset = 10,
+            opts = {},
           },
           dotenv = {
             module = "blink.compat.source",
