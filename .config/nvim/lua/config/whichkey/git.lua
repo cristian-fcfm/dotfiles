@@ -95,4 +95,47 @@ wk.add({
     desc = "Lazygit Log",
     icon = "󰜘",
   },
+
+  -- Gitsigns toggles
+  { "<leader>gt", group = "Toggle Git Signs", icon = "󰨙" },
+  {
+    "<leader>gtb",
+    function()
+      gs.toggle_current_line_blame()
+    end,
+    desc = "Toggle Blame",
+    icon = "",
+  },
+  {
+    "<leader>gtn",
+    function()
+      gs.toggle_numhl()
+    end,
+    desc = "Toggle Number Highlight",
+    icon = "󰎠",
+  },
+  {
+    "<leader>gtl",
+    function()
+      gs.toggle_linehl()
+    end,
+    desc = "Toggle Line Highlight",
+    icon = "󰉹",
+  },
+  {
+    "<leader>gts",
+    function()
+      gs.toggle_signs()
+    end,
+    desc = "Toggle Signs",
+    icon = "",
+  },
+  {
+    "<leader>gtd",
+    function()
+      gs.toggle_deleted()
+    end,
+    desc = "Toggle Deleted",
+    icon = "󰮘",
+  },
 })
