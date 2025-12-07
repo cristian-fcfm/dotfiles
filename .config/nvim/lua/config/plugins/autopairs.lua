@@ -10,17 +10,7 @@ return {
         javascript = { "template_string" },
         python = { "string" },
       },
-      disable_filetype = { "vim", "fzf" },
-      fast_wrap = {
-        map = "<M-e>",
-        chars = { "{", "[", "(", '"', "'" },
-        pattern = [=[[%'%"%>%]%)%}%,]]=],
-        end_key = "$",
-        keys = "qwertyuiopzxcvbnmasdfghjkl",
-        check_comma = true,
-        highlight = "Search",
-        highlight_grey = "Comment",
-      },
+      disable_filetype = { "vim" },
     })
   end,
 }
