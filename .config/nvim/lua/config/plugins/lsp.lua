@@ -82,8 +82,6 @@ return {
       { "b0o/schemastore.nvim", lazy = true },
     },
     config = function()
-      -- Snacks picker es usado para navegación LSP
-
       -- ========================================================================
       -- CAPABILITIES
       -- ========================================================================
@@ -106,15 +104,27 @@ return {
 
         -- ===== Keymaps generales para todos los LSP =====
         -- Navegación
-        map("gd", function() Snacks.picker.lsp_definitions() end, "Ir a definición")
-        map("gr", function() Snacks.picker.lsp_references() end, "Ir a referencias")
-        map("gI", function() Snacks.picker.lsp_implementations() end, "Ir a implementación")
-        map("gy", function() Snacks.picker.lsp_type_definitions() end, "Definición de tipo")
+        map("gd", function()
+          Snacks.picker.lsp_definitions()
+        end, "Ir a definición")
+        map("gr", function()
+          Snacks.picker.lsp_references()
+        end, "Ir a referencias")
+        map("gI", function()
+          Snacks.picker.lsp_implementations()
+        end, "Ir a implementación")
+        map("gy", function()
+          Snacks.picker.lsp_type_definitions()
+        end, "Definición de tipo")
         map("gD", vim.lsp.buf.declaration, "Ir a declaración")
 
         -- Símbolos
-        map("gs", function() Snacks.picker.lsp_symbols() end, "Símbolos del documento")
-        map("gS", function() Snacks.picker.lsp_workspace_symbols() end, "Símbolos del workspace")
+        map("gs", function()
+          Snacks.picker.lsp_symbols()
+        end, "Símbolos del documento")
+        map("gS", function()
+          Snacks.picker.lsp_workspace_symbols()
+        end, "Símbolos del workspace")
 
         -- Acciones
         map("gn", vim.lsp.buf.rename, "Renombrar")
@@ -192,9 +202,6 @@ return {
         virtual_text = false,
         update_in_insert = false,
       })
-
-      -- Configurar highlight para código obsoleto/innecesario (strikethrough)
-      vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { strikethrough = true, sp = "gray" })
 
       -- ========================================================================
       -- CONFIGURACIÓN GLOBAL DE CAPABILITIES
