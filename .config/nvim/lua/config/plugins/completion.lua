@@ -99,10 +99,17 @@ return {
 
       sources = {
         default = { "lsp", "path", "snippets", "buffer", "emoji", "nerdfont", "dotenv", "yanky" },
+        per_filetype = {
+          norg = { "lsp", "path", "snippets", "buffer", "neorg" },
+        },
         providers = {
           buffer = {
-            max_items = 4,
             min_keyword_length = 4,
+          },
+          neorg = {
+            module = "blink.compat.source",
+            name = "neorg",
+            score_offset = 20,
           },
           emoji = {
             module = "blink.compat.source",
