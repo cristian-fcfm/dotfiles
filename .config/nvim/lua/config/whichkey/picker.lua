@@ -12,7 +12,7 @@ wk.add({
   {
     "<leader>fk",
     function()
-      Snacks.picker.keymaps()
+      Snacks.picker.keymaps({ layout = "ivy" })
     end,
     desc = "[F]ind [K]eymaps",
     icon = "",
@@ -48,13 +48,5 @@ wk.add({
     end,
     desc = "[F]ind [N]otifications",
     icon = "󰵅",
-  },
-  {
-    "<leader>fy",
-    function()
-      Snacks.picker.cliphist()
-    end,
-    desc = "[F]ind [Y]ank history",
-    icon = "󰋚",
   },
 })
