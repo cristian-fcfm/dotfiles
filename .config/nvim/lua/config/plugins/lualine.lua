@@ -3,97 +3,18 @@ return {
   event = "VeryLazy",
   dependencies = { "echasnovski/mini.icons" },
   config = function()
-    -- Función para mostrar versión de Python del entorno virtual
-    local function python_version()
-      if vim.bo.filetype ~= "python" then
-        return ""
-      end
-
-      local venv_path = os.getenv("VIRTUAL_ENV")
-      if venv_path then
-        -- Obtener la versión de Python del venv
-        local python_bin = venv_path .. "/bin/python"
-        local handle = io.popen(python_bin .. " --version 2>&1")
-        if handle then
-          local result = handle:read("*a")
-          handle:close()
-          -- Extraer solo la versión (ej: "3.11.5" de "Python 3.11.5")
-          local version = result:match("Python%s+([%d%.]+)")
-          if version then
-            return string.format(" %s", version)
-          end
-        end
-      end
-
-      return ""
-    end
-
-    -- Función para mostrar LSP activo
-    local function get_active_lsp()
-      local buf_ft = vim.bo.filetype
-      local clients = vim.lsp.get_clients({ bufnr = 0 })
-
-      if next(clients) == nil then
-        return ""
-      end
-
-      for _, client in ipairs(clients) do
-        local filetypes = client.config.filetypes
-        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-          return "󰒋 " .. client.name -- Icono LSP
-        end
-      end
-
-      return ""
-    end
-
-    -- Función para indicador de spell checking
-    local function spell()
+    -- Función para mostrar idiomas de spell checking
+    local function spell_lang()
       if vim.o.spell then
-        return "[SPELL]"
+        local lang = vim.o.spelllang
+        return "󰓆 " .. lang:upper()
       end
       return ""
-    end
-
-    -- Cache para git ahead/behind (actualizar solo cada 5 min)
-    local git_status_cache = {}
-    local last_fetch_time = 0
-    local FETCH_INTERVAL = 300000 -- 5 minutos
-
-    local function get_git_ahead_behind()
-      local now = vim.loop.now()
-
-      -- Solo actualizar si pasaron 5 minutos
-      if now - last_fetch_time > FETCH_INTERVAL then
-        vim.system({ "git", "rev-list", "--count", "HEAD..@{upstream}" }, { text = true }, function(result)
-          if result.code == 0 then
-            git_status_cache.behind = tonumber(result.stdout:match("(%d+)")) or 0
-          end
-        end)
-
-        vim.system({ "git", "rev-list", "--count", "@{upstream}..HEAD" }, { text = true }, function(result)
-          if result.code == 0 then
-            git_status_cache.ahead = tonumber(result.stdout:match("(%d+)")) or 0
-          end
-        end)
-
-        last_fetch_time = now
-      end
-
-      local msg = ""
-      if type(git_status_cache.ahead) == "number" and git_status_cache.ahead > 0 then
-        msg = msg .. string.format("↑%d ", git_status_cache.ahead)
-      end
-      if type(git_status_cache.behind) == "number" and git_status_cache.behind > 0 then
-        msg = msg .. string.format("↓%d ", git_status_cache.behind)
-      end
-
-      return msg
     end
 
     require("lualine").setup({
       options = {
-        theme = "auto",
+        theme = "iceberg_dark",
         section_separators = { left = "", right = "" },
         component_separators = { left = "|", right = "|" },
         icons_enabled = true,
@@ -108,41 +29,52 @@ return {
         },
         lualine_b = {
           {
-            "branch",
-            icon = "󰊢",
-            color = { fg = "#e69875" },
-            fmt = function(name)
-              return string.sub(name, 1, 20) -- Truncar nombres largos
+            function()
+              return vim.b.gitsigns_head or ""
             end,
-          },
-          {
-            get_git_ahead_behind,
-            color = { fg = "#E0C479" },
+            icon = "󰊢",
+            separator = { left = "", right = "" },
+            padding = { left = 1, right = 0 },
+            -- color = { bg = "#3b4261" },
           },
           {
             "diff",
+            source = function()
+              local gitsigns = vim.b.gitsigns_status_dict
+              if gitsigns then
+                return {
+                  added = gitsigns.added,
+                  modified = gitsigns.changed,
+                  removed = gitsigns.removed,
+                }
+              end
+            end,
             symbols = { added = " ", modified = " ", removed = " " },
-          },
-          {
-            python_version,
-            color = { fg = "#e5c890" },
+            -- color = { bg = "#3b4261" },
           },
         },
         lualine_c = {
           {
+            "filetype",
+            icon_only = true,
+            separator = { left = "", right = "" },
+            padding = { left = 1, right = 0 },
+          },
+          {
             "filename",
             symbols = {
               readonly = "󰈡",
+              modified = "",
             },
+            padding = { left = 0, right = 1 },
           },
-          {
-            spell,
-            color = { fg = "black", bg = "#a7c080" },
-          },
+          "searchcount",
         },
         lualine_x = {
           {
-            get_active_lsp,
+            "lsp_status",
+            icon = "󰒋",
+            symbols = { separator = "   ", done = "", spinner = "" },
           },
           {
             "diagnostics",
@@ -151,16 +83,22 @@ return {
           },
         },
         lualine_y = {
-          { "encoding", fmt = string.upper },
+          {
+            spell_lang,
+            color = { bg = "#3b4261" },
+          },
           {
             "fileformat",
             symbols = {
-              unix = "UNIX",
-              dos = "WIN",
-              mac = "MAC",
+              unix = "",
+              mac = "",
             },
           },
-          "filetype",
+          { "encoding", fmt = string.upper },
+          {
+            "filesize",
+            fmt = string.upper,
+          },
         },
         lualine_z = {
           "location",
@@ -176,7 +114,7 @@ return {
         lualine_z = {},
       },
       tabline = {},
-      extensions = { "quickfix", "oil" },
+      extensions = { "quickfix", "oil", "trouble", "lazy" },
     })
   end,
 }
