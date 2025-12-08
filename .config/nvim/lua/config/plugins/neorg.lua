@@ -33,6 +33,7 @@ return {
           },
         },
       },
+      ["core.esupports.metagen"] = { author = "Cristian Correa", type = "auto" },
 
       -- ========================================================================
       -- Directorios y workspace
@@ -63,7 +64,7 @@ return {
       -- ========================================================================
       -- Export y conversión
       -- ========================================================================
-      ["core.export"] = {},
+      ["core.export"] = { export_dir = "~/Downloads/" },
       ["core.export.markdown"] = {
         config = {
           extensions = "all",
@@ -75,9 +76,10 @@ return {
       -- ========================================================================
       ["core.journal"] = {
         config = {
-          workspace = "notes",
-          journal_folder = "0-reviews/4-daily",
+          workspace = "reviews",
+          journal_folder = "4-daily",
           strategy = "flat",
+          use_template = false,
         },
       },
 
@@ -106,6 +108,7 @@ return {
       -- ========================================================================
       ["core.qol.toc"] = {}, -- Tabla de contenidos
       ["core.qol.todo_items"] = {}, -- Mejoras para TODOs
+      ["core.todo-introspector"] = {}, -- virtual text fot TODOs
     },
   },
   config = function(_, opts)
