@@ -37,7 +37,6 @@ require("lazy").setup({
   { import = "config.plugins.neorg" }, -- Organización y notas con Neorg
   { import = "config.plugins.livepreview" }, -- Live preview para Markdown/HTML
   { import = "config.plugins.typst" }, -- Typst para composición tipográfica
-  { import = "config.plugins.pqf" }, -- Mejora visual del quickfix list
   { import = "config.plugins.trouble" }, -- Diagnósticos LSP y navegación
   { import = "config.plugins.snacks" }, -- Snacks: QoL plugins (image, bigfile, notifier, etc.)
 })
