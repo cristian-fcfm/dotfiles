@@ -37,7 +37,7 @@ return {
     require("config.whichkey.windows")
     require("config.whichkey.tabs")
     require("config.whichkey.slime")
-    require("config.whichkey.fzflua")
+    require("config.whichkey.find")
     require("config.whichkey.todocomments")
     require("config.whichkey.buffers")
     require("config.whichkey.explorer")
@@ -45,8 +45,7 @@ return {
     require("config.whichkey.lsp")
     require("config.whichkey.trouble")
     require("config.whichkey.typst")
-    require("config.whichkey.snacks")
+    require("config.whichkey.picker")
     require("config.whichkey.neorg")
-    require("config.whichkey.yanky")
   end,
 }
