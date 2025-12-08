@@ -17,20 +17,6 @@ return {
     end,
   },
 
-  -- Mini.move: Mover líneas y bloques de texto
-  {
-    "echasnovski/mini.move",
-    version = false,
-    -- Optimización: Cargar solo al usar los keymaps
-    keys = {
-      { "<M-h>", mode = { "n", "v" } },
-      { "<M-j>", mode = { "n", "v" } },
-      { "<M-k>", mode = { "n", "v" } },
-      { "<M-l>", mode = { "n", "v" } },
-    },
-    opts = {},
-  },
-
   -- Mini.surround: Encerrar texto en paréntesis, comillas, etc.
   {
     "echasnovski/mini.surround",
