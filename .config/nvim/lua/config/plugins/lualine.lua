@@ -1,7 +1,10 @@
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
-  dependencies = { "echasnovski/mini.icons" },
+  dependencies = {
+    "echasnovski/mini.icons",
+    "folke/trouble.nvim",
+  },
   config = function()
     -- Función para mostrar idiomas de spell checking
     local function spell_lang()
@@ -11,6 +14,17 @@ return {
       end
       return ""
     end
+
+    -- Configurar símbolos de Trouble para mostrar en la statusline
+    local trouble = require("trouble")
+    local symbols = trouble.statusline({
+      mode = "lsp_document_symbols",
+      groups = {},
+      title = false,
+      filter = { range = true },
+      format = "{kind_icon}{symbol.name:Normal}",
+      hl_group = "lualine_c_normal",
+    })
 
     require("lualine").setup({
       options = {
@@ -72,6 +86,10 @@ return {
             padding = { left = 0, right = 1 },
           },
           "searchcount",
+          {
+            symbols.get,
+            cond = symbols.has,
+          },
         },
         lualine_x = {
           {
