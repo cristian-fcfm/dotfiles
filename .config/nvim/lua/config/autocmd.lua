@@ -166,3 +166,36 @@ api.nvim_create_autocmd("BufEnter", {
     end
   end,
 })
+
+-- Configurar colores de indentación de Snacks según el tema
+api.nvim_create_autocmd("ColorScheme", {
+  group = api.nvim_create_augroup("snacks_indent_colors", { clear = true }),
+  desc = "Configurar colores de indentación de Snacks",
+  callback = function()
+    -- Obtener colores del tema actual
+    local colors = vim.api.nvim_get_hl(0, { name = "Comment" })
+    local base_fg = colors.fg or vim.api.nvim_get_hl(0, { name = "Normal" }).fg or 0x7e9cd8
+
+    -- Para Kanagawa, usar colores de la paleta que se mezclan bien
+    if vim.g.colors_name == "kanagawa" then
+      vim.api.nvim_set_hl(0, "SnacksIndent1", { fg = "#2d4f67" })
+      vim.api.nvim_set_hl(0, "SnacksIndent2", { fg = "#625e5a" })
+      vim.api.nvim_set_hl(0, "SnacksIndent3", { fg = "#49443c" })
+      vim.api.nvim_set_hl(0, "SnacksIndent4", { fg = "#43436c" })
+      vim.api.nvim_set_hl(0, "SnacksIndent5", { fg = "#614f6e" })
+      vim.api.nvim_set_hl(0, "SnacksIndent6", { fg = "#2d4f67" })
+      vim.api.nvim_set_hl(0, "SnacksIndent7", { fg = "#625e5a" })
+      vim.api.nvim_set_hl(0, "SnacksIndent8", { fg = "#49443c" })
+    else
+      -- Fallback: usar el color de Comment con opacidad reducida
+      vim.api.nvim_set_hl(0, "SnacksIndent", { fg = base_fg })
+    end
+  end,
+})
+
+-- Aplicar colores inmediatamente al cargar la config
+vim.schedule(function()
+  if vim.g.colors_name then
+    vim.api.nvim_exec_autocmds("ColorScheme", { group = "snacks_indent_colors" })
+  end
+end)
