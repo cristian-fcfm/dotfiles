@@ -19,6 +19,9 @@ return {
         component_separators = { left = "|", right = "|" },
         icons_enabled = true,
         globalstatus = true,
+        disabled_filetypes = {
+          statusline = { "snacks_dashboard" },
+        },
         refresh = {
           statusline = 1000,
         },
