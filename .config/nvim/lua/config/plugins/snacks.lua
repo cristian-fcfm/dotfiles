@@ -72,9 +72,6 @@ return {
     statuscolumn = {
       enabled = true,
     },
-    zen = {
-      enabled = true,
-    },
 
     -- ============================================================================
     -- Navigation/File Management
@@ -84,6 +81,28 @@ return {
     },
     picker = {
       enabled = true,
+      matcher = {
+        frecency = true,
+        history_bonus = true,
+      },
+      actions = {
+        yank_put_after = require("yanky.picker").actions.put("p"),
+        yank_put_before = require("yanky.picker").actions.put("P"),
+        yank_put_after_cursor = require("yanky.picker").actions.put("gp"),
+        yank_put_before_cursor = require("yanky.picker").actions.put("gP"),
+        yank_delete = require("yanky.picker").actions.delete(),
+      },
+      win = {
+        input = {
+          keys = {
+            ["<C-y><C-p>"] = { "yank_put_after", mode = { "n", "i" } },
+            ["<C-y><C-o>"] = { "yank_put_before", mode = { "n", "i" } },
+            ["<C-y><C-a>"] = { "yank_put_after_cursor", mode = { "n", "i" } },
+            ["<C-y><C-b>"] = { "yank_put_before_cursor", mode = { "n", "i" } },
+            ["<C-y><C-d>"] = { "yank_delete", mode = { "n", "i" } },
+          },
+        },
+      },
     },
 
     -- ============================================================================
