@@ -4,52 +4,102 @@ wk.add({
   -- ========================================================================
   -- NAVIGATION
   -- ========================================================================
-  { "<localleader>n", group = "Neorg", icon = "" },
-  { "<localleader>nn", desc = "Índice del workspace", icon = "" },
-  { "<localleader>nw", desc = "Cambiar workspace", icon = "" },
-  { "<localleader>nf", desc = "Buscar notas (archivos)", icon = "" },
-  { "<localleader>ng", desc = "Buscar en contenido (grep)", icon = "" },
-  { "<localleader>nr", desc = "Notas recientes", icon = "󰋚" },
+  { "<leader>n", group = "Neorg", icon = "" },
 
   -- ========================================================================
   -- JOURNAL
   -- ========================================================================
-  { "<localleader>j", group = "Journal", icon = "" },
+  { "<leader>nj", group = "Journal", icon = "󰠮" },
 
   -- Día
-  { "<localleader>jd", desc = "Hoy", icon = "" },
-  { "<localleader>jD", desc = "Ayer", icon = "" },
-  { "<localleader>j<C-d>", desc = "Mañana", icon = "" },
-
-  -- Semana
-  { "<localleader>jw", desc = "Semana actual", icon = "" },
-  { "<localleader>jW", desc = "Semana anterior", icon = "" },
-  { "<localleader>j<C-w>", desc = "Semana siguiente", icon = "" },
-
-  -- Mes
-  { "<localleader>jm", desc = "Mes actual", icon = "" },
-  { "<localleader>jM", desc = "Mes anterior", icon = "" },
-  { "<localleader>j<C-m>", desc = "Mes siguiente", icon = "" },
-
-  -- Año
-  { "<localleader>jy", desc = "Año actual", icon = "" },
-  { "<localleader>jY", desc = "Año anterior", icon = "" },
-  { "<localleader>j<C-y>", desc = "Año siguiente", icon = "" },
-
-  -- ========================================================================
-  -- TEMPLATES
-  -- ========================================================================
-  { "<localleader>t", group = "Templates & Tasks", icon = "" },
-  { "<localleader>tp", desc = "Template: Project", icon = "" },
-  { "<localleader>ta", desc = "Template: Area", icon = "" },
-  { "<localleader>tr", desc = "Template: Resource", icon = "" },
-  { "<localleader>tm", desc = "Template: Meeting", icon = "" },
-  { "<localleader>tz", desc = "Template: Zettel", icon = "󰠮" },
+  {
+    "<leader>njt",
+    "<cmd>Neorg journal today<CR>",
+    desc = "Journal Today",
+    icon = "󰃰",
+  },
+  {
+    "<leader>njy",
+    "<cmd>Neorg journal yesterday<CR>",
+    desc = "Journal Yesterday",
+    icon = "󰃰",
+  },
+  {
+    "<leader>njm",
+    "<cmd>Neorg journal tomorrow<CR>",
+    desc = "Journal Tomorrow",
+    icon = "󰃰",
+  },
 
   -- ========================================================================
-  -- TASKS
+  -- WORKSPACE
   -- ========================================================================
-  { "<localleader>td", desc = "Tarea completada", icon = "✓" },
-  { "<localleader>tu", desc = "Tarea pendiente", icon = "✗" },
-  { "<localleader>tP", desc = "Tarea en progreso", icon = "○" },
+  { "<leader>nw", group = "Workspace", icon = "" },
+  {
+    "<leader>nwn",
+    "<cmd>Neorg workspace notes<CR>",
+    desc = "Workspace Notes",
+    icon = "",
+  },
+  {
+    "<leader>nwr",
+    "<cmd>Neorg workspace reviews<CR>",
+    desc = "Workspace Reviews",
+    icon = "",
+  },
+  {
+    "<leader>nwp",
+    "<cmd>Neorg workspace projects<CR>",
+    desc = "Workspace Projects",
+    icon = "",
+  },
+  {
+    "<leader>nwa",
+    "<cmd>Neorg workspace areas<CR>",
+    desc = "Workspace Areas",
+    icon = "",
+  },
+  {
+    "<leader>nws",
+    "<cmd>Neorg workspace resources<CR>",
+    desc = "Workspace Resources",
+    icon = "",
+  },
+
+  -- ========================================================================
+  -- INDEX & TOC
+  -- ========================================================================
+  {
+    "<leader>ni",
+    "<cmd>Neorg index<CR>",
+    desc = "Open Index",
+    icon = "󰈙",
+  },
+  {
+    "<leader>nt",
+    "<cmd>Neorg toc<CR>",
+    desc = "Table of Contents",
+    icon = "",
+  },
+
+  -- ========================================================================
+  -- EXPORT
+  -- ========================================================================
+  { "<leader>ne", group = "Export", icon = "󰈝" },
+  {
+    "<leader>nem",
+    "<cmd>Neorg export to-file markdown<CR>",
+    desc = "Export to Markdown",
+    icon = "",
+  },
+
+  -- ========================================================================
+  -- RETURN
+  -- ========================================================================
+  {
+    "<leader>nr",
+    "<cmd>Neorg return<CR>",
+    desc = "Return/Close Neorg",
+    icon = "󰩈",
+  },
 })
