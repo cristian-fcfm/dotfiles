@@ -61,14 +61,6 @@ wk.add({
     icon = "󰒮",
   },
 
-  -- Comandos útiles para resolver conflictos
-  { "<leader>hm", group = "Merge conflicts", icon = "" },
-  { "<leader>hmo", "<cmd>GitConflictChooseOurs<CR>", desc = "Choose ours (current)", icon = "󰒮" },
-  { "<leader>hmt", "<cmd>GitConflictChooseTheirs<CR>", desc = "Choose theirs (incoming)", icon = "󰒭" },
-  { "<leader>hmb", "<cmd>GitConflictChooseBoth<CR>", desc = "Choose both", icon = "" },
-  { "<leader>hmn", "<cmd>GitConflictChooseNone<CR>", desc = "Choose none", icon = "󰝾" },
-  { "<leader>hml", "<cmd>GitConflictListQf<CR>", desc = "List conflicts", icon = "" },
-
   -- Lazygit (Snacks)
   { "<leader>g", group = "Git", icon = "" },
   {
@@ -77,7 +69,7 @@ wk.add({
       Snacks.lazygit()
     end,
     desc = "Lazygit",
-    icon = "",
+    icon = "",
   },
   {
     "<leader>gf",
@@ -104,7 +96,6 @@ wk.add({
       gs.toggle_current_line_blame()
     end,
     desc = "Toggle Blame",
-    icon = "",
   },
   {
     "<leader>gtn",
@@ -112,7 +103,6 @@ wk.add({
       gs.toggle_numhl()
     end,
     desc = "Toggle Number Highlight",
-    icon = "󰎠",
   },
   {
     "<leader>gtl",
@@ -120,7 +110,6 @@ wk.add({
       gs.toggle_linehl()
     end,
     desc = "Toggle Line Highlight",
-    icon = "󰉹",
   },
   {
     "<leader>gts",
@@ -128,7 +117,6 @@ wk.add({
       gs.toggle_signs()
     end,
     desc = "Toggle Signs",
-    icon = "",
   },
   {
     "<leader>gtd",
@@ -136,6 +124,5 @@ wk.add({
       gs.toggle_deleted()
     end,
     desc = "Toggle Deleted",
-    icon = "󰮘",
   },
 })
