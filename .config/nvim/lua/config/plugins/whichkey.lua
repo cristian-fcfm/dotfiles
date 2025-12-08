@@ -46,6 +46,7 @@ return {
     require("config.whichkey.trouble")
     require("config.whichkey.typst")
     require("config.whichkey.picker")
+    require("config.whichkey.yanky")
     require("config.whichkey.neorg")
   end,
 }
