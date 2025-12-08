@@ -1,4 +1,3 @@
--- Plugin para soporte de Typst (sistema de composición tipográfica moderno)
 return {
   {
     "kaarmu/typst.vim",
@@ -20,20 +19,6 @@ return {
     "chomosuke/typst-preview.nvim",
     ft = { "typst" },
     version = "1.*",
-    build = function()
-      require("typst-preview").update()
-    end,
-    opts = {
-      debug = false,
-      get_root = function()
-        return vim.fn.getcwd()
-      end,
-      -- Suprimir warnings de GTK
-      dependencies_bin = {
-        ["typst-preview"] = "typst-preview",
-      },
-      -- Redirigir stderr para suprimir warnings de GTK
-      open_cmd = nil,
-    },
+    opts = {},
   },
 }
