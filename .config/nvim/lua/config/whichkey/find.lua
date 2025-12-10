@@ -6,7 +6,6 @@ wk.add({
     "<leader>ff",
     function()
       Snacks.picker.files({
-        cwd = vim.fn.getcwd(),
         hidden = true,
         layout = "ivy",
       })
@@ -18,7 +17,6 @@ wk.add({
     "<leader>fg",
     function()
       Snacks.picker.grep({
-        cwd = vim.fn.getcwd(),
         hidden = true,
       })
     end,

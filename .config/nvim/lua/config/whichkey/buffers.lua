@@ -12,7 +12,9 @@ wk.add({
   {
     "<leader>bf",
     function()
-      Snacks.picker.buffers()
+      Snacks.picker.buffers({
+        layout = "ivy",
+      })
     end,
     desc = "[F]ind existing [B]uffers",
     icon = "󰓩",
