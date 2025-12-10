@@ -3,14 +3,7 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = true,
-    opts = {
-      on_highlights = function(hl, c)
-        hl.LineNr = { fg = c.purple, bg = c.bg_gutter }
-        hl.LineNrAbove = { fg = c.purple, bg = c.bg_gutter }
-        hl.LineNrBelow = { fg = c.purple, bg = c.bg_gutter }
-        hl.CursorLineNr = { fg = "#ff9e64", bold = true, bg = c.bg_gutter }
-      end,
-    },
+    opts = {},
   },
 
   -- Nightfox theme (carbonfox, duskfox, etc.)
@@ -51,11 +44,7 @@ return {
     "rebelot/kanagawa.nvim",
     lazy = false,
     priority = 1000,
-    opts = {
-      compile = false,
-      transparent = false,
-      theme = "wave", -- wave, dragon, lotus
-    },
+    opts = {},
   },
 
   -- Rose Pine theme

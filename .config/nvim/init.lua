@@ -25,4 +25,4 @@ require("config.autocmd")
 require("plugins")
 
 -- cargar colorscheme
-vim.cmd.colorscheme("kanagawa")
+vim.cmd.colorscheme("kanagawa-dragon")
