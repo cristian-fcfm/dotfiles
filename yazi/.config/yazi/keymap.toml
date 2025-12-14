@@ -85,10 +85,6 @@ keymap = [
 	{ on = "z",         run = "plugin fzf",                  desc = "Jump to a file/directory via fzf" },
 	{ on = "Z",         run = "plugin zoxide",               desc = "Jump to a directory via zoxide" },
 
-	# === CUSTOM: Neovim ===
-	{ on = [ "e", "n" ], run = "shell 'nvim \"$@\"' --block --confirm",         desc = "Edit with Neovim (same terminal)" },
-	{ on = [ "e", "t" ], run = "shell 'tmux new-window nvim \"$@\"' --confirm", desc = "Edit with Neovim (new tmux window)" },
-
 	# === CUSTOM: Extract archives ===
 	{ on = [ "e", "z" ], run = "shell 'unzip \"$@\" -d \"${@:r}\"' --confirm", desc = "Extract ZIP" },
 	{ on = [ "e", "r" ], run = "shell 'unrar x \"$@\"' --confirm",             desc = "Extract RAR" },
