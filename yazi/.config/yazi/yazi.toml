@@ -6,14 +6,13 @@ sort_sensitive = false
 sort_reverse = false
 sort_dir_first = true
 linemode = "size"
-show_hidden = false
+show_hidden = true
 show_symlink = true
 
 [preview]
 # Tamaño máximo del archivo para preview
 max_width = 600
 max_height = 900
-cache_dir = ""
 image_quality = 90
 
 [opener]

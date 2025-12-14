@@ -1,0 +1,69 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "8f1d971"
+hash = "3996fc74044bc44144b323686f887e1"
+
+[[flavor.deps]]
+use = "kalidyasin/yazi-flavors:tokyonight-night"
+rev = "fa19b40"
+hash = "648270973268682226755084692d6dfc"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:dracula"
+rev = "ffe6e3a"
+hash = "5d16bf24ca0980168814fc1abd307c07"
+
+[[flavor.deps]]
+use = "dangooddd/kanagawa"
+rev = "a0b1d9d"
+hash = "abfb0b2371259b2c8adfc7b617c3d7e5"
+
+[[flavor.deps]]
+use = "marcosvnmelo/kanagawa-dragon"
+rev = "4905527"
+hash = "5fd7aa0bf4e7d9753ad8a4660a6eb94f"
+
+[[flavor.deps]]
+use = "muratoffalex/kanagawa-lotus"
+rev = "4275a1a"
+hash = "e3c47ba547279aff64b6e46eefcf4479"
+
+[[flavor.deps]]
+use = "AdithyanA2005/nord"
+rev = "3a791e9"
+hash = "fa7142cda74a50b271ea212356b40b57"
+
+[[flavor.deps]]
+use = "Mintass/rose-pine"
+rev = "8343340"
+hash = "e2336631865c0f90276dcbc553d532fc"
+
+[[flavor.deps]]
+use = "Mintass/rose-pine-moon"
+rev = "aa2d937"
+hash = "97cd4819252cb1a9d0f55daa14e481e"
+
+[[flavor.deps]]
+use = "Mintass/rose-pine-dawn"
+rev = "5c6d353"
+hash = "d9d9463d5d43ced18e18986d05439ace"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-mocha"
+rev = "ffe6e3a"
+hash = "8d7799e4598ff079fa5ee5c770d9bc08"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-latte"
+rev = "ffe6e3a"
+hash = "b7f67b15a9f94f408d94b9630465c37a"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-frappe"
+rev = "ffe6e3a"
+hash = "90a866c034553e2d3bfdf536940733df"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-macchiato"
+rev = "ffe6e3a"
+hash = "9b9a8e91898a73c1211788a4ed30336"
