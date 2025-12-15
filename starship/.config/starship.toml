@@ -1,7 +1,7 @@
 palette = "kanagawa_dragon"
 
 format = """
-[◖](fg:os_bg)$os$username[◗](fg:os_bg) $directory$git_branch$git_commit$git_status $git_metrics$fill$cmd_duration$battery
+╭─ $directory$git_branch$git_commit$git_status $git_metrics$fill$cmd_duration$battery
 ╰─$character
 """
 
@@ -50,6 +50,7 @@ format = '([ $added]($added_style)) ([ $deleted]($deleted_style))'
 style = "bold fg:dir_fg"
 read_only = " "
 read_only_style = "red"
+format = '[ $path]($style)[$read_only]($read_only_style) ' 
 
 #  Cmd Duration
 [cmd_duration]
@@ -98,18 +99,9 @@ Macos = " "
 
 [character]
 format = "$symbol"
-success_symbol = '[>](fg:bold green)'
+success_symbol = '[󰨃](fg:bold green)'
 error_symbol = '[×](fg:bold red)'
 
-#  Paleta Carbonfox
-[palettes.carbonfox]
-red = "#ee5396"
-green = "#25be6a"
-purple = "#be95ff"
-yellow = "#08bdba"
-os_bg = "#7b7c7e"
-os_fg = "#0c0c0c"
-dir_fg = "#08bdba"
 
 #  Paleta Kanagawa Dragon
 [palettes.kanagawa_dragon]
