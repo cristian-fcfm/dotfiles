@@ -4,12 +4,7 @@ return {
     -- Cargar solo en filetypes relevantes
     ft = { "python", "julia", "r", "lua", "javascript", "typescript", "sh", "bash", "sql" },
     init = function()
-      -- Configurar vim-slime para usar tmux
-      vim.g.slime_target = "tmux"
-      vim.g.slime_default_config = {
-        socket_name = "default",
-        target_pane = "{last}",
-      }
+      vim.g.slime_target = "kitty"
 
       -- Configuración específica para Python/IPython
       vim.g.slime_python_ipython = 1
@@ -24,7 +19,15 @@ return {
       -- Usar paste bracketed para mejor manejo de código
       vim.g.slime_bracketed_paste = 1
 
-      -- Configuración avanzada para tmux
+      -- Configuración por defecto para kitty
+      -- listen_on: socket de comunicación con kitty
+      -- window_id: nil = usar la ventana más reciente (excluyendo nvim)
+      vim.g.slime_default_config = {
+        listen_on = "unix:@mykitty",
+        window_id = nil,
+      }
+
+      -- Habilitar mappings por defecto de slime
       vim.g.slime_no_mappings = 0
     end,
   },

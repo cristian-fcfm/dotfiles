@@ -2,7 +2,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    version = false,
+    branch = "master",
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
     lazy = vim.fn.argc(-1) == 0, -- Cargar al inicio si se abre con archivo
@@ -26,7 +26,6 @@ return {
         "luap",
         "markdown",
         "markdown_inline",
-        "norg",
         "python",
         "query",
         "regex",
