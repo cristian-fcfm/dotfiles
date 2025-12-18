@@ -55,6 +55,21 @@ vim.opt.spell = false -- Desactivado por defecto (activar con :set spell)
 vim.opt.spelllang = { "en", "es" } -- Idiomas: inglés y español
 vim.opt.spellsuggest = "best,9" -- Mostrar las 9 mejores sugerencias
 
+-- Descargar automáticamente archivos de spell si no existen
+local spell_dir = vim.fn.stdpath("data") .. "/site/spell"
+vim.fn.mkdir(spell_dir, "p")
+
+-- Verificar y descargar diccionarios de spell si no existen
+for _, lang in ipairs({ "en", "es" }) do
+  local spell_file = spell_dir .. "/" .. lang .. ".utf-8.spl"
+  if vim.fn.filereadable(spell_file) == 0 then
+    vim.cmd("silent! mkspell! " .. spell_file .. " " .. spell_dir .. "/" .. lang)
+    -- Descargar desde el servidor de Vim si mkspell falla
+    local url = "https://ftp.nluug.nl/vim/runtime/spell/" .. lang .. ".utf-8.spl"
+    vim.fn.system({ "curl", "-fLo", spell_file, "--create-dirs", url })
+  end
+end
+
 -- Configurar ripgrep como programa de búsqueda
 if vim.fn.executable("rg") == 1 then
   vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
