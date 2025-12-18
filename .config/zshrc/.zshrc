@@ -1,20 +1,22 @@
 # ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║                              ZSH Configuration                              ║
-# ║                     Optimized for Neovim + Kitty + Yazi                    ║
+# ║                              ZSH Configuration                             ║
+# ║                     Optimized for Neovim + Kitty + Yazi                   ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
 
 # ┌───────────────────────────────────────────────────────────────────────────┐
-# │                              PATH Configuration                            │
+# │                              PATH Configuration                           │
 # └───────────────────────────────────────────────────────────────────────────┘
+# Homebrew debe cargarse PRIMERO para que sus binarios estén disponibles
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # ┌───────────────────────────────────────────────────────────────────────────┐
-# │                           Oh My Zsh Configuration                          │
+# │                           Oh My Zsh Configuration                         │
 # └───────────────────────────────────────────────────────────────────────────┘
 export ZSH="$HOME/.oh-my-zsh"
-
-# Tema - Comentado porque usas Starship
-# ZSH_THEME="robbyrussell"
 
 # ─── Lazy loading para mejor performance ───────────────────────────────────
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
@@ -44,7 +46,7 @@ COMPLETION_WAITING_DOTS="true"         # Feedback visual al completar
 source $ZSH/oh-my-zsh.sh
 
 # ┌───────────────────────────────────────────────────────────────────────────┐
-# │                           Environment Variables                            │
+# │                           Environment Variables                           │
 # └───────────────────────────────────────────────────────────────────────────┘
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -52,9 +54,6 @@ export EDITOR=nvim
 export VISUAL=nvim
 export BROWSER=firefox
 export TERMINAL=kitty
-
-# Zk notebook directory
-export ZK_NOTEBOOK_DIR="$HOME/Documents/notes"
 
 # Para mejor integración con herramientas
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude node_modules'
@@ -78,12 +77,12 @@ export FZF_DEFAULT_OPTS='
 '
 
 # ┌───────────────────────────────────────────────────────────────────────────┐
-# │                              Starship Prompt                               │
+# │                              Starship Prompt                              │
 # └───────────────────────────────────────────────────────────────────────────┘
 eval "$(starship init zsh)"
 
 # ┌───────────────────────────────────────────────────────────────────────────┐
-# │                             Yazi Integration                               │
+# │                             Yazi Integration                              │
 # └───────────────────────────────────────────────────────────────────────────┘
 # Función mejorada para Yazi con cd al salir
 function y() {
@@ -93,107 +92,6 @@ function y() {
         builtin cd -- "$cwd"
     fi
     rm -f -- "$tmp"
-}
-
-# ┌───────────────────────────────────────────────────────────────────────────┐
-# │                              AWS Configuration                             │
-# └───────────────────────────────────────────────────────────────────────────┘
-
-# ─── AWS Profile Management ────────────────────────────────────────────────
-# Aliases para cambiar perfiles AWS rápidamente
-alias aws-prod='export AWS_PROFILE="632266566629_DataScientistAnalyticsOperator" && echo " AWS Profile: PRODUCTION"'
-alias aws-dev='export AWS_PROFILE="260306441297_DataScientistAnalyticsOperator" && echo " AWS Profile: DEVELOPMENT"'
-alias aws-profile='echo " Current AWS Profile: ${AWS_PROFILE:-default}"'
-alias aws-clear='unset AWS_PROFILE && echo " AWS Profile cleared (using default)"'
-
-# ─── AWS Utility Functions ─────────────────────────────────────────────────
-# Función para mostrar información del perfil actual
-aws-info() {
-    if [[ -z "$AWS_PROFILE" ]]; then
-        echo "󱪙 Using default AWS profile"
-    else
-        echo " Current AWS Profile: $AWS_PROFILE"
-        if [[ "$AWS_PROFILE" == *"632266566629"* ]]; then
-            echo " Environment: PRODUCTION"
-            echo " CUIDADO: Estás en producción!"
-        elif [[ "$AWS_PROFILE" == *"260306441297"* ]]; then
-            echo " Environment: DEVELOPMENT" 
-            echo " Perfecto para desarrollo"
-        fi
-    fi
-    
-    # Mostrar información de la cuenta si AWS CLI está configurado
-    if command -v aws &> /dev/null; then
-        echo " Account Info:"
-        aws sts get-caller-identity 2>/dev/null || echo " No se pudo obtener información de la cuenta"
-    fi
-}
-
-# Función para listar todos los perfiles disponibles
-aws-list() {
-    echo " AWS Profiles disponibles:"
-    if [ -f ~/.aws/config ]; then
-        grep '\[profile' ~/.aws/config | sed 's/\[profile \(.*\)\]/   \1/'
-    fi
-    if [ -f ~/.aws/credentials ]; then
-        grep '\[' ~/.aws/credentials | grep -v 'profile' | sed 's/\[\(.*\)\]/  lamp \1/'
-    fi
-    echo ""
-    aws-info
-}
-
-# Función interactiva para cambiar perfiles con fzf
-aws-switch() {
-    if ! command -v fzf &> /dev/null; then
-        echo " fzf no está instalado. Usa aws-dev o aws-prod directamente."
-        return 1
-    fi
-    
-    local profiles=()
-    profiles+=("632266566629_DataScientistAnalyticsOperator   PRODUCTION")
-    profiles+=("260306441297_DataScientistAnalyticsOperator   DEVELOPMENT")
-    profiles+=("default  󱪙 DEFAULT")
-    profiles+=("clear   CLEAR PROFILE")
-    
-    local choice
-    choice=$(printf '%s\n' "${profiles[@]}" | fzf --height 40% --layout=reverse --border --prompt=" Select AWS Profile: ")
-    
-    if [[ -n "$choice" ]]; then
-        local profile_name=$(echo "$choice" | awk '{print $1}')
-        case "$profile_name" in
-            "632266566629_DataScientistAnalyticsOperator")
-                aws-prod
-                ;;
-            "260306441297_DataScientistAnalyticsOperator")
-                aws-dev
-                ;;
-            "clear")
-                aws-clear
-                ;;
-            "default")
-                export AWS_PROFILE=""
-                echo "󱪙 Using default AWS profile"
-                ;;
-        esac
-        aws-info
-    fi
-}
-
-# Función para verificar conexión AWS
-aws-test() {
-    if ! command -v aws &> /dev/null; then
-        echo " AWS CLI no está instalado"
-        return 1
-    fi
-    
-    echo " Testing AWS connection..."
-    if aws sts get-caller-identity > /dev/null 2>&1; then
-        echo " AWS connection successful"
-        aws-info
-    else
-        echo " AWS connection failed"
-        echo " Verifica tus credenciales y perfil"
-    fi
 }
 
 # ┌───────────────────────────────────────────────────────────────────────────┐
@@ -268,12 +166,6 @@ alias nvconfig='nvim ~/.config/nvim/'
 alias icat='kitty +kitten icat'
 alias kssh='kitty +kitten ssh'
 alias kdiff='kitty +kitten diff'
-
-# ─── Python/Data Science ────────────────────────────────────────────────────
-alias py='python'
-alias ipy='ipython --no-autoindent'
-alias jl='jupyter lab'
-alias jn='jupyter notebook'
 
 # ─── UV shortcuts ──────────────────────────────────────────────────────────
 alias uvlist='uv python list'
@@ -447,11 +339,6 @@ case "$(uname -s)" in
     Darwin*)
         # macOS específico
         alias updatedb='/usr/libexec/locate.updatedb'
-        
-        # Homebrew
-        if [[ -f "/opt/homebrew/bin/brew" ]]; then
-            eval "$(/opt/homebrew/bin/brew shellenv)"
-        fi
         ;;
     Linux*)
         # Linux específico
