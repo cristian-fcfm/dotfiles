@@ -23,7 +23,7 @@ return {
       -- listen_on: socket de comunicación con kitty
       -- window_id: nil = usar la ventana más reciente (excluyendo nvim)
       vim.g.slime_default_config = {
-        listen_on = "unix:@mykitty",
+        listen_on = "unix:/tmp/mykitty",
         window_id = nil,
       }
 
