@@ -69,4 +69,50 @@ return {
       },
     },
   },
+
+  -- Mini.ai: Text objects mejorados (a/i con custom patterns)
+  {
+    "echasnovski/mini.ai",
+    version = false,
+    event = { "BufReadPost", "BufNewFile" },
+    opts = function()
+      local ai = require("mini.ai")
+      return {
+        n_lines = 500, -- Buscar text objects hasta 500 líneas adelante/atrás
+        custom_textobjects = {
+          -- Función completa
+          f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+          -- Clase
+          c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+          -- Condicional
+          o = ai.gen_spec.treesitter({
+            a = { "@conditional.outer", "@loop.outer" },
+            i = { "@conditional.inner", "@loop.inner" },
+          }),
+          -- Argumento/parámetro
+          a = ai.gen_spec.argument({ separator = "," }),
+          -- Bloque de código
+          b = ai.gen_spec.treesitter({ a = "@block.outer", i = "@block.inner" }),
+          -- Llamada a función
+          F = ai.gen_spec.function_call(),
+          -- TODO/FIXME/NOTE/HACK/WARNING
+          g = function(mode)
+            local comment_patterns = {
+              "TODO", "FIXME", "NOTE", "HACK", "WARNING", "XXX", "BUG", "PERF", "TEST"
+            }
+            local pattern = table.concat(comment_patterns, "|")
+            return ai.gen_spec.pair("(%s*" .. pattern .. ")", "$", { type = "line" })(mode)
+          end,
+        },
+      }
+    end,
+  },
+
+  -- Mini.move: Mover líneas y bloques de código
+  {
+    "echasnovski/mini.move",
+    version = false,
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {},
+  },
 }
