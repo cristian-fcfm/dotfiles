@@ -20,6 +20,7 @@ end, 100)
 require("config.options")
 require("config.keymaps")
 require("config.autocmd")
+require("config.commands")
 
 -- Carga la configuración de plugins (usando lazy.nvim)
 require("plugins")
