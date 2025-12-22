@@ -19,7 +19,6 @@ require("lazy").setup({
   { import = "config.plugins.colorscheme" }, -- Tema de colores
   { import = "config.plugins.whichkey" }, -- Mostrar atajos de teclado
   { import = "config.plugins.treesitter" }, -- Resaltado de sintaxis avanzado
-  { import = "config.plugins.fzflua" }, -- Buscador tipo fuzzy
   { import = "config.plugins.oil" }, -- Explorador de archivos
   { import = "config.plugins.lualine" }, -- Barra de estado
   { import = "config.plugins.lsp" }, -- LSP
@@ -32,9 +31,9 @@ require("lazy").setup({
   { import = "config.plugins.todocomments" }, -- TODO comments con fzf-lua
   { import = "config.plugins.mini" }, -- Mini plugins (move, surround, comment, etc)
   { import = "config.plugins.gitsigns" }, -- Muestra cambios de git
-  { import = "config.plugins.markdown" }, -- Renderizado Markdown
-  { import = "config.plugins.neorg" }, -- Organización y notas con Neorg
-  { import = "config.plugins.livepreview" }, -- Live preview para Markdown/HTML
+  { import = "config.plugins.markdown-render" }, -- Renderizado Markdown
+  -- { import = "config.plugins.neorg" }, -- Organización y notas con Neorg (deshabilitado temporalmente - incompatible con nvim-treesitter main)
+  { import = "config.plugins.markdown-preview" }, -- Live preview para Markdown
   { import = "config.plugins.typst" }, -- Typst para composición tipográfica
   { import = "config.plugins.trouble" }, -- Diagnósticos LSP y navegación
   { import = "config.plugins.snacks" }, -- Snacks: QoL plugins (image, bigfile, notifier, etc.)
