@@ -14,11 +14,7 @@ return {
       -- ========================================================================
       ["core.defaults"] = {},
       -- Deshabilitar integración de treesitter (incompatible con nvim-treesitter main)
-      ["core.integrations.treesitter"] = {
-        config = {
-          configure_parsers = false,
-        },
-      },
+      ["core.integrations.treesitter"] = { enabled = false },
       ["core.concealer"] = {
         config = {
           icon_preset = "diamond", -- Iconos: basic, diamond, varied
