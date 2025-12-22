@@ -47,6 +47,6 @@ return {
     require("config.whichkey.typst")
     require("config.whichkey.picker")
     require("config.whichkey.yanky")
-    require("config.whichkey.neorg")
+    -- require("config.whichkey.neorg") -- Deshabilitado temporalmente
   end,
 }
