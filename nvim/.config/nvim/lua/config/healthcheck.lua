@@ -5,7 +5,6 @@ local M = {}
 
 -- Herramientas del sistema requeridas
 M.system_tools = {
-  { cmd = "fzf", desc = "Fuzzy finder (fzf-lua)", required = true },
   { cmd = "rg", desc = "Ripgrep - búsqueda rápida de texto", required = true },
   { cmd = "fd", desc = "Find - búsqueda rápida de archivos", required = true },
   { cmd = "git", desc = "Control de versiones", required = true },
