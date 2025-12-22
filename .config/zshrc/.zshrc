@@ -13,6 +13,9 @@ fi
 
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
+# Cargar paths del sistema (incluye /Library/TeX/texbin)
+eval "$(/usr/libexec/path_helper -s)"
+
 # ┌───────────────────────────────────────────────────────────────────────────┐
 # │                           Oh My Zsh Configuration                         │
 # └───────────────────────────────────────────────────────────────────────────┘
@@ -281,48 +284,10 @@ clone_and_lg() {
     git clone "$1" && cd "$repo_name" && lazygit
 }
 
-# ─── Funciones Tmux ─────────────────────────────────────────────────────────
-# Función para crear sesión tmux con nombre del proyecto
-tmux-new() {
-    if [ -z "$1" ]; then
-        local session_name=$(basename "$PWD")
-    else
-        local session_name="$1"
-    fi
-    tmux new-session -s "$session_name"
-}
-
-# Función para adjuntar a sesión tmux con fzf
-tmux-attach() {
-    if ! command -v fzf &> /dev/null; then
-        echo " fzf no está instalado. Usa 'ta <nombre>' directamente."
-        return 1
-    fi
-
-    local session
-    session=$(tmux list-sessions -F "#S" 2>/dev/null | fzf --prompt="󱘖 Select tmux session: " --height 40% --border rounded) && tmux attach-session -t "$session"
-}
-
-# Función para matar sesión tmux con fzf
-tmux-kill() {
-    if ! command -v fzf &> /dev/null; then
-        echo " fzf no está instalado. Usa 'tkill <nombre>' directamente."
-        return 1
-    fi
-
-    local session
-    session=$(tmux list-sessions -F "#S" 2>/dev/null | fzf --prompt=" Kill tmux session: " --height 40% --border rounded) && tmux kill-session -t "$session"
-}
-
-# Auto-attach a tmux si no estamos en una sesión (solo en SSH)
-if [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
-    tmux attach-session -t default || tmux new-session -s default
-fi
-
 # ─── Funciones para Data Science ───────────────────────────────────────────
 # Crear proyecto de data science con UV
 create_ds_env() {
-    uv init --python 3.11
+    uv init --python 3.12
     
     uv add numpy pandas matplotlib scikit-learn
 
