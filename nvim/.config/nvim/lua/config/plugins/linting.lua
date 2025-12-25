@@ -28,6 +28,7 @@ return {
     -- Markdown - markdownlint para estilo
     if utils.executable("markdownlint") then
       linters_by_ft.markdown = { "markdownlint" }
+      linters_by_ft.zk = { "markdownlint" }
     end
 
     -- Docker - hadolint para mejores prácticas

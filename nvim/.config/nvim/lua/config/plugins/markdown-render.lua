@@ -1,9 +1,9 @@
 return {
   "MeanderingProgrammer/render-markdown.nvim",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
-  ft = { "markdown" },
+  ft = { "markdown", "zk" },
   opts = {
-    file_types = { "markdown" },
+    file_types = { "markdown", "zk" },
     code = {
       sign = false,
       width = "block",

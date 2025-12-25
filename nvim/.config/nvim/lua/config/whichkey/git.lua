@@ -62,7 +62,7 @@ wk.add({
   },
 
   -- Lazygit (Snacks)
-  { "<leader>g", group = "Git", icon = "" },
+  { "<leader>g", group = "Git", icon = "" },
   {
     "<leader>gg",
     function()

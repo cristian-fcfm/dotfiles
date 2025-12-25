@@ -31,6 +31,7 @@ require("lazy").setup({
   { import = "config.plugins.todocomments" }, -- TODO comments con fzf-lua
   { import = "config.plugins.mini" }, -- Mini plugins (move, surround, comment, etc)
   { import = "config.plugins.gitsigns" }, -- Muestra cambios de git
+  { import = "config.plugins.zk" }, -- Zettelkasten con zk-nvim
   { import = "config.plugins.markdown-render" }, -- Renderizado Markdown
   -- { import = "config.plugins.neorg" }, -- Organización y notas con Neorg (deshabilitado temporalmente - incompatible con nvim-treesitter main)
   { import = "config.plugins.markdown-preview" }, -- Live preview para Markdown
