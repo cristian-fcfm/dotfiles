@@ -59,27 +59,39 @@ wk.add({
 
   -- Put linewise
   {
-    "<leader>yp",
+    ">p",
     "<Plug>(YankyPutAfterLinewise)",
-    desc = "[P]ut after linewise",
-    icon = "󰘎",
+    desc = "Put after linewise",
+    mode = { "n", "x" },
   },
   {
-    "<leader>yP",
+    ">P",
     "<Plug>(YankyPutBeforeLinewise)",
     desc = "Put before linewise",
-    icon = "󰘍",
+    mode = { "n", "x" },
   },
   {
-    "<leader>yo",
+    "<p",
     "<Plug>(YankyPutAfterLinewise)",
-    desc = "Put after linewise ([o]pen below)",
-    icon = "󰘎",
+    desc = "Put after linewise (open below)",
+    mode = { "n", "x" },
   },
   {
-    "<leader>yO",
+    "<P",
     "<Plug>(YankyPutBeforeLinewise)",
-    desc = "Put before linewise ([O]pen above)",
-    icon = "󰘍",
+    desc = "Put before linewise (open above)",
+    mode = { "n", "x" },
+  },
+  {
+    "=p",
+    "<Plug>(YankyPutAfterFilter)",
+    desc = "Put after with filter",
+    mode = { "n", "x" },
+  },
+  {
+    "=P",
+    "<Plug>(YankyPutBeforeFilter)",
+    desc = "Put before with filter",
+    mode = { "n", "x" },
   },
 })
