@@ -2,21 +2,18 @@
 -- Handles date calculations for periodic notes
 
 local M = {}
-local utils = require("zktools.utils")
+local date = require("date")
 
 -- ============================================================================
 -- Constants
 -- ============================================================================
 
 local DIRS = {
-	DAILY = "0-reviews/4-daily",
-	WEEKLY = "0-reviews/3-weekly",
-	MONTHLY = "0-reviews/2-monthly",
-	YEARLY = "0-reviews/1-yearly",
+  DAILY = "0-reviews/4-daily",
+  WEEKLY = "0-reviews/3-weekly",
+  MONTHLY = "0-reviews/2-monthly",
+  YEARLY = "0-reviews/1-yearly",
 }
-
-local DAY_NAMES = { "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" }
-local SECONDS_PER_DAY = 86400
 
 -- ============================================================================
 -- Daily Notes
@@ -26,29 +23,33 @@ local SECONDS_PER_DAY = 86400
 --- @param offset number? Day offset from today (default: 0)
 --- @return table Extra variables for template
 function M.get_daily_extra(offset)
-	offset = offset or 0
-	local today = os.time() + (offset * SECONDS_PER_DAY)
+  offset = offset or 0
+  local today = date():adddays(offset)
 
-	return {
-		yesterday = os.date("%Y-%m-%d", today - SECONDS_PER_DAY),
-		tomorrow = os.date("%Y-%m-%d", today + SECONDS_PER_DAY),
-	}
+  -- Get ISO week information
+  local year = today:getisoyear()
+  local week = today:getisoweeknumber()
+
+  return {
+    yesterday = today:adddays(-1):fmt("%Y-%m-%d"),
+    tomorrow = today:adddays(1):fmt("%Y-%m-%d"),
+    week_link = string.format("%d-W%02d", year, week),
+  }
 end
 
 --- Create daily note
 --- @param offset number? Day offset from today (default: 0)
 function M.create_daily_note(offset)
-	offset = offset or 0
-	local opts = {
-		dir = DIRS.DAILY,
-		extra = M.get_daily_extra(offset),
-	}
+  offset = offset or 0
+  local today = date():adddays(offset)
 
-	if offset ~= 0 then
-		opts.date = os.date("%Y-%m-%d", os.time() + (offset * SECONDS_PER_DAY))
-	end
+  local opts = {
+    dir = DIRS.DAILY,
+    extra = M.get_daily_extra(offset),
+    date = today:fmt("%Y-%m-%d"),
+  }
 
-	require("zk").new(opts)
+  require("zk").new(opts)
 end
 
 -- ============================================================================
@@ -56,64 +57,61 @@ end
 -- ============================================================================
 
 --- Get extra variables for weekly note
---- @param year number? Year (defaults to current)
---- @param week number? ISO week number (defaults to current)
+--- @param offset number? Week offset from current week (default: 0)
 --- @return table Extra variables for template
-function M.get_weekly_extra(year, week)
-	local now = os.time()
-	year = year or tonumber(os.date("%Y", now))
-	week = week or tonumber(os.date("%V", now))
+function M.get_weekly_extra(offset)
+  offset = offset or 0
 
-	local monday_ts = utils.get_week_monday(year, week)
-	local monday_date = os.date("*t", monday_ts)
+  -- Get target date based on offset
+  local target_date = date():adddays(offset * 7)
+  local year = target_date:getisoyear()
+  local week = target_date:getisoweeknumber()
 
-	-- Calculate week days
-	local extra = {
-		year = tostring(year),
-		week_num = string.format("W%02d", week),
-		week_start_formatted = os.date("%d de %B", monday_ts),
-		week_end_formatted = os.date("%d de %B, %Y", monday_ts + 6 * SECONDS_PER_DAY),
-		month_link = string.format("%d-M%02d", monday_date.year, monday_date.month),
-		month_name = utils.get_spanish_month(monday_date.month) .. " " .. monday_date.year,
-	}
+  -- Get Monday and Sunday of the week
+  local monday = target_date:copy():setisoweekday(1)
+  local sunday = target_date:copy():setisoweekday(7)
 
-	-- Add day links
-	for i = 0, 6 do
-		local day_ts = monday_ts + (i * SECONDS_PER_DAY)
-		local day_name = DAY_NAMES[i + 1]
-		extra[day_name] = os.date("%Y-%m-%d", day_ts)
-		extra[day_name .. "_day"] = os.date("%d", day_ts)
-	end
+  -- Get next and prev week
+  local prev_week = target_date:copy():adddays(-7)
+  local next_week = target_date:copy():adddays(7)
 
-	-- Previous/next week navigation
-	local prev_week_num, prev_week_year = week - 1, year
-	if prev_week_num < 1 then
-		prev_week_year = year - 1
-		prev_week_num = utils.get_iso_week(prev_week_year, 12, 28)
-	end
+  -- Calculate week days
+  local extra = {
+    year = tostring(year),
+    week_num = string.format("W%02d", week),
+    week_start_formatted = monday:fmt("%d de %B"),
+    week_end_formatted = sunday:fmt("%d de %B, %Y"),
+    month_link = string.format("%d-M%02d", tonumber(monday:fmt("%Y")), tonumber(monday:fmt("%m"))),
+    month_name = monday:fmt("%B %Y"),
+    prev_week = string.format("%d-W%02d", prev_week:getisoyear(), prev_week:getisoweeknumber()),
+    next_week = string.format("%d-W%02d", next_week:getisoyear(), next_week:getisoweeknumber()),
+  }
 
-	local next_week_num, next_week_year = week + 1, year
-	local last_week = utils.get_iso_week(year, 12, 28)
-	if next_week_num > last_week then
-		next_week_year = year + 1
-		next_week_num = 1
-	end
+  -- Add day links
+  for i = 0, 6 do
+    local day = monday:copy():adddays(i)
+    local day_name = day:fmt("%A"):lower()
+    extra[day_name] = day:fmt("%Y-%m-%d")
+    extra[day_name .. "_day"] = day:fmt("%A %d")
+  end
 
-	extra.prev_week = string.format("%d-W%02d", prev_week_year, prev_week_num)
-	extra.next_week = string.format("%d-W%02d", next_week_year, next_week_num)
-
-	return extra
+  return extra
 end
 
 --- Create weekly note
---- @param year number? Year (defaults to current)
---- @param week number? ISO week number (defaults to current)
-function M.create_weekly_note(year, week)
-	require("zk").new({
-		dir = DIRS.WEEKLY,
-		group = "weekly",
-		extra = M.get_weekly_extra(year, week),
-	})
+--- @param offset number? Week offset from current week (default: 0)
+function M.create_weekly_note(offset)
+  offset = offset or 0
+  local target_date = date():adddays(offset * 7)
+
+  local opts = {
+    dir = DIRS.WEEKLY,
+    group = "weekly",
+    extra = M.get_weekly_extra(offset),
+    date = target_date:fmt("%Y-%m-%d"),
+  }
+
+  require("zk").new(opts)
 end
 
 -- ============================================================================
@@ -121,66 +119,63 @@ end
 -- ============================================================================
 
 --- Get extra variables for monthly note
---- @param year number? Year (defaults to current)
---- @param month number? Month (1-12, defaults to current)
+--- @param offset number? Month offset from current month (default: 0)
 --- @return table Extra variables for template
-function M.get_monthly_extra(year, month)
-	local now = os.time()
-	year = year or tonumber(os.date("%Y", now))
-	month = month or tonumber(os.date("%m", now))
+function M.get_monthly_extra(offset)
+  offset = offset or 0
 
-	-- Previous/next month navigation
-	local prev_month, prev_year = month - 1, year
-	if prev_month < 1 then
-		prev_month, prev_year = 12, year - 1
-	end
+  -- Get target month based on offset
+  local target_month = date():setday(1):addmonths(offset)
+  local year = target_month:getyear()
+  local month = target_month:getmonth()
 
-	local next_month, next_year = month + 1, year
-	if next_month > 12 then
-		next_month, next_year = 1, year + 1
-	end
+  -- Previous/next month navigation
+  local prev_month = target_month:copy():addmonths(-1)
+  local next_month = target_month:copy():addmonths(1)
 
-	-- Get all weeks in this month
-	local last_day_num = tonumber(os.date("%d", os.time({ year = year, month = month + 1, day = 0 })))
-	local weeks_set = {}
+  -- Find first Monday in or after the month starts
+  local current = target_month:copy():setisoweekday(1)
+  if current:getmonth() ~= month then
+    current = current:adddays(7)
+  end
 
-	for day = 1, last_day_num do
-		local day_ts = os.time({ year = year, month = month, day = day })
-		local week_num = utils.get_iso_week(year, month, day)
-		local week_year = tonumber(os.date("%Y", day_ts))
-		weeks_set[string.format("%d-W%02d", week_year, week_num)] = true
-	end
+  -- Collect all Mondays that belong to this month
+  local weeks_list = {}
+  while current:getmonth() == month do
+    local week_year = current:getisoyear()
+    local week_num = current:getisoweeknumber()
+    table.insert(weeks_list, string.format("%d-W%02d", week_year, week_num))
+    current = current:adddays(7)
+  end
 
-	-- Convert to sorted list
-	local weeks_list = {}
-	for week_str in pairs(weeks_set) do
-		table.insert(weeks_list, week_str)
-	end
-	table.sort(weeks_list)
+  -- Format as markdown
+  local weeks_md = ""
+  for _, week_str in ipairs(weeks_list) do
+    weeks_md = weeks_md .. string.format("- [[%s|Semana %s]]\n", week_str, week_str:match("W%d+"))
+  end
 
-	-- Format as markdown
-	local weeks_md = ""
-	for _, week_str in ipairs(weeks_list) do
-		weeks_md = weeks_md .. string.format("- [[%s|Semana %s]]\n", week_str, week_str:match("W%d+"))
-	end
-
-	return {
-		year = tostring(year),
-		prev_month = string.format("%d-M%02d", prev_year, prev_month),
-		next_month = string.format("%d-M%02d", next_year, next_month),
-		weeks_list = weeks_md,
-	}
+  return {
+    year = tostring(year),
+    prev_month = string.format("%d-M%02d", prev_month:getyear(), prev_month:getmonth()),
+    next_month = string.format("%d-M%02d", next_month:getyear(), next_month:getmonth()),
+    weeks_list = weeks_md,
+  }
 end
 
 --- Create monthly note
---- @param year number? Year (defaults to current)
---- @param month number? Month (1-12, defaults to current)
-function M.create_monthly_note(year, month)
-	require("zk").new({
-		dir = DIRS.MONTHLY,
-		group = "monthly",
-		extra = M.get_monthly_extra(year, month),
-	})
+--- @param offset number? Month offset from current month (default: 0)
+function M.create_monthly_note(offset)
+  offset = offset or 0
+  local target_month = date():setday(1):addmonths(offset)
+
+  local opts = {
+    dir = DIRS.MONTHLY,
+    group = "monthly",
+    extra = M.get_monthly_extra(offset),
+    date = target_month:fmt("%Y-%m-%d"),
+  }
+
+  require("zk").new(opts)
 end
 
 -- ============================================================================
@@ -188,34 +183,44 @@ end
 -- ============================================================================
 
 --- Get extra variables for yearly note
---- @param year number? Year (defaults to current)
+--- @param offset number? Year offset from current year (default: 0)
 --- @return table Extra variables for template
-function M.get_yearly_extra(year)
-	year = year or tonumber(os.date("%Y"))
+function M.get_yearly_extra(offset)
+  offset = offset or 0
 
-	-- Generate months list
-	local months_md = ""
-	for month = 1, 12 do
-		months_md = months_md
-			.. string.format("- [[%d-M%02d|%s]]\n", year, month, utils.get_spanish_month(month))
-	end
+  -- Get target year based on offset
+  local target_year = date():addyears(offset)
+  local year = target_year:getyear()
 
-	return {
-		year = tostring(year),
-		prev_year = tostring(year - 1),
-		next_year = tostring(year + 1),
-		months_list = months_md,
-	}
+  -- Generate months list
+  local months_md = ""
+  for month = 1, 12 do
+    local month_name = date(year, month, 1):fmt("%B")
+    months_md = months_md .. string.format("- [[%d-M%02d|%s]]\n", year, month, month_name)
+  end
+
+  return {
+    year = tostring(year),
+    prev_year = tostring(year - 1),
+    next_year = tostring(year + 1),
+    months_list = months_md,
+  }
 end
 
 --- Create yearly note
---- @param year number? Year (defaults to current)
-function M.create_yearly_note(year)
-	require("zk").new({
-		dir = DIRS.YEARLY,
-		group = "yearly",
-		extra = M.get_yearly_extra(year),
-	})
+--- @param offset number? Year offset from current year (default: 0)
+function M.create_yearly_note(offset)
+  offset = offset or 0
+  local target_year = date():addyears(offset)
+
+  local opts = {
+    dir = DIRS.YEARLY,
+    group = "yearly",
+    extra = M.get_yearly_extra(offset),
+    date = target_year:fmt("%Y-%m-%d"),
+  }
+
+  require("zk").new(opts)
 end
 
 return M
