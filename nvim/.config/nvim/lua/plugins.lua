@@ -16,6 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Carga los plugins desde los archivos en config/plugins/
 require("lazy").setup({
+  { import = "config.plugins.luarocks" }, -- Gestor de dependencias Lua
   { import = "config.plugins.colorscheme" }, -- Tema de colores
   { import = "config.plugins.whichkey" }, -- Mostrar atajos de teclado
   { import = "config.plugins.treesitter" }, -- Resaltado de sintaxis avanzado
