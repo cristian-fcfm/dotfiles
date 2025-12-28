@@ -3,6 +3,11 @@ use = "yazi-rs/plugins:full-border"
 rev = "8f1d971"
 hash = "3996fc74044bc44144b323686f887e1"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:mount"
+rev = "19dc890"
+hash = "4fccaaf10c36dc2466e2438a386ff017"
+
 [[flavor.deps]]
 use = "kalidyasin/yazi-flavors:tokyonight-night"
 rev = "fa19b40"
