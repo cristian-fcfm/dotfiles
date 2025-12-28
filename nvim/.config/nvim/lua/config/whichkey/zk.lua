@@ -148,10 +148,26 @@ wk.add({
   {
     "<leader>zwn",
     function()
-      require("zktools.dates").create_weekly_note()
+      require("zktools.dates").create_weekly_note(0)
     end,
-    desc = "[N]ew weekly note",
-    icon = "󱘒",
+    desc = "This week",
+    icon = "󱨳",
+  },
+  {
+    "<leader>zwp",
+    function()
+      require("zktools.dates").create_weekly_note(-1)
+    end,
+    desc = "[P]revious week",
+    icon = "󰮷",
+  },
+  {
+    "<leader>zwx",
+    function()
+      require("zktools.dates").create_weekly_note(1)
+    end,
+    desc = "Ne[x]t week",
+    icon = "󰮸",
   },
   {
     "<leader>zwo",
@@ -167,10 +183,26 @@ wk.add({
   {
     "<leader>zmn",
     function()
-      require("zktools.dates").create_monthly_note()
+      require("zktools.dates").create_monthly_note(0)
     end,
-    desc = "[N]ew monthly note",
-    icon = "󱘒",
+    desc = "This month",
+    icon = "󰸗",
+  },
+  {
+    "<leader>zmp",
+    function()
+      require("zktools.dates").create_monthly_note(-1)
+    end,
+    desc = "[P]revious month",
+    icon = "󰮷",
+  },
+  {
+    "<leader>zmx",
+    function()
+      require("zktools.dates").create_monthly_note(1)
+    end,
+    desc = "Ne[x]t month",
+    icon = "󰮸",
   },
   {
     "<leader>zmo",
@@ -186,10 +218,26 @@ wk.add({
   {
     "<leader>zyn",
     function()
-      require("zktools.dates").create_yearly_note()
+      require("zktools.dates").create_yearly_note(0)
     end,
-    desc = "[N]ew yearly note",
-    icon = "󱘒",
+    desc = "This year",
+    icon = "󰸘",
+  },
+  {
+    "<leader>zyp",
+    function()
+      require("zktools.dates").create_yearly_note(-1)
+    end,
+    desc = "[P]revious year",
+    icon = "󰮷",
+  },
+  {
+    "<leader>zyx",
+    function()
+      require("zktools.dates").create_yearly_note(1)
+    end,
+    desc = "Ne[x]t year",
+    icon = "󰮸",
   },
   {
     "<leader>zyo",
