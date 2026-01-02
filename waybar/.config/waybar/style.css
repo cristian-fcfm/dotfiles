@@ -60,7 +60,7 @@
 #custom-weather.cloudyFoggyNight,
 #custom-weather.rainyDay,
 #custom-weather.rainyNight,
-#custom-weather.showyIcyDay,
+#custom-weather.snowyIcyDay,
 #custom-weather.snowyIcyNight,
 #custom-weather.default {
   background-color: alpha(@base, 0.9);
@@ -162,9 +162,6 @@ window#waybar.hidden {
 }
 
 /* Individual Modules */
-#battery {
-  color: @mauve;
-}
 
 #battery.warning {
   color: @yellow;
