@@ -26,7 +26,7 @@ return {
     },
     config = function()
       local servers = {
-        pyrefly = {},
+        ty = {},
         bashls = {},
         jsonls = {},
         yamlls = {},
@@ -230,8 +230,8 @@ return {
       -- ========================================================================
 
       -- Python
-      vim.lsp.config.pyrefly = {
-        cmd = { "uvx", "pyrefly", "lsp" },
+      vim.lsp.config.ty = {
+        cmd = { "ty", "server" },
         filetypes = { "python" },
         root_markers = {
           "pyproject.toml",
@@ -240,7 +240,9 @@ return {
           "requirements.txt",
           "Pipfile",
         },
-        settings = {},
+        settings = {
+          ty = {},
+        },
       }
 
       -- Bash
@@ -361,7 +363,7 @@ return {
       -- HABILITAR SERVIDORES
       -- ========================================================================
       vim.lsp.enable({
-        "pyrefly",
+        "ty",
         "bashls",
         "jsonls",
         "yamlls",
