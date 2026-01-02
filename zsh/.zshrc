@@ -13,8 +13,10 @@ fi
 
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Cargar paths del sistema (incluye /Library/TeX/texbin)
-eval "$(/usr/libexec/path_helper -s)"
+# Cargar paths del sistema (incluye /Library/TeX/texbin en macOS)
+if [[ -x "/usr/libexec/path_helper" ]]; then
+    eval "$(/usr/libexec/path_helper -s)"
+fi
 
 # ┌───────────────────────────────────────────────────────────────────────────┐
 # │                           Oh My Zsh Configuration                         │
