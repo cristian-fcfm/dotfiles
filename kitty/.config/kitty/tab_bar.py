@@ -57,12 +57,12 @@ def _calculate_right_width(cells) -> int:
 
 def _draw_left(screen: Screen) -> int:
     user = os.environ.get("USER") or os.environ.get("USERNAME") or "?"
-    screen.cursor.bg = colors["bg"]
-    screen.cursor.fg = colors["active_fg"]
+    screen.cursor.bg = colors["fg"]
+    screen.cursor.fg = colors["accent"]
     screen.draw(f"󰣇 {user}")
     screen.cursor.x = len(f"󰣇 {user}")
 
-    screen.cursor.fg = colors["bg"]
+    screen.cursor.fg = colors["fg"]
     screen.cursor.bg = colors["bar_bg"]
     screen.draw(symbols["separator_right"] + " ")
 
