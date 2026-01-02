@@ -48,6 +48,13 @@ return {
       linters_by_ft.rust = { "clippy" }
     end
 
+    -- CSS/SCSS/LESS - stylelint para validación
+    if utils.executable("stylelint") then
+      linters_by_ft.css = { "stylelint" }
+      linters_by_ft.scss = { "stylelint" }
+      linters_by_ft.less = { "stylelint" }
+    end
+
     lint.linters_by_ft = linters_by_ft
 
     -- Autocommands para ejecutar linting
