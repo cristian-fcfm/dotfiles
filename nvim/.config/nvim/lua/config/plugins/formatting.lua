@@ -14,12 +14,16 @@ return {
       formatters_by_ft.python = { "ruff_format", "ruff_organize_imports" }
     end
 
-    -- JSON/YAML/Markdown - solo si prettier está disponible
+    -- JSON/YAML/Markdown/HTML/CSS - solo si prettier está disponible
     if utils.executable("prettier") then
       formatters_by_ft.json = { "prettier" }
       formatters_by_ft.yaml = { "prettier" }
       formatters_by_ft.markdown = { "prettier" }
       formatters_by_ft.zk = { "prettier" }
+      formatters_by_ft.html = { "prettier" }
+      formatters_by_ft.css = { "prettier" }
+      formatters_by_ft.scss = { "prettier" }
+      formatters_by_ft.less = { "prettier" }
     end
 
     -- Bash - solo si shfmt está disponible
