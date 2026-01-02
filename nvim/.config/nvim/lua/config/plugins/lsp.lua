@@ -35,6 +35,8 @@ return {
         lua_ls = {},
         tinymist = {},
         rust_analyzer = {},
+        html = {},
+        cssls = {},
       }
 
       -- Linters
@@ -45,6 +47,7 @@ return {
         "markdownlint", -- Markdown
         "hadolint", -- Docker
         "selene", -- Lua
+        "stylelint", -- CSS
       }
 
       -- Formatters (adicionales a los configurados en conform)
@@ -359,6 +362,45 @@ return {
         },
       }
 
+      -- HTML
+      vim.lsp.config.html = {
+        cmd = { "vscode-html-language-server", "--stdio" },
+        filetypes = { "html", "htmldjango" },
+        root_markers = { ".git" },
+        settings = {
+          html = {
+            format = { enable = false },
+          },
+        },
+      }
+
+      -- CSS
+      vim.lsp.config.cssls = {
+        cmd = { "vscode-css-language-server", "--stdio" },
+        filetypes = { "css", "scss", "less" },
+        root_markers = { ".git" },
+        settings = {
+          css = {
+            validate = true,
+            lint = {
+              unknownAtRules = "ignore",
+            },
+          },
+          scss = {
+            validate = true,
+            lint = {
+              unknownAtRules = "ignore",
+            },
+          },
+          less = {
+            validate = true,
+            lint = {
+              unknownAtRules = "ignore",
+            },
+          },
+        },
+      }
+
       -- ========================================================================
       -- HABILITAR SERVIDORES
       -- ========================================================================
@@ -372,6 +414,8 @@ return {
         "lua_ls",
         "tinymist",
         "rust_analyzer",
+        "html",
+        "cssls",
       })
 
       -- ========================================================================
