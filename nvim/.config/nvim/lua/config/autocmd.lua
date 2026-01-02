@@ -117,3 +117,44 @@ api.nvim_create_autocmd("FileType", {
     vim.opt_local.spell = true
   end,
 })
+
+-- Configurar highlight groups para checkbox states de Markdown
+api.nvim_create_autocmd("ColorScheme", {
+  group = api.nvim_create_augroup("markdown_checkbox_highlights", { clear = true }),
+  desc = "Configurar highlights para estados de checkbox en Markdown",
+  callback = function()
+    -- Obtener colores del tema actual
+    local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
+    local comment = vim.api.nvim_get_hl(0, { name = "Comment" })
+    local string = vim.api.nvim_get_hl(0, { name = "String" })
+    local warning = vim.api.nvim_get_hl(0, { name = "DiagnosticWarn" })
+    local info = vim.api.nvim_get_hl(0, { name = "DiagnosticInfo" })
+    local hint = vim.api.nvim_get_hl(0, { name = "DiagnosticHint" })
+
+    -- Sin completar - gris/comentario
+    vim.api.nvim_set_hl(0, "RenderMarkdownUnchecked", { fg = comment.fg or "#666666" })
+
+    -- Completado - verde/string
+    vim.api.nvim_set_hl(0, "RenderMarkdownChecked", { fg = string.fg or "#98BB6C" })
+
+    -- Cancelado - rojo
+    vim.api.nvim_set_hl(0, "RenderMarkdownTodo", { fg = "#E82424" })
+
+    -- En progreso - azul
+    vim.api.nvim_set_hl(0, "RenderMarkdownProgress", { fg = info.fg or "#7AA2F7" })
+
+    -- Pregunta - cyan
+    vim.api.nvim_set_hl(0, "RenderMarkdownQuestion", { fg = hint.fg or "#7FB4CA" })
+
+    -- En espera - amarillo
+    vim.api.nvim_set_hl(0, "RenderMarkdownWaiting", { fg = warning.fg or "#DCA561" })
+
+    -- Parcial - púrpura
+    vim.api.nvim_set_hl(0, "RenderMarkdownPartial", { fg = "#957FB8" })
+  end,
+})
+
+-- Ejecutar la configuración de highlights al inicio
+vim.schedule(function()
+  vim.api.nvim_exec_autocmds("ColorScheme", {})
+end)
