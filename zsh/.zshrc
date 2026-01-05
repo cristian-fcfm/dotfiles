@@ -347,3 +347,4 @@ fi
 # ╔═══════════════════════════════════════════════════════════════════════════╗
 # ║                            End of Configuration                            ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
+export GOOGLE_APPLICATION_CREDENTIALS="/home/cristian_correa/Documents/development/work/falabella/dev.json"
