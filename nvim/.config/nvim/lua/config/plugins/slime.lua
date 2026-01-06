@@ -16,8 +16,8 @@ return {
       -- Preservar posición del cursor
       vim.g.slime_preserve_curpos = 1
 
-      -- Usar paste bracketed para mejor manejo de código
-      vim.g.slime_bracketed_paste = 1
+      -- NO usar bracketed paste con Kitty (Kitty lo maneja nativamente)
+      vim.g.slime_bracketed_paste = 0
 
       -- Configuración por defecto para kitty
       -- listen_on: socket de comunicación con kitty
