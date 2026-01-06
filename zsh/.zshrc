@@ -12,6 +12,7 @@ if [[ -f "/opt/homebrew/bin/brew" ]]; then
 fi
 
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export GOOGLE_APPLICATION_CREDENTIALS="~/Documents/development/work/falabella/dev.json"
 
 # Cargar paths del sistema (incluye /Library/TeX/texbin en macOS)
 if [[ -x "/usr/libexec/path_helper" ]]; then
@@ -347,4 +348,3 @@ fi
 # ╔═══════════════════════════════════════════════════════════════════════════╗
 # ║                            End of Configuration                            ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
-export GOOGLE_APPLICATION_CREDENTIALS="/home/cristian_correa/Documents/development/work/falabella/dev.json"
