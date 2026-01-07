@@ -22,8 +22,21 @@ return {
       -- Configuración por defecto para kitty
       -- listen_on: socket de comunicación con kitty
       -- window_id: nil = usar la ventana más reciente (excluyendo nvim)
+      -- Detectar automáticamente el socket de kitty más reciente
+      local function get_kitty_socket()
+        local handle = io.popen("ls -t /tmp/mykitty-* 2>/dev/null | head -1")
+        if handle then
+          local socket = handle:read("*a"):gsub("\n", "")
+          handle:close()
+          if socket ~= "" then
+            return "unix:" .. socket
+          end
+        end
+        return "unix:/tmp/mykitty"
+      end
+
       vim.g.slime_default_config = {
-        listen_on = "unix:/tmp/mykitty",
+        listen_on = get_kitty_socket(),
         window_id = nil,
       }
 
