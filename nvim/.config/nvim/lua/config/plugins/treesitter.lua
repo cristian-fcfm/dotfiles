@@ -4,8 +4,35 @@ return {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     event = { "BufReadPost", "BufNewFile" },
-    build = ":TSUpdate",
-    init = function()
+    build = function()
+      -- Instalar parsers para los lenguajes soportados
+      local parsers = {
+        "bash",
+        "c",
+        "diff",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "norg",
+        "python",
+        "query",
+        "regex",
+        "sql",
+        "toml",
+        "typst",
+        "vim",
+        "xml",
+        "yaml",
+      }
+
+      for _, parser in ipairs(parsers) do
+        vim.cmd("TSInstall " .. parser)
+      end
+    end,
+    config = function()
       -- Lista de lenguajes soportados
       local supported_langs = {
         "bash",
@@ -37,10 +64,10 @@ return {
         pattern = supported_langs,
         callback = function(args)
           -- Habilitar treesitter highlighting
-          vim.treesitter.start(args.buf, args.match)
+          pcall(vim.treesitter.start, args.buf, args.match)
 
-          -- Configurar indentación con treesitter
-          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          -- Configurar indentación con treesitter (experimental)
+          vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
           -- Configurar folding con treesitter
           vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
