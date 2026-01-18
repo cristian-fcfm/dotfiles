@@ -1,0 +1,10 @@
+{
+  "custom/gpu-combined": {
+    "exec": "~/.config/waybar/scripts/gpu-combined.sh",
+    "on-click": "~/.config/waybar/scripts/gpu-combined.sh toggle",
+    "return-type": "json",
+    "interval": 2,
+    "signal": 9,
+    "tooltip": true
+  }
+}

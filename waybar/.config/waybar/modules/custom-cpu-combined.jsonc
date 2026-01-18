@@ -1,0 +1,10 @@
+{
+  "custom/cpu-combined": {
+    "exec": "~/.config/waybar/scripts/cpu-combined.sh",
+    "on-click": "~/.config/waybar/scripts/cpu-combined.sh toggle",
+    "return-type": "json",
+    "interval": 2,
+    "signal": 8,
+    "tooltip": true
+  }
+}
