@@ -12,7 +12,12 @@ if [[ -f "/opt/homebrew/bin/brew" ]]; then
 fi
 
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Google
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/Documents/development/work/falabella/dev.json"
+export GOOGLE_CLOUD_PROJECT=flb-rtl-bi-reg-dev
+export VERTEX_LOCATION=us-central1
+export NODE_TLS_REJECT_UNAUTHORIZED=0
 
 # Cargar paths del sistema (incluye /Library/TeX/texbin en macOS)
 if [[ -x "/usr/libexec/path_helper" ]]; then
