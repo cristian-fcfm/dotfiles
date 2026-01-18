@@ -5,7 +5,7 @@
     "~/.config/waybar/modules/hyprland-workspaces.jsonc",
     "~/.config/waybar/modules/hyprland-language.jsonc",
     "~/.config/waybar/modules/tray.jsonc",
-    "~/.config/waybar/modules/network.jsonc",
+    "~/.config/waybar/modules/network.jsonc"
   ],
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["custom/music"],
@@ -13,6 +13,6 @@
     "tray",
     "hyprland/language",
     "network",
-    "custom/notifications",
-  ],
+    "custom/notifications"
+  ]
 }
