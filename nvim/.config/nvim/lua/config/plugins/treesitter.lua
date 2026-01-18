@@ -1,89 +1,87 @@
 -- Plugin para resaltado de sintaxis avanzado y otras mejoras de edición
+-- NOTA: Esta configuración es para la rama main de nvim-treesitter (requiere Neovim 0.11+)
+
+-- Lista de parsers a instalar automáticamente
+local parsers = {
+  -- Común
+  "lua",
+  "python",
+  "javascript",
+  "typescript",
+  "bash",
+  "json",
+  "yaml",
+  "markdown",
+  "markdown_inline",
+  "html",
+  "css",
+  -- DevOps
+  "dockerfile",
+  "terraform",
+  "hcl",
+  "nix",
+  -- Data
+  "sql",
+  "graphql",
+  "toml",
+  -- Rust
+  "rust",
+  -- Typst
+  "typst",
+  -- Diagramas
+  "d2",
+  -- Neovim config
+  "vim",
+  "vimdoc",
+  "query",
+  "regex",
+}
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
-    event = { "BufReadPost", "BufNewFile" },
-    build = function()
-      -- Instalar parsers para los lenguajes soportados
-      local parsers = {
-        "bash",
-        "c",
-        "diff",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "norg",
-        "python",
-        "query",
-        "regex",
-        "sql",
-        "toml",
-        "typst",
-        "vim",
-        "xml",
-        "yaml",
-      }
-
-      for _, parser in ipairs(parsers) do
-        vim.cmd("TSInstall " .. parser)
-      end
-    end,
+    lazy = false,
+    build = ":TSUpdate",
     config = function()
-      -- Lista de lenguajes soportados
-      local supported_langs = {
-        "bash",
-        "c",
-        "diff",
-        "html",
-        "javascript",
-        "json",
-        "jsonc",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "norg",
-        "python",
-        "query",
-        "regex",
-        "sql",
-        "toml",
-        "typst",
-        "vim",
-        "xml",
-        "yaml",
-      }
+      -- Setup básico (opcional, usa valores por defecto)
+      require("nvim-treesitter").setup({
+        -- Directorio de instalación (por defecto: stdpath('data')/site)
+        install_dir = vim.fn.stdpath("data") .. "/site",
+      })
 
-      -- Auto-habilitar treesitter para tipos de archivo soportados
+      -- Instalar parsers de forma asíncrona
+      vim.schedule(function()
+        require("nvim-treesitter").install(parsers)
+      end)
+
+      -- Habilitar highlight con treesitter para los filetypes soportados
       vim.api.nvim_create_autocmd("FileType", {
-        group = vim.api.nvim_create_augroup("TreeSitterAutoEnable", { clear = true }),
-        desc = "Auto enable treesitter for supported filetype",
-        pattern = supported_langs,
+        group = vim.api.nvim_create_augroup("TreesitterHighlight", { clear = true }),
         callback = function(args)
-          -- Habilitar treesitter highlighting
-          pcall(vim.treesitter.start, args.buf, args.match)
+          -- Intenta habilitar treesitter highlight si hay un parser disponible
+          local ok = pcall(vim.treesitter.start, args.buf)
+          if ok then
+            -- Si treesitter está activo, habilitar folds basados en treesitter
+            local win = vim.api.nvim_get_current_win()
+            vim.wo[win].foldmethod = "expr"
+            vim.wo[win].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            vim.wo[win].foldlevel = 99 -- Empezar con todos los folds abiertos
+          end
+        end,
+      })
 
-          -- Configurar indentación con treesitter (experimental)
-          vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-
-          -- Configurar folding con treesitter
-          vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-          vim.wo[0][0].foldmethod = "expr"
-          vim.wo[0][0].foldenable = false -- No cerrar folds por defecto
+      -- Habilitar indentación con treesitter (experimental)
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("TreesitterIndent", { clear = true }),
+        callback = function(args)
+          -- Solo habilitar para filetypes con parser
+          local ok = pcall(vim.treesitter.get_parser, args.buf)
+          if ok then
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
         end,
       })
     end,
-  },
-
-  -- Parser de D2 para treesitter
-  {
-    "ravsii/tree-sitter-d2",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    version = "*",
-    build = "make nvim-install",
-    ft = { "d2" },
   },
 }
