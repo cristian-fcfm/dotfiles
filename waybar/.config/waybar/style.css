@@ -1,24 +1,54 @@
-/* Variables */
-@define-color mantle #1e2030;
-@define-color base rgb(36, 39, 58);
-@define-color text #cad3f5;
-@define-color surface0 #363a4f;
-@define-color surface2 #5b6078;
-@define-color blue #8aadf4;
-@define-color green #a6da95;
-@define-color peach #f5a97f;
-@define-color rosewater #f4dbd6;
-@define-color lavender #b7bdf8;
-@define-color yellow #eed49f;
-@define-color red #ed8796;
-@define-color maroon #ee99a0;
-@define-color teal #8bd5ca;
-@define-color sky #91d7e3;
-@define-color sapphire #7dc4e4;
-@define-color mauve #c6a0f6;
-@define-color pink #f5bde6;
-@define-color border rgba(183, 189, 248, 0.4);
-@define-color shadow rgb(30, 32, 48);
+/* ============================================ */
+/* COLOR PALETTE - Catppuccin Macchiato Theme */
+/* ============================================ */
+
+/* Base colors */
+@define-color bg-primary rgb(36, 39, 58); /* base */
+@define-color bg-secondary #1e2030; /* mantle */
+@define-color bg-surface #363a4f; /* surface0 */
+@define-color bg-surface-variant #5b6078; /* surface2 */
+
+/* Text colors */
+@define-color text-primary #cad3f5; /* text */
+@define-color text-secondary rgba(183, 189, 248, 0.7); /* lavender dimmed */
+@define-color text-accent #b7bdf8; /* lavender */
+
+/* Accent colors */
+@define-color accent-blue #8aadf4;
+@define-color accent-green #a6da95;
+@define-color accent-yellow #eed49f;
+@define-color accent-peach #f5a97f;
+@define-color accent-red #ed8796;
+@define-color accent-maroon #ee99a0;
+@define-color accent-pink #f5bde6;
+@define-color accent-mauve #c6a0f6;
+@define-color accent-teal #8bd5ca;
+@define-color accent-sky #91d7e3;
+@define-color accent-sapphire #7dc4e4;
+@define-color accent-rosewater #f4dbd6;
+
+/* UI colors */
+@define-color border-default rgba(183, 189, 248, 0.4);
+@define-color shadow-default rgb(30, 32, 48);
+@define-color hover-overlay #363a4f;
+
+/* Gradient colors - extracted for easy customization */
+@define-color gradient-1 rgba(139, 213, 202, 1); /* teal */
+@define-color gradient-2 rgba(138, 173, 244, 1); /* blue */
+@define-color gradient-3 rgba(183, 189, 248, 1); /* lavender */
+@define-color gradient-4 rgba(198, 160, 246, 1); /* mauve */
+@define-color gradient-5 rgba(238, 153, 160, 1); /* maroon */
+
+/* Status colors */
+@define-color status-warning @accent-yellow;
+@define-color status-critical @accent-peach;
+@define-color status-urgent @accent-red;
+@define-color status-success @accent-green;
+@define-color status-info @accent-blue;
+
+/* ============================================ */
+/* GLOBAL SETTINGS                              */
+/* ============================================ */
 
 * {
   font-family: JetBrainsMono Nerd Font;
@@ -26,7 +56,20 @@
   min-height: 0;
 }
 
-/* General Settings */
+window#waybar {
+  color: @text-primary;
+  background: transparent;
+}
+
+window#waybar.hidden {
+  opacity: 0;
+}
+
+/* ============================================ */
+/* BASE MODULE STYLE                            */
+/* ============================================ */
+/* Estilo base para todos los módulos/plugins   */
+
 #battery,
 #cava,
 #custom-cava,
@@ -34,6 +77,8 @@
 #custom-notifications,
 #custom-arch,
 #custom-gpu-usage,
+#custom-cpu-combined,
+#custom-gpu-combined,
 #custom-updates,
 #mode,
 #cpu,
@@ -63,254 +108,284 @@
 #custom-weather.snowyIcyDay,
 #custom-weather.snowyIcyNight,
 #custom-weather.default {
-  background-color: alpha(@base, 0.9);
-  padding: 0 10px;
-  margin: 2px 4px 5px 4px;
-  border-radius: 10px;
-  box-shadow: 3px 3px 1px 1px alpha(@shadow, 0.7);
-  border: 2px solid @border;
+  /* Base styling - todos los módulos */
+  background-color: alpha(@bg-primary, 0.9);
+  padding: 0 8px;
+  margin: 1px 3px 1px 3px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 1px alpha(@shadow-default, 0.5);
+  border: 1px solid @border-default;
   background-clip: padding-box;
 }
 
-window#waybar {
-  color: @text;
-  background: transparent;
-}
+/* ============================================ */
+/* WORKSPACES                                   */
+/* ============================================ */
 
-window#waybar.hidden {
-  opacity: 0;
+#workspaces {
+  background-color: alpha(@bg-primary, 0.9);
+  border: 1px solid @border-default;
+  padding: 0 6px;
+  margin: 1px 3px 1px 3px;
+  box-shadow: 2px 2px 1px alpha(@shadow-default, 0.5);
+  border-radius: 8px;
+  background-clip: padding-box;
 }
 
 #workspaces * {
-  font-size: 14px;
+  font-size: 13px;
 }
+
+#workspaces button {
+  border-radius: 10px;
+  margin: 2px;
+  padding: 0 4px;
+  font-weight: bolder;
+  min-width: 18px;
+  color: @bg-primary;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+}
+
 #workspaces button label {
-  color: @lavender;
+  color: @text-accent;
   font-weight: bolder;
   transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
 }
 
+#workspaces button.active {
+  padding: 0 5px;
+  margin: 2px;
+  box-shadow: 2px 2px 1px alpha(@shadow-default, 0.5);
+  background: linear-gradient(
+    52deg,
+    @gradient-1 0%,
+    @gradient-2 30%,
+    @gradient-3 48%,
+    @gradient-4 77%,
+    @gradient-5 100%
+  );
+  background-size: 400% 400%;
+  /* animation: gradient 15s ease infinite; */
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  color: @accent-mauve;
+  border-radius: 10px;
+}
+
 #workspaces button.active label {
-  color: @base;
+  color: @bg-primary;
   font-weight: bolder;
 }
 
 #workspaces button.urgent {
-  background-color: @red;
+  background-color: @status-urgent;
 }
 
 #workspaces button.urgent label {
-  color: @base;
+  color: @bg-primary;
   font-weight: bolder;
-}
-
-#workspaces {
-  background-color: alpha(@base, 0.9);
-  border: 2px solid @border;
-  padding: 0 10px;
-  margin: 2px 4px 5px 4px;
-  box-shadow: 3px 3px 1px 1px alpha(@shadow, 0.7);
-  border-radius: 10px;
-  background-clip: padding-box;
-}
-
-#workspaces button {
-  border-radius: 15px;
-  margin-right: 3px;
-  margin-left: 3px;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  padding: 0 5px;
-  font-weight: bolder;
-  min-width: 20px;
-  color: @base;
-  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
-}
-
-#workspaces button.active {
-  padding-right: 6px;
-  padding-left: 6px;
-  box-shadow: 3px 3px 1px 1px alpha(@shadow, 0.7);
-  padding-bottom: 3px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  background: linear-gradient(
-    52deg,
-    rgba(139, 213, 202, 1) 0%,
-    rgba(138, 173, 244, 1) 30%,
-    rgba(183, 189, 248, 1) 48%,
-    rgba(198, 160, 246, 1) 77%,
-    rgba(238, 153, 160, 1) 100%
-  );
-  background-size: 400% 400%;
-  /* animation: gradient 15s ease infinite; */
-  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
-  color: @mauve;
-  border-radius: 12px;
 }
 
 #workspaces button:hover {
-  background-color: @surface0;
+  background-color: @hover-overlay;
 }
 
 #workspaces button.focused:hover {
-  background-color: alpha(@base, 0.9);
+  background-color: alpha(@bg-primary, 0.9);
 }
 
 #workspaces button.focused:hover label {
-  color: @text;
+  color: @text-primary;
 }
 
-/* Individual Modules */
-
-#battery.warning {
-  color: @yellow;
-}
-
-#battery.critical {
-  color: @peach;
-}
-
-#battery.urgent {
-  color: @red;
-}
-
-#custom-cava {
-  color: @lavender;
-  border-radius: 12px;
-}
+/* ============================================ */
+/* INDIVIDUAL MODULES - COLORS                  */
+/* ============================================ */
+/* Cada módulo tiene su color distintivo       */
 
 #cpu {
-  color: @blue;
+  color: @accent-blue;
   transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
+}
+
+#custom-cpu-combined {
+  color: @accent-blue;
+  transition: all 0.3s ease;
+}
+
+#custom-cpu-combined.expanded {
+  color: @accent-blue;
 }
 
 #memory {
-  color: @green;
+  color: @accent-green;
   transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
 }
 
-#custom-notifications {
-  color: @yellow;
-}
-
-#custom-weather {
-  color: @red;
-}
-
-#custom-updates {
-  color: @teal;
-}
-
-#custom-wf-recorder {
-  color: @red;
-}
-
-#custom-gpu-temp {
-  color: @peach;
+#temperature {
+  color: @accent-peach;
 }
 
 #custom-gpu-usage {
-  color: @teal;
+  color: @accent-teal;
+}
+
+#custom-gpu-combined {
+  color: @accent-teal;
+  transition: all 0.3s ease;
+}
+
+#custom-gpu-combined.expanded {
+  color: @accent-teal;
+}
+
+#custom-notifications {
+  color: @accent-yellow;
+}
+
+#custom-weather {
+  color: @status-urgent;
+}
+
+#custom-updates {
+  color: @accent-teal;
+}
+
+#custom-wf-recorder {
+  color: @status-urgent;
+}
+
+#custom-gpu-temp {
+  color: @accent-peach;
 }
 
 #custom-power-menu {
-  color: @red;
+  color: @status-urgent;
 }
 
-#temperature {
-  color: @peach;
+#custom-fans {
+  color: @accent-green;
+}
+
+#custom-cava {
+  color: @text-accent;
+  border-radius: 8px;
+}
+
+#clock {
+  color: @text-accent;
+}
+
+#language {
+  color: @accent-blue;
 }
 
 #bluetooth {
-  color: @blue;
+  color: @accent-blue;
 }
+
+#pulseaudio {
+  color: @accent-pink;
+}
+
+#backlight {
+  color: @accent-blue;
+}
+
+#battery {
+  color: @accent-green;
+}
+
+#network {
+  color: @accent-sky;
+}
+
+/* ============================================ */
+/* GRADIENT MODULES                             */
+/* ============================================ */
+/* Módulos con fondo degradado especial        */
 
 #window {
   background: linear-gradient(
     52deg,
-    rgba(139, 213, 202, 1) 0%,
-    rgba(138, 173, 244, 1) 30%,
-    rgba(183, 189, 248, 1) 48%,
-    rgba(198, 160, 246, 1) 77%,
-    rgba(238, 153, 160, 1) 100%
+    @gradient-1 0%,
+    @gradient-2 30%,
+    @gradient-3 48%,
+    @gradient-4 77%,
+    @gradient-5 100%
   );
   background-size: 400% 400%;
   /* animation: gradient 15s ease infinite; */
-  text-shadow: 0px 0px 5px @lavender;
+  text-shadow: 0px 0px 5px @text-accent;
   font-weight: bold;
-  color: @mantle;
+  color: @bg-secondary;
   transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
   border: none;
-}
-
-#temperature.critical {
-  background-color: @red;
-  color: @mantle;
 }
 
 #custom-music {
-  background: @lavender;
+  background: @text-accent;
   background: linear-gradient(
     52deg,
-    rgba(139, 213, 202, 1) 0%,
-    rgba(138, 173, 244, 1) 30%,
-    rgba(183, 189, 248, 1) 48%,
-    rgba(198, 160, 246, 1) 77%,
-    rgba(238, 153, 160, 1) 100%
+    @gradient-1 0%,
+    @gradient-2 30%,
+    @gradient-3 48%,
+    @gradient-4 77%,
+    @gradient-5 100%
   );
   background-size: 400% 400%;
   /* animation: gradient 15s ease infinite; */
-  text-shadow: 0px 0px 5px @border;
+  text-shadow: 0px 0px 5px @border-default;
   font-weight: bold;
-  color: @mantle;
+  color: @bg-secondary;
   transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
   border: none;
 }
 
-#custom-fans {
-  color: @green;
+#clock.cl2 {
+  background: @text-accent;
+  background: linear-gradient(
+    52deg,
+    @gradient-1 0%,
+    @gradient-2 30%,
+    @gradient-3 48%,
+    @gradient-4 77%,
+    @gradient-5 100%
+  );
+  background-size: 400% 400%;
+  /* animation: gradient 15s ease infinite; */
+  text-shadow: 0px 0px 5px @border-default;
+  font-weight: bold;
+  color: @bg-secondary;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  border: none;
 }
 
-#clock {
-  color: @lavender;
+/* ============================================ */
+/* MODULE STATES                                */
+/* ============================================ */
+
+/* Battery states */
+#battery.warning {
+  color: @status-warning;
 }
 
-#language {
-  color: @blue;
+#battery.critical {
+  color: @status-critical;
 }
 
-#pulseaudio {
-  color: @pink;
-}
-
-#pulseaudio.muted {
-  background-color: @red;
-  color: @mantle;
-}
-
-#pulseaudio.source-muted {
-  background-color: @peach;
-  color: @mantle;
-}
-
-#backlight {
-  color: @blue;
-}
-
-#battery {
-  color: @green;
+#battery.urgent {
+  color: @status-urgent;
 }
 
 #battery.charging,
 #battery.plugged {
-  background-color: @green;
-  color: @mantle;
+  background-color: @status-success;
+  color: @bg-secondary;
 }
 
 #battery.critical:not(.charging) {
-  background-color: @red;
-  color: @mantle;
+  background-color: @status-urgent;
+  color: @bg-secondary;
   animation-name: blink;
   animation-duration: 0.5s;
   animation-timing-function: linear;
@@ -318,44 +393,42 @@ window#waybar.hidden {
   animation-direction: alternate;
 }
 
-#network {
-  color: @sky;
+/* Temperature states */
+#temperature.critical {
+  background-color: @status-urgent;
+  color: @bg-secondary;
 }
 
+/* Audio states */
+#pulseaudio.muted {
+  background-color: @status-urgent;
+  color: @bg-secondary;
+}
+
+#pulseaudio.source-muted {
+  background-color: @status-critical;
+  color: @bg-secondary;
+}
+
+/* Network states */
 #network.disconnected {
-  background-color: @red;
-  color: @mantle;
+  background-color: @status-urgent;
+  color: @bg-secondary;
 }
 
 #network.linked {
-  background-color: @peach;
-  color: @mantle;
+  background-color: @status-critical;
+  color: @bg-secondary;
 }
 
-#clock.cl2 {
-  background: @lavender;
-  background: linear-gradient(
-    52deg,
-    rgba(139, 213, 202, 1) 0%,
-    rgba(138, 173, 244, 1) 30%,
-    rgba(183, 189, 248, 1) 48%,
-    rgba(198, 160, 246, 1) 77%,
-    rgba(238, 153, 160, 1) 100%
-  );
-  background-size: 400% 400%;
-  /* animation: gradient 15s ease infinite; */
-  text-shadow: 0px 0px 5px @border;
-  font-weight: bold;
-  color: @mantle;
-  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
-  border: none;
-}
+/* ============================================ */
+/* ANIMATIONS                                   */
+/* ============================================ */
 
-/* Animation Keyframes */
 @keyframes blink {
   to {
-    background-color: alpha(@base, 0.9);
-    color: @red;
+    background-color: alpha(@bg-primary, 0.9);
+    color: @status-urgent;
   }
 }
 
