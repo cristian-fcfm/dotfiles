@@ -111,7 +111,10 @@ return {
           Snacks.picker.lsp_definitions()
         end, "Ir a definición")
         map("gr", function()
-          Snacks.picker.lsp_references()
+          Snacks.picker.lsp_references({
+            -- Excluir la declaración actual de los resultados
+            includeDeclaration = false,
+          })
         end, "Ir a referencias")
         map("gI", function()
           Snacks.picker.lsp_implementations()
