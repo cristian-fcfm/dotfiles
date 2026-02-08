@@ -154,59 +154,19 @@ return {
     i(0),
   }),
 
-  -- Snippet de sección comentada con centrado dinámico
+  -- Snippet de sección comentada
   s("sec", {
-    t("###########################################################"),
-    t({ "", "" }),
-    f(function(args)
-      local text = args[1][1] or "NOMBRE DE LA SECCIÓN"
-      local total_width = 59 -- Ancho total de la línea
-      local text_with_spaces = " " .. text .. " " -- Espacios antes y después del texto
-      local total_hashes = total_width - #text_with_spaces
-      local left_hashes = math.floor(total_hashes / 2)
-      return string.rep("#", left_hashes)
-    end, { 1 }),
-    t(" "),
+    t({ "# ============================================================================", "# " }),
     i(1, "NOMBRE DE LA SECCIÓN"),
-    t(" "),
-    f(function(args)
-      local text = args[1][1] or "NOMBRE DE LA SECCIÓN"
-      local total_width = 59
-      local text_with_spaces = " " .. text .. " "
-      local total_hashes = total_width - #text_with_spaces
-      local left_hashes = math.floor(total_hashes / 2)
-      local right_hashes = total_hashes - left_hashes
-      return string.rep("#", right_hashes)
-    end, { 1 }),
-    t({ "", "###########################################################", "" }),
+    t({ "", "# ============================================================================", "", "" }),
     i(0),
   }),
 
   -- Snippet de sección comentada con línea extra al final
   s("section", {
-    t("###########################################################"),
-    t({ "", "" }),
-    f(function(args)
-      local text = args[1][1] or "NOMBRE DE LA SECCIÓN"
-      local total_width = 59
-      local text_with_spaces = " " .. text .. " "
-      local total_hashes = total_width - #text_with_spaces
-      local left_hashes = math.floor(total_hashes / 2)
-      return string.rep("#", left_hashes)
-    end, { 1 }),
-    t(" "),
+    t({ "# ============================================================================", "# " }),
     i(1, "NOMBRE DE LA SECCIÓN"),
-    t(" "),
-    f(function(args)
-      local text = args[1][1] or "NOMBRE DE LA SECCIÓN"
-      local total_width = 59
-      local text_with_spaces = " " .. text .. " "
-      local total_hashes = total_width - #text_with_spaces
-      local left_hashes = math.floor(total_hashes / 2)
-      local right_hashes = total_hashes - left_hashes
-      return string.rep("#", right_hashes)
-    end, { 1 }),
-    t({ "", "###########################################################", "", "" }),
+    t({ "", "# ============================================================================", "", "", "" }),
     i(0),
   }),
 }
