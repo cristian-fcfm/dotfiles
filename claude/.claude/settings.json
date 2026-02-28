@@ -2,5 +2,12 @@
   "attribution": {
     "commit": "",
     "pr": ""
+  },
+  "enabledPlugins": {
+    "code-review@claude-plugins-official": true,
+    "cloud-infrastructure@claude-code-workflows": true,
+    "python-development@claude-code-workflows": true,
+    "code-review-ai@claude-code-workflows": true,
+    "clangd-lsp@claude-plugins-official": true
   }
 }
