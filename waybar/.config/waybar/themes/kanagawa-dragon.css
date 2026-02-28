@@ -1,0 +1,28 @@
+/* Tema: kanagawa-dragon */
+@define-color background #181616;
+@define-color foreground #C5C9C5;
+@define-color surface alpha(#181616, 0.85);
+@define-color surface-alpha alpha(#181616, 0.6);
+@define-color border alpha(#C5C9C5, 0.15);
+@define-color border-hover alpha(#C5C9C5, 0.25);
+
+@define-color accent #8BA4B0;
+@define-color blue #8BA4B0;
+@define-color green #8A9A7B;
+@define-color yellow #C4B28A;
+@define-color orange #C4B28A;
+@define-color red #C4746E;
+@define-color mauve #A292A3;
+@define-color teal #8EA4A2;
+@define-color sky #C8C093;
+
+@define-color critical #C4746E;
+@define-color warning #C4B28A;
+@define-color success #8A9A7B;
+@define-color info #8BA4B0;
+
+@define-color gradient-1 #8A9A7B;
+@define-color gradient-2 #8BA4B0;
+@define-color gradient-3 #A292A3;
+@define-color gradient-4 #8EA4A2;
+@define-color gradient-5 #C8C093;

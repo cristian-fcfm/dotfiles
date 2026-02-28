@@ -1,0 +1,28 @@
+/* Tema: kanagawa */
+@define-color background #1F1F28;
+@define-color foreground #DCD7BA;
+@define-color surface alpha(#1F1F28, 0.85);
+@define-color surface-alpha alpha(#1F1F28, 0.6);
+@define-color border alpha(#DCD7BA, 0.15);
+@define-color border-hover alpha(#DCD7BA, 0.25);
+
+@define-color accent #7E9CD8;
+@define-color blue #7E9CD8;
+@define-color green #76946A;
+@define-color yellow #C0A36E;
+@define-color orange #C0A36E;
+@define-color red #C34043;
+@define-color mauve #957FB8;
+@define-color teal #6A9589;
+@define-color sky #C8C093;
+
+@define-color critical #C34043;
+@define-color warning #C0A36E;
+@define-color success #76946A;
+@define-color info #7E9CD8;
+
+@define-color gradient-1 #76946A;
+@define-color gradient-2 #7E9CD8;
+@define-color gradient-3 #957FB8;
+@define-color gradient-4 #6A9589;
+@define-color gradient-5 #C8C093;
