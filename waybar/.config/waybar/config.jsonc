@@ -2,7 +2,7 @@
   {
     "start_hidden": false,
     "include": "~/.config/waybar/bars/bar-1.jsonc",
-    "height": 34,
+    "height": 30,
     "layer": "top",
     "output": "DP-1",
     "mode": "dock",
@@ -17,7 +17,7 @@
   {
     "start_hidden": false,
     "include": "~/.config/waybar/bars/bar-2.jsonc",
-    "height": 34,
+    "height": 30,
     "position": "bottom",
     "layer": "top",
     "output": "HDMI-A-1",
