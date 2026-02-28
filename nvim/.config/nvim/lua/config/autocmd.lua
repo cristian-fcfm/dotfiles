@@ -25,7 +25,7 @@ api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- Auto-reload archivos cambiados externamente
-api.nvim_create_autocmd({ "FocusGained", "CursorHold" }, {
+api.nvim_create_autocmd("FocusGained", {
   group = api.nvim_create_augroup("auto_read", { clear = true }),
   desc = "Recargar archivos si cambiaron externamente",
   callback = function()
@@ -54,45 +54,34 @@ api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
--- Toggle números relativos inteligente
-local number_toggle = api.nvim_create_augroup("number_toggle", { clear = true })
+-- Toggle números relativos y cursorcolumn (combinados para reducir autocmds)
+local insert_ui_toggle = api.nvim_create_augroup("insert_ui_toggle", { clear = true })
 
 api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
-  group = number_toggle,
-  desc = "Desactivar números relativos en insert mode o al salir de ventana",
-  callback = function()
+  group = insert_ui_toggle,
+  desc = "Desactivar números relativos y activar cursorcolumn en insert mode",
+  callback = function(args)
     if vim.wo.number then
       vim.wo.relativenumber = false
+    end
+    -- Solo activar cursorcolumn en InsertEnter, no en WinLeave
+    if args.event == "InsertEnter" then
+      vim.wo.cursorcolumn = true
     end
   end,
 })
 
 api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
-  group = number_toggle,
-  desc = "Activar números relativos en normal mode",
-  callback = function()
+  group = insert_ui_toggle,
+  desc = "Activar números relativos y desactivar cursorcolumn en normal mode",
+  callback = function(args)
     if vim.wo.number then
       vim.wo.relativenumber = true
     end
-  end,
-})
-
--- Toggle cursorcolumn en insert mode
-local cursorcolumn_toggle = api.nvim_create_augroup("cursorcolumn_toggle", { clear = true })
-
-api.nvim_create_autocmd("InsertEnter", {
-  group = cursorcolumn_toggle,
-  desc = "Activar cursorcolumn en insert mode",
-  callback = function()
-    vim.wo.cursorcolumn = true
-  end,
-})
-
-api.nvim_create_autocmd("InsertLeave", {
-  group = cursorcolumn_toggle,
-  desc = "Desactivar cursorcolumn al salir de insert mode",
-  callback = function()
-    vim.wo.cursorcolumn = false
+    -- Solo desactivar cursorcolumn en InsertLeave, no en WinEnter
+    if args.event == "InsertLeave" then
+      vim.wo.cursorcolumn = false
+    end
   end,
 })
 
