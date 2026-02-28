@@ -1,21 +1,24 @@
 return {
   "NvChad/nvim-colorizer.lua",
-  event = { "BufReadPre", "BufNewFile" },
+  -- Cargar solo en filetypes donde se necesita (evita cargar para todos los buffers)
+  ft = {
+    "css",
+    "scss",
+    "less",
+    "html",
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+    "svelte",
+    "lua",
+    "vim",
+    "conf",
+    "toml",
+  },
   opts = {
-    filetypes = {
-      "css",
-      "scss",
-      "less",
-      "html",
-      "javascript",
-      "typescript",
-      "javascriptreact",
-      "typescriptreact",
-      "vue",
-      "svelte",
-      "lua",
-      "vim",
-    },
+    filetypes = { "*" }, -- Aplicar a todos los filetypes cargados (ya filtrado por ft= arriba)
     user_default_options = {
       RGB = true, -- #RGB hex codes
       RRGGBB = true, -- #RRGGBB hex codes

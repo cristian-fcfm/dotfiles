@@ -1,6 +1,10 @@
 return {
   "gbprod/yanky.nvim",
-  event = { "BufReadPost", "BufNewFile" },
+  keys = {
+    { "y", mode = { "n", "x" } },
+    { "p", mode = { "n", "x" } },
+    { "P", mode = { "n", "x" } },
+  },
   dependencies = {
     "kkharji/sqlite.lua",
     "folke/snacks.nvim",
