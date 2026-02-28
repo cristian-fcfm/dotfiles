@@ -14,8 +14,8 @@ fi
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Google
-export GOOGLE_APPLICATION_CREDENTIALS="$HOME/Documents/development/work/falabella/dev.json"
-export GOOGLE_CLOUD_PROJECT=flb-rtl-bi-reg-dev
+export GOOGLE_APPLICATION_CREDENTIALS="$HOME/Documents/development/work/falabella/service-account.json"
+export GOOGLE_CLOUD_PROJECT=flb-rtl-atenea-reg-dev
 export VERTEX_LOCATION=us-central1
 export NODE_TLS_REJECT_UNAUTHORIZED=0
 

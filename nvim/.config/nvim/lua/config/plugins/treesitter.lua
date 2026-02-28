@@ -17,19 +17,13 @@ local parsers = {
   "css",
   -- DevOps
   "dockerfile",
-  "terraform",
-  "hcl",
-  "nix",
   -- Data
   "sql",
-  "graphql",
   "toml",
   -- Rust
   "rust",
   -- Typst
   "typst",
-  -- Diagramas
-  "d2",
   -- Neovim config
   "vim",
   "vimdoc",
@@ -41,7 +35,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
-    lazy = false,
+    event = { "BufReadPost", "BufNewFile" },
     build = ":TSUpdate",
     config = function()
       -- Setup básico (opcional, usa valores por defecto)

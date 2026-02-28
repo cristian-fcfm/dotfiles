@@ -2,8 +2,9 @@
 
 -- Performance y velocidad
 vim.opt.timeoutlen = 300 -- Tiempo en ms para esperar secuencias de teclas mapeadas
-vim.opt.updatetime = 500 -- Tiempo en ms para CursorHold (diagnósticos, gitsigns)
+vim.opt.updatetime = 250 -- Tiempo en ms para CursorHold (diagnósticos, gitsigns, LSP highlights)
 vim.opt.synmaxcol = 250 -- No resaltar sintaxis después de esta columna (mejora performance)
+vim.opt.redrawtime = 1500 -- Tiempo máximo en ms para re-render de syntax (default 2000)
 
 -- UI y apariencia
 vim.opt.number = true -- Mostrar números de línea
@@ -56,19 +57,21 @@ vim.opt.spelllang = { "en", "es" } -- Idiomas: inglés y español
 vim.opt.spellsuggest = "best,9" -- Mostrar las 9 mejores sugerencias
 
 -- Descargar automáticamente archivos de spell si no existen
-local spell_dir = vim.fn.stdpath("data") .. "/site/spell"
-vim.fn.mkdir(spell_dir, "p")
+vim.schedule(function()
+  local spell_dir = vim.fn.stdpath("data") .. "/site/spell"
+  vim.fn.mkdir(spell_dir, "p")
 
--- Verificar y descargar diccionarios de spell si no existen
-for _, lang in ipairs({ "en", "es" }) do
-  local spell_file = spell_dir .. "/" .. lang .. ".utf-8.spl"
-  if vim.fn.filereadable(spell_file) == 0 then
-    vim.cmd("silent! mkspell! " .. spell_file .. " " .. spell_dir .. "/" .. lang)
-    -- Descargar desde el servidor de Vim si mkspell falla
-    local url = "https://ftp.nluug.nl/vim/runtime/spell/" .. lang .. ".utf-8.spl"
-    vim.fn.system({ "curl", "-fLo", spell_file, "--create-dirs", url })
+  -- Verificar y descargar diccionarios de spell si no existen
+  for _, lang in ipairs({ "en", "es" }) do
+    local spell_file = spell_dir .. "/" .. lang .. ".utf-8.spl"
+    if vim.fn.filereadable(spell_file) == 0 then
+      vim.cmd("silent! mkspell! " .. spell_file .. " " .. spell_dir .. "/" .. lang)
+      -- Descargar desde el servidor de Vim si mkspell falla
+      local url = "https://ftp.nluug.nl/vim/runtime/spell/" .. lang .. ".utf-8.spl"
+      vim.fn.system({ "curl", "-fLo", spell_file, "--create-dirs", url })
+    end
   end
-end
+end)
 
 -- Configurar ripgrep como programa de búsqueda
 if vim.fn.executable("rg") == 1 then

@@ -1,11 +1,5 @@
 return {
   {
-    "saghen/blink.compat",
-    version = "*",
-    lazy = true,
-    opts = {},
-  },
-  {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
     build = "make install_jsregexp",
@@ -52,11 +46,6 @@ return {
     dependencies = {
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
-      "saghen/blink.compat",
-      { "chrisgrieser/cmp-nerdfont", lazy = true },
-      { "SergioRibera/cmp-dotenv", lazy = true },
-      { "hrsh7th/cmp-emoji", lazy = true },
-      { "chrisgrieser/cmp-yanky", lazy = true },
     },
     version = "1.*",
     event = { "InsertEnter", "CmdlineEnter" },
@@ -98,40 +87,10 @@ return {
       },
 
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "emoji", "nerdfont", "dotenv", "yanky" },
-        per_filetype = {
-          norg = { "lsp", "path", "snippets", "buffer", "neorg" },
-        },
+        default = { "lsp", "path", "snippets", "buffer" },
         providers = {
           buffer = {
             min_keyword_length = 4,
-          },
-          neorg = {
-            module = "blink.compat.source",
-            name = "neorg",
-            score_offset = 20,
-          },
-          emoji = {
-            module = "blink.compat.source",
-            name = "emoji",
-            score_offset = 15,
-            opts = {},
-          },
-          nerdfont = {
-            module = "blink.compat.source",
-            name = "nerdfont",
-            score_offset = 10,
-            opts = {},
-          },
-          dotenv = {
-            module = "blink.compat.source",
-            name = "dotenv",
-            score_offset = 5,
-          },
-          yanky = {
-            module = "blink.compat.source",
-            name = "cmp_yanky",
-            score_offset = 8,
           },
         },
       },

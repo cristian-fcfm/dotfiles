@@ -70,7 +70,7 @@ return {
       require("mason-tool-installer").setup({
         ensure_installed = tools,
         auto_update = false,
-        run_on_start = true,
+        run_on_start = false,
       })
     end,
   },
@@ -111,7 +111,10 @@ return {
           Snacks.picker.lsp_definitions()
         end, "Ir a definición")
         map("gr", function()
-          Snacks.picker.lsp_references()
+          Snacks.picker.lsp_references({
+            -- Excluir la declaración actual de los resultados
+            includeDeclaration = false,
+          })
         end, "Ir a referencias")
         map("gI", function()
           Snacks.picker.lsp_implementations()
@@ -159,19 +162,9 @@ return {
         end, "Error siguiente")
 
         -- ===== Resaltado de referencias =====
-        if client.server_capabilities.documentHighlightProvider then
-          local group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
-          vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            group = group,
-            buffer = bufnr,
-            callback = vim.lsp.buf.document_highlight,
-          })
-          vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-            group = group,
-            buffer = bufnr,
-            callback = vim.lsp.buf.clear_references,
-          })
-        end
+        -- NOTA: No se usa autocmd manual aquí porque Snacks.words ya maneja
+        -- el highlight de referencias LSP con debounce inteligente.
+        -- Ver config de snacks.lua: words = { enabled = true }
 
         -- ===== Inlay hints =====
         if client.server_capabilities.inlayHintProvider then
@@ -209,9 +202,12 @@ return {
       -- ========================================================================
       -- CONFIGURACIÓN GLOBAL DE CAPABILITIES
       -- ========================================================================
-      -- Aplicar capabilities base a todos los servidores LSP
+      -- Aplicar capabilities base y debounce a todos los servidores LSP
       vim.lsp.config["*"] = {
         capabilities = capabilities,
+        flags = {
+          debounce_text_changes = 150, -- Reducir carga LSP: esperar 150ms tras cambios antes de notificar
+        },
       }
 
       -- ========================================================================
@@ -339,25 +335,12 @@ return {
         settings = {
           ["rust-analyzer"] = {
             cargo = {
-              allFeatures = true,
-              loadOutDirsFromCheck = true,
-              buildScripts = {
-                enable = true,
-              },
+              allFeatures = false,
+              loadOutDirsFromCheck = false,
+              buildScripts = { enable = false },
             },
-            checkOnSave = {
-              command = "clippy",
-              extraArgs = { "--all", "--", "-W", "clippy::all" },
-            },
-            procMacro = {
-              enable = true,
-            },
-            diagnostics = {
-              enable = true,
-              experimental = {
-                enable = true,
-              },
-            },
+            checkOnSave = { enable = false },
+            procMacro = { enable = false },
           },
         },
       }

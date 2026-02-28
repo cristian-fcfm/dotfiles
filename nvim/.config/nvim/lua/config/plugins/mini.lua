@@ -45,7 +45,7 @@ return {
   {
     "echasnovski/mini.comment",
     version = false,
-    event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
     opts = {
       mappings = {
         comment = "gc", -- Toggle comment en Normal y Visual
@@ -74,7 +74,7 @@ return {
   {
     "echasnovski/mini.ai",
     version = false,
-    event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
     opts = function()
       local ai = require("mini.ai")
       return {
@@ -112,7 +112,7 @@ return {
   {
     "echasnovski/mini.move",
     version = false,
-    event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
     opts = {},
   },
 }
