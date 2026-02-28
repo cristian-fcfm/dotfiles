@@ -87,11 +87,11 @@ return {
         history_bonus = true,
       },
       actions = {
-        yank_put_after = require("yanky.picker").actions.put("p"),
-        yank_put_before = require("yanky.picker").actions.put("P"),
-        yank_put_after_cursor = require("yanky.picker").actions.put("gp"),
-        yank_put_before_cursor = require("yanky.picker").actions.put("gP"),
-        yank_delete = require("yanky.picker").actions.delete(),
+        yank_put_after = function(...) return require("yanky.picker").actions.put("p")(...) end,
+        yank_put_before = function(...) return require("yanky.picker").actions.put("P")(...) end,
+        yank_put_after_cursor = function(...) return require("yanky.picker").actions.put("gp")(...) end,
+        yank_put_before_cursor = function(...) return require("yanky.picker").actions.put("gP")(...) end,
+        yank_delete = function(...) return require("yanky.picker").actions.delete()(...) end,
       },
       win = {
         input = {
