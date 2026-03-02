@@ -1,49 +1,55 @@
--- Define la tecla leader como espacio
+-- Leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Atajos de teclado personalizados
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- Deshabilitar comportamiento por defecto de la barra espaciadora en modos Normal y Visual
+-- Disable default space behavior in Normal and Visual
 map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
--- Guardar archivo
+-- ─── File Operations ────────────────────────────────────────────────────────
 map("n", "<C-s>", "<cmd> w <CR>", opts)
-
--- Guardar archivo sin auto-formateo
-map("n", "<C-S-s>", "<cmd>noautocmd w <CR>", opts)
-
--- Salir del archivo
+-- Save without autocommands (e.g. skip formatters on save)
+-- NOTE: <C-S-s> is intercepted by Kitty, so use leader instead
+map("n", "<leader>S", "<cmd>noautocmd w <CR>", { noremap = true, silent = true, desc = "Save without autocmds" })
 map("n", "<C-q>", "<cmd> q <CR>", opts)
 
--- Scroll vertical y centrar
+-- ─── Scrolling ──────────────────────────────────────────────────────────────
 map("n", "<C-d>", "<C-d>zz", opts)
 map("n", "<C-u>", "<C-u>zz", opts)
 
--- Navegación rápida de línea
+-- ─── Line Navigation ───────────────────────────────────────────────────────
+-- H/L jump to start/end of line
+-- With GACS HRM, H and L are plain keys (no mod-tap), so these work cleanly
 map({ "n", "v" }, "H", "^", opts)
 map({ "n", "v" }, "L", "$", opts)
 
--- Navegar entre splits
-map("n", "<C-k>", ":wincmd k<CR>", opts)
-map("n", "<C-j>", ":wincmd j<CR>", opts)
-map("n", "<C-h>", ":wincmd h<CR>", opts)
-map("n", "<C-l>", ":wincmd l<CR>", opts)
+-- ─── Split Navigation ──────────────────────────────────────────────────────
+-- Handled by smart-splits.nvim: seamless Ctrl+HJKL across Neovim <-> Kitty
+-- See lua/config/plugins/smart-splits.lua
 
--- Alternar line wrapping
+-- ─── Line Wrapping Toggle ──────────────────────────────────────────────────
 map("n", "lw", "<cmd>set wrap!<CR>", opts)
 
--- Permanecer en modo indent
+-- ─── Visual Mode ────────────────────────────────────────────────────────────
+-- Stay in indent mode
 map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)
 
--- Mantener último yank al pegar
+-- Keep last yank when pasting over selection
 map("v", "p", '"_dP', opts)
 
--- Convertir la palabra bajo el cursor a mayúsculas (modo Insert)
-map("i", "<A-u>", "<Esc>viwUea", opts)
+-- ─── Text Case Conversion ───────────────────────────────────────────────────
+-- NOTE: Moved from Alt+u/t (conflicts with GACS HRM ring finger = Alt)
+-- Works in normal mode: converts word under cursor
+map("n", "<leader>U", "viwU", { noremap = true, silent = true, desc = "UPPERCASE word" })
+map("n", "<leader>u", "viwu", { noremap = true, silent = true, desc = "lowercase word" })
+map("n", "<leader>~", "viw~", { noremap = true, silent = true, desc = "Toggle case word" })
 
--- Convertir la palabra actual a título (modo Insert)
-map("i", "<A-t>", "<Esc>b~lea", opts)
+-- ─── Data Science / REPL ────────────────────────────────────────────────────
+-- Quick cell send with Ctrl+Enter (works in normal and visual mode)
+map("n", "<C-CR>", "<Plug>SlimeSendCell", { desc = "Send cell to REPL" })
+map("x", "<C-CR>", "<Plug>SlimeRegionSend", { desc = "Send selection to REPL" })
+-- Send line with Shift+Enter
+map("n", "<S-CR>", "<Plug>SlimeLineSend", { desc = "Send line to REPL" })
