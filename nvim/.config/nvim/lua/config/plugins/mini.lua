@@ -1,10 +1,10 @@
 return {
-  -- Mini.icons: Icon provider (reemplazo ligero de nvim-web-devicons)
+  -- Mini.icons: Icon provider (lightweight nvim-web-devicons replacement)
   {
     "echasnovski/mini.icons",
     version = false,
     lazy = true,
-    -- Optimización: Cargar icons solo cuando otro plugin lo requiera
+    -- Optimization: only load when another plugin requires it
     init = function()
       package.preload["nvim-web-devicons"] = function()
         require("mini.icons").mock_nvim_web_devicons()
@@ -17,16 +17,16 @@ return {
     end,
   },
 
-  -- Mini.surround: Encerrar texto en paréntesis, comillas, etc.
+  -- Mini.surround: Wrap text in parentheses, quotes, etc.
   {
     "echasnovski/mini.surround",
     version = false,
     keys = {
-      { "sa", mode = { "n", "v" }, desc = "Agregar surrounding" },
-      { "sd", mode = "n", desc = "Eliminar surrounding" },
-      { "sr", mode = "n", desc = "Reemplazar surrounding" },
-      { "sf", mode = "n", desc = "Buscar surrounding" },
-      { "sh", mode = "n", desc = "Resaltar surrounding" },
+      { "sa", mode = { "n", "v" }, desc = "Add surrounding" },
+      { "sd", mode = "n", desc = "Delete surrounding" },
+      { "sr", mode = "n", desc = "Replace surrounding" },
+      { "sf", mode = "n", desc = "Find surrounding" },
+      { "sh", mode = "n", desc = "Highlight surrounding" },
     },
     opts = {
       mappings = {
@@ -41,36 +41,37 @@ return {
     },
   },
 
-  -- Mini.comment: Comentar código de forma inteligente
+  -- Mini.comment: Smart code commenting
   {
     "echasnovski/mini.comment",
     version = false,
     event = "VeryLazy",
     opts = {
       mappings = {
-        comment = "gc", -- Toggle comment en Normal y Visual
-        comment_line = "gcc", -- Toggle comment de línea actual
-        comment_visual = "gc", -- Toggle comment en Visual mode
-        textobject = "gc", -- Text object de comentario
+        comment = "gc", -- Toggle comment in Normal and Visual
+        comment_line = "gcc", -- Toggle comment on current line
+        comment_visual = "gc", -- Toggle comment in Visual mode
+        textobject = "gc", -- Comment text object
       },
     },
   },
 
-  -- Mini.splitjoin: Dividir y unir argumentos/listas
+  -- Mini.splitjoin: Split and join arguments/lists
+  -- NOTE: Remapped from gS to gJ to avoid conflict with LSP workspace symbols (gS)
   {
     "echasnovski/mini.splitjoin",
     version = false,
     keys = {
-      { "gS", mode = { "n", "v" }, desc = "Toggle split/join" },
+      { "gJ", mode = { "n", "v" }, desc = "Toggle split/join" },
     },
     opts = {
       mappings = {
-        toggle = "gS", -- Toggle split/join
+        toggle = "gJ", -- Toggle split/join (gS is used by LSP workspace symbols)
       },
     },
   },
 
-  -- Mini.ai: Text objects mejorados (a/i con custom patterns)
+  -- Mini.ai: Enhanced text objects (a/i with custom patterns)
   {
     "echasnovski/mini.ai",
     version = false,
@@ -78,22 +79,22 @@ return {
     opts = function()
       local ai = require("mini.ai")
       return {
-        n_lines = 500, -- Buscar text objects hasta 500 líneas adelante/atrás
+        n_lines = 500, -- Search text objects up to 500 lines forward/backward
         custom_textobjects = {
-          -- Función completa
+          -- Function (outer/inner)
           f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
-          -- Clase
+          -- Class
           c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
-          -- Condicional
+          -- Conditional/loop
           o = ai.gen_spec.treesitter({
             a = { "@conditional.outer", "@loop.outer" },
             i = { "@conditional.inner", "@loop.inner" },
           }),
-          -- Argumento/parámetro
+          -- Argument/parameter
           a = ai.gen_spec.argument({ separator = "," }),
-          -- Bloque de código
+          -- Code block
           b = ai.gen_spec.treesitter({ a = "@block.outer", i = "@block.inner" }),
-          -- Llamada a función
+          -- Function call
           F = ai.gen_spec.function_call(),
           -- TODO/FIXME/NOTE/HACK/WARNING
           g = function(mode)
@@ -108,11 +109,28 @@ return {
     end,
   },
 
-  -- Mini.move: Mover líneas y bloques de código
+  -- Mini.move: Move lines and blocks of code
+  -- NOTE: Remapped from Alt+HJKL to Ctrl+Shift+HJKL because:
+  --   1. Alt conflicts with GACS HRM (ring finger = Alt on S/L)
+  --   2. Ctrl+Shift+HJKL was freed up: Kitty split nav moved to Ctrl+HJKL (smart-splits)
+  --   3. Kitty passes Ctrl+Shift+HJKL through to Neovim (--when-focus-on var:IS_NVIM)
   {
     "echasnovski/mini.move",
     version = false,
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      mappings = {
+        -- Visual mode: move selection
+        left = "<C-S-h>",
+        right = "<C-S-l>",
+        down = "<C-S-j>",
+        up = "<C-S-k>",
+        -- Normal mode: move current line
+        line_left = "<C-S-h>",
+        line_right = "<C-S-l>",
+        line_down = "<C-S-j>",
+        line_up = "<C-S-k>",
+      },
+    },
   },
 }
