@@ -1,5 +1,5 @@
 return {
-  -- Mason para instalar LSPs
+  -- Mason for installing LSPs
   {
     "williamboman/mason.nvim",
     cmd = "Mason",
@@ -17,7 +17,7 @@ return {
     },
   },
 
-  -- Configuración de Mason LSP + mason-tool-installer
+  -- Mason LSP config + mason-tool-installer
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = {
@@ -50,14 +50,14 @@ return {
         "stylelint", -- CSS
       }
 
-      -- Formatters (adicionales a los configurados en conform)
+      -- Formatters (additional to those configured in conform)
       local formatters = {
         "stylua", -- Lua
         "shfmt", -- Bash
         "prettier", -- JSON, YAML, Markdown
       }
 
-      -- Combinar todas las herramientas para mason-tool-installer
+      -- Combine all tools for mason-tool-installer
       local tools = vim.tbl_keys(servers)
       vim.list_extend(tools, linters)
       vim.list_extend(tools, formatters)
@@ -75,7 +75,7 @@ return {
     end,
   },
 
-  -- Configuración LSP
+  -- LSP Configuration
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -92,90 +92,91 @@ return {
       capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
       -- ========================================================================
-      -- ON_ATTACH - KEYMAPS Y CONFIGURACIÓN POR CLIENTE
+      -- ON_ATTACH - KEYMAPS AND PER-CLIENT CONFIGURATION
       -- ========================================================================
       local on_attach = function(client, bufnr)
-        -- Desactivar formateo LSP para todos los servidores (usa conform.nvim)
+        -- Disable LSP formatting for all servers (use conform.nvim instead)
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
 
-        -- Helper para mapear teclas
+        -- Keymap helper
         local map = function(keys, func, desc, mode)
           mode = mode or "n"
           vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
         end
 
-        -- ===== Keymaps generales para todos los LSP =====
-        -- Navegación
+        -- ===== Keymaps for all LSP servers =====
+        -- Navigation
         map("gd", function()
           Snacks.picker.lsp_definitions()
-        end, "Ir a definición")
+        end, "Go to definition")
         map("gr", function()
           Snacks.picker.lsp_references({
-            -- Excluir la declaración actual de los resultados
+            -- Exclude current declaration from results
             includeDeclaration = false,
           })
-        end, "Ir a referencias")
+        end, "Go to references")
         map("gI", function()
           Snacks.picker.lsp_implementations()
-        end, "Ir a implementación")
+        end, "Go to implementation")
         map("gy", function()
           Snacks.picker.lsp_type_definitions()
-        end, "Definición de tipo")
-        map("gD", vim.lsp.buf.declaration, "Ir a declaración")
+        end, "Type definition")
+        map("gD", vim.lsp.buf.declaration, "Go to declaration")
 
-        -- Símbolos
+        -- Symbols
         map("gs", function()
           Snacks.picker.lsp_symbols()
-        end, "Símbolos del documento")
+        end, "Document symbols")
         map("gS", function()
           Snacks.picker.lsp_workspace_symbols()
-        end, "Símbolos del workspace")
+        end, "Workspace symbols")
 
-        -- Acciones
-        map("gn", vim.lsp.buf.rename, "Renombrar")
+        -- Actions
+        map("gn", vim.lsp.buf.rename, "Rename")
         map("ga", vim.lsp.buf.code_action, "Code actions", { "n", "x" })
         map("gf", function()
           require("conform").format({ async = true, lsp_format = "fallback" }, function(err)
             if err then
-              vim.notify("Error al formatear: " .. tostring(err), vim.log.levels.ERROR)
+              vim.notify("Format error: " .. tostring(err), vim.log.levels.ERROR)
             else
-              vim.notify("✓ Formateado exitosamente", vim.log.levels.INFO)
+              vim.notify("Formatted successfully", vim.log.levels.INFO)
             end
           end)
-        end, "Formatear")
+        end, "Format")
 
-        -- Documentación
+        -- Documentation
         map("K", function()
           vim.lsp.buf.hover({ border = "single", max_height = 20, max_width = 130 })
-        end, "Mostrar documentación")
-        map("<C-K>", vim.lsp.buf.signature_help, "Mostrar firma de función")
+        end, "Show hover documentation")
+        -- NOTE: Moved from <C-K> to gk to avoid conflict with Ctrl+K (smart-splits navigation)
+        map("gk", vim.lsp.buf.signature_help, "Show signature help")
 
-        -- Diagnósticos
-        map("[d", vim.diagnostic.goto_prev, "Diagnóstico anterior")
-        map("]d", vim.diagnostic.goto_next, "Diagnóstico siguiente")
+        -- Diagnostics
+        map("[d", vim.diagnostic.goto_prev, "Previous diagnostic")
+        map("]d", vim.diagnostic.goto_next, "Next diagnostic")
         map("[e", function()
           vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
-        end, "Error anterior")
+        end, "Previous error")
         map("]e", function()
           vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
-        end, "Error siguiente")
+        end, "Next error")
 
-        -- ===== Resaltado de referencias =====
-        -- NOTA: No se usa autocmd manual aquí porque Snacks.words ya maneja
-        -- el highlight de referencias LSP con debounce inteligente.
-        -- Ver config de snacks.lua: words = { enabled = true }
+        -- ===== Reference highlighting =====
+        -- NOTE: Not using manual autocmd here because Snacks.words already handles
+        -- LSP reference highlighting with smart debounce.
+        -- See snacks.lua config: words = { enabled = true }
 
         -- ===== Inlay hints =====
         if client.server_capabilities.inlayHintProvider then
           map("gh", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
-          end, "Alternar Inlay Hints")
+          end, "Toggle Inlay Hints")
         end
       end
 
       -- ========================================================================
-      -- CONFIGURACIÓN DE DIAGNÓSTICOS
+      -- DIAGNOSTICS CONFIGURATION
       -- ========================================================================
       vim.diagnostic.config({
         severity_sort = true,
@@ -200,18 +201,18 @@ return {
       })
 
       -- ========================================================================
-      -- CONFIGURACIÓN GLOBAL DE CAPABILITIES
+      -- GLOBAL CAPABILITIES CONFIGURATION
       -- ========================================================================
-      -- Aplicar capabilities base y debounce a todos los servidores LSP
+      -- Apply base capabilities and debounce to all LSP servers
       vim.lsp.config["*"] = {
         capabilities = capabilities,
         flags = {
-          debounce_text_changes = 150, -- Reducir carga LSP: esperar 150ms tras cambios antes de notificar
+          debounce_text_changes = 150, -- Reduce LSP load: wait 150ms after changes before notifying
         },
       }
 
       -- ========================================================================
-      -- HANDLERS PERSONALIZADOS
+      -- CUSTOM HANDLERS
       -- ========================================================================
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
         border = "single",
@@ -225,7 +226,7 @@ return {
       })
 
       -- ========================================================================
-      -- CONFIGURACIÓN DE SERVIDORES LSP
+      -- LSP SERVER CONFIGURATION
       -- ========================================================================
 
       -- Python
@@ -294,7 +295,7 @@ return {
         root_markers = { ".marksman.toml" },
       }
 
-      -- Lua (configuración específica en .luarc.json)
+      -- Lua (specific config in .luarc.json)
       vim.lsp.config.lua_ls = {
         cmd = { "lua-language-server" },
         filetypes = { "lua" },
@@ -385,7 +386,7 @@ return {
       }
 
       -- ========================================================================
-      -- HABILITAR SERVIDORES
+      -- ENABLE SERVERS
       -- ========================================================================
       vim.lsp.enable({
         "ty",
@@ -415,27 +416,27 @@ return {
       })
 
       -- ========================================================================
-      -- COMANDOS DE USUARIO
+      -- USER COMMANDS
       -- ========================================================================
       vim.api.nvim_create_user_command("DiagnosticsToggle", function()
         vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-      end, { desc = "Alternar diagnósticos" })
+      end, { desc = "Toggle diagnostics" })
 
       vim.api.nvim_create_user_command("DiagnosticsDisable", function()
         vim.diagnostic.enable(false)
-      end, { desc = "Deshabilitar diagnósticos" })
+      end, { desc = "Disable diagnostics" })
 
       vim.api.nvim_create_user_command("DiagnosticsEnable", function()
         vim.diagnostic.enable(true)
-      end, { desc = "Habilitar diagnósticos" })
+      end, { desc = "Enable diagnostics" })
 
       vim.api.nvim_create_user_command("DiagnosticsDisableBuffer", function()
         vim.diagnostic.enable(false, { bufnr = 0 })
-      end, { desc = "Deshabilitar diagnósticos para el buffer actual" })
+      end, { desc = "Disable diagnostics for current buffer" })
 
       vim.api.nvim_create_user_command("DiagnosticsEnableBuffer", function()
         vim.diagnostic.enable(true, { bufnr = 0 })
-      end, { desc = "Habilitar diagnósticos para el buffer actual" })
+      end, { desc = "Enable diagnostics for current buffer" })
     end,
   },
 }
