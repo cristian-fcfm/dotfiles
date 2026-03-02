@@ -9,5 +9,6 @@
     "python-development@claude-code-workflows": true,
     "code-review-ai@claude-code-workflows": true,
     "clangd-lsp@claude-plugins-official": true
-  }
+  },
+  "model": "opus"
 }
