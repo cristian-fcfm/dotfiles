@@ -154,17 +154,34 @@ alias glog='git log --oneline --graph --decorate'
 alias lg='lazygit'
 alias lazygit='lazygit'
 
-# ─── Tmux ───────────────────────────────────────────────────────────────────
+# ─── Tmux (for remote SSH sessions only) ─────────────────────────────────────
 alias t='tmux'
 alias ta='tmux attach-session -t'
 alias tls='tmux list-sessions'
 alias tn='tmux new-session -s'
 alias tkill='tmux kill-session -t'
-alias tkillall='tmux kill-server'
-alias tw='tmux new-session -As work -c ~/Documents/development/work'
-alias tp='tmux new-session -As personal -c ~/Documents/development/personal'
-alias tnotes='tmux new-session -As notes'
-alias tconfig='tmux new-session -As config -c ~/Documents/development/personal/dotfiles'
+
+# ─── Kitty workspace tabs (replaces tmux sessions for local work) ────────────
+# Open a named Kitty tab in a project directory.
+# Usage: kw <tab-title> <directory>
+kw() {
+    local title="${1:?Usage: kw <title> <directory>}"
+    local dir="${2:?Usage: kw <title> <directory>}"
+    kitty @ launch --type=tab --tab-title "$title" --cwd "$dir"
+}
+# Quick project workspaces
+alias kwork='kw work ~/Documents/development/work'
+alias kpersonal='kw personal ~/Documents/development/personal'
+alias kdots='kw dotfiles ~/Documents/development/personal/dotfiles'
+alias knotes='kw notes ~/Documents/notes'
+
+# Launch a dev layout: editor (left) + shell (right) in a named tab
+kdev() {
+    local title="${1:?Usage: kdev <title> <directory>}"
+    local dir="${2:?Usage: kdev <title> <directory>}"
+    kitty @ launch --type=tab --tab-title "$title" --cwd "$dir" nvim
+    kitty @ launch --location=vsplit --cwd "$dir"
+}
 
 # ─── Neovim ─────────────────────────────────────────────────────────────────
 alias v='nvim'
