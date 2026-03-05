@@ -19,6 +19,9 @@ export GOOGLE_CLOUD_PROJECT=flb-rtl-atenea-reg-dev
 export VERTEX_LOCATION=us-central1
 export NODE_TLS_REJECT_UNAUTHORIZED=0
 
+# Azure
+export AZURE_RESOURCE_NAME="atenea-dev"
+
 # Cargar paths del sistema (incluye /Library/TeX/texbin en macOS)
 if [[ -x "/usr/libexec/path_helper" ]]; then
     eval "$(/usr/libexec/path_helper -s)"
