@@ -676,15 +676,19 @@ If it's a regular file (not stowed), skip the unstow step.
 
 ```bash
 cd ~/Documents/development/personal/dotfiles
-stow --simulate kitty
+stow --no-folding --simulate kitty
 ```
+
+`--no-folding` is required so stow creates individual file symlinks instead of
+folding the entire `kitty/` directory into a single symlink. Without it, the
+`~/.stow-global-ignore` filter has no effect (the whole dir gets linked at once).
 
 Expected: list of LINK entries for `kitty.conf`, `theme.conf`, `fonts.conf`, `core.conf`, `tabs.conf`, `layouts.conf`, `keybindings.conf`, `platform/linux.conf`, `tab_bar.py`. No `platform/macos.conf` (filtered by global ignore). No errors.
 
 - [ ] **Step 3: Deploy**
 
 ```bash
-stow kitty
+stow --no-folding kitty
 ```
 
 - [ ] **Step 4: Verify platform/macos.conf was NOT deployed**
