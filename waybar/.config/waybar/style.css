@@ -133,3 +133,7 @@ window#waybar {
   font-size: 14px;
   font-weight: 700;
 }
+
+#custom-arch label {
+  min-width: 0;
+}
