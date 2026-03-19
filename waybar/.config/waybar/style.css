@@ -123,6 +123,7 @@ window#waybar {
 /* ─── ARCH LOGO ──────────────────────────────────────────────────────── */
 
 #custom-arch {
+  padding: 0;
   min-width: 30px;
   min-height: 30px;
   margin: 4px 3px;
@@ -131,7 +132,4 @@ window#waybar {
   color: @background;
   font-size: 14px;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
