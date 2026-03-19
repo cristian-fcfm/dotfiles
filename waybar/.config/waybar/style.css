@@ -123,17 +123,11 @@ window#waybar {
 /* ─── ARCH LOGO ──────────────────────────────────────────────────────── */
 
 #custom-arch {
-  padding: 0;
-  min-width: 30px;
-  min-height: 30px;
+  padding: 4px 8px;
   margin: 4px 3px;
   border-radius: 50%;
   background: @accent;
   color: @background;
   font-size: 14px;
   font-weight: 700;
-}
-
-#custom-arch label {
-  min-width: 0;
 }
