@@ -1,0 +1,28 @@
+/* Tema: catppuccin-mocha */
+@define-color background #1E1E2E;
+@define-color foreground #CDD6F4;
+@define-color surface alpha(#1E1E2E, 0.85);
+@define-color surface-alpha alpha(#1E1E2E, 0.6);
+@define-color border alpha(#CDD6F4, 0.15);
+@define-color border-hover alpha(#CDD6F4, 0.25);
+
+@define-color accent #B4BEFE;
+@define-color blue #89B4FA;
+@define-color green #A6E3A1;
+@define-color yellow #F9E2AF;
+@define-color orange #FAB387;
+@define-color red #F38BA8;
+@define-color mauve #CBA6F7;
+@define-color teal #94E2D5;
+@define-color sky #89DCFE;
+
+@define-color critical #F38BA8;
+@define-color warning #F9E2AF;
+@define-color success #A6E3A1;
+@define-color info #89B4FA;
+
+@define-color gradient-1 #A6E3A1;
+@define-color gradient-2 #89B4FA;
+@define-color gradient-3 #CBA6F7;
+@define-color gradient-4 #94E2D5;
+@define-color gradient-5 #F9E2AF;

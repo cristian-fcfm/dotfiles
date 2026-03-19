@@ -1,0 +1,45 @@
+<h2>Enfoques para el módulo circular Arch</h2>
+<p class="subtitle">3 opciones de implementación CSS — mismo módulo custom/arch existente</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>CSS puro con dimensiones fijas</h3>
+      <p>Definir <code>width</code> y <code>height</code> iguales + <code>border-radius: 50%</code>. Simple, predecible, funciona siempre.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Máxima simplicidad</li><li>Círculo perfecto garantizado</li><li>Fácil de ajustar tamaño</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Tamaño fijo (no se adapta si cambia font-size global)</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>CSS con aspect-ratio</h3>
+      <p>Usar <code>aspect-ratio: 1</code> + <code>border-radius: 50%</code> para que se mantenga circular sin fijar ambas dimensiones.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Se adapta al contenido</li><li>Moderno y limpio</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>GTK3 (usado por Waybar) tiene soporte limitado de aspect-ratio</li><li>Puede no funcionar correctamente</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>CSS con padding simétrico</h3>
+      <p>Usar <code>padding</code> igual en todos los lados + <code>border-radius: 50%</code>. El círculo se forma alrededor del icono naturalmente.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Se adapta al tamaño del icono</li><li>Compatibilidad GTK3 total</li><li>Consistente con el patrón existente de padding en los módulos</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Si el contenido no es cuadrado, el círculo puede deformarse ligeramente</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 2rem; padding: 1.2rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);">
+  <h3 style="margin-top:0;">Recomendación: Opción A</h3>
+  <p style="margin:0;">Dimensiones fijas es lo más confiable con GTK3/Waybar. El icono Arch tiene tamaño fijo (font-size), así que no hay razón para hacerlo responsive. Además es lo más simple de mantener y extender después.</p>
+</div>

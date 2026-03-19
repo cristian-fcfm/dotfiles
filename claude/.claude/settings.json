@@ -4,10 +4,19 @@
     "pr": ""
   },
   "enabledPlugins": {
-    "code-review@claude-plugins-official": true,
-    "cloud-infrastructure@claude-code-workflows": true,
+    "clangd-lsp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "frontend-design@claude-code-plugins": true,
     "python-development@claude-code-workflows": true,
-    "code-review-ai@claude-code-workflows": true,
-    "clangd-lsp@claude-plugins-official": true
-  }
+    "backend-development@claude-code-workflows": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-code-skills": {
+      "source": {
+        "source": "github",
+        "repo": "alirezarezvani/claude-skills"
+      }
+    }
+  },
+  "effortLevel": "medium"
 }

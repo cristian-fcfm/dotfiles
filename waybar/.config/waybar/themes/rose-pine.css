@@ -1,0 +1,28 @@
+/* Tema: rose-pine */
+@define-color background #191724;
+@define-color foreground #E0DEF4;
+@define-color surface alpha(#191724, 0.85);
+@define-color surface-alpha alpha(#191724, 0.6);
+@define-color border alpha(#E0DEF4, 0.15);
+@define-color border-hover alpha(#E0DEF4, 0.25);
+
+@define-color accent #C4A7E7;
+@define-color blue #9CCFD8;
+@define-color green #31748F;
+@define-color yellow #F6C177;
+@define-color orange #F6C177;
+@define-color red #EB6F92;
+@define-color mauve #C4A7E7;
+@define-color teal #9CCFD8;
+@define-color sky #E0DEF4;
+
+@define-color critical #EB6F92;
+@define-color warning #F6C177;
+@define-color success #31748F;
+@define-color info #9CCFD8;
+
+@define-color gradient-1 #31748F;
+@define-color gradient-2 #9CCFD8;
+@define-color gradient-3 #C4A7E7;
+@define-color gradient-4 #EBBCBA;
+@define-color gradient-5 #F6C177;

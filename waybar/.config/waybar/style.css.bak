@@ -1,0 +1,469 @@
+/* ============================================ */
+/* COLOR PALETTE - Catppuccin Macchiato Theme */
+/* ============================================ */
+
+/* Base colors */
+@define-color bg-primary rgb(36, 39, 58); /* base */
+@define-color bg-secondary #1e2030; /* mantle */
+@define-color bg-surface #363a4f; /* surface0 */
+@define-color bg-surface-variant #5b6078; /* surface2 */
+
+/* Text colors */
+@define-color text-primary #cad3f5; /* text */
+@define-color text-secondary rgba(183, 189, 248, 0.7); /* lavender dimmed */
+@define-color text-accent #b7bdf8; /* lavender */
+
+/* Accent colors */
+@define-color accent-blue #8aadf4;
+@define-color accent-green #a6da95;
+@define-color accent-yellow #eed49f;
+@define-color accent-peach #f5a97f;
+@define-color accent-red #ed8796;
+@define-color accent-maroon #ee99a0;
+@define-color accent-pink #f5bde6;
+@define-color accent-mauve #c6a0f6;
+@define-color accent-teal #8bd5ca;
+@define-color accent-sky #91d7e3;
+@define-color accent-sapphire #7dc4e4;
+@define-color accent-rosewater #f4dbd6;
+
+/* UI colors */
+@define-color border-default rgba(183, 189, 248, 0.4);
+@define-color shadow-default rgb(30, 32, 48);
+@define-color hover-overlay #363a4f;
+
+/* Gradient colors - extracted for easy customization */
+@define-color gradient-1 rgba(139, 213, 202, 1); /* teal */
+@define-color gradient-2 rgba(138, 173, 244, 1); /* blue */
+@define-color gradient-3 rgba(183, 189, 248, 1); /* lavender */
+@define-color gradient-4 rgba(198, 160, 246, 1); /* mauve */
+@define-color gradient-5 rgba(238, 153, 160, 1); /* maroon */
+
+/* Status colors */
+@define-color status-warning @accent-yellow;
+@define-color status-critical @accent-peach;
+@define-color status-urgent @accent-red;
+@define-color status-success @accent-green;
+@define-color status-info @accent-blue;
+
+/* ============================================ */
+/* GLOBAL SETTINGS                              */
+/* ============================================ */
+
+* {
+  font-family: JetBrainsMono Nerd Font;
+  font-size: 10px;
+  min-height: 0;
+}
+
+window#waybar {
+  color: @text-primary;
+  background: transparent;
+}
+
+window#waybar.hidden {
+  opacity: 0;
+}
+
+/* ============================================ */
+/* BASE MODULE STYLE                            */
+/* ============================================ */
+/* Estilo base para todos los módulos/plugins   */
+
+#battery,
+#cava,
+#custom-cava,
+#custom-clipboard,
+#custom-notifications,
+#custom-arch,
+#custom-gpu-usage,
+#custom-cpu-combined,
+#custom-gpu-combined,
+#custom-updates,
+#mode,
+#cpu,
+#memory,
+#temperature,
+#custom-music,
+#custom-fans,
+#clock,
+#idle_inhibitor,
+#bluetooth,
+#custom-wf-recorder,
+#pulseaudio,
+#backlight,
+#network,
+#tray,
+#custom-power-menu,
+#language,
+#window,
+#custom-weather,
+#custom-weather.severe,
+#custom-weather.sunnyDay,
+#custom-weather.clearNight,
+#custom-weather.cloudyFoggyDay,
+#custom-weather.cloudyFoggyNight,
+#custom-weather.rainyDay,
+#custom-weather.rainyNight,
+#custom-weather.snowyIcyDay,
+#custom-weather.snowyIcyNight,
+#custom-weather.default {
+  /* Base styling - todos los módulos */
+  background-color: alpha(@bg-primary, 0.9);
+  padding: 0 8px;
+  margin: 1px 3px 1px 3px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 1px alpha(@shadow-default, 0.5);
+  border: 1px solid @border-default;
+  background-clip: padding-box;
+}
+
+/* ============================================ */
+/* WORKSPACES                                   */
+/* ============================================ */
+
+#workspaces {
+  background-color: alpha(@bg-primary, 0.9);
+  border: 1px solid @border-default;
+  padding: 0 6px;
+  margin: 1px 3px 1px 3px;
+  box-shadow: 2px 2px 1px alpha(@shadow-default, 0.5);
+  border-radius: 8px;
+  background-clip: padding-box;
+}
+
+#workspaces * {
+  font-size: 13px;
+}
+
+#workspaces button {
+  border-radius: 10px;
+  margin: 2px;
+  padding: 0 4px;
+  font-weight: bolder;
+  min-width: 18px;
+  color: @bg-primary;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+}
+
+#workspaces button label {
+  color: @text-accent;
+  font-weight: bolder;
+  transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
+}
+
+#workspaces button.active {
+  padding: 0 5px;
+  margin: 2px;
+  box-shadow: 2px 2px 1px alpha(@shadow-default, 0.5);
+  background: linear-gradient(
+    52deg,
+    @gradient-1 0%,
+    @gradient-2 30%,
+    @gradient-3 48%,
+    @gradient-4 77%,
+    @gradient-5 100%
+  );
+  background-size: 400% 400%;
+  /* animation: gradient 15s ease infinite; */
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  color: @accent-mauve;
+  border-radius: 10px;
+}
+
+#workspaces button.active label {
+  color: @bg-primary;
+  font-weight: bolder;
+}
+
+#workspaces button.urgent {
+  background-color: @status-urgent;
+}
+
+#workspaces button.urgent label {
+  color: @bg-primary;
+  font-weight: bolder;
+}
+
+#workspaces button:hover {
+  background-color: @hover-overlay;
+}
+
+#workspaces button.focused:hover {
+  background-color: alpha(@bg-primary, 0.9);
+}
+
+#workspaces button.focused:hover label {
+  color: @text-primary;
+}
+
+/* ============================================ */
+/* INDIVIDUAL MODULES - COLORS                  */
+/* ============================================ */
+/* Cada módulo tiene su color distintivo       */
+
+#cpu {
+  color: @accent-blue;
+  transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
+}
+
+#custom-cpu-combined {
+  color: @accent-blue;
+  transition: all 0.3s ease;
+}
+
+#custom-cpu-combined.expanded {
+  color: @accent-blue;
+}
+
+#memory {
+  color: @accent-green;
+  transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
+}
+
+#temperature {
+  color: @accent-peach;
+}
+
+#custom-gpu-usage {
+  color: @accent-teal;
+}
+
+#custom-gpu-combined {
+  color: @accent-teal;
+  transition: all 0.3s ease;
+}
+
+#custom-gpu-combined.expanded {
+  color: @accent-teal;
+}
+
+#custom-notifications {
+  color: @accent-yellow;
+}
+
+#custom-weather {
+  color: @status-urgent;
+}
+
+#custom-updates {
+  color: @accent-teal;
+}
+
+#custom-wf-recorder {
+  color: @status-urgent;
+}
+
+#custom-gpu-temp {
+  color: @accent-peach;
+}
+
+#custom-power-menu {
+  color: @status-urgent;
+}
+
+#custom-fans {
+  color: @accent-green;
+}
+
+#custom-cava {
+  color: @text-accent;
+  border-radius: 8px;
+}
+
+#clock {
+  color: @text-accent;
+}
+
+#language {
+  color: @accent-blue;
+}
+
+#bluetooth {
+  color: @accent-blue;
+}
+
+#pulseaudio {
+  color: @accent-pink;
+}
+
+#backlight {
+  color: @accent-blue;
+}
+
+#battery {
+  color: @accent-green;
+}
+
+#network {
+  color: @accent-sky;
+}
+
+/* ============================================ */
+/* GRADIENT MODULES                             */
+/* ============================================ */
+/* Módulos con fondo degradado especial        */
+
+#window {
+  background: linear-gradient(
+    52deg,
+    @gradient-1 0%,
+    @gradient-2 30%,
+    @gradient-3 48%,
+    @gradient-4 77%,
+    @gradient-5 100%
+  );
+  background-size: 400% 400%;
+  /* animation: gradient 15s ease infinite; */
+  text-shadow: 0px 0px 5px @text-accent;
+  font-weight: bold;
+  color: @bg-secondary;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  border: none;
+}
+
+#custom-music {
+  background: @text-accent;
+  background: linear-gradient(
+    52deg,
+    @gradient-1 0%,
+    @gradient-2 30%,
+    @gradient-3 48%,
+    @gradient-4 77%,
+    @gradient-5 100%
+  );
+  background-size: 400% 400%;
+  /* animation: gradient 15s ease infinite; */
+  text-shadow: 0px 0px 5px @border-default;
+  font-weight: bold;
+  color: @bg-secondary;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  border: none;
+}
+
+#clock.cl2 {
+  background: @text-accent;
+  background: linear-gradient(
+    52deg,
+    @gradient-1 0%,
+    @gradient-2 30%,
+    @gradient-3 48%,
+    @gradient-4 77%,
+    @gradient-5 100%
+  );
+  background-size: 400% 400%;
+  /* animation: gradient 15s ease infinite; */
+  text-shadow: 0px 0px 5px @border-default;
+  font-weight: bold;
+  color: @bg-secondary;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  border: none;
+}
+
+/* ============================================ */
+/* MODULE STATES                                */
+/* ============================================ */
+
+/* Battery states */
+#battery.warning {
+  color: @status-warning;
+}
+
+#battery.critical {
+  color: @status-critical;
+}
+
+#battery.urgent {
+  color: @status-urgent;
+}
+
+#battery.charging,
+#battery.plugged {
+  background-color: @status-success;
+  color: @bg-secondary;
+}
+
+#battery.critical:not(.charging) {
+  background-color: @status-urgent;
+  color: @bg-secondary;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* Temperature states */
+#temperature.critical {
+  background-color: @status-urgent;
+  color: @bg-secondary;
+}
+
+/* Audio states */
+#pulseaudio.muted {
+  background-color: @status-urgent;
+  color: @bg-secondary;
+}
+
+#pulseaudio.source-muted {
+  background-color: @status-critical;
+  color: @bg-secondary;
+}
+
+/* Network states */
+#network.disconnected {
+  background-color: @status-urgent;
+  color: @bg-secondary;
+}
+
+#network.linked {
+  background-color: @status-critical;
+  color: @bg-secondary;
+}
+
+/* ============================================ */
+/* ANIMATIONS                                   */
+/* ============================================ */
+
+@keyframes blink {
+  to {
+    background-color: alpha(@bg-primary, 0.9);
+    color: @status-urgent;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradient_f {
+  0% {
+    background-position: 0% 200%;
+  }
+
+  50% {
+    background-position: 200% 0%;
+  }
+
+  100% {
+    background-position: 400% 200%;
+  }
+}
+
+@keyframes gradient_f_nh {
+  0% {
+    background-position: 0% 200%;
+  }
+
+  100% {
+    background-position: 200% 200%;
+  }
+}
