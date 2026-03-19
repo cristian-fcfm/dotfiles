@@ -1,9 +1,8 @@
-/* Waybar Minimalista - Kanagawa Theme */
+/* Waybar — Theme-agnostic minimal style */
+/* Colors from @import colors.css (symlinked to active theme) */
 @import url("./colors.css");
 
-/* ========================================================================== */
-/* GLOBAL                                                                     */
-/* ========================================================================== */
+/* ─── GLOBAL ─────────────────────────────────────────────────────────── */
 
 * {
   font-family: "JetBrainsMono Nerd Font";
@@ -17,13 +16,30 @@ window#waybar {
   color: @foreground;
 }
 
-/* ========================================================================== */
-/* WORKSPACES                                                                 */
-/* ========================================================================== */
+/* ─── BASE MODULE ────────────────────────────────────────────────────── */
+
+#custom-music,
+#custom-notifications,
+#custom-cpu-combined,
+#custom-gpu-combined,
+#clock,
+#memory,
+#hyprland-language,
+#network,
+#tray {
+  padding: 0 14px;
+  margin: 4px 3px;
+  border-radius: 8px;
+  background: @surface;
+  color: @foreground;
+  transition: all 0.2s ease;
+}
+
+/* ─── WORKSPACES ─────────────────────────────────────────────────────── */
 
 #workspaces {
-  margin: 4px;
-  background: alpha(@background, 0.7);
+  margin: 4px 3px;
+  background: @surface;
   border-radius: 8px;
 }
 
@@ -31,7 +47,7 @@ window#waybar {
   padding: 0 12px;
   margin: 4px;
   border-radius: 6px;
-  color: alpha(@foreground, 0.6);
+  color: alpha(@foreground, 0.5);
   transition: all 0.2s ease;
 }
 
@@ -42,56 +58,80 @@ window#waybar {
 }
 
 #workspaces button:hover {
-  background: alpha(@accent, 0.3);
+  background: alpha(@accent, 0.2);
   color: @foreground;
 }
 
-/* ========================================================================== */
-/* BASE MODULES - Compactos                                                   */
-/* ========================================================================== */
-
-#custom-music,
-#clock,
-#memory,
-#custom-cpu-combined,
-#custom-gpu-combined,
-#hyprland-language,
-#network,
-#custom-notifications,
-#tray {
-  padding: 0 14px;
-  margin: 4px;
-  border-radius: 8px;
-  background: alpha(@background, 0.7);
-  color: @foreground;
+#workspaces button.urgent {
+  background: @critical;
+  color: @background;
 }
 
-/* ========================================================================== */
-/* MÚSICA - Destacado con gradiente                                           */
-/* ========================================================================== */
+/* ─── MUSIC — gradient highlight ─────────────────────────────────────── */
 
 #custom-music {
-  background: linear-gradient(135deg, #76946A, #7E9CD8);
-  color: #1F1F28;
+  background: linear-gradient(135deg, @gradient-1, @gradient-2);
+  color: @background;
   font-weight: 600;
 }
 
-/* ========================================================================== */
-/* COLORES DE MÓDULOS                                                          */
-/* ========================================================================== */
+/* ─── MODULE ACCENT COLORS ───────────────────────────────────────────── */
 
-#memory { color: #98BB6C; }
-#custom-cpu-combined { color: #7E9CD8; }
-#custom-gpu-combined { color: #7FB4CA; }
-#clock { color: #C8C093; font-weight: 600; }
-#hyprland-language { color: #957FB8; }
-#network { color: #7AA89F; }
-#custom-notifications { color: #E6C384; }
+#memory              { color: @green; }
+#custom-cpu-combined { color: @blue; }
+#custom-gpu-combined { color: @teal; }
+#clock               { color: @sky; font-weight: 600; }
+#hyprland-language   { color: @mauve; }
+#network             { color: @teal; }
+#custom-notifications { color: @yellow; }
 
-/* ========================================================================== */
-/* ESTADOS                                                                    */
-/* ========================================================================== */
+/* ─── MODULE STATES ──────────────────────────────────────────────────── */
 
-#network.disconnected { color: #C34043; }
-#battery.charging { color: #98BB6C; }
-#battery.critical { color: #E82424; }
+#network.disconnected {
+  background: @critical;
+  color: @background;
+}
+
+#network.linked {
+  color: @warning;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @success;
+}
+
+#battery.warning {
+  color: @warning;
+}
+
+#battery.critical:not(.charging) {
+  background: @critical;
+  color: @background;
+  animation: blink 0.5s linear infinite alternate;
+}
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────────────── */
+
+@keyframes blink {
+  to {
+    background: @surface;
+    color: @critical;
+  }
+}
+
+/* ─── ARCH LOGO ──────────────────────────────────────────────────────── */
+
+#custom-arch {
+  min-width: 30px;
+  min-height: 30px;
+  margin: 4px 3px;
+  border-radius: 50%;
+  background: @accent;
+  color: @background;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
