@@ -1,0 +1,20 @@
+# Stow built-in defaults (required — global ignore replaces them entirely)
+\.git
+\.gitignore
+\.gitmodules
+README.*
+LICENSE.*
+COPYING
+INSTALL
+\.cvsignore
+\.#.*
+CVS
+RCS
+SCCS
+_darcs
+\.hg
+\.svn
+\.osc
+
+# Platform filter (Linux machine: ignore macOS platform files)
+platform/macos\.conf
