@@ -1,0 +1,28 @@
+/* Tema: nord */
+@define-color background #2E3440;
+@define-color foreground #ECEFF4;
+@define-color surface alpha(#2E3440, 0.85);
+@define-color surface-alpha alpha(#2E3440, 0.6);
+@define-color border alpha(#ECEFF4, 0.15);
+@define-color border-hover alpha(#ECEFF4, 0.25);
+
+@define-color accent #88C0D0;
+@define-color blue #81A1C1;
+@define-color green #A3BE8C;
+@define-color yellow #EBCB8B;
+@define-color orange #D08770;
+@define-color red #BF616A;
+@define-color mauve #B48EAD;
+@define-color teal #8FBCBB;
+@define-color sky #D8DEE9;
+
+@define-color critical #BF616A;
+@define-color warning #EBCB8B;
+@define-color success #A3BE8C;
+@define-color info #81A1C1;
+
+@define-color gradient-1 #A3BE8C;
+@define-color gradient-2 #81A1C1;
+@define-color gradient-3 #B48EAD;
+@define-color gradient-4 #8FBCBB;
+@define-color gradient-5 #EBCB8B;

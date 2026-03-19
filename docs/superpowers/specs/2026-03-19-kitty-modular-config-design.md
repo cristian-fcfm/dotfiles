@@ -53,14 +53,17 @@ include platform/macos.conf
 ### Module Breakdown
 
 #### core.conf
-- Cursor: shape, thickness, blink
-- Scrollback: lines, pager, history size, wheel scroll
-- Mouse: hide, URL detection, copy_on_select, paste actions, word characters, pointer shapes
+
+All settings from the original kitty.conf that don't belong in a specialized module. Specifically:
+
+- Cursor: cursor_shape, cursor_shape_unfocused, cursor_beam_thickness, cursor_blink_interval, cursor_stop_blinking_after, cursor_trail
+- Scrollback: scrollback_lines, scrollback_indicator_opacity, scrollback_pager, scrollback_pager_history_size, scrollback_fill_enlarged_window, wheel_scroll_multiplier, wheel_scroll_min_lines, touch_scroll_multiplier
+- Mouse: mouse_hide_wait, url_style, open_url_with, url_prefixes, detect_urls, show_hyperlink_targets, underline_hyperlinks, copy_on_select, clear_selection_on_clipboard_loss, paste_actions, strip_trailing_spaces, select_by_word_characters, select_by_word_characters_forward, click_interval, focus_follows_mouse, pointer_shape_when_grabbed, default_pointer_shape, pointer_shape_when_dragging
 - Performance: input_delay, repaint_delay, sync_to_monitor
-- Transparency: background_opacity, dynamic
-- Audio: bell disabled, visual bell, alert on bell
-- Advanced: shell, editor, clipboard, hyperlinks, shell_integration
-- Vim-slime: remote control, listen_on
+- Transparency: background_opacity, dynamic_background_opacity
+- Audio: enable_audio_bell, visual_bell_duration, window_alert_on_bell, bell_on_tab
+- Advanced: shell, editor, close_on_child_death, update_check_interval, clipboard_max_size, allow_hyperlinks, shell_integration, notify_on_cmd_finish, forward_stdio
+- Vim-slime: allow_remote_control, listen_on
 
 #### theme.conf
 - Renamed from `Kanagawa_dragon.conf`
@@ -70,7 +73,7 @@ include platform/macos.conf
 - font_family: FiraCode Nerd Font
 - bold/italic/bold_italic: auto
 - enable_ligatures: yes
-- font_features: +zero +calt +ss01 +ss02 +cv01-cv06 +frac +subs +sups +sinf
+- font_features: `FiraCode Nerd Font +zero +calt +ss01 +ss02 +cv01 +cv02 +cv03 +cv04 +cv05 +cv06 +frac +subs +sups +sinf`
 - Note: `font_size` and emoji `symbol_map` live in platform files
 
 #### tabs.conf
@@ -98,6 +101,9 @@ include platform/macos.conf
 - Utilities: fullscreen, maximize, unicode input, edit config, kitty shell, clear terminal, load config, debug config
 - Background opacity: adjust, reset
 
+#### tab_bar.py
+- Custom Python tab bar implementation (carried over as-is, no changes)
+
 #### platform/linux.conf
 ```conf
 # Linux-specific (Arch - Wayland/X11)
@@ -122,13 +128,53 @@ macos_show_window_title_in none
 
 A `stow-config` package manages `~/.stow-global-ignore`, which filters platform files globally across all packages.
 
+**Important**: When `~/.stow-global-ignore` exists, stow stops using its built-in default ignore list. The file must include stow's defaults (`.git`, `README.*`, etc.) plus our platform filter. Stow filters out the wrong platform file at deployment time so it never appears in `~/.config/kitty/platform/`, and kitty's `include` silently ignores the missing file.
+
 **`stow-config/.stow-global-ignore` on Linux:**
 ```
+# Stow built-in defaults (required — global ignore replaces them)
+\.git
+\.gitignore
+\.gitmodules
+README.*
+LICENSE.*
+COPYING
+INSTALL
+\.cvsignore
+\.#.*
+CVS
+RCS
+SCCS
+_darcs
+\.hg
+\.svn
+\.osc
+
+# Platform filter
 platform/macos\.conf
 ```
 
 **`stow-config/.stow-global-ignore` on macOS:**
 ```
+# Stow built-in defaults (required — global ignore replaces them)
+\.git
+\.gitignore
+\.gitmodules
+README.*
+LICENSE.*
+COPYING
+INSTALL
+\.cvsignore
+\.#.*
+CVS
+RCS
+SCCS
+_darcs
+\.hg
+\.svn
+\.osc
+
+# Platform filter
 platform/linux\.conf
 ```
 
@@ -156,10 +202,12 @@ The global ignore handles filtering automatically.
 
 ## Migration
 
-1. Create the `stow-config` package with `.stow-global-ignore`
-2. Split `kitty.conf` into module files
-3. Rename `Kanagawa_dragon.conf` to `theme.conf` and update the include
-4. Create `platform/linux.conf` and `platform/macos.conf`
-5. Reduce `kitty.conf` to only includes
-6. Test with `stow --simulate kitty` to verify symlinks
-7. Deploy with `stow kitty`
+1. Unstow current kitty config if already stowed: `stow -D kitty`
+2. Create the `stow-config` package with `.stow-global-ignore` (including stow built-in defaults)
+3. Split `kitty.conf` into module files
+4. Rename `Kanagawa_dragon.conf` to `theme.conf` and update the include
+5. Create `platform/linux.conf` and `platform/macos.conf`
+6. Reduce `kitty.conf` to only includes
+7. Deploy stow-config: `stow stow-config`
+8. Test with `stow --simulate kitty` to verify symlinks
+9. Deploy with `stow kitty`

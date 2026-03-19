@@ -100,8 +100,13 @@
 ; method = shmem
 ; source = /squeezelite-AA:BB:CC:DD:EE:FF
 
-method = portaudio
-source = BlackHole 2ch
+# macOS
+; method = portaudio
+; source = BlackHole 2ch
+
+# Linux
+method = pipewire
+source = auto
 
 ; method = sndio
 ; source = default

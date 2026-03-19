@@ -1,0 +1,28 @@
+/* Tema: tokyo-night */
+@define-color background #1A1B26;
+@define-color foreground #C0CAF5;
+@define-color surface alpha(#1A1B26, 0.85);
+@define-color surface-alpha alpha(#1A1B26, 0.6);
+@define-color border alpha(#C0CAF5, 0.15);
+@define-color border-hover alpha(#C0CAF5, 0.25);
+
+@define-color accent #7AA2F7;
+@define-color blue #7AA2F7;
+@define-color green #9ECE6A;
+@define-color yellow #E0AF68;
+@define-color orange #FF9E64;
+@define-color red #F7768E;
+@define-color mauve #BB9AF7;
+@define-color teal #73DACA;
+@define-color sky #7DCFFF;
+
+@define-color critical #F7768E;
+@define-color warning #E0AF68;
+@define-color success #9ECE6A;
+@define-color info #7AA2F7;
+
+@define-color gradient-1 #9ECE6A;
+@define-color gradient-2 #7AA2F7;
+@define-color gradient-3 #BB9AF7;
+@define-color gradient-4 #73DACA;
+@define-color gradient-5 #E0AF68;
