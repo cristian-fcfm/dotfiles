@@ -1,11 +1,10 @@
-# ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║                              ZSH Configuration                             ║
-# ║                     Optimized for Neovim + Kitty + Yazi                   ║
-# ╚═══════════════════════════════════════════════════════════════════════════╝
+# ==============================================================================
+# ZSH configuration
+# ==============================================================================
 
-# ┌───────────────────────────────────────────────────────────────────────────┐
-# │                              PATH Configuration                           │
-# └───────────────────────────────────────────────────────────────────────────┘
+# ==============================================================================
+# PATH configuration
+# ==============================================================================
 # Homebrew debe cargarse PRIMERO para que sus binarios estén disponibles
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -27,9 +26,9 @@ if [[ -x "/usr/libexec/path_helper" ]]; then
     eval "$(/usr/libexec/path_helper -s)"
 fi
 
-# ┌───────────────────────────────────────────────────────────────────────────┐
-# │                           Oh My Zsh Configuration                         │
-# └───────────────────────────────────────────────────────────────────────────┘
+# ==============================================================================
+# Oh My Zsh Configuration
+# ==============================================================================
 export ZSH="$HOME/.oh-my-zsh"
 
 # ─── Lazy loading para mejor performance ───────────────────────────────────
@@ -59,9 +58,9 @@ COMPLETION_WAITING_DOTS="true"         # Feedback visual al completar
 # Cargar Oh My Zsh
 source $ZSH/oh-my-zsh.sh
 
-# ┌───────────────────────────────────────────────────────────────────────────┐
-# │                           Environment Variables                           │
-# └───────────────────────────────────────────────────────────────────────────┘
+# ==============================================================================
+# Environment Variables
+# ==============================================================================
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export EDITOR=nvim
@@ -90,14 +89,14 @@ export FZF_DEFAULT_OPTS='
 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4
 '
 
-# ┌───────────────────────────────────────────────────────────────────────────┐
-# │                              Starship Prompt                              │
-# └───────────────────────────────────────────────────────────────────────────┘
+# ==============================================================================
+# Starship Prompt
+# ==============================================================================
 eval "$(starship init zsh)"
 
-# ┌───────────────────────────────────────────────────────────────────────────┐
-# │                             Yazi Integration                              │
-# └───────────────────────────────────────────────────────────────────────────┘
+# ==============================================================================
+# Yazi Integration
+# ==============================================================================
 # Función mejorada para Yazi con cd al salir
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
@@ -108,9 +107,9 @@ function y() {
     rm -f -- "$tmp"
 }
 
-# ┌───────────────────────────────────────────────────────────────────────────┐
-# │                                 Aliases                                    │
-# └───────────────────────────────────────────────────────────────────────────┘
+# ==============================================================================
+# Aliases
+# ==============================================================================
 
 # ─── Yazi ───────────────────────────────────────────────────────────────────
 alias yy='y .'                  # Abrir Yazi en directorio actual
@@ -164,28 +163,6 @@ alias tls='tmux list-sessions'
 alias tn='tmux new-session -s'
 alias tkill='tmux kill-session -t'
 
-# ─── Kitty workspace tabs (replaces tmux sessions for local work) ────────────
-# Open a named Kitty tab in a project directory.
-# Usage: kw <tab-title> <directory>
-kw() {
-    local title="${1:?Usage: kw <title> <directory>}"
-    local dir="${2:?Usage: kw <title> <directory>}"
-    kitty @ launch --type=tab --tab-title "$title" --cwd "$dir"
-}
-# Quick project workspaces
-alias kwork='kw work ~/Documents/development/work'
-alias kpersonal='kw personal ~/Documents/development/personal'
-alias kdots='kw dotfiles ~/Documents/development/personal/dotfiles'
-alias knotes='kw notes ~/Documents/notes'
-
-# Launch a dev layout: editor (left) + shell (right) in a named tab
-kdev() {
-    local title="${1:?Usage: kdev <title> <directory>}"
-    local dir="${2:?Usage: kdev <title> <directory>}"
-    kitty @ launch --type=tab --tab-title "$title" --cwd "$dir" nvim
-    kitty @ launch --location=vsplit --cwd "$dir"
-}
-
 # ─── Neovim ─────────────────────────────────────────────────────────────────
 alias v='nvim'
 alias vi='nvim'
@@ -218,6 +195,7 @@ alias mv='mv -i'                # Confirmación antes de mover
 # ─── Utilidades ─────────────────────────────────────────────────────────────
 alias h='history'
 alias j='jobs -l'
+alias jp='jobs -p'
 alias which='type -a'
 alias path='echo -e ${PATH//:/\\n}'
 alias reload='source ~/.zshrc'
@@ -239,9 +217,9 @@ alias home='z ~'
 alias proj='z ~/Documents/development/ && ll'           # Ir a proyectos y listar
 alias dotslg='z ~/Documents/development/personal/dotfiles/ && lg'         # Ir a dotfiles y abrir lazygit
 
-# ┌───────────────────────────────────────────────────────────────────────────┐
-# │                             Custom Functions                               │
-# └───────────────────────────────────────────────────────────────────────────┘
+# ==============================================================================
+# Custom Functions
+# ==============================================================================
 
 # Crear directorio y entrar en él
 mkcd() {
@@ -273,59 +251,35 @@ fbr() {
     git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 
-# ─── Funciones Git avanzadas ───────────────────────────────────────────────
-# Función para abrir lazygit en el directorio del proyecto actual
-lgp() {
-    # Buscar el directorio raíz del repositorio git
-    local git_root
-    git_root=$(git rev-parse --show-toplevel 2>/dev/null)
-    
-    if [ $? -eq 0 ]; then
-        echo " Abriendo Lazygit en: $(basename "$git_root")"
-        cd "$git_root" && lazygit
+# ─── Gestion de trabajos (jobs) ─────────────────────────────────────────────
+# fj [n]  - Traer job a foreground       (default: el mas reciente)
+# bj [n]  - Reanudar job en background   (default: el mas reciente)
+# kj [n]  - Matar job                    (default: el mas reciente)
+# dj [n]  - Desacoplar job de la terminal (default: el mas reciente)
+fj() { fg "%${1:-+}"; }
+bj() { bg "%${1:-+}"; }
+kj() { kill "%${1:-+}"; }
+dj() { disown "%${1:-+}"; }
+
+# ==============================================================================
+# Keybindings
+# ==============================================================================
+# Ctrl+Z mejorado: Si la linea esta vacia, ejecuta 'fg' (trae ultimo job).
+#                  Si no esta vacia, funciona como siempre (push-input).
+ctrl-z() {
+    if [[ -z $BUFFER ]]; then
+        BUFFER="fg"
+        zle accept-line
     else
-        echo " No estás en un repositorio Git"
-        echo " ¿Quieres inicializar uno aquí? (git init)"
+        zle push-input
     fi
 }
+zle -N ctrl-z
+bindkey '^Z' ctrl-z
 
-# Función para hacer commit rápido con lazygit
-lgc() {
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-        lazygit --filter='+refs/heads/'
-    else
-        echo "  No estás en un repositorio Git"
-    fi
-}
-
-# Función para clonar y abrir en lazygit
-clone_and_lg() {
-    if [ -z "$1" ]; then
-        echo "   Uso: clone_and_lg <url_del_repositorio>"
-        return 1
-    fi
-    
-    local repo_name
-    repo_name=$(basename "$1" .git)
-    
-    echo " Clonando $repo_name..."
-    git clone "$1" && cd "$repo_name" && lazygit
-}
-
-# ─── Funciones para Data Science ───────────────────────────────────────────
-# Crear proyecto de data science con UV
-create_ds_env() {
-    uv init --python 3.12
-    
-    uv add numpy pandas matplotlib scikit-learn
-
-    echo " Entorno virtual creado"
-    echo " Actívalo con: source .venv/bin/activate"
-}
-
-# ┌───────────────────────────────────────────────────────────────────────────┐
-# │                          OS-Specific Settings                              │
-# └───────────────────────────────────────────────────────────────────────────┘
+# ==============================================================================
+# OS-Specific Settings
+# ==============================================================================
 
 # Detectar el sistema operativo
 case "$(uname -s)" in
@@ -345,9 +299,9 @@ case "$(uname -s)" in
         ;;
 esac
 
-# ┌───────────────────────────────────────────────────────────────────────────┐
-# │                         Additional Tool Loading                            │
-# └───────────────────────────────────────────────────────────────────────────┘
+# ==============================================================================
+# Additional Tool Loading
+# ==============================================================================
 
 # Zoxide (mejor cd) - navegación inteligente
 if command -v zoxide &> /dev/null; then
@@ -370,6 +324,6 @@ if [ -f ~/.fzf.zsh ]; then
     source ~/.fzf.zsh
 fi
 
-# ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║                            End of Configuration                            ║
-# ╚═══════════════════════════════════════════════════════════════════════════╝
+# ==============================================================================
+# End of Configuration
+# ==============================================================================
