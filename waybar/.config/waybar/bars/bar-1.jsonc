@@ -1,14 +1,15 @@
 {
   "include": [
-    "~/.config/waybar/modules/custom=logo.jsonc",
+    "~/.config/waybar/modules/custom-logo.jsonc",
     "~/.config/waybar/modules/custom-music.jsonc",
     "~/.config/waybar/modules/custom-notifications.jsonc",
     "~/.config/waybar/modules/hyprland-workspaces.jsonc",
+    "~/.config/waybar/modules/hyprland-window.jsonc",
     "~/.config/waybar/modules/hyprland-language.jsonc",
     "~/.config/waybar/modules/tray.jsonc",
     "~/.config/waybar/modules/network.jsonc"
   ],
-  "modules-left": ["custom/arch", "hyprland/workspaces"],
+  "modules-left": ["custom/arch", "hyprland/workspaces", "hyprland/window"],
   "modules-center": ["custom/music"],
   "modules-right": [
     "tray",

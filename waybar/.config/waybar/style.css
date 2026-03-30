@@ -7,8 +7,8 @@
 * {
   font-family: "JetBrainsMono Nerd Font";
   font-size: 12px;
-  font-weight: 500;
-  min-height: 0;
+  border: none;
+  border-radius: 0;
 }
 
 window#waybar {
@@ -27,8 +27,7 @@ window#waybar {
 #hyprland-language,
 #network,
 #tray {
-  padding: 0 14px;
-  margin: 4px 3px;
+  margin: 0 3px;
   border-radius: 8px;
   background: @surface;
   color: @foreground;
@@ -38,15 +37,14 @@ window#waybar {
 /* ─── WORKSPACES ─────────────────────────────────────────────────────── */
 
 #workspaces {
-  margin: 4px 3px;
+  margin: 0 5px;
   background: @surface;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 #workspaces button {
-  padding: 0 12px;
-  margin: 4px;
-  border-radius: 6px;
+  padding: 0 10px;
+  border-radius: 5px;
   color: alpha(@foreground, 0.5);
   transition: all 0.2s ease;
 }
@@ -54,7 +52,7 @@ window#waybar {
 #workspaces button.active {
   background: @accent;
   color: @background;
-  font-weight: 700;
+  font-weight: bold;
 }
 
 #workspaces button:hover {
@@ -77,13 +75,28 @@ window#waybar {
 
 /* ─── MODULE ACCENT COLORS ───────────────────────────────────────────── */
 
-#memory              { color: @green; }
-#custom-cpu-combined { color: @blue; }
-#custom-gpu-combined { color: @teal; }
-#clock               { color: @sky; font-weight: 600; }
-#hyprland-language   { color: @mauve; }
-#network             { color: @teal; }
-#custom-notifications { color: @yellow; }
+#memory {
+  color: @green;
+}
+#custom-cpu-combined {
+  color: @blue;
+}
+#custom-gpu-combined {
+  color: @teal;
+}
+#clock {
+  color: @sky;
+  font-weight: 600;
+}
+#hyprland-language {
+  color: @mauve;
+}
+#network {
+  color: @teal;
+}
+#custom-notifications {
+  color: @yellow;
+}
 
 /* ─── MODULE STATES ──────────────────────────────────────────────────── */
 
@@ -123,16 +136,15 @@ window#waybar {
 /* ─── ARCH LOGO ──────────────────────────────────────────────────────── */
 
 #custom-arch {
-  padding: 4px;
-  margin: 4px 3px;
+  min-width: 20px;
+  min-height: 20px;
+  padding: 2px;
+  margin: 0 5px;
   border-radius: 50%;
-  background: @accent;
-  color: @background;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-#custom-arch label {
-  min-width: 0;
-  text-align: center;
+  border: 2px solid @accent;
+  background: transparent;
+  background-image: url("assets/arch.svg");
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
