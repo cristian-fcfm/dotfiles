@@ -85,12 +85,8 @@ keymap = [
 	{ on = "z",         run = "plugin fzf",                  desc = "Jump to a file/directory via fzf" },
 	{ on = "Z",         run = "plugin zoxide",               desc = "Jump to a directory via zoxide" },
 
-	# === CUSTOM: Extract archives ===
-	{ on = [ "e", "z" ], run = "shell 'unzip \"$@\" -d \"${@:r}\"' --confirm", desc = "Extract ZIP" },
-	{ on = [ "e", "r" ], run = "shell 'unrar x \"$@\"' --confirm",             desc = "Extract RAR" },
-	{ on = [ "e", "x" ], run = "shell 'tar -xvf \"$@\"' --confirm",            desc = "Extract TAR" },
-	{ on = [ "e", "g" ], run = "shell 'tar -xzvf \"$@\"' --confirm",           desc = "Extract TAR.GZ" },
-	{ on = [ "e", "b" ], run = "shell 'tar -xjvf \"$@\"' --confirm",           desc = "Extract TAR.BZ2" },
+	# === CUSTOM: Extract archives (uses oh-my-zsh extract plugin) ===
+	{ on = "e", run = "shell 'extract \"$@\"' --confirm", desc = "Extract archive" },
 
 	# === CUSTOM: Mount plugin ===
 	{ on = "M", run = "plugin mount", desc = "Mount/unmount drives" },

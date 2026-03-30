@@ -36,27 +36,24 @@ open = [
 
 # Aplicaciones específicas
 text = [
-  { run = 'nvim "$@"', desc = "Neovim", block = true, for = "linux" },
-  { run = 'nvim "$@"', desc = "Neovim", block = true, for = "macos" },
+  { run = 'nvim "$@"', desc = "Neovim", block = true },
 ]
 
 image = [
-  { run = 'feh "$@"', desc = "feh", for = "linux" },
-  { run = 'open -a Preview "$@"', desc = "Preview", for = "macos" },
+  { run = 'xdg-open "$@"', desc = "Open", for = "linux" },
+  { run = 'open "$@"', desc = "Open", for = "macos" },
 ]
 
 video = [
-  { run = 'mpv "$@"', desc = "mpv", for = "linux" },
-  { run = 'open -a "IINA" "$@"', desc = "IINA", for = "macos" },
+  { run = 'mpv "$@"', desc = "mpv" },
 ]
 
 pdf = [
-  { run = 'zathura "$@"', desc = "zathura", for = "linux" },
-  { run = 'open -a Preview "$@"', desc = "Preview", for = "macos" },
+  { run = 'bookokrat "$@"', desc = "Bookokrat" },
 ]
 
 archive = [
-  { run = 'ouch d "$@"', desc = "Extract with ouch" },
+  { run = 'extract "$@"', desc = "Extract archive" },
 ]
 
 [open]
@@ -85,8 +82,9 @@ rules = [
   # Videos
   { mime = "video/*", use = ["video", "reveal"] },
   
-  # PDFs
+  # PDFs y eBooks
   { name = "*.pdf", use = ["pdf", "reveal"] },
+  { name = "*.epub", use = ["pdf", "reveal"] },
   
   # Archivos
   { name = "*.tar.gz", use = ["archive", "reveal"] },
