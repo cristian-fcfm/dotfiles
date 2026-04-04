@@ -1,29 +1,25 @@
 -- Habilita caché de módulos Lua para mejorar velocidad de inicio
 vim.loader.enable()
 
--- Verifica dependencias ejecutables al inicio
+-- Utilidades del sistema
 local utils = require("utils")
 
--- Verifica versión mínima requerida de Neovim
-local expected_version = "0.11.5"
-utils.is_compatible_version(expected_version)
+-- Verifica version minima requerida de Neovim (0.12 para vim.pack)
+utils.is_compatible_version("0.12.0")
 
--- Cargar variables globales y desactivar providers/plugins innecesarios
+-- Variables globales y desactivar providers/plugins innecesarios
 require("globals")
 
--- Verifica si estamos en un repositorio git (para lazy-loading)
+-- Verifica si estamos en un repositorio git (para lazy-loading de gitsigns)
 vim.defer_fn(function()
   utils.inside_git_repo()
 end, 100)
 
--- Carga las opciones básicas y los atajos de teclado personalizados
+-- Configuracion core
 require("config.options")
 require("config.keymaps")
 require("config.autocmd")
 require("config.commands")
 
--- Carga la configuración de plugins (usando lazy.nvim)
-require("plugins")
-
--- cargar colorscheme
+-- Colorscheme (00-kanagawa.lua ya lo instalo via plugin/)
 vim.cmd.colorscheme("kanagawa-dragon")

@@ -3,22 +3,11 @@ local version = vim.version
 
 local M = {}
 
---- Verifica si un ejecutable existe (revisa PATH del sistema y directorio bin de Mason)
+--- Verifica si un ejecutable existe en el PATH del sistema
 --- @param name string Nombre/ruta del ejecutable
 --- @return boolean
 function M.executable(name)
-  -- Revisar primero el PATH del sistema
-  if fn.executable(name) > 0 then
-    return true
-  end
-
-  -- Revisar directorio bin de Mason
-  local mason_bin = fn.stdpath("data") .. "/mason/bin/" .. name
-  if fn.executable(mason_bin) > 0 then
-    return true
-  end
-
-  return false
+  return fn.executable(name) > 0
 end
 
 --- Verifica si una característica existe en Nvim
