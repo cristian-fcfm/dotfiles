@@ -1,0 +1,105 @@
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "zk",
+  once = true,
+  callback = function()
+    vim.pack.add({
+      { src = "https://github.com/zk-org/zk-nvim" },
+    })
+
+    require("zk").setup({
+      picker = "snacks_picker",
+      picker_options = { layout = { preset = "ivy" } },
+      lsp = {
+        config = { cmd = { "zk", "lsp" }, name = "zk" },
+        auto_attach = { enabled = true, filetypes = { "zk" } },
+      },
+    })
+
+    local wk = require("which-key")
+    wk.add({
+      { "<leader>z", group = "Zettelkasten", icon = "󰠮" },
+
+      {
+        "<leader>zn", function()
+          local title = vim.fn.input("Title: ")
+          if title ~= "" then require("zk").new({ title = title }) end
+        end, desc = "[N]ew note", icon = "󱘒",
+      },
+      { "<leader>zo", function() require("zk").edit({ sort = { "modified" } }, { multi_select = false }) end, desc = "[O]pen notes", icon = "󰹕" },
+      {
+        "<leader>zt", function()
+          local zk = require("zk")
+          zk.pick_tags(nil, { multi_select = false }, function(tags)
+            zk.edit({ tags = tags }, { multi_select = false })
+          end)
+        end, desc = "Search by [T]ags", icon = "󱙓",
+      },
+
+      { "<leader>zf", group = "[F]ind", icon = "󱙓" },
+      { "<leader>zff", function()
+          local search = vim.fn.input("Search: ")
+          if search ~= "" then require("zk").edit({ match = { search } }, { multi_select = false }) end
+        end, desc = "[F]ind notes", icon = "󱙓",
+      },
+      { "<leader>zfs", function() require("zk").edit({ matchSelection = true }, { multi_select = false }) end, desc = "[S]election search", icon = "󱙓", mode = "v" },
+      { "<leader>zfr", function() require("zk").edit({ sort = { "modified" }, limit = 10 }, { multi_select = false }) end, desc = "[R]ecent notes", icon = "󰋚" },
+
+      { "<leader>zl", group = "[L]inks", icon = "󰹕" },
+      { "<leader>zll", function() require("zk").edit({ linkTo = { vim.api.nvim_buf_get_name(0) } }, { multi_select = false }) end, desc = "Show [L]inks from here", icon = "󰹕" },
+      { "<leader>zlb", function() require("zk").edit({ linkedBy = { vim.api.nvim_buf_get_name(0) } }, { multi_select = false }) end, desc = "Show [B]acklinks", icon = "󰹕" },
+      {
+        "<leader>zli", function()
+          local zk = require("zk")
+          zk.pick_notes({ matchSelection = true }, { multi_select = false }, function(notes) zk.insert_link(notes) end)
+        end, desc = "[I]nsert link (selection)", icon = "󰹕", mode = "v",
+      },
+      {
+        "<leader>zln", function()
+          local zk = require("zk")
+          zk.pick_notes(nil, { multi_select = false }, function(notes) zk.insert_link(notes) end)
+        end, desc = "Insert [N]ote link", icon = "󰹕",
+      },
+
+      { "<leader>zd", group = "[D]aily notes", icon = "󱓧" },
+      { "<leader>zdt", function() require("zktools.dates").create_daily_note(0) end, desc = "[T]oday", icon = "󰃭" },
+      { "<leader>zdy", function() require("zktools.dates").create_daily_note(-1) end, desc = "[Y]esterday", icon = "󰃮" },
+      { "<leader>zdm", function() require("zktools.dates").create_daily_note(1) end, desc = "To[m]orrow", icon = "󰃯" },
+      { "<leader>zdo", function() require("zk").edit({ hrefs = { "0-reviews/4-daily" } }, { multi_select = false }) end, desc = "[O]pen daily note", icon = "󱨋" },
+
+      { "<leader>zw", group = "[W]eekly notes", icon = "󱨳" },
+      { "<leader>zwn", function() require("zktools.dates").create_weekly_note(0) end, desc = "This week", icon = "󱨳" },
+      { "<leader>zwp", function() require("zktools.dates").create_weekly_note(-1) end, desc = "[P]revious week", icon = "󰮷" },
+      { "<leader>zwx", function() require("zktools.dates").create_weekly_note(1) end, desc = "Ne[x]t week", icon = "󰮸" },
+      { "<leader>zwo", function() require("zk").edit({ hrefs = { "0-reviews/3-weekly" } }, { multi_select = false }) end, desc = "[O]pen weekly note", icon = "󱨋" },
+
+      { "<leader>zm", group = "[M]onthly notes", icon = "󰸗" },
+      { "<leader>zmn", function() require("zktools.dates").create_monthly_note(0) end, desc = "This month", icon = "󰸗" },
+      { "<leader>zmp", function() require("zktools.dates").create_monthly_note(-1) end, desc = "[P]revious month", icon = "󰮷" },
+      { "<leader>zmx", function() require("zktools.dates").create_monthly_note(1) end, desc = "Ne[x]t month", icon = "󰮸" },
+      { "<leader>zmo", function() require("zk").edit({ hrefs = { "0-reviews/2-monthly" } }, { multi_select = false }) end, desc = "[O]pen monthly note", icon = "󱨋" },
+
+      { "<leader>zy", group = "[Y]early notes", icon = "󰸘" },
+      { "<leader>zyn", function() require("zktools.dates").create_yearly_note(0) end, desc = "This year", icon = "󰸘" },
+      { "<leader>zyp", function() require("zktools.dates").create_yearly_note(-1) end, desc = "[P]revious year", icon = "󰮷" },
+      { "<leader>zyx", function() require("zktools.dates").create_yearly_note(1) end, desc = "Ne[x]t year", icon = "󰮸" },
+      { "<leader>zyo", function() require("zk").edit({ hrefs = { "0-reviews/1-yearly" } }, { multi_select = false }) end, desc = "[O]pen yearly note", icon = "󱨋" },
+
+      { "<leader>zp", group = "[P]rojects", icon = "󰸕" },
+      { "<leader>zpn", function() require("zktools.projects").create_project_interactive() end, desc = "[N]ew project", icon = "󱘒" },
+      { "<leader>zpo", function() require("zktools.projects").open_projects() end, desc = "[O]pen project", icon = "󱨋" },
+
+      { "<leader>za", group = "[A]reas", icon = "󰹕" },
+      { "<leader>zan", function() require("zktools.projects").create_area() end, desc = "[N]ew area", icon = "󱘒" },
+      { "<leader>zao", function() require("zktools.projects").open_areas() end, desc = "[O]pen areas", icon = "󱨋" },
+
+      { "<leader>zr", group = "[R]esources", icon = "󰠮" },
+      { "<leader>zrn", function() require("zktools.projects").create_resource() end, desc = "[N]ew resource", icon = "󱘒" },
+      { "<leader>zro", function() require("zktools.projects").open_resources() end, desc = "[O]pen resources", icon = "󱨋" },
+    })
+  end,
+})
+
+vim.api.nvim_create_user_command("ZkNew", function(args)
+  vim.cmd.packadd("zk-nvim")
+  require("zk").new({ title = args.args })
+end, { nargs = "?", desc = "Create new zk note" })
