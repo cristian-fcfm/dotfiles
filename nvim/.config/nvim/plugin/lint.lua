@@ -1,8 +1,14 @@
+-- =============================================================================
+-- Linting con nvim-lint
+-- =============================================================================
 vim.schedule(function()
   vim.pack.add({
-    { src = "https://github.com/mfussenegger/nvim-lint", version = vim.version.range("*") },
+    { src = "https://github.com/mfussenegger/nvim-lint"},
   })
 
+  -- ===========================================================================
+  -- Linters por tipo de archivo
+  -- ===========================================================================
   local lint = require("lint")
   local utils = require("utils")
   local linters_by_ft = {}
@@ -35,8 +41,8 @@ vim.schedule(function()
     linters_by_ft.lua = { "luacheck" }
   end
 
-  if utils.executable("cargo") then
-    linters_by_ft.rust = { "clippy" }
+  if utils.executable("zig") then
+    linters_by_ft.zig = { "zlint" }
   end
 
   if utils.executable("stylelint") then
@@ -44,9 +50,12 @@ vim.schedule(function()
     linters_by_ft.scss = { "stylelint" }
     linters_by_ft.less = { "stylelint" }
   end
-
+bracketed
   lint.linters_by_ft = linters_by_ft
 
+  -- ===========================================================================
+  -- Autocmd y comandos de usuario
+  -- ===========================================================================
   local lint_augroup = vim.api.nvim_create_augroup("nvim_lint", { clear = true })
 
   vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {

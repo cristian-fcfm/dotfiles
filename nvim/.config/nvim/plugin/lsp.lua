@@ -1,15 +1,23 @@
+-- =============================================================================
+-- Configuracion LSP
+-- =============================================================================
 vim.schedule(function()
   vim.pack.add({
     { src = "https://github.com/b0o/schemastore.nvim", name = "schemastore.nvim" },
-    { src = "https://github.com/neovim/nvim-lspconfig", version = vim.version.range("*") },
   })
 
+  -- ===========================================================================
+  -- Capacidades del cliente
+  -- ===========================================================================
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   local ok_blink, blink = pcall(require, "blink.cmp")
   if ok_blink then
     capabilities = vim.tbl_deep_extend("force", capabilities, blink.get_lsp_capabilities())
   end
 
+  -- ===========================================================================
+  -- Keymaps al adjuntar un servidor
+  -- ===========================================================================
   local on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
@@ -30,25 +38,14 @@ vim.schedule(function()
 
     map("gn", vim.lsp.buf.rename, "Rename")
     map("ga", vim.lsp.buf.code_action, "Code actions", { "n", "x" })
-    map("gf", function()
-      require("conform").format({ async = true, lsp_format = "fallback" }, function(err)
-        if err then
-          vim.notify("Format error: " .. tostring(err), vim.log.levels.ERROR)
-        else
-          vim.notify("Formatted successfully", vim.log.levels.INFO)
-        end
-      end)
-    end, "Format")
 
-    map("K", function()
-      vim.lsp.buf.hover({ border = "single", max_height = 20, max_width = 130 })
-    end, "Show hover documentation")
+    map("K", vim.lsp.buf.hover, "Show hover documentation")
     map("gk", vim.lsp.buf.signature_help, "Show signature help")
 
-    map("[d", vim.diagnostic.goto_prev, "Previous diagnostic")
-    map("]d", vim.diagnostic.goto_next, "Next diagnostic")
-    map("[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "Previous error")
-    map("]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Next error")
+    map("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Previous diagnostic")
+    map("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next diagnostic")
+    map("[e", function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end, "Previous error")
+    map("]e", function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end, "Next error")
 
     if client.server_capabilities.inlayHintProvider then
       map("gh", function()
@@ -57,6 +54,9 @@ vim.schedule(function()
     end
   end
 
+  -- ===========================================================================
+  -- Diagnosticos
+  -- ===========================================================================
   vim.diagnostic.config({
     severity_sort = true,
     float = { border = "single", source = "if_many", header = "", prefix = "", focusable = false },
@@ -73,6 +73,9 @@ vim.schedule(function()
     update_in_insert = false,
   })
 
+  -- ===========================================================================
+  -- Configuracion global y handlers
+  -- ===========================================================================
   vim.lsp.config["*"] = {
     capabilities = capabilities,
     flags = { debounce_text_changes = 150 },
@@ -85,6 +88,9 @@ vim.schedule(function()
     border = "single", focusable = false,
   })
 
+  -- ===========================================================================
+  -- Servidores LSP
+  -- ===========================================================================
   vim.lsp.config.ty = {
     cmd = { "ty", "server" },
     filetypes = { "python" },
@@ -151,17 +157,10 @@ vim.schedule(function()
     settings = { exportPdf = "never", formatterMode = "typstyle" },
   }
 
-  vim.lsp.config.rust_analyzer = {
-    cmd = { "rust-analyzer" },
-    filetypes = { "rust" },
-    root_markers = { "Cargo.toml", "rust-project.json" },
-    settings = {
-      ["rust-analyzer"] = {
-        cargo = { allFeatures = false, loadOutDirsFromCheck = false, buildScripts = { enable = false } },
-        checkOnSave = { enable = false },
-        procMacro = { enable = false },
-      },
-    },
+  vim.lsp.config.zls = {
+    cmd = { "zls" },
+    filetypes = { "zig", "zir" },
+    root_markers = { "build.zig", "build.zig.zon", ".git" },
   }
 
   vim.lsp.config.html = {
@@ -182,11 +181,17 @@ vim.schedule(function()
     },
   }
 
+  -- ===========================================================================
+  -- Activar servidores
+  -- ===========================================================================
   vim.lsp.enable({
     "ty", "bashls", "jsonls", "yamlls", "dockerls", "marksman",
-    "lua_ls", "tinymist", "rust_analyzer", "html", "cssls",
+    "lua_ls", "tinymist", "zls", "html", "cssls",
   })
 
+  -- ===========================================================================
+  -- Autocmd y comandos de usuario
+  -- ===========================================================================
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -194,31 +199,11 @@ vim.schedule(function()
     end,
   })
 
-  local wk = require("which-key")
-  wk.add({
-    { "<leader>W", group = "LSP Workspace", icon = "󰉌" },
-    { "<leader>Wa", function() vim.lsp.buf.add_workspace_folder() end, desc = "Add workspace folder", icon = "󱂵" },
-    { "<leader>Wr", function() vim.lsp.buf.remove_workspace_folder() end, desc = "Remove workspace folder", icon = "󰉘" },
-    { "<leader>Wl", function() vim.print(vim.lsp.buf.list_workspace_folders()) end, desc = "List workspace folders", icon = "" },
-  })
-
   vim.api.nvim_create_user_command("DiagnosticsToggle", function()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   end, { desc = "Toggle diagnostics" })
 
-  vim.api.nvim_create_user_command("DiagnosticsDisable", function()
-    vim.diagnostic.enable(false)
-  end, { desc = "Disable diagnostics" })
-
-  vim.api.nvim_create_user_command("DiagnosticsEnable", function()
-    vim.diagnostic.enable(true)
-  end, { desc = "Enable diagnostics" })
-
-  vim.api.nvim_create_user_command("DiagnosticsDisableBuffer", function()
-    vim.diagnostic.enable(false, { bufnr = 0 })
-  end, { desc = "Disable diagnostics for current buffer" })
-
-  vim.api.nvim_create_user_command("DiagnosticsEnableBuffer", function()
-    vim.diagnostic.enable(true, { bufnr = 0 })
-  end, { desc = "Enable diagnostics for current buffer" })
+  vim.api.nvim_create_user_command("DiagnosticsToggleBuffer", function()
+    vim.diagnostic.enable(not vim.diagnostic.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+  end, { desc = "Toggle diagnostics for current buffer" })
 end)

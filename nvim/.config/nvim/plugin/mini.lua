@@ -1,32 +1,10 @@
 vim.pack.add({
-  { src = "https://github.com/echasnovski/mini.nvim", version = vim.version.range("*") },
+  { src = "https://github.com/echasnovski/mini.nvim" },
 })
 
-package.preload["nvim-web-devicons"] = function()
-  require("mini.icons").mock_nvim_web_devicons()
-  return package.loaded["nvim-web-devicons"]
-end
-require("mini.icons").setup()
-require("mini.icons").tweak_lsp_kind()
-
-require("mini.surround").setup({
-  mappings = {
-    add = "sa",
-    delete = "sd",
-    find = "sf",
-    find_left = "sF",
-    highlight = "sh",
-    replace = "sr",
-    update_n_lines = "sn",
-  },
-})
-
-require("mini.splitjoin").setup({
-  mappings = {
-    toggle = "gJ",
-  },
-})
-
+-- =============================================================================
+-- Mini AI - Objetos de texto extendidos
+-- =============================================================================
 require("mini.ai").setup({
   n_lines = 500,
   custom_textobjects = {
@@ -42,6 +20,9 @@ require("mini.ai").setup({
   },
 })
 
+-- =============================================================================
+-- Mini Move - Mover lineas y selecciones
+-- =============================================================================
 require("mini.move").setup({
   mappings = {
     left = "<C-S-h>",
@@ -55,11 +36,36 @@ require("mini.move").setup({
   },
 })
 
+-- =============================================================================
+-- Mini Pairs - Auto-cierre de parentesis y comillas
+-- =============================================================================
 require("mini.pairs").setup()
 
-local hipatterns = require("mini.hipatterns")
-hipatterns.setup({
+-- =============================================================================
+-- Mini Surround - Rodear texto con delimitadores
+-- =============================================================================
+require("mini.surround").setup()
+
+-- =============================================================================
+-- Mini Bracketed - Navegacion con corchetes
+-- =============================================================================
+require("mini.bracketed").setup()
+
+-- =============================================================================
+-- Mini Hipatterns - Resaltar patrones (colores hex)
+-- =============================================================================
+require("mini.hipatterns").setup({
   highlighters = {
-    hex_color = hipatterns.gen_highlighter.hex_color(),
+    hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
   },
 })
+
+-- =============================================================================
+-- Mini Icons - Iconos y mock de nvim-web-devicons
+-- =============================================================================
+package.preload["nvim-web-devicons"] = function()
+  require("mini.icons").mock_nvim_web_devicons()
+  return package.loaded["nvim-web-devicons"]
+end
+require("mini.icons").setup()
+require("mini.icons").tweak_lsp_kind()

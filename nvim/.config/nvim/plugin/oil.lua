@@ -1,6 +1,9 @@
+-- =============================================================================
+-- Funcion de carga diferida
+-- =============================================================================
 local function load_oil(float)
   vim.pack.add({
-    { src = "https://github.com/stevearc/oil.nvim", version = vim.version.range("*") },
+    { src = "https://github.com/stevearc/oil.nvim"},
   })
 
   require("oil").setup({
@@ -48,8 +51,8 @@ local function load_oil(float)
   end
 end
 
+-- =============================================================================
+-- Atajos de teclado
+-- =============================================================================
 vim.keymap.set("n", ".", function() load_oil(false) end, { desc = "Open Oil (normal)" })
 vim.keymap.set("n", "--", function() load_oil(true) end, { desc = "Open Oil (float)" })
-vim.api.nvim_create_user_command("Oil", function(args)
-  load_oil(args.args == "--float")
-end, { nargs = "?", desc = "Open Oil" })

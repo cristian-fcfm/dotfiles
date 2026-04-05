@@ -1,8 +1,14 @@
+-- =============================================================================
+-- Formateo con conform.nvim
+-- =============================================================================
 vim.schedule(function()
   vim.pack.add({
-    { src = "https://github.com/stevearc/conform.nvim", version = vim.version.range("*") },
+    { src = "https://github.com/stevearc/conform.nvim"},
   })
 
+  -- ===========================================================================
+  -- Formateadores por tipo de archivo
+  -- ===========================================================================
   local utils = require("utils")
   local formatters_by_ft = {}
 
@@ -30,26 +36,21 @@ vim.schedule(function()
     formatters_by_ft.lua = { "stylua" }
   end
 
-  if utils.executable("rustfmt") then
-    formatters_by_ft.rust = { "rustfmt" }
+  if utils.executable("zig") then
+    formatters_by_ft.zig = { "zigfmt" }
   end
 
   formatters_by_ft.typst = { "lsp_format" }
 
+  -- ===========================================================================
+  -- Configuracion de conform
+  -- ===========================================================================
   require("conform").setup({
     formatters_by_ft = formatters_by_ft,
-    format_on_save = function(bufnr)
-      return {
-        timeout_ms = 2000,
-        lsp_format = "fallback",
-      }, function(err)
-        if err then
-          vim.notify("Error al formatear: " .. tostring(err), vim.log.levels.ERROR, { title = "Conform" })
-        else
-          vim.notify("✓ Formateado exitosamente", vim.log.levels.INFO, { title = "Conform" })
-        end
-      end
-    end,
+    format_on_save = {
+      timeout_ms = 2000,
+      lsp_format = "fallback",
+    },
     formatters = {
       shfmt = { prepend_args = { "-i", "2" } },
       ruff_format = {

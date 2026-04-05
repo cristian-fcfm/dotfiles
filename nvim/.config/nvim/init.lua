@@ -20,6 +20,3 @@ require("config.options")
 require("config.keymaps")
 require("config.autocmd")
 require("config.commands")
-
--- Colorscheme (00-kanagawa.lua ya lo instalo via plugin/)
-vim.cmd.colorscheme("kanagawa-dragon")
