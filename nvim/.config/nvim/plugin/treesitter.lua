@@ -1,10 +1,16 @@
+-- =============================================================================
+-- Parsers a instalar
+-- =============================================================================
 local parsers = {
   "lua", "python", "javascript", "typescript", "bash", "json", "yaml",
   "markdown", "markdown_inline", "html", "css",
-  "dockerfile", "sql", "toml", "rust", "typst",
+  "dockerfile", "sql", "toml", "zig", "typst",
   "vim", "vimdoc", "query", "regex",
 }
 
+-- =============================================================================
+-- Hook de actualizacion al cambiar paquetes
+-- =============================================================================
 vim.api.nvim_create_autocmd("PackChanged", { callback = function(ev)
   if ev.data.spec.name == "nvim-treesitter" and ev.data.kind ~= "delete" then
     if not ev.data.active then vim.cmd.packadd("nvim-treesitter") end
@@ -12,6 +18,9 @@ vim.api.nvim_create_autocmd("PackChanged", { callback = function(ev)
   end
 end })
 
+-- =============================================================================
+-- Instalacion y configuracion de Treesitter
+-- =============================================================================
 vim.schedule(function()
   vim.pack.add({
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", name = "nvim-treesitter" },
