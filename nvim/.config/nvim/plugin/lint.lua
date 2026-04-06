@@ -3,7 +3,7 @@
 -- =============================================================================
 vim.schedule(function()
   vim.pack.add({
-    { src = "https://github.com/mfussenegger/nvim-lint"},
+    { src = "https://github.com/mfussenegger/nvim-lint" },
   })
 
   -- ===========================================================================
@@ -50,7 +50,7 @@ vim.schedule(function()
     linters_by_ft.scss = { "stylelint" }
     linters_by_ft.less = { "stylelint" }
   end
-bracketed
+
   lint.linters_by_ft = linters_by_ft
 
   -- ===========================================================================

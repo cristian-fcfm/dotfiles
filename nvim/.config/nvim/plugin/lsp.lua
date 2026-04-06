@@ -7,15 +7,6 @@ vim.schedule(function()
   })
 
   -- ===========================================================================
-  -- Capacidades del cliente
-  -- ===========================================================================
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  local ok_blink, blink = pcall(require, "blink.cmp")
-  if ok_blink then
-    capabilities = vim.tbl_deep_extend("force", capabilities, blink.get_lsp_capabilities())
-  end
-
-  -- ===========================================================================
   -- Keymaps al adjuntar un servidor
   -- ===========================================================================
   local on_attach = function(client, bufnr)
@@ -27,14 +18,26 @@ vim.schedule(function()
       vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
     end
 
-    map("gd", function() Snacks.picker.lsp_definitions() end, "Go to definition")
-    map("gr", function() Snacks.picker.lsp_references({ includeDeclaration = false }) end, "Go to references")
-    map("gI", function() Snacks.picker.lsp_implementations() end, "Go to implementation")
-    map("gy", function() Snacks.picker.lsp_type_definitions() end, "Type definition")
+    map("gd", function()
+      Snacks.picker.lsp_definitions()
+    end, "Go to definition")
+    map("gr", function()
+      Snacks.picker.lsp_references()
+    end, "Go to references")
+    map("gI", function()
+      Snacks.picker.lsp_implementations()
+    end, "Go to implementation")
+    map("gy", function()
+      Snacks.picker.lsp_type_definitions()
+    end, "Type definition")
     map("gD", vim.lsp.buf.declaration, "Go to declaration")
 
-    map("gs", function() Snacks.picker.lsp_symbols() end, "Document symbols")
-    map("gS", function() Snacks.picker.lsp_workspace_symbols() end, "Workspace symbols")
+    map("gs", function()
+      Snacks.picker.lsp_symbols()
+    end, "Document symbols")
+    map("gS", function()
+      Snacks.picker.lsp_workspace_symbols()
+    end, "Workspace symbols")
 
     map("gn", vim.lsp.buf.rename, "Rename")
     map("ga", vim.lsp.buf.code_action, "Code actions", { "n", "x" })
@@ -42,10 +45,18 @@ vim.schedule(function()
     map("K", vim.lsp.buf.hover, "Show hover documentation")
     map("gk", vim.lsp.buf.signature_help, "Show signature help")
 
-    map("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Previous diagnostic")
-    map("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next diagnostic")
-    map("[e", function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end, "Previous error")
-    map("]e", function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end, "Next error")
+    map("[d", function()
+      vim.diagnostic.jump({ count = -1, float = true })
+    end, "Previous diagnostic")
+    map("]d", function()
+      vim.diagnostic.jump({ count = 1, float = true })
+    end, "Next diagnostic")
+    map("[e", function()
+      vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })
+    end, "Previous error")
+    map("]e", function()
+      vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })
+    end, "Next error")
 
     if client.server_capabilities.inlayHintProvider then
       map("gh", function()
@@ -63,29 +74,14 @@ vim.schedule(function()
     underline = false,
     signs = {
       text = {
-        [vim.diagnostic.severity.ERROR] = "",
-        [vim.diagnostic.severity.WARN] = "",
-        [vim.diagnostic.severity.INFO] = "",
-        [vim.diagnostic.severity.HINT] = "",
+        [vim.diagnostic.severity.ERROR] = "",
+        [vim.diagnostic.severity.WARN] = "",
+        [vim.diagnostic.severity.INFO] = "",
+        [vim.diagnostic.severity.HINT] = "",
       },
     },
     virtual_text = false,
     update_in_insert = false,
-  })
-
-  -- ===========================================================================
-  -- Configuracion global y handlers
-  -- ===========================================================================
-  vim.lsp.config["*"] = {
-    capabilities = capabilities,
-    flags = { debounce_text_changes = 150 },
-  }
-
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "single", max_width = 130, max_height = 20,
-  })
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "single", focusable = false,
   })
 
   -- ===========================================================================
@@ -123,7 +119,9 @@ vim.schedule(function()
     settings = {
       yaml = {
         schemas = require("schemastore").yaml.schemas(),
-        validate = true, completion = true, hover = true,
+        validate = true,
+        completion = true,
+        hover = true,
         format = { enable = true },
       },
     },
@@ -144,7 +142,16 @@ vim.schedule(function()
   vim.lsp.config.lua_ls = {
     cmd = { "lua-language-server" },
     filetypes = { "lua" },
-    root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
+    root_markers = {
+      ".luarc.json",
+      ".luarc.jsonc",
+      ".luacheckrc",
+      ".stylua.toml",
+      "stylua.toml",
+      "selene.toml",
+      "selene.yml",
+      ".git",
+    },
     settings = {
       Lua = { telemetry = { enable = false }, format = { enable = false } },
     },
@@ -185,8 +192,17 @@ vim.schedule(function()
   -- Activar servidores
   -- ===========================================================================
   vim.lsp.enable({
-    "ty", "bashls", "jsonls", "yamlls", "dockerls", "marksman",
-    "lua_ls", "tinymist", "zls", "html", "cssls",
+    "ty",
+    "bashls",
+    "jsonls",
+    "yamlls",
+    "dockerls",
+    "marksman",
+    "lua_ls",
+    "tinymist",
+    "zls",
+    "html",
+    "cssls",
   })
 
   -- ===========================================================================
@@ -195,7 +211,9 @@ vim.schedule(function()
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if client then on_attach(client, args.buf) end
+      if client then
+        on_attach(client, args.buf)
+      end
     end,
   })
 

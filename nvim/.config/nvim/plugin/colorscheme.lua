@@ -2,7 +2,7 @@
 -- Esquema de colores
 -- =============================================================================
 vim.pack.add({
-  "https://github.com/Aejkatappaja/sora",
+  "https://github.com/rebelot/kanagawa.nvim",
 })
 
-vim.cmd.colorscheme("sora")
+vim.cmd.colorscheme("kanagawa-wave")
