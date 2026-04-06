@@ -4,9 +4,6 @@ vim.loader.enable()
 -- Utilidades del sistema
 local utils = require("utils")
 
--- Verifica version minima requerida de Neovim (0.12 para vim.pack)
-utils.is_compatible_version("0.12.0")
-
 -- Variables globales y desactivar providers/plugins innecesarios
 require("globals")
 

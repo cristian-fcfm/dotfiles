@@ -142,7 +142,7 @@ utils.may_create_dir(vim.fn.stdpath("data") .. "/backup")
 -- Ventanas y scroll
 vim.opt.tw = 80 -- Text width (ancho de texto para formateo)
 vim.opt.winwidth = 88 -- Ancho mínimo de ventana
-vim.opt.scrolloff = 10 -- Mantener 10 líneas visibles arriba/abajo del cursor
+vim.opt.scrolloff = 15 -- Mantener 10 líneas visibles arriba/abajo del cursor
 vim.opt.splitbelow = true -- Splits horizontales abren abajo
 vim.opt.splitright = true -- Splits verticales abren a la derecha
 vim.opt.splitkeep = "screen" -- Mantener texto en pantalla al hacer split (evita flickering)
@@ -158,6 +158,3 @@ vim.opt.diffopt = {
   "algorithm:histogram", -- Algoritmo de diff más preciso
   "linematch:60", -- Alinear líneas similares dentro de bloques de cambios
 }
-
--- Folds
-vim.g.ip_skipfold = true -- Configuración personalizada de folds

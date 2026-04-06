@@ -9,7 +9,7 @@ vim.api.nvim_create_user_command("MarkdownExportPDF", function()
       if exit_code == 0 then
         vim.notify("PDF creado: " .. output_file, vim.log.levels.INFO)
       else
-        vim.notify("Error al exportar PDF. Asegúrate de tener instalado un motor LaTeX (brew install basictex)", vim.log.levels.ERROR)
+        vim.notify("Error al exportar PDF. Asegúrate de tener instalado un motor LaTeX", vim.log.levels.ERROR)
       end
     end,
   })
