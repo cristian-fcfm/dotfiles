@@ -30,34 +30,6 @@ function M.may_create_dir(dir)
   end
 end
 
---- Verifica si la versión actual de nvim es compatible con la versión esperada
---- @param expected_version string
---- @return boolean
-function M.is_compatible_version(expected_version)
-  -- Verificar si tenemos la última versión estable de nvim
-  local expect_ver = version.parse(expected_version)
-  local actual_ver = vim.version()
-
-  if expect_ver == nil then
-    local msg = string.format("Versión no soportada: %s", expected_version)
-    vim.notify(msg, vim.log.levels.ERROR)
-    return false
-  end
-
-  local result = version.cmp(expect_ver, actual_ver)
-  if result ~= 0 then
-    local _ver = string.format("%s.%s.%s", actual_ver.major, actual_ver.minor, actual_ver.patch)
-    local msg = string.format(
-      "Se espera nvim versión %s, pero tu versión actual es %s. ¡Usa bajo tu propio riesgo!",
-      expected_version,
-      _ver
-    )
-    vim.notify(msg, vim.log.levels.WARN)
-  end
-
-  return true
-end
-
 --- Verifica si estamos dentro de un repositorio git
 --- @return boolean
 function M.inside_git_repo()
