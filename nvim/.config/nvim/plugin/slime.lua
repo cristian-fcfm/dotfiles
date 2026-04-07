@@ -21,20 +21,8 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.g.slime_bracketed_paste = 0
     vim.g.slime_no_mappings = 0
 
-    local function get_kitty_socket()
-      local handle = io.popen("ls -t /tmp/mykitty-* 2>/dev/null | head -1")
-      if handle then
-        local socket = handle:read("*a"):gsub("\n", "")
-        handle:close()
-        if socket ~= "" then
-          return "unix:" .. socket
-        end
-      end
-      return "unix:/tmp/mykitty"
-    end
-
     vim.g.slime_default_config = {
-      listen_on = get_kitty_socket(),
+      listen_on = vim.env.KITTY_LISTEN_ON or "unix:/tmp/mykitty",
       window_id = nil,
     }
 
