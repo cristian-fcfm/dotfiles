@@ -42,7 +42,7 @@
       "src": "https://github.com/EdenEast/nightfox.nvim"
     },
     "nvim-lint": {
-      "rev": "fe160818db1b0a11302c8715f3a397ebfbd5e06a",
+      "rev": "4b03656c09c1561f89b6aa0665c15d292ba9499d",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
