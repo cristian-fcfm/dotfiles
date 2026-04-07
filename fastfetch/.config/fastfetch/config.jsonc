@@ -87,8 +87,7 @@
     "break",
     {
       "type": "colors",
-      "symbol": "block",
-      "paddingLeft": 12,
+      "symbol": "circle",
     },
   ],
 }
