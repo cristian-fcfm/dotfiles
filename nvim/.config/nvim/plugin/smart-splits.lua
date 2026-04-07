@@ -11,9 +11,11 @@ vim.api.nvim_create_autocmd("PackChanged", {
       if not ev.data.active then
         vim.cmd.packadd("smart-splits.nvim")
       end
+      local plugin_dir = vim.fn.stdpath("data") .. "/site/pack/core/opt/smart-splits.nvim"
       vim.fn.system({
         "bash",
-        vim.fn.stdpath("data") .. "/site/pack/core/opt/smart-splits.nvim/kitty/install-kittens.bash",
+        "-c",
+        "cd " .. vim.fn.shellescape(plugin_dir) .. " && bash kitty/install-kittens.bash",
       })
     end
   end,
