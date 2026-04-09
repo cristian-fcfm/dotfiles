@@ -26,6 +26,8 @@ vim.schedule(function()
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", name = "nvim-treesitter" },
   })
 
+  vim.opt.rtp:append(vim.fn.stdpath("data") .. "/site/pack/core/opt/nvim-treesitter/runtime")
+
   require("nvim-treesitter").setup({
     install_dir = vim.fn.stdpath("data") .. "/site",
   })
