@@ -28,8 +28,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
       },
       cmdline = { enabled = true },
       fuzzy = {
-        implementation = "prefer_rust_with_warning",
-        prebuilt_binaries = { download = true, force_version = nil },
+        implementation = "lua",
       },
     })
   end,
