@@ -7,14 +7,32 @@
     "~/.config/waybar/modules/hyprland-window.jsonc",
     "~/.config/waybar/modules/hyprland-language.jsonc",
     "~/.config/waybar/modules/tray.jsonc",
-    "~/.config/waybar/modules/network.jsonc"
+    "~/.config/waybar/modules/network.jsonc",
+    "~/.config/waybar/modules/pulseaudio.jsonc",
   ],
-  "modules-left": ["custom/arch", "hyprland/workspaces", "hyprland/window"],
-  "modules-center": ["custom/music"],
-  "modules-right": [
-    "tray",
-    "hyprland/language",
-    "network",
-    "custom/notifications"
-  ]
+
+  "group/left": {
+    "orientation": "horizontal",
+    "modules": ["custom/arch", "hyprland/workspaces", "hyprland/window"],
+  },
+
+  "group/center": {
+    "orientation": "horizontal",
+    "modules": ["custom/music"],
+  },
+
+  "group/right": {
+    "orientation": "horizontal",
+    "modules": [
+      "tray",
+      "hyprland/language",
+      "network",
+      "pulseaudio",
+      "custom/notifications",
+    ],
+  },
+
+  "modules-left": ["group/left"],
+  "modules-center": ["group/center"],
+  "modules-right": ["group/right"],
 }
