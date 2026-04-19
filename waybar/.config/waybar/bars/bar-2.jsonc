@@ -5,13 +5,51 @@
     "~/.config/waybar/modules/custom-cpu-combined.jsonc",
     "~/.config/waybar/modules/custom-gpu-combined.jsonc",
     "~/.config/waybar/modules/hyprland-workspaces.jsonc",
-    "~/.config/waybar/modules/clock.jsonc"
+    "~/.config/waybar/modules/clock.jsonc",
+    "~/.config/waybar/modules/custom-cava.jsonc",
+    "~/.config/waybar/modules/custom-weather.jsonc",
+    "~/.config/waybar/modules/custom-updates.jsonc",
+    "~/.config/waybar/modules/custom-wf-recorder.jsonc",
+    "~/.config/waybar/modules/custom-arrow.jsonc",
   ],
-  "modules-left": ["custom/arch", "hyprland/workspaces"],
-  "modules-right": [
-    "memory",
-    "custom/cpu-combined",
-    "custom/gpu-combined",
-    "clock#cl1"
-  ]
+
+  "group/left": {
+    "orientation": "horizontal",
+    "modules": ["custom/arch", "hyprland/workspaces"],
+  },
+
+  "group/center": {
+    "orientation": "horizontal",
+    "modules": ["custom/cava"],
+  },
+
+  "group/stats-hidden": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false,
+      "click-to-reveal": true,
+    },
+    "modules": [
+      "custom/arrow",
+      "memory",
+      "custom/cpu-combined",
+      "custom/gpu-combined",
+    ],
+  },
+
+  "group/right": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/weather",
+      "custom/updates",
+      "custom/wf-recorder",
+      "group/stats-hidden",
+      "clock#cl1",
+    ],
+  },
+
+  "modules-left": ["group/left"],
+  "modules-center": ["group/center"],
+  "modules-right": ["group/right"],
 }
