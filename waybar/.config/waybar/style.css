@@ -1,14 +1,18 @@
-/* Waybar — Theme-agnostic minimal style */
-/* Colors from @import colors.css (symlinked to active theme) */
+/* Waybar — pill-group aesthetic, multi-theme */
 @import url("./colors.css");
 
-/* ─── GLOBAL ─────────────────────────────────────────────────────────── */
+/* ─── GLOBAL ──────────────────────────────────────────────────────── */
 
 * {
   font-family: "JetBrainsMono Nerd Font";
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 600;
   border: none;
   border-radius: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  text-shadow: none;
 }
 
 window#waybar {
@@ -16,43 +20,75 @@ window#waybar {
   color: @foreground;
 }
 
-/* ─── BASE MODULE ────────────────────────────────────────────────────── */
-
-#custom-music,
-#custom-notifications,
-#custom-cpu-combined,
-#custom-gpu-combined,
-#clock,
-#memory,
-#hyprland-language,
-#network,
-#tray {
-  margin: 0 3px;
-  border-radius: 8px;
+tooltip {
+  border-radius: 12px;
   background: @surface;
-  color: @foreground;
-  transition: all 0.2s ease;
+  border: 1px solid @border;
 }
 
-/* ─── WORKSPACES ─────────────────────────────────────────────────────── */
+tooltip label {
+  padding: 4px 10px;
+  color: @foreground;
+}
+
+/* ─── PILL GROUPS (fondo compartido) ──────────────────────────────── */
+
+#left,
+#center,
+#right {
+  background: @surface;
+  border-radius: 15px;
+  padding: 2px 10px;
+  margin: 0 8px;
+}
+
+/* Center del HDMI no lleva fondo — cava queda "flotando" */
+#custom-cava {
+  background: transparent;
+  padding: 0 8px;
+  color: @accent;
+}
+
+/* Dentro de grupos, los módulos solo tienen padding horizontal */
+#tray,
+#network,
+#pulseaudio,
+#memory,
+#custom-cpu-combined,
+#custom-gpu-combined,
+#custom-weather,
+#custom-updates,
+#custom-notifications,
+#custom-music,
+#custom-wf-recorder,
+#hyprland-language,
+#hyprland-window,
+#clock {
+  padding: 0 7px;
+  color: @foreground;
+  background: transparent;
+}
+
+/* ─── WORKSPACES ──────────────────────────────────────────────────── */
 
 #workspaces {
-  margin: 0 5px;
-  background: @surface;
-  border-radius: 5px;
+  padding: 0 4px;
+  background: transparent;
 }
 
 #workspaces button {
-  padding: 0 10px;
-  border-radius: 5px;
+  padding: 0 8px;
+  margin: 0 2px;
+  border-radius: 6px;
   color: alpha(@foreground, 0.5);
+  background: transparent;
   transition: all 0.2s ease;
 }
 
 #workspaces button.active {
   background: @accent;
   color: @background;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 #workspaces button:hover {
@@ -65,75 +101,7 @@ window#waybar {
   color: @background;
 }
 
-/* ─── MUSIC — gradient highlight ─────────────────────────────────────── */
-
-#custom-music {
-  background: linear-gradient(135deg, @gradient-1, @gradient-2);
-  color: @background;
-  font-weight: 600;
-}
-
-/* ─── MODULE ACCENT COLORS ───────────────────────────────────────────── */
-
-#memory {
-  color: @green;
-}
-#custom-cpu-combined {
-  color: @blue;
-}
-#custom-gpu-combined {
-  color: @teal;
-}
-#clock {
-  color: @sky;
-  font-weight: 600;
-}
-#hyprland-language {
-  color: @mauve;
-}
-#network {
-  color: @teal;
-}
-#custom-notifications {
-  color: @yellow;
-}
-
-/* ─── MODULE STATES ──────────────────────────────────────────────────── */
-
-#network.disconnected {
-  background: @critical;
-  color: @background;
-}
-
-#network.linked {
-  color: @warning;
-}
-
-#battery.charging,
-#battery.plugged {
-  color: @success;
-}
-
-#battery.warning {
-  color: @warning;
-}
-
-#battery.critical:not(.charging) {
-  background: @critical;
-  color: @background;
-  animation: blink 0.5s linear infinite alternate;
-}
-
-/* ─── ANIMATIONS ─────────────────────────────────────────────────────── */
-
-@keyframes blink {
-  to {
-    background: @surface;
-    color: @critical;
-  }
-}
-
-/* ─── ARCH LOGO ──────────────────────────────────────────────────────── */
+/* ─── ARCH LOGO ───────────────────────────────────────────────────── */
 
 #custom-arch {
   min-width: 20px;
@@ -147,4 +115,76 @@ window#waybar {
   background-size: 18px 18px;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+/* ─── MUSIC — gradiente (tu firma) ────────────────────────────────── */
+
+#custom-music {
+  background: linear-gradient(135deg, @gradient-1, @gradient-2);
+  color: @background;
+  font-weight: 700;
+  padding: 1px 12px;
+  border-radius: 12px;
+  margin: 0 2px;
+}
+
+/* ─── DRAWER ARROW ────────────────────────────────────────────────── */
+
+#custom-arrow {
+  color: alpha(@foreground, 0.45);
+  padding: 0 6px;
+  transition: color 0.2s ease;
+}
+
+#custom-arrow:hover {
+  color: @foreground;
+}
+
+/* ─── ESTADOS (warning / critical / charging) ─────────────────────── */
+
+#network.disconnected,
+#network.disabled,
+#pulseaudio.muted,
+#memory.critical,
+#cpu.critical,
+#temperature.critical {
+  color: @critical;
+}
+
+#network.linked,
+#memory.warning,
+#cpu.warning,
+#temperature.warning {
+  color: @warning;
+}
+
+#custom-notifications.notification,
+#custom-notifications.dnd-notification,
+#custom-notifications.inhibited-notification {
+  color: @warning;
+}
+
+/* ─── WF-RECORDER (aparece solo cuando hay grabación activa) ──────── */
+
+#custom-wf-recorder {
+  color: @critical;
+  animation: blink 1s linear infinite alternate;
+}
+
+/* ─── UPDATES / WEATHER — sutilmente acentuados ───────────────────── */
+
+#custom-updates {
+  color: alpha(@foreground, 0.8);
+}
+
+#custom-weather {
+  color: alpha(@foreground, 0.8);
+}
+
+/* ─── ANIMATIONS ──────────────────────────────────────────────────── */
+
+@keyframes blink {
+  to {
+    opacity: 0.4;
+  }
 }
