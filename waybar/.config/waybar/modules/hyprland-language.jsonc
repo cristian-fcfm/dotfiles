@@ -1,8 +1,8 @@
 {
   "hyprland/language": {
     "format": "{}",
-    "format-en": "  US",
-    "format-es": "  ES",
-    "on-click": "hyprctl switchxkblayout evision-usb-device next",
+    "format-en": "US  ",
+    "format-es": "LATAM  ",
+    "on-click": "hyprctl switchxkblayout liliums-lily58 next",
   },
 }

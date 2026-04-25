@@ -12,7 +12,7 @@ done
 config_file="/tmp/bar_cava_config"
 cat >"$config_file" <<EOF
 [general]
-bars = 15
+bars = 16
 
 [input]
 method = pulse

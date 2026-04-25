@@ -34,7 +34,6 @@ tooltip label {
 /* ─── PILL GROUPS (fondo compartido) ──────────────────────────────── */
 
 #left,
-#center,
 #right {
   background: @surface;
   border-radius: 15px;
@@ -43,6 +42,11 @@ tooltip label {
 }
 
 /* Center del HDMI no lleva fondo — cava queda "flotando" */
+#center {
+  background: transparent;
+  margin: 0 8px;
+}
+
 #custom-cava {
   background: transparent;
   padding: 0 8px;
@@ -77,23 +81,20 @@ tooltip label {
 }
 
 #workspaces button {
-  padding: 0 8px;
-  margin: 0 2px;
-  border-radius: 6px;
   color: alpha(@foreground, 0.5);
   background: transparent;
+  margin: 0 4px;
+  padding: 0 4px;
   transition: all 0.2s ease;
 }
 
 #workspaces button.active {
-  background: @accent;
-  color: @background;
+  color: @accent;
   font-weight: 700;
 }
 
 #workspaces button:hover {
-  background: alpha(@accent, 0.2);
-  color: @foreground;
+  color: @accent;
 }
 
 #workspaces button.urgent {
@@ -106,13 +107,9 @@ tooltip label {
 #custom-arch {
   min-width: 20px;
   min-height: 20px;
-  padding: 2px;
-  margin: 0 5px;
-  border-radius: 50%;
-  border: 2px solid @accent;
   background: transparent;
   background-image: url("assets/arch.svg");
-  background-size: 18px 18px;
+  background-size: 15px 15px;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -123,9 +120,7 @@ tooltip label {
   background: linear-gradient(135deg, @gradient-1, @gradient-2);
   color: @background;
   font-weight: 700;
-  padding: 1px 12px;
   border-radius: 12px;
-  margin: 0 2px;
 }
 
 /* ─── DRAWER ARROW ────────────────────────────────────────────────── */
