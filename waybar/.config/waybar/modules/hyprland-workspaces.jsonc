@@ -5,6 +5,7 @@
     "all-outputs": false,
     "enable-bar-scroll": true,
     "format": "{icon} {windows}",
+    "format-empty": "{icon}",
     "format-window-separator": " 󰮍 ",
     "format-icons": {
       "1": "󰲡",

@@ -81,7 +81,7 @@ tooltip label {
 }
 
 #workspaces button {
-  color: alpha(@foreground, 0.5);
+  color: @foreground;
   background: transparent;
   margin: 0 4px;
   padding: 0 4px;
@@ -123,16 +123,12 @@ tooltip label {
   border-radius: 12px;
 }
 
-/* ─── DRAWER ARROW ────────────────────────────────────────────────── */
+/* ─── ARROW SEPARATOR ─────────────────────────────────────────────── */
 
 #custom-arrow {
-  color: alpha(@foreground, 0.45);
-  padding: 0 6px;
-  transition: color 0.2s ease;
-}
-
-#custom-arrow:hover {
   color: @foreground;
+  font-size: 14px;
+  padding: 0 8px 0 0;
 }
 
 /* ─── ESTADOS (warning / critical / charging) ─────────────────────── */
