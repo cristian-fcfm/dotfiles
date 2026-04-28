@@ -85,8 +85,8 @@ keymap = [
 	{ on = "z",         run = "plugin fzf",                  desc = "Jump to a file/directory via fzf" },
 	{ on = "Z",         run = "plugin zoxide",               desc = "Jump to a directory via zoxide" },
 
-	# === CUSTOM: Extract archives (uses oh-my-zsh extract plugin) ===
-	{ on = "e", run = "shell 'extract \"$@\"' --confirm", desc = "Extract archive" },
+	# === CUSTOM: Extract archives (uses ouch) ===
+	{ on = "e", run = "shell 'ouch decompress --yes \"$@\"' --confirm", desc = "Extract archive" },
 
 	# === CUSTOM: Mount plugin ===
 	{ on = "M", run = "plugin mount", desc = "Mount/unmount drives" },

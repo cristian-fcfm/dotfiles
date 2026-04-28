@@ -41,7 +41,6 @@ plugins=(
     zsh-autosuggestions      # Sugerencias basadas en historial
     zsh-syntax-highlighting  # Resaltado de sintaxis en la terminal
     sudo                     # Doble ESC para anteponer sudo
-    extract                  # Función universal para extraer archivos
     command-not-found        # Sugerencias cuando comando no existe
     colored-man-pages        # Man pages con colores
     dirhistory              # Alt+Left/Right para navegar directorios
