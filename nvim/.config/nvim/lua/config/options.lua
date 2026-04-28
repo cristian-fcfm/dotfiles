@@ -1,160 +1,113 @@
 -- Opciones básicas de Neovim
 
--- Performance y velocidad
-vim.opt.timeoutlen = 300 -- Tiempo en ms para esperar secuencias de teclas mapeadas
-vim.opt.updatetime = 250 -- Tiempo en ms para CursorHold (diagnósticos, gitsigns, LSP highlights)
-vim.opt.synmaxcol = 250 -- No resaltar sintaxis después de esta columna (mejora performance)
-vim.opt.redrawtime = 1500 -- Tiempo máximo en ms para re-render de syntax (default 2000)
+-- Performance
+vim.opt.timeoutlen = 300
+vim.opt.updatetime = 250
+vim.opt.synmaxcol = 250
+vim.opt.redrawtime = 1500
 
--- UI y apariencia
-vim.opt.number = true -- Mostrar números de línea
-vim.opt.relativenumber = true -- Números relativos (útil para movimientos)
-vim.opt.cursorline = true -- Resaltar línea actual
-vim.opt.cursorcolumn = false -- Desactivado por defecto (se activa en insert mode)
-vim.opt.termguicolors = true -- Habilitar colores true color (24-bit)
-vim.opt.colorcolumn = "+1" -- Columna de guía en textwidth + 1
-vim.opt.title = true -- Actualizar título de la terminal
-vim.opt.ruler = false -- Desactivado (lualine ya muestra info de posición)
-vim.opt.showcmd = true -- Mostrar comando incompleto en la barra inferior
-vim.opt.showmatch = true -- Resaltar paréntesis/corchetes coincidentes
-vim.opt.showmode = false -- Ocultar modo (lualine lo muestra)
-vim.opt.signcolumn = "yes:1" -- Columna de signos siempre visible (para git, diagnósticos)
+-- UI
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.cursorline = true
+vim.opt.colorcolumn = "+1"
+vim.opt.title = true
+vim.opt.ruler = false
+vim.opt.showmode = false
+vim.opt.signcolumn = "yes:1"
 
--- Caracteres especiales para mejor visualización
 vim.opt.fillchars = {
   fold = " ",
   foldsep = " ",
   vert = "│",
-  eob = " ", -- Oculta ~ en líneas vacías
+  eob = " ",
   msgsep = "‾",
   diff = "╱",
 }
+vim.opt.showbreak = "↪"
 
-vim.opt.showbreak = "↪" -- Carácter para líneas envueltas
+-- Indentación
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.breakindent = true
+vim.opt.linebreak = true
+vim.opt.shiftround = true
+vim.cmd("set formatoptions-=t")
 
--- Indentación y formato
-vim.opt.tabstop = 2 -- Número de espacios que representa un tab
-vim.opt.shiftwidth = 2 -- Número de espacios para auto-indentado
-vim.opt.expandtab = true -- Convertir tabs a espacios
-vim.opt.breakindent = true -- Mantener indentación en líneas envueltas
-vim.opt.linebreak = true -- Romper líneas en caracteres de palabra
-vim.opt.wrap = true -- Envolver líneas largas
-vim.opt.shiftround = true -- Redondear indent al múltiplo más cercano de shiftwidth
-vim.cmd("set formatoptions-=t") -- No auto-envolver texto usando textwidth
-
--- Guías de indentación
-vim.opt.list = true -- Mostrar caracteres invisibles
+vim.opt.list = true
 vim.opt.listchars = "leadmultispace:󰇙   ,tab:󰇙 ,trail:¤,nbsp:·,extends:⟩,precedes:⟨,eol:↲"
 
 -- Búsqueda
-vim.opt.incsearch = true -- Búsqueda incremental (mostrar matches mientras escribes)
-vim.opt.ignorecase = true -- Ignorar mayúsculas/minúsculas en búsqueda
-vim.opt.smartcase = true -- Sensible a mayúsculas si la búsqueda contiene mayúsculas
+vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
--- Spell checking (corrector ortográfico)
-vim.opt.spell = false -- Desactivado por defecto (activar con :set spell)
-vim.opt.spelllang = { "en", "es" } -- Idiomas: inglés y español
-vim.opt.spellsuggest = "best,9" -- Mostrar las 9 mejores sugerencias
+-- Spell
+vim.opt.spelllang = { "en", "es" }
+vim.opt.spellsuggest = "best,9"
 
--- Descargar automáticamente archivos de spell si no existen
 vim.schedule(function()
   local spell_dir = vim.fn.stdpath("data") .. "/site/spell"
   vim.fn.mkdir(spell_dir, "p")
-
-  -- Verificar y descargar diccionarios de spell si no existen
   for _, lang in ipairs({ "en", "es" }) do
     local spell_file = spell_dir .. "/" .. lang .. ".utf-8.spl"
     if vim.fn.filereadable(spell_file) == 0 then
       vim.cmd("silent! mkspell! " .. spell_file .. " " .. spell_dir .. "/" .. lang)
-      -- Descargar desde el servidor de Vim si mkspell falla
       local url = "https://ftp.nluug.nl/vim/runtime/spell/" .. lang .. ".utf-8.spl"
       vim.fn.system({ "curl", "-fLo", spell_file, "--create-dirs", url })
     end
   end
 end)
 
--- Configurar ripgrep como programa de búsqueda
+-- Ripgrep
 if vim.fn.executable("rg") == 1 then
   vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
   vim.opt.grepformat = "%f:%l:%c:%m"
 end
 
--- Mouse y clipboard
-vim.opt.mouse = "a" -- Habilitar mouse en todos los modos
-vim.opt.clipboard = "unnamedplus" -- Usar clipboard del sistema (+/unnamedplus)
-
 -- Completado
-vim.opt.completeopt = { "menuone", "noselect" } -- Mostrar menú siempre, no seleccionar automáticamente
-vim.opt.pumheight = 10 -- Máximo 10 items en menú de completado
-vim.opt.pumblend = 5 -- Pseudo-transparencia en menú de completado (0-100)
-vim.opt.wildmenu = true -- Menú de completado mejorado en línea de comandos
-vim.opt.wildignorecase = true -- Ignorar mayúsculas en completado de comandos
-vim.opt.wildmode = "list:longest" -- Listar matches y completar hasta string común más largo
-vim.opt.showfulltag = true -- Mostrar información completa de tags en completado
+vim.opt.pumheight = 10
+vim.opt.pumblend = 5
+vim.opt.wildmenu = true
+vim.opt.wildignorecase = true
+vim.opt.wildmode = "list:longest"
+vim.opt.showfulltag = true
 
--- Ignorar ciertos archivos y carpetas en búsquedas
 vim.opt.wildignore:append({
-  "*.o",
-  "*.obj",
-  "*.dylib",
-  "*.bin",
-  "*.dll",
-  "*.exe",
-  "*/.git/*",
-  "*/.svn/*",
-  "*/__pycache__/*",
-  "*/build/**",
-  "*.jpg",
-  "*.png",
-  "*.jpeg",
-  "*.bmp",
-  "*.gif",
-  "*.tiff",
-  "*.svg",
-  "*.ico",
-  "*.pyc",
-  "*.pkl",
-  "*.DS_Store",
+  "*.o", "*.obj", "*.dylib", "*.bin", "*.dll", "*.exe",
+  "*/.git/*", "*/.svn/*", "*/__pycache__/*", "*/build/**",
+  "*.jpg", "*.png", "*.jpeg", "*.bmp", "*.gif", "*.tiff",
+  "*.svg", "*.ico", "*.pyc", "*.pkl", "*.DS_Store",
 })
 
--- Mensajes más limpios
-vim.opt.shortmess:append("c") -- No mostrar "match xx of xx" en completado
-vim.opt.shortmess:append("S") -- No mostrar contador de búsquedas
-vim.opt.shortmess:append("I") -- No mostrar intro message
+vim.opt.shortmess:append("c")
+vim.opt.shortmess:append("S")
+vim.opt.shortmess:append("I")
 
--- Historial y archivos
-vim.opt.undofile = true -- Undo persistente (mantener historial después de cerrar)
-vim.opt.modeline = true -- Leer modelines en archivos (ej: # vim: set ft=python)
-vim.opt.autoread = true -- Recargar archivo si cambió externamente
-vim.opt.autowrite = true -- Auto-guardar al cambiar de buffer o ejecutar comandos
-vim.opt.confirm = true -- Pedir confirmación antes de salir con cambios sin guardar
+-- Archivos
+vim.opt.undofile = true
+vim.opt.autowrite = true
+vim.opt.confirm = true
 
--- Sistema de backups
-vim.opt.swapfile = false -- No crear archivos swap
-vim.opt.backup = true -- Crear backups
-vim.opt.backupcopy = "yes" -- Copiar archivo original al hacer backup
+vim.opt.swapfile = false
+vim.opt.backup = true
+vim.opt.backupcopy = "yes"
 vim.opt.backupdir = vim.fn.stdpath("data") .. "/backup//"
 
--- Crear directorio de backups si no existe
 local utils = require("utils")
 utils.may_create_dir(vim.fn.stdpath("data") .. "/backup")
 
--- Ventanas y scroll
-vim.opt.tw = 80 -- Text width (ancho de texto para formateo)
-vim.opt.winwidth = 88 -- Ancho mínimo de ventana
-vim.opt.scrolloff = 15 -- Mantener 10 líneas visibles arriba/abajo del cursor
-vim.opt.splitbelow = true -- Splits horizontales abren abajo
-vim.opt.splitright = true -- Splits verticales abren a la derecha
-vim.opt.splitkeep = "screen" -- Mantener texto en pantalla al hacer split (evita flickering)
+-- Ventanas
+vim.opt.tw = 80
+vim.opt.winwidth = 88
+vim.opt.scrolloff = 15
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.splitkeep = "screen"
 
--- Diff mejorado
+-- Diff
 vim.opt.diffopt = {
-  "vertical", -- Mostrar diffs en split vertical
-  "filler", -- Mostrar líneas de relleno para líneas borradas
-  "closeoff", -- Cerrar diff cuando se cierra una ventana
-  "context:3", -- Mostrar 3 líneas de contexto alrededor de cambios
-  "internal", -- Usar diff interno de Neovim
-  "indent-heuristic", -- Mejorar detección de cambios usando indentación
-  "algorithm:histogram", -- Algoritmo de diff más preciso
-  "linematch:60", -- Alinear líneas similares dentro de bloques de cambios
+  "vertical", "filler", "closeoff", "context:3",
+  "internal", "indent-heuristic", "algorithm:histogram", "linematch:60",
 }

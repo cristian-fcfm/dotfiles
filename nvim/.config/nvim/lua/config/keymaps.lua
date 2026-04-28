@@ -3,43 +3,35 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
 
 -- Disable default space behavior in Normal and Visual
 map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- ─── File Operations ────────────────────────────────────────────────────────
-map("n", "<C-s>", "<cmd> w <CR>", opts)
--- Save without autocommands (e.g. skip formatters on save)
-map("n", "<leader>S", "<cmd>noautocmd w <CR>", { noremap = true, silent = true, desc = "Save without autocmds" })
-map("n", "<C-q>", "<cmd> q <CR>", opts)
+map("n", "<C-s>", "<cmd> w <CR>")
+map("n", "<leader>S", "<cmd>noautocmd w <CR>", { desc = "Save without autocmds" })
+map("n", "<C-q>", "<cmd> q <CR>")
 
 -- ─── Scrolling ──────────────────────────────────────────────────────────────
-map("n", "<C-d>", "<C-d>zz", opts)
-map("n", "<C-u>", "<C-u>zz", opts)
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
 
 -- ─── Line Navigation ───────────────────────────────────────────────────────
--- H/L jump to start/end of line
--- With GACS HRM, H and L are plain keys (no mod-tap), so these work cleanly
-map({ "n", "v" }, "H", "^", opts)
-map({ "n", "v" }, "L", "$", opts)
+map({ "n", "v" }, "H", "^")
+map({ "n", "v" }, "L", "$")
 
 -- ─── Line Wrapping Toggle ──────────────────────────────────────────────────
 map("n", "<leader>lw", "<cmd>set wrap!<CR>", { desc = "Toggle line wrap" })
 
 -- ─── Visual Mode ────────────────────────────────────────────────────────────
--- Stay in indent mode
-map("v", "<", "<gv", opts)
-map("v", ">", ">gv", opts)
-
--- Keep last yank when pasting over selection
-map("v", "p", '"_dP', opts)
+map("v", "<", "<gv")
+map("v", ">", ">gv")
+map("v", "p", '"_dP')
 
 -- ─── Text Case Conversion ───────────────────────────────────────────────────
--- Works in normal mode: converts word under cursor
-map("n", "<leader>U", "viwU", { noremap = true, silent = true, desc = "UPPERCASE word" })
-map("n", "<leader>u", "viwu", { noremap = true, silent = true, desc = "lowercase word" })
-map("n", "<leader>~", "viw~", { noremap = true, silent = true, desc = "Toggle case word" })
+map("n", "<leader>U", "viwU", { desc = "UPPERCASE word" })
+map("n", "<leader>u", "viwu", { desc = "lowercase word" })
+map("n", "<leader>~", "viw~", { desc = "Toggle case word" })
 
 -- ─── Comentar ───────────────────────────────────────────────────────────────
 map("n", "<leader>/", "gcc", { remap = true, desc = "Toggle comment line" })
@@ -68,3 +60,10 @@ map("n", "<leader>ws", "<C-w>s", { desc = "Split horizontal" })
 map("n", "<leader>we", "<C-w>=", { desc = "Equal size" })
 map("n", "<leader>wc", ":close<CR>", { desc = "Close window" })
 map("n", "<leader>wo", "<C-w>o", { desc = "Close others" })
+
+-- ─── Spell Checking ─────────────────────────────────────────────────────────
+map("n", "]s", function() vim.spell.goto_next() end, { desc = "Siguiente error ortográfico" })
+map("n", "[s", function() vim.spell.goto_prev() end, { desc = "Anterior error ortográfico" })
+map("n", "<leader>sp", "<cmd>set spell!<CR>", { desc = "Activar/desactivar corrección" })
+map("n", "<leader>s?", "z=", { desc = "Ver sugerencias" })
+map("n", "<leader>sa", "zg", { desc = "Añadir a diccionario" })
