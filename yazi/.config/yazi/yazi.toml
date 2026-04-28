@@ -53,7 +53,7 @@ pdf = [
 ]
 
 archive = [
-  { run = 'extract "$@"', desc = "Extract archive" },
+  { run = 'ouch decompress --yes "$@"', desc = "Extract archive (ouch)", block = true },
 ]
 
 [open]
