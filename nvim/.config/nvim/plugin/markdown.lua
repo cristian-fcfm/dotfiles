@@ -40,8 +40,21 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- ===========================================================================
--- Markdown Preview (build hook)
+-- Markdown Preview
 -- ===========================================================================
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "zk" },
+  once = true,
+  callback = function()
+    vim.pack.add({
+      { src = "https://github.com/iamcco/markdown-preview.nvim" },
+    })
+
+    vim.g.mkdp_auto_start = 0
+    vim.g.mkdp_open_with = ""
+  end,
+})
+
 vim.api.nvim_create_autocmd("PackChanged", {
   callback = function(ev)
     if ev.data.spec.name == "markdown-preview.nvim" and ev.data.kind ~= "delete" then
