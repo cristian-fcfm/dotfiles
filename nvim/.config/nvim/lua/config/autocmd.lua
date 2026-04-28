@@ -97,12 +97,3 @@ api.nvim_create_autocmd("BufRead", {
   end,
 })
 
--- Activar spell check para Markdown y Typst
-api.nvim_create_autocmd("FileType", {
-  group = api.nvim_create_augroup("markdown_spell", { clear = true }),
-  desc = "Activar corrección ortográfica en Markdown y Typst",
-  pattern = { "markdown", "typst" },
-  callback = function()
-    vim.opt_local.spell = true
-  end,
-})
