@@ -3,7 +3,7 @@
 -- =============================================================================
 vim.schedule(function()
   vim.pack.add({
-    { src = "https://github.com/stevearc/conform.nvim"},
+    { src = "https://github.com/stevearc/conform.nvim" },
   })
 
   -- ===========================================================================
@@ -12,33 +12,19 @@ vim.schedule(function()
   local utils = require("utils")
   local formatters_by_ft = {}
 
-  if utils.executable("ruff") then
-    formatters_by_ft.python = { "ruff_format", "ruff_organize_imports" }
-  end
-
-  if utils.executable("prettier") then
-    formatters_by_ft.json = { "prettier" }
-    formatters_by_ft.yaml = { "prettier" }
-    formatters_by_ft.markdown = { "prettier" }
-    formatters_by_ft.zk = { "prettier" }
-    formatters_by_ft.html = { "prettier" }
-    formatters_by_ft.css = { "prettier" }
-    formatters_by_ft.scss = { "prettier" }
-    formatters_by_ft.less = { "prettier" }
-  end
-
-  if utils.executable("shfmt") then
-    formatters_by_ft.bash = { "shfmt" }
-    formatters_by_ft.sh = { "shfmt" }
-  end
-
-  if utils.executable("stylua") then
-    formatters_by_ft.lua = { "stylua" }
-  end
-
-  if utils.executable("zig") then
-    formatters_by_ft.zig = { "zigfmt" }
-  end
+  utils.set_if_executable(formatters_by_ft, "python", "ruff", { "ruff_format", "ruff_organize_imports" })
+  utils.set_if_executable(formatters_by_ft, "json",   "prettier")
+  utils.set_if_executable(formatters_by_ft, "yaml",   "prettier")
+  utils.set_if_executable(formatters_by_ft, "markdown", "prettier")
+  utils.set_if_executable(formatters_by_ft, "zk",     "prettier")
+  utils.set_if_executable(formatters_by_ft, "html",   "prettier")
+  utils.set_if_executable(formatters_by_ft, "css",    "prettier")
+  utils.set_if_executable(formatters_by_ft, "scss",   "prettier")
+  utils.set_if_executable(formatters_by_ft, "less",   "prettier")
+  utils.set_if_executable(formatters_by_ft, "bash",   "shfmt")
+  utils.set_if_executable(formatters_by_ft, "sh",     "shfmt")
+  utils.set_if_executable(formatters_by_ft, "lua",    "stylua")
+  utils.set_if_executable(formatters_by_ft, "zig",    "zig", { "zigfmt" })
 
   formatters_by_ft.typst = { "lsp_format" }
 

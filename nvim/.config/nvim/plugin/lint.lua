@@ -13,42 +13,27 @@ vim.schedule(function()
   local utils = require("utils")
   local linters_by_ft = {}
 
-  if utils.executable("ruff") then
-    linters_by_ft.python = { "ruff" }
-  end
+  utils.set_if_executable(linters_by_ft, "python", "ruff")
+  utils.set_if_executable(linters_by_ft, "sh",     "shellcheck")
+  utils.set_if_executable(linters_by_ft, "bash",   "shellcheck")
+  utils.set_if_executable(linters_by_ft, "yaml",   "yamllint")
+  utils.set_if_executable(linters_by_ft, "markdown", "markdownlint")
+  utils.set_if_executable(linters_by_ft, "zk",     "markdownlint")
+  utils.set_if_executable(linters_by_ft, "dockerfile", "hadolint")
+  utils.set_if_executable(linters_by_ft, "css",    "stylelint")
+  utils.set_if_executable(linters_by_ft, "scss",   "stylelint")
+  utils.set_if_executable(linters_by_ft, "less",   "stylelint")
 
-  if utils.executable("shellcheck") then
-    linters_by_ft.sh = { "shellcheck" }
-    linters_by_ft.bash = { "shellcheck" }
-  end
-
-  if utils.executable("yamllint") then
-    linters_by_ft.yaml = { "yamllint" }
-  end
-
-  if utils.executable("markdownlint") then
-    linters_by_ft.markdown = { "markdownlint" }
-    linters_by_ft.zk = { "markdownlint" }
-  end
-
-  if utils.executable("hadolint") then
-    linters_by_ft.dockerfile = { "hadolint" }
-  end
-
+  -- Lua: preferir selene, fallback a luacheck
   if utils.executable("selene") then
     linters_by_ft.lua = { "selene" }
   elseif utils.executable("luacheck") then
     linters_by_ft.lua = { "luacheck" }
   end
 
+  -- Zig usa zlint (incluido con zls)
   if utils.executable("zig") then
     linters_by_ft.zig = { "zlint" }
-  end
-
-  if utils.executable("stylelint") then
-    linters_by_ft.css = { "stylelint" }
-    linters_by_ft.scss = { "stylelint" }
-    linters_by_ft.less = { "stylelint" }
   end
 
   lint.linters_by_ft = linters_by_ft

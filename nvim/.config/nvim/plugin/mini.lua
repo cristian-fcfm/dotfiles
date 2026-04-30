@@ -21,6 +21,16 @@ require("mini.ai").setup({
 })
 
 -- =============================================================================
+-- Mini Diff - Signs y blame en git
+-- =============================================================================
+require("mini.diff").setup({
+  view = {
+    style = "sign",
+    signs = { add = "+", change = "~", delete = "_" },
+  },
+})
+
+-- =============================================================================
 -- Mini Move - Mover lineas y selecciones
 -- =============================================================================
 require("mini.move").setup({
@@ -62,6 +72,63 @@ require("mini.hipatterns").setup({
     hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
     note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
   },
+})
+
+-- =============================================================================
+-- Mini Statusline - Barra de estado
+-- =============================================================================
+local Ministatus = require("mini.statusline")
+
+Ministatus.setup({
+  content = {
+    active = function()
+      local mode, mode_hl = Ministatus.section_mode({ trunc_width = 120 })
+      local git = Ministatus.section_git({ trunc_width = 75 })
+      local diff = Ministatus.section_diff({ trunc_width = 75 })
+      local diagnostics = Ministatus.section_diagnostics({ trunc_width = 75 })
+      -- Filename: siempre relativo al cwd, con iconos
+      local filename = (function()
+        local name = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
+        if name == "" then return "[Sin nombre]" end
+        if vim.bo.readonly then name = name .. " 󰈡" end
+        if vim.bo.modified then name = name .. " " end
+        return name
+      end)()
+      local fileinfo = Ministatus.section_fileinfo({ trunc_width = 120 })
+      local location = Ministatus.section_location({ trunc_width = 75 })
+
+      -- LSP custom
+      local lsp = function()
+        local clients = vim.lsp.get_clients({ bufnr = 0 })
+        if #clients == 0 then return "" end
+        local names = {}
+        for _, c in ipairs(clients) do
+          table.insert(names, c.name)
+        end
+        return "󰒋 " .. table.concat(names, ", ")
+      end
+
+      -- Spell
+      local spell = function()
+        if vim.o.spell then
+          return "󰓆 " .. vim.o.spelllang:upper()
+        end
+        return ""
+      end
+
+      return Ministatus.combine_groups({
+        { hl = mode_hl,                 strings = { mode } },
+        { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics } },
+        "%<",
+        { hl = "MiniStatuslineFilename", strings = { filename } },
+        "%=",
+        { hl = "MiniStatuslineFileinfo", strings = { spell(), lsp(), fileinfo } },
+        { hl = mode_hl,                 strings = { location } },
+      })
+    end,
+  },
+  use_icons = true,
+  set_vim_settings = true,
 })
 
 -- =============================================================================
