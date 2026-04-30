@@ -67,3 +67,9 @@ map("n", "[s", function() vim.spell.goto_prev() end, { desc = "Anterior error or
 map("n", "<leader>sp", "<cmd>set spell!<CR>", { desc = "Activar/desactivar corrección" })
 map("n", "<leader>s?", "z=", { desc = "Ver sugerencias" })
 map("n", "<leader>sa", "zg", { desc = "Añadir a diccionario" })
+
+-- ─── Git (mini.diff) ────────────────────────────────────────────────────────
+map("n", "]g", function() MiniDiff.goto_next() end, { desc = "Next git hunk" })
+map("n", "[g", function() MiniDiff.goto_prev() end, { desc = "Previous git hunk" })
+map("n", "<leader>hb", function() MiniDiff.toggle_overlay() end, { desc = "Toggle inline diff" })
+map("n", "<leader>gh", function() MiniDiff.do_hunks(0, vim.fn.line(".")) end, { desc = "Hunk actions" })
