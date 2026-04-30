@@ -1,16 +1,8 @@
 -- Habilita caché de módulos Lua para mejorar velocidad de inicio
 vim.loader.enable()
 
--- Utilidades del sistema
-local utils = require("utils")
-
 -- Variables globales y desactivar providers/plugins innecesarios
 require("globals")
-
--- Verifica si estamos en un repositorio git (para lazy-loading de gitsigns)
-vim.defer_fn(function()
-  utils.inside_git_repo()
-end, 100)
 
 -- Configuracion core
 require("config.options")
