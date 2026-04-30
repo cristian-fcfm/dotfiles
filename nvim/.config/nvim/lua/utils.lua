@@ -30,18 +30,16 @@ function M.may_create_dir(dir)
   end
 end
 
---- Verifica si estamos dentro de un repositorio git
---- @return boolean
-function M.inside_git_repo()
-  local result = vim.system({ "git", "rev-parse", "--is-inside-work-tree" }, { text = true }):wait()
-  if result.code ~= 0 then
-    return false
+--- Asigna un valor a una tabla solo si el ejecutable existe en PATH
+--- @param tbl table       Tabla destino (ej: linters_by_ft)
+--- @param key string      Clave (filetype)
+--- @param exec string     Nombre del ejecutable a verificar
+--- @param value any       Valor a asignar si existe
+function M.set_if_executable(tbl, key, exec, value)
+  value = value or { exec }
+  if M.executable(exec) then
+    tbl[key] = value
   end
-
-  -- Disparar manualmente un autocmd de usuario especial InGitRepo
-  vim.cmd([[doautocmd User InGitRepo]])
-
-  return true
 end
 
 return M
