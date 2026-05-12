@@ -1,3 +1,7 @@
+-- =============================================================================
+-- Autocommands
+-- =============================================================================
+
 local api = vim.api
 local utils = require("utils")
 
@@ -24,9 +28,11 @@ api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+local auto_read = api.nvim_create_augroup("auto_read", { clear = true })
+
 -- Auto-reload archivos cambiados externamente
 api.nvim_create_autocmd("FocusGained", {
-  group = api.nvim_create_augroup("auto_read", { clear = true }),
+  group = auto_read,
   desc = "Recargar archivos si cambiaron externamente",
   callback = function()
     if vim.fn.getcmdwintype() == "" then
@@ -37,7 +43,7 @@ api.nvim_create_autocmd("FocusGained", {
 
 -- Notificar cuando un archivo cambió en disco
 api.nvim_create_autocmd("FileChangedShellPost", {
-  group = "auto_read",
+  group = auto_read,
   desc = "Notificar cambio de archivo en disco",
   callback = function()
     vim.notify("Archivo cambió en disco. Buffer recargado!", vim.log.levels.WARN)
@@ -54,7 +60,7 @@ api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
--- Toggle números relativos y cursorcolumn (combinados para reducir autocmds)
+-- Toggle números relativos y cursorcolumn
 local insert_ui_toggle = api.nvim_create_augroup("insert_ui_toggle", { clear = true })
 
 api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
@@ -94,6 +100,27 @@ api.nvim_create_autocmd("BufRead", {
     if not vim.tbl_contains(exclude_ft, vim.bo.filetype) and vim.bo.fileencoding ~= "utf-8" then
       vim.notify("Archivo no está en UTF-8: " .. vim.bo.fileencoding, vim.log.levels.WARN)
     end
+  end,
+})
+
+-- Activar spell en filetypes de escritura
+api.nvim_create_autocmd("FileType", {
+  group = api.nvim_create_augroup("spell_filetypes", { clear = true }),
+  pattern = { "markdown", "zk", "typst" },
+  desc = "Activar spell en filetypes de escritura",
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.softtabstop = 2
+  end,
+})
+
+-- Evitar auto-wrap de texto en todos los filetypes
+api.nvim_create_autocmd("FileType", {
+  group = api.nvim_create_augroup("format_options", { clear = true }),
+  pattern = "*",
+  desc = "Desactivar auto-wrap de texto",
+  callback = function()
+    vim.opt_local.formatoptions:remove("t")
   end,
 })
 

@@ -1,4 +1,6 @@
--- Opciones básicas de Neovim
+-- =============================================================================
+-- Opciones de Neovim
+-- =============================================================================
 
 -- Performance
 vim.opt.timeoutlen = 300
@@ -33,7 +35,6 @@ vim.opt.expandtab = true
 vim.opt.breakindent = true
 vim.opt.linebreak = true
 vim.opt.shiftround = true
-vim.cmd("set formatoptions-=t")
 
 vim.opt.list = true
 vim.opt.listchars = "leadmultispace:󰇙   ,tab:󰇙 ,trail:¤,nbsp:·,extends:⟩,precedes:⟨,eol:↲"
@@ -43,22 +44,14 @@ vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+-- Clipboard del sistema
+vim.opt.clipboard = "unnamedplus"
+
 -- Spell
 vim.opt.spelllang = { "en", "es" }
 vim.opt.spellsuggest = "best,9"
 
-vim.schedule(function()
-  local spell_dir = vim.fn.stdpath("data") .. "/site/spell"
-  vim.fn.mkdir(spell_dir, "p")
-  for _, lang in ipairs({ "en", "es" }) do
-    local spell_file = spell_dir .. "/" .. lang .. ".utf-8.spl"
-    if vim.fn.filereadable(spell_file) == 0 then
-      vim.cmd("silent! mkspell! " .. spell_file .. " " .. spell_dir .. "/" .. lang)
-      local url = "https://ftp.nluug.nl/vim/runtime/spell/" .. lang .. ".utf-8.spl"
-      vim.fn.system({ "curl", "-fLo", spell_file, "--create-dirs", url })
-    end
-  end
-end)
+
 
 -- Ripgrep
 if vim.fn.executable("rg") == 1 then
@@ -99,7 +92,7 @@ local utils = require("utils")
 utils.may_create_dir(vim.fn.stdpath("data") .. "/backup")
 
 -- Ventanas
-vim.opt.tw = 80
+vim.opt.textwidth = 80
 vim.opt.winwidth = 88
 vim.opt.scrolloff = 15
 vim.opt.splitbelow = true

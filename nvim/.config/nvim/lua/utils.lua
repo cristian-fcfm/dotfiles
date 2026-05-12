@@ -1,5 +1,4 @@
 local fn = vim.fn
-local version = vim.version
 
 local M = {}
 
@@ -8,17 +7,6 @@ local M = {}
 --- @return boolean
 function M.executable(name)
   return fn.executable(name) > 0
-end
-
---- Verifica si una característica existe en Nvim
---- @param feat string Nombre de la característica, como `nvim-0.7` o `unix`.
---- @return boolean
-M.has = function(feat)
-  if fn.has(feat) == 1 then
-    return true
-  end
-
-  return false
 end
 
 --- Crea un directorio si no existe

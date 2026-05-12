@@ -7,7 +7,7 @@ vim.schedule(function()
   })
 
   -- ===========================================================================
-  -- Keymaps al adjuntar un servidor
+  -- Atajos al adjuntar un servidor
   -- ===========================================================================
   local on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
@@ -20,48 +20,48 @@ vim.schedule(function()
 
     map("gd", function()
       Snacks.picker.lsp_definitions()
-    end, "Go to definition")
+    end, "Ir a definicion")
     map("gr", function()
       Snacks.picker.lsp_references()
-    end, "Go to references")
+    end, "Ir a referencias")
     map("gI", function()
       Snacks.picker.lsp_implementations()
-    end, "Go to implementation")
+    end, "Ir a implementacion")
     map("gy", function()
       Snacks.picker.lsp_type_definitions()
-    end, "Type definition")
-    map("gD", vim.lsp.buf.declaration, "Go to declaration")
+    end, "Definicion de tipo")
+    map("gD", vim.lsp.buf.declaration, "Ir a declaracion")
 
     map("gs", function()
       Snacks.picker.lsp_symbols()
-    end, "Document symbols")
+    end, "Simbolos del documento")
     map("gS", function()
       Snacks.picker.lsp_workspace_symbols()
-    end, "Workspace symbols")
+    end, "Simbolos del workspace")
 
-    map("gn", vim.lsp.buf.rename, "Rename")
-    map("ga", vim.lsp.buf.code_action, "Code actions", { "n", "x" })
+    map("gn", vim.lsp.buf.rename, "Renombrar")
+    map("ga", vim.lsp.buf.code_action, "Acciones de codigo", { "n", "x" })
 
-    map("K", vim.lsp.buf.hover, "Show hover documentation")
-    map("gk", vim.lsp.buf.signature_help, "Show signature help")
+    map("K", vim.lsp.buf.hover, "Documentacion flotante")
+    map("gk", vim.lsp.buf.signature_help, "Ayuda de firma")
 
     map("[d", function()
       vim.diagnostic.jump({ count = -1, float = true })
-    end, "Previous diagnostic")
+    end, "Diagnostico anterior")
     map("]d", function()
       vim.diagnostic.jump({ count = 1, float = true })
-    end, "Next diagnostic")
+    end, "Diagnostico siguiente")
     map("[e", function()
       vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })
-    end, "Previous error")
+    end, "Error anterior")
     map("]e", function()
       vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })
-    end, "Next error")
+    end, "Error siguiente")
 
     if client.server_capabilities.inlayHintProvider then
       map("gh", function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
-      end, "Toggle Inlay Hints")
+      end, "Alternar inlay hints")
     end
   end
 
@@ -213,15 +213,19 @@ vim.schedule(function()
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       if client then
         on_attach(client, args.buf)
+        MiniClue.ensure_buf_triggers(args.buf)
       end
     end,
   })
 
   vim.api.nvim_create_user_command("DiagnosticsToggle", function()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-  end, { desc = "Toggle diagnostics" })
+  end, { desc = "Alternar diagnosticos globales" })
 
   vim.api.nvim_create_user_command("DiagnosticsToggleBuffer", function()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled({ bufnr = 0 }), { bufnr = 0 })
-  end, { desc = "Toggle diagnostics for current buffer" })
+  end, { desc = "Alternar diagnosticos del buffer" })
+
+  vim.keymap.set("n", "<leader>ld", "<cmd>DiagnosticsToggleBuffer<CR>", { desc = "Alternar diagnosticos (buffer)" })
+  vim.keymap.set("n", "<leader>lD", "<cmd>DiagnosticsToggle<CR>", { desc = "Alternar diagnosticos (global)" })
 end)
