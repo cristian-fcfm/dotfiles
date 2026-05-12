@@ -3,7 +3,7 @@
 -- =============================================================================
 
 -- ===========================================================================
--- Render Markdown
+-- Markdown Plugins (render-markdown + markdown-preview)
 -- ===========================================================================
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown", "zk" },
@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.pack.add({
       { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+      { src = "https://github.com/iamcco/markdown-preview.nvim" },
     })
 
     require("render-markdown").setup({
@@ -36,22 +37,9 @@ vim.api.nvim_create_autocmd("FileType", {
         },
       },
     })
-  end,
-})
-
--- ===========================================================================
--- Markdown Preview
--- ===========================================================================
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "zk" },
-  once = true,
-  callback = function()
-    vim.pack.add({
-      { src = "https://github.com/iamcco/markdown-preview.nvim" },
-    })
 
     vim.g.mkdp_auto_start = 0
-    vim.g.mkdp_open_with = ""
+    vim.g.mkdp_browser = "Firefox"
   end,
 })
 

@@ -1,5 +1,67 @@
+-- =============================================================================
+-- Configuracion Mini
+-- =============================================================================
 vim.pack.add({
   { src = "https://github.com/echasnovski/mini.nvim" },
+})
+
+-- =============================================================================
+-- Mini Clue - Ayuda contextual de atajos
+-- =============================================================================
+local miniclue = require("mini.clue")
+
+miniclue.setup({
+  triggers = {
+    { mode = "n", keys = "<Leader>" },
+    { mode = "x", keys = "<Leader>" },
+    { mode = "n", keys = "[" },
+    { mode = "n", keys = "]" },
+    { mode = "i", keys = "<C-x>" },
+    { mode = "n", keys = "g" },
+    { mode = "x", keys = "g" },
+    { mode = "n", keys = "'" },
+    { mode = "x", keys = "'" },
+    { mode = "n", keys = "`" },
+    { mode = "x", keys = "`" },
+    { mode = "n", keys = '"' },
+    { mode = "x", keys = '"' },
+    { mode = "i", keys = "<C-r>" },
+    { mode = "c", keys = "<C-r>" },
+    { mode = "n", keys = "<C-w>" },
+    { mode = "n", keys = "z" },
+    { mode = "x", keys = "z" },
+  },
+  clues = {
+    { mode = "n", keys = "<Leader>b", desc = "+buffers" },
+    { mode = "x", keys = "<Leader>b", desc = "+buffers" },
+    { mode = "n", keys = "<Leader>f", desc = "+buscar" },
+    { mode = "x", keys = "<Leader>f", desc = "+buscar" },
+    { mode = "n", keys = "<Leader>g", desc = "+git" },
+    { mode = "x", keys = "<Leader>g", desc = "+git" },
+    { mode = "n", keys = "<Leader>l", desc = "+linea/diagnosticos" },
+    { mode = "x", keys = "<Leader>l", desc = "+linea/diagnosticos" },
+    { mode = "n", keys = "<Leader>s", desc = "+slime" },
+    { mode = "x", keys = "<Leader>s", desc = "+slime" },
+    { mode = "n", keys = "<Leader>z", desc = "+ortografia" },
+    { mode = "x", keys = "<Leader>z", desc = "+ortografia" },
+    { mode = "n", keys = "<Leader>t", desc = "+tabs" },
+    { mode = "x", keys = "<Leader>t", desc = "+tabs" },
+    { mode = "n", keys = "<Leader>w", desc = "+ventanas" },
+    { mode = "x", keys = "<Leader>w", desc = "+ventanas" },
+    miniclue.gen_clues.square_brackets(),
+    miniclue.gen_clues.builtin_completion(),
+    miniclue.gen_clues.g(),
+    miniclue.gen_clues.marks(),
+    miniclue.gen_clues.registers(),
+    miniclue.gen_clues.windows(),
+    miniclue.gen_clues.z(),
+  },
+  window = {
+    delay = 300,
+    config = {
+      width = "auto",
+    },
+  },
 })
 
 -- =============================================================================
@@ -79,6 +141,19 @@ require("mini.hipatterns").setup({
 -- =============================================================================
 local Ministatus = require("mini.statusline")
 
+local function statusline_lsp()
+  local n = #vim.lsp.get_clients({ bufnr = 0 })
+  if n == 0 then return "" end
+  return "󰒋 " .. n
+end
+
+local function statusline_spell()
+  if vim.o.spell then
+    return "󰓆 " .. vim.o.spelllang:upper()
+  end
+  return ""
+end
+
 Ministatus.setup({
   content = {
     active = function()
@@ -86,35 +161,15 @@ Ministatus.setup({
       local git = Ministatus.section_git({ trunc_width = 75 })
       local diff = Ministatus.section_diff({ trunc_width = 75 })
       local diagnostics = Ministatus.section_diagnostics({ trunc_width = 75 })
-      -- Filename: siempre relativo al cwd, con iconos
       local filename = (function()
         local name = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
         if name == "" then return "[Sin nombre]" end
         if vim.bo.readonly then name = name .. " 󰈡" end
-        if vim.bo.modified then name = name .. " " end
+        if vim.bo.modified then name = name .. " " end
         return name
       end)()
       local fileinfo = Ministatus.section_fileinfo({ trunc_width = 120 })
       local location = Ministatus.section_location({ trunc_width = 75 })
-
-      -- LSP custom
-      local lsp = function()
-        local clients = vim.lsp.get_clients({ bufnr = 0 })
-        if #clients == 0 then return "" end
-        local names = {}
-        for _, c in ipairs(clients) do
-          table.insert(names, c.name)
-        end
-        return "󰒋 " .. table.concat(names, ", ")
-      end
-
-      -- Spell
-      local spell = function()
-        if vim.o.spell then
-          return "󰓆 " .. vim.o.spelllang:upper()
-        end
-        return ""
-      end
 
       return Ministatus.combine_groups({
         { hl = mode_hl,                 strings = { mode } },
@@ -122,7 +177,7 @@ Ministatus.setup({
         "%<",
         { hl = "MiniStatuslineFilename", strings = { filename } },
         "%=",
-        { hl = "MiniStatuslineFileinfo", strings = { spell(), lsp(), fileinfo } },
+        { hl = "MiniStatuslineFileinfo", strings = { statusline_spell(), statusline_lsp(), fileinfo } },
         { hl = mode_hl,                 strings = { location } },
       })
     end,
