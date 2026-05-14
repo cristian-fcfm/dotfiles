@@ -66,8 +66,6 @@ map("n", "<leader>wc", "<cmd>close<CR>", { desc = "Cerrar ventana" })
 map("n", "<leader>wo", "<C-w>o", { desc = "Cerrar otras ventanas" })
 
 -- ─── Ortografia ─────────────────────────────────────────────────────────────
-map("n", "]s", function() vim.spell.goto_next() end, { desc = "Siguiente error ortografico" })
-map("n", "[s", function() vim.spell.goto_prev() end, { desc = "Anterior error ortografico" })
 map("n", "<leader>zp", "<cmd>set spell!<CR>", { desc = "Alternar correccion ortografica" })
 map("n", "<leader>zs", "z=", { desc = "Ver sugerencias" })
 map("n", "<leader>za", "zg", { desc = "Agregar al diccionario" })
@@ -85,3 +83,27 @@ map("n", "<leader>gL", function() Snacks.picker.git_log_file() end, { desc = "Lo
 map("n", "<leader>gs", function() Snacks.picker.git_status() end, { desc = "Estado de git" })
 map("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Diff de git" })
 map("n", "<leader>gb", function() Snacks.git_blame_line() end, { desc = "Blame de linea" })
+
+-- ─── Quickfix / Loclist ─────────────────────────────────────────────────────
+map("n", "<leader>ll", function() vim.diagnostic.setloclist() end, { desc = "Diagnosticos buffer -> loclist" })
+map("n", "<leader>lq", function() vim.diagnostic.setqflist() end, { desc = "Diagnosticos proyecto -> quickfix" })
+map("n", "<leader>lc", function()
+  local wins = vim.fn.getwininfo()
+  for _, win in ipairs(wins) do
+    if win.quickfix == 1 and win.loclist == 0 then
+      vim.cmd("cclose")
+      return
+    end
+  end
+  vim.cmd("copen")
+end, { desc = "Alternar quickfix" })
+map("n", "<leader>lL", function()
+  local wins = vim.fn.getwininfo()
+  for _, win in ipairs(wins) do
+    if win.loclist == 1 then
+      vim.cmd("lclose")
+      return
+    end
+  end
+  vim.cmd("lopen")
+end, { desc = "Alternar loclist" })
