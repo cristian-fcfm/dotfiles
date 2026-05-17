@@ -56,6 +56,8 @@ require("snacks").setup({
   bigfile = { enabled = true },
   input = { enabled = true },
   quickfile = { enabled = true },
+  scroll = { enabled = true },
+  terminal = { enabled = true },
   words = { enabled = true },
 
   styles = {},
@@ -111,3 +113,5 @@ end, { desc = "Historial de undo" })
 map("n", "<leader>fr", function()
   Snacks.picker.resume()
 end, { desc = "Reanudar ultimo picker" })
+map("n", "<C-t>", function() Snacks.terminal() end, { desc = "Terminal flotante" })
+map("t", "<C-t>", function() Snacks.terminal() end, { desc = "Cerrar terminal flotante" })
