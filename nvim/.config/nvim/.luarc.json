@@ -4,7 +4,7 @@
   },
   "diagnostics": {
     "globals": ["vim", "Snacks", "MiniDiff", "MiniClue", "MiniSnippets"],
-    "disable": ["missing-fields"]
+    "disable": ["missing-fields", "duplicate-set-field"]
   },
   "workspace": {
     "checkThirdParty": false,
