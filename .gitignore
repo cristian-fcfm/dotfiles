@@ -172,3 +172,6 @@ cython_debug/
 
 # Distribution docs
 .DS_Store
+
+# Git worktrees
+.worktrees/
