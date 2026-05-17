@@ -55,6 +55,8 @@ miniclue.setup({
     { mode = "x", keys = "<Leader>z", desc = "+ortografia" },
     { mode = "n", keys = "<Leader>t", desc = "+tabs" },
     { mode = "x", keys = "<Leader>t", desc = "+tabs" },
+    { mode = "n", keys = "<Leader>p", desc = "+python" },
+    { mode = "x", keys = "<Leader>p", desc = "+python" },
     { mode = "n", keys = "<Leader>w", desc = "+ventanas" },
     { mode = "x", keys = "<Leader>w", desc = "+ventanas" },
     miniclue.gen_clues.square_brackets(),
