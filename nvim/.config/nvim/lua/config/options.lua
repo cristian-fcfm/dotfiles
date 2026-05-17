@@ -65,7 +65,6 @@ vim.opt.pumblend = 5
 vim.opt.wildmenu = true
 vim.opt.wildignorecase = true
 vim.opt.wildmode = "list:longest"
-vim.opt.showfulltag = true
 
 vim.opt.wildignore:append({
   "*.o", "*.obj", "*.dylib", "*.bin", "*.dll", "*.exe",

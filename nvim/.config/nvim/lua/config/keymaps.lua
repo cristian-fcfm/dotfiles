@@ -85,25 +85,26 @@ map("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Diff d
 map("n", "<leader>gb", function() Snacks.git_blame_line() end, { desc = "Blame de linea" })
 
 -- ─── Quickfix / Loclist ─────────────────────────────────────────────────────
-map("n", "<leader>ll", function() vim.diagnostic.setloclist() end, { desc = "Diagnosticos buffer -> loclist" })
-map("n", "<leader>lq", function() vim.diagnostic.setqflist() end, { desc = "Diagnosticos proyecto -> quickfix" })
-map("n", "<leader>lc", function()
-  local wins = vim.fn.getwininfo()
-  for _, win in ipairs(wins) do
-    if win.quickfix == 1 and win.loclist == 0 then
+local function toggle_win(type)
+  for _, win in ipairs(vim.fn.getwininfo()) do
+    if type == "c" and win.quickfix == 1 and win.loclist == 0 then
       vim.cmd("cclose")
       return
-    end
-  end
-  vim.cmd("copen")
-end, { desc = "Alternar quickfix" })
-map("n", "<leader>lL", function()
-  local wins = vim.fn.getwininfo()
-  for _, win in ipairs(wins) do
-    if win.loclist == 1 then
+    elseif type == "l" and win.loclist == 1 then
       vim.cmd("lclose")
       return
     end
   end
-  vim.cmd("lopen")
-end, { desc = "Alternar loclist" })
+  vim.cmd(type == "c" and "copen" or "lopen")
+end
+
+map("n", "<leader>ll", function() vim.diagnostic.setloclist() end,  { desc = "Diagnosticos buffer -> loclist" })
+map("n", "<leader>lq", function() vim.diagnostic.setqflist() end,   { desc = "Diagnosticos proyecto -> quickfix" })
+map("n", "<leader>lc", function() toggle_win("c") end,              { desc = "Alternar quickfix" })
+map("n", "<leader>lL", function() toggle_win("l") end,              { desc = "Alternar loclist" })
+
+-- ─── Diagnósticos ────────────────────────────────────────────────────────────
+map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Diagnostico anterior" })
+map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end,  { desc = "Diagnostico siguiente" })
+map("n", "[e", function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true }) end, { desc = "Error anterior" })
+map("n", "]e", function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true }) end,  { desc = "Error siguiente" })

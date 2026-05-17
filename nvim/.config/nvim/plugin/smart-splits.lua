@@ -95,9 +95,3 @@ map("n", "<C-h>", ss.move_cursor_left, { desc = "Ir al split izquierdo" })
 map("n", "<C-j>", ss.move_cursor_down, { desc = "Ir al split inferior" })
 map("n", "<C-k>", ss.move_cursor_up, { desc = "Ir al split superior" })
 map("n", "<C-l>", ss.move_cursor_right, { desc = "Ir al split derecho" })
-
--- TODO: definir keybind para swap buffers entre splits
--- map("n", "??h", ss.swap_buf_left, { desc = "Swap buffer left" })
--- map("n", "??j", ss.swap_buf_down, { desc = "Swap buffer down" })
--- map("n", "??k", ss.swap_buf_up, { desc = "Swap buffer up" })
--- map("n", "??l", ss.swap_buf_right, { desc = "Swap buffer right" })
