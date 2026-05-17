@@ -25,6 +25,7 @@ vim.schedule(function()
   utils.set_if_executable(formatters_by_ft, "sh",     "shfmt")
   utils.set_if_executable(formatters_by_ft, "lua",    "stylua")
   utils.set_if_executable(formatters_by_ft, "zig",    "zig", { "zigfmt" })
+  utils.set_if_executable(formatters_by_ft, "rust",   "rustfmt")
 
   formatters_by_ft.typst = { "lsp_format" }
 
