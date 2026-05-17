@@ -8,9 +8,6 @@ vim.api.nvim_create_autocmd("InsertEnter", {
       { src = "https://github.com/saghen/blink.cmp" },
     })
 
-    -- ===========================================================================
-    -- Setup
-    -- ===========================================================================
     require("blink.cmp").setup({
       appearance = { use_nvim_cmp_as_default = false },
       completion = {
@@ -23,12 +20,17 @@ vim.api.nvim_create_autocmd("InsertEnter", {
       },
       signature = { enabled = true, window = { border = "single" } },
       sources = {
-        default = { "lsp", "path", "buffer" },
+        default = { "lsp", "path", "buffer", "snippets" },
         providers = { buffer = { min_keyword_length = 4 } },
+      },
+      snippets = {
+        expand = function(snippet)
+          MiniSnippets.expand({ body = snippet })
+        end,
       },
       cmdline = { enabled = true },
       fuzzy = {
-        implementation = "lua",
+        implementation = "prefer_rust",
       },
     })
   end,
