@@ -3,7 +3,16 @@
 -- =============================================================================
 vim.pack.add({
   { src = "https://github.com/echasnovski/mini.nvim" },
+  { src = "https://github.com/rafamadriz/friendly-snippets" },
 })
+
+-- mini.icons primero: otros módulos pueden necesitar el mock de nvim-web-devicons
+package.preload["nvim-web-devicons"] = function()
+  require("mini.icons").mock_nvim_web_devicons()
+  return package.loaded["nvim-web-devicons"]
+end
+require("mini.icons").setup()
+require("mini.icons").tweak_lsp_kind()
 
 -- =============================================================================
 -- Mini Clue - Ayuda contextual de atajos
@@ -137,6 +146,15 @@ require("mini.hipatterns").setup({
 })
 
 -- =============================================================================
+-- Mini Snippets - Motor de snippets
+-- =============================================================================
+require("mini.snippets").setup({
+  snippets = {
+    require("mini.snippets").gen_loader.from_lang(),
+  },
+})
+
+-- =============================================================================
 -- Mini Statusline - Barra de estado
 -- =============================================================================
 local Ministatus = require("mini.statusline")
@@ -185,13 +203,3 @@ Ministatus.setup({
   use_icons = true,
   set_vim_settings = true,
 })
-
--- =============================================================================
--- Mini Icons - Iconos y mock de nvim-web-devicons
--- =============================================================================
-package.preload["nvim-web-devicons"] = function()
-  require("mini.icons").mock_nvim_web_devicons()
-  return package.loaded["nvim-web-devicons"]
-end
-require("mini.icons").setup()
-require("mini.icons").tweak_lsp_kind()
