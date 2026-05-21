@@ -30,6 +30,47 @@ api.nvim_create_autocmd("BufWritePre", {
 
 local auto_read = api.nvim_create_augroup("auto_read", { clear = true })
 
+local function refresh_changed_buffer(bufnr)
+  if not api.nvim_buf_is_valid(bufnr) then
+    return
+  end
+
+  if vim.bo[bufnr].buftype ~= "" or not vim.bo[bufnr].modifiable then
+    return
+  end
+
+  local view = nil
+  local current_buf = api.nvim_get_current_buf()
+  if current_buf == bufnr then
+    view = vim.fn.winsaveview()
+  end
+
+  pcall(vim.treesitter.stop, bufnr)
+
+  vim.api.nvim_buf_call(bufnr, function()
+    vim.cmd("silent! keepalt keepjumps edit!")
+  end)
+
+  local ok = pcall(vim.treesitter.start, bufnr)
+  if ok then
+    for _, win in ipairs(vim.fn.win_findbuf(bufnr)) do
+      if api.nvim_win_is_valid(win) then
+        vim.wo[win].foldmethod = "expr"
+        vim.wo[win].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.wo[win].foldlevel = 99
+      end
+    end
+
+    vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end
+
+  if view and api.nvim_get_current_buf() == bufnr then
+    vim.fn.winrestview(view)
+  end
+
+  vim.cmd("redraw!")
+end
+
 -- Auto-reload archivos cambiados externamente
 api.nvim_create_autocmd("FocusGained", {
   group = auto_read,
@@ -45,7 +86,11 @@ api.nvim_create_autocmd("FocusGained", {
 api.nvim_create_autocmd("FileChangedShellPost", {
   group = auto_read,
   desc = "Notificar cambio de archivo en disco",
-  callback = function()
+  callback = function(args)
+    vim.schedule(function()
+      refresh_changed_buffer(args.buf)
+    end)
+
     vim.notify("Archivo cambió en disco. Buffer recargado!", vim.log.levels.WARN)
   end,
 })
@@ -110,7 +155,10 @@ api.nvim_create_autocmd("FileType", {
   desc = "Activar spell en filetypes de escritura",
   callback = function()
     vim.opt_local.spell = true
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
     vim.opt_local.softtabstop = 2
+    vim.opt_local.expandtab = true
   end,
 })
 
@@ -123,4 +171,3 @@ api.nvim_create_autocmd("FileType", {
     vim.opt_local.formatoptions:remove("t")
   end,
 })
-

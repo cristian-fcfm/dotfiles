@@ -78,6 +78,7 @@ vim.opt.shortmess:append("S")
 vim.opt.shortmess:append("I")
 
 -- Archivos
+vim.opt.autoread = true
 vim.opt.undofile = true
 vim.opt.autowrite = true
 vim.opt.confirm = true
