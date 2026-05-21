@@ -25,12 +25,15 @@ vim.api.nvim_create_autocmd("InsertEnter", {
       },
       snippets = {
         expand = function(snippet)
-          MiniSnippets.expand({ body = snippet })
+          vim.snippet.expand(snippet)
         end,
       },
       cmdline = { enabled = true },
       fuzzy = {
         implementation = "prefer_rust",
+      },
+      keymap = {
+        preset = "super-tab",
       },
     })
   end,
