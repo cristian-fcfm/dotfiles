@@ -1,0 +1,25 @@
+{
+  "Division principal": {
+    "prefix": "div1",
+    "body": [
+      "# ============================================================================="
+    ],
+    "description": "Linea de division principal con ="
+  },
+  "Division principal con titulo": {
+    "prefix": "div1t",
+    "body": [
+      "# =============================================================================",
+      "# ${1:Titulo}",
+      "# ============================================================================="
+    ],
+    "description": "Bloque de division principal con titulo"
+  },
+  "Division secundaria": {
+    "prefix": "div2",
+    "body": [
+      "# -- ${1:titulo} ────────────────────────────────────────────────────────────────"
+    ],
+    "description": "Linea de division secundaria con -- titulo"
+  }
+}
