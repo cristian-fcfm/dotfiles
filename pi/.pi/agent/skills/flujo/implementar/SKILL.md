@@ -1,6 +1,6 @@
 ---
 name: implementar
-description: Implementa el diseño acordado aplicando los principios activos y respetando el contexto del proyecto. Úsala tras diseñar/alinear, para escribir código de forma incremental y verificable. Triggers: "implementar", "construye", "escribe el código", fase de implementación tras un plan aprobado.
+description: 'Implementa el diseño acordado aplicando los principios activos y respetando el contexto del proyecto. Úsala tras diseñar/alinear, para escribir código de forma incremental y verificable. Triggers: "implementar", "construye", "escribe el código", fase de implementación tras un plan aprobado.'
 ---
 
 # Implementar

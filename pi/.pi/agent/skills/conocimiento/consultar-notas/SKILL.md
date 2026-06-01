@@ -1,6 +1,6 @@
 ---
 name: consultar-notas
-description: Busca y recupera conocimiento del vault de notas personales de Cristian en ~/Documents/notes (libros, aprendizajes, principios destilados). Úsala cuando necesites validar una decisión de diseño contra sus principios, saber qué dice un libro o nota que estudió, detectar si un tema es un gap, o citar fuentes de su vault. Triggers: "qué dice mi nota/libro", "según mis principios", "mi vault", validar diseño, buscar contexto. Usa las herramientas zk (búsqueda full-text indexada en markdown) y rg (grep crudo y YAML).
+description: 'Busca y recupera conocimiento del vault de notas personales de Cristian en ~/Documents/notes (libros, aprendizajes, principios destilados). Úsala cuando necesites validar una decisión de diseño contra sus principios, saber qué dice un libro o nota que estudió, detectar si un tema es un gap, o citar fuentes de su vault. Triggers: "qué dice mi nota/libro", "según mis principios", "mi vault", validar diseño, buscar contexto. Usa las herramientas zk (búsqueda full-text indexada en markdown) y rg (grep crudo y YAML).'
 ---
 
 # Consultar notas

@@ -1,6 +1,6 @@
 ---
 name: disenar
-description: Propone un diseño de implementación consultando los principios y el contexto del proyecto antes de escribir código. Úsala después de explorar y alinear, para elegir un enfoque con trade-offs explícitos. Triggers: "diseñar", "cómo construyo", "qué enfoque", "propón un diseño", fase de diseño previa a implementar.
+description: 'Propone un diseño de implementación consultando los principios y el contexto del proyecto antes de escribir código. Úsala después de explorar y alinear, para elegir un enfoque con trade-offs explícitos. Triggers: "diseñar", "cómo construyo", "qué enfoque", "propón un diseño", fase de diseño previa a implementar.'
 ---
 
 # Diseñar

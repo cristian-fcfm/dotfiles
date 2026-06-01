@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Desarrollo guiado por tests (Test-Driven Development) con loop red-green-refactor. Úsala para construir features o arreglar bugs con TDD, cuando se mencione "red-green-refactor", se quieran integration tests, o desarrollo test-first. Triggers: "tdd", "red-green-refactor", "test primero", "test-first", "integration tests".
+description: 'Desarrollo guiado por tests (Test-Driven Development) con loop red-green-refactor. Úsala para construir features o arreglar bugs con TDD, cuando se mencione "red-green-refactor", se quieran integration tests, o desarrollo test-first. Triggers: "tdd", "red-green-refactor", "test primero", "test-first", "integration tests".'
 ---
 
 <!-- Adaptado (ES/bilingüe) de mattpocock/skills (MIT). Ver LICENSE en esta carpeta. -->

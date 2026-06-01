@@ -1,6 +1,6 @@
 ---
 name: alinear
-description: Sesión de interrogatorio (grilling) que desafía tu plan contra el modelo de dominio del proyecto, afina la terminología y actualiza la documentación (CONTEXT.md, ADRs) sobre la marcha. Úsala antes de diseñar/implementar para estresar un plan y alinearte con el agente una pregunta a la vez. Triggers: "aliname", "grill", "interrógame", "estresa el plan", "no estoy seguro de qué quiero", antes de construir algo no trivial.
+description: 'Sesión de interrogatorio (grilling) que desafía tu plan contra el modelo de dominio del proyecto, afina la terminología y actualiza la documentación (CONTEXT.md, ADRs) sobre la marcha. Úsala antes de diseñar/implementar para estresar un plan y alinearte con el agente una pregunta a la vez. Triggers: "aliname", "grill", "interrógame", "estresa el plan", "no estoy seguro de qué quiero", antes de construir algo no trivial.'
 ---
 
 <que-hacer>
