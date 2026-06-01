@@ -1,6 +1,6 @@
 ---
 name: diagnose
-description: Loop disciplinado de diagnóstico para bugs difíciles y regresiones de rendimiento. Reproducir → minimizar → hipótesis → instrumentar → arreglar → regression-test. Úsala cuando se diga "diagnostica esto"/"debuggea esto", se reporte un bug, algo esté roto/lanzando errores/fallando, o se describa una regresión de performance. Triggers: "diagnose", "debug", "bug", "está roto", "falla", "regresión de rendimiento".
+description: 'Loop disciplinado de diagnóstico para bugs difíciles y regresiones de rendimiento. Reproducir → minimizar → hipótesis → instrumentar → arreglar → regression-test. Úsala cuando se diga "diagnostica esto"/"debuggea esto", se reporte un bug, algo esté roto/lanzando errores/fallando, o se describa una regresión de performance. Triggers: "diagnose", "debug", "bug", "está roto", "falla", "regresión de rendimiento".'
 ---
 
 <!-- Adaptado (ES/bilingüe) de mattpocock/skills (MIT). Ver LICENSE en esta carpeta. -->

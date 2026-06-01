@@ -1,6 +1,6 @@
 ---
 name: destilar
-description: Convierte una nota o aprendizaje del vault de Cristian en prosa en principios accionables estructurados (principios.yaml) para que el agente los aplique. Úsala tras estudiar un libro/tema o cuando quieras cerrar un gap de aprendizaje. Triggers: "destilar", "convertir mi nota en principios", "actualizar principios.yaml", "cerrar un gap".
+description: 'Convierte una nota o aprendizaje del vault de Cristian en prosa en principios accionables estructurados (principios.yaml) para que el agente los aplique. Úsala tras estudiar un libro/tema o cuando quieras cerrar un gap de aprendizaje. Triggers: "destilar", "convertir mi nota en principios", "actualizar principios.yaml", "cerrar un gap".'
 ---
 
 # Destilar

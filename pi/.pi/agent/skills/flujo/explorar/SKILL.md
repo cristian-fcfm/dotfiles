@@ -1,6 +1,6 @@
 ---
 name: explorar
-description: Mapea el código relevante de un proyecto antes de hacer cambios, en modo solo lectura. Úsala al inicio de una tarea para entender estructura, puntos de entrada/salida y riesgos. Triggers: "explorar", "entender el código", "mapear", "antes de tocar nada", primera fase de una tarea nueva.
+description: 'Mapea el código relevante de un proyecto antes de hacer cambios, en modo solo lectura. Úsala al inicio de una tarea para entender estructura, puntos de entrada/salida y riesgos. Triggers: "explorar", "entender el código", "mapear", "antes de tocar nada", primera fase de una tarea nueva.'
 ---
 
 # Explorar

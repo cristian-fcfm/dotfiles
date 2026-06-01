@@ -5,14 +5,13 @@
 **Estilo integration**: testean a través de interfaces reales, no de mocks de partes
 internas.
 
-```typescript
-// BIEN: testea comportamiento observable
-test("user can checkout with valid cart", async () => {
-  const cart = createCart();
-  cart.add(product);
-  const result = await checkout(cart, paymentMethod);
-  expect(result.status).toBe("confirmed");
-});
+```python
+# BIEN: testea comportamiento observable
+async def test_user_can_checkout_with_valid_cart():
+    cart = create_cart()
+    cart.add(product)
+    result = await checkout(cart, payment_method)
+    assert result.status == "confirmed"
 ```
 
 Características:
@@ -27,13 +26,12 @@ Características:
 
 **Tests de detalle de implementación**: acoplados a la estructura interna.
 
-```typescript
-// MAL: testea detalles de implementación
-test("checkout calls paymentService.process", async () => {
-  const mockPayment = jest.mock(paymentService);
-  await checkout(cart, payment);
-  expect(mockPayment.process).toHaveBeenCalledWith(cart.total);
-});
+```python
+# MAL: testea detalles de implementación
+async def test_checkout_calls_payment_service_process(mocker):
+    mock_payment = mocker.patch("checkout.payment_service")
+    await checkout(cart, payment)
+    mock_payment.process.assert_called_once_with(cart.total)
 ```
 
 Señales de alarma (red flags):
@@ -45,18 +43,16 @@ Señales de alarma (red flags):
 - El nombre del test describe CÓMO, no QUÉ
 - Verificar por medios externos en vez de la interfaz
 
-```typescript
-// MAL: salta la interfaz para verificar
-test("createUser saves to database", async () => {
-  await createUser({ name: "Alice" });
-  const row = await db.query("SELECT * FROM users WHERE name = ?", ["Alice"]);
-  expect(row).toBeDefined();
-});
+```python
+# MAL: salta la interfaz para verificar
+async def test_create_user_saves_to_database():
+    await create_user(name="Alice")
+    row = await db.fetch_one("SELECT * FROM users WHERE name = :n", {"n": "Alice"})
+    assert row is not None
 
-// BIEN: verifica a través de la interfaz
-test("createUser makes user retrievable", async () => {
-  const user = await createUser({ name: "Alice" });
-  const retrieved = await getUser(user.id);
-  expect(retrieved.name).toBe("Alice");
-});
+# BIEN: verifica a través de la interfaz
+async def test_create_user_makes_user_retrievable():
+    user = await create_user(name="Alice")
+    retrieved = await get_user(user.id)
+    assert retrieved.name == "Alice"
 ```

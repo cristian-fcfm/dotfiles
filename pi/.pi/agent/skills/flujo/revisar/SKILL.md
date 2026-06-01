@@ -1,6 +1,6 @@
 ---
 name: revisar
-description: Checklist de calidad antes de dar una tarea por terminada (correctitud, errores, tests, seguridad, principios, mantenibilidad). Úsala al final de una implementación o sobre cambios git pendientes. Triggers: "revisar", "review", "checklist", "antes de terminar", "revisa estos cambios".
+description: 'Checklist de calidad antes de dar una tarea por terminada (correctitud, errores, tests, seguridad, principios, mantenibilidad). Úsala al final de una implementación o sobre cambios git pendientes. Triggers: "revisar", "review", "checklist", "antes de terminar", "revisa estos cambios".'
 ---
 
 # Revisar
