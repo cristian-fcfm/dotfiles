@@ -76,13 +76,14 @@ puedes auto-cargarlas según su `description`. Cuando una esté activa, sigue su
 - `/skill:disenar` — proponer diseño consultando principios relevantes
 - `/skill:implementar` — ejecutar con las reglas activas
 - `/skill:tdd` — construir features o arreglar bugs con red-green-refactor
+- `/skill:sdd` — desarrollo dirigido por software (Uncle Bob) para features complejas (Spec → Gherkin → Puerta Humana → TDD → Mutación)
+- `/skill:kaizen` — flujo ligero para cambios aislados, deuda técnica o micro-refactors
 - `/skill:diagnose` — loop disciplinado para bugs difíciles y regresiones de performance
 - `/skill:revisar` — checklist de calidad antes de dar por terminado
 - `/skill:destilar` — convertir una nota/aprendizaje del vault en principios estructurados
 - `/skill:consultar-notas` — buscar en mi vault (libros, notas, principios)
 
-Reglas de uso: para código nuevo no trivial, considera `tdd`; ante un bug o regresión,
-usa `diagnose`; antes de un cambio grande o ambiguo, propón `alinear`.
+Reglas de uso: para features nuevas no triviales, usa `sdd`; para mejoras de código o infra aisladas, usa `kaizen`; ante un bug o regresión, usa `diagnose`; antes de un cambio grande o ambiguo, propón `alinear`.
 
 ## Convenciones generales
 
