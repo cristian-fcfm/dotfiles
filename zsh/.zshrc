@@ -16,6 +16,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/Documents/development/work/falabella/service-account.json"
 export GOOGLE_CLOUD_PROJECT=flb-rtl-atenea-reg-dev
 export GOOGLE_CLOUD_LOCATION=global
+export GOOGLE_VERTEX_LOCATION=global
 export NODE_TLS_REJECT_UNAUTHORIZED=0
 
 # Azure
