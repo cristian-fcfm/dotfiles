@@ -6,6 +6,13 @@ vim.pack.add({
   { src = "https://github.com/mrjones2014/smart-splits.nvim" },
 })
 
+-- Instalar kittens si no existen
+local plugin_path = vim.fn.stdpath("data") .. "/site/pack/core/opt/smart-splits.nvim"
+local kittens_script = plugin_path .. "/kitty/install-kittens.bash"
+if vim.fn.filereadable(kittens_script) == 1 then
+  vim.fn.system("cd " .. vim.fn.shellescape(plugin_path) .. " && bash ./kitty/install-kittens.bash")
+end
+
 local ss = require("smart-splits")
 
 ss.setup({
