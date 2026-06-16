@@ -1,6 +1,6 @@
--- =============================================================================
+-- ============================================================================
 -- Opciones de Neovim
--- =============================================================================
+-- ============================================================================
 
 -- Performance
 vim.opt.timeoutlen = 300
@@ -95,6 +95,7 @@ utils.may_create_dir(vim.fn.stdpath("data") .. "/backup")
 vim.opt.textwidth = 80
 vim.opt.winwidth = 88
 vim.opt.scrolloff = 15
+vim.opt.scroll = 10
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.splitkeep = "screen"

@@ -1,6 +1,6 @@
--- =============================================================================
+-- ============================================================================
 -- LSP: configuracion central (on_attach, diagnosticos, enable)
--- =============================================================================
+-- ============================================================================
 vim.schedule(function()
   local on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
