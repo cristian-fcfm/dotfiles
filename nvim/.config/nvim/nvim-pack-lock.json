@@ -2,7 +2,8 @@
   "plugins": {
     "blink.cmp": {
       "rev": "b4b7cbb52bab6c716b317433fa9348a070cccee5",
-      "src": "https://github.com/saghen/blink.cmp"
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": "1.0.0 - 2.0.0"
     },
     "conform.nvim": {
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
@@ -71,6 +72,14 @@
     "snacks.nvim": {
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
       "src": "https://github.com/folke/snacks.nvim"
+    },
+    "typst-preview.nvim": {
+      "rev": "87db18b8d19c8b0eed399f52e4c527ce5afe4817",
+      "src": "https://github.com/chomosuke/typst-preview.nvim"
+    },
+    "typst.vim": {
+      "rev": "1d5436c0f55490893892441c0eca55e6cdf4916c",
+      "src": "https://github.com/kaarmu/typst.vim"
     },
     "venv-selector.nvim": {
       "rev": "bcb2f58533c59b01565285eba49693f00bc460f5",
