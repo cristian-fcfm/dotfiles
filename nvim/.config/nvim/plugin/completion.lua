@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
   once = true,
   callback = function()
     vim.pack.add({
-      { src = "https://github.com/saghen/blink.cmp" },
+      { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1") },
     })
 
     require("blink.cmp").setup({
