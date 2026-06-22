@@ -23,9 +23,9 @@ Una ruta a una nota en `~/Documents/notes`, o un tema. Si es un tema, usa la ski
    - `id` estable y único; evita colisiones con los existentes.
    - Arranca siempre en `estado: propuesto` (yo lo subo a `confirmado` al validar).
 4. Muéstrame los records propuestos y **espera mi confirmación** antes de escribir.
-5. Tras confirmar: añádelos a `~/Documents/notes/3-resources/principios.yaml`.
+5. Tras confirmar: añádelos a `~/Documents/notes/3-resources/zk/principios.yaml`.
 6. Si esta nota cierra un gap, actualiza la entrada correspondiente en
-   `~/Documents/notes/3-resources/aprendizaje.yaml` a `estado: destilado`.
+   `~/Documents/notes/3-resources/zk/aprendizaje.yaml` a `estado: destilado`.
 
 ## Regla
 
