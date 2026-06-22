@@ -58,7 +58,7 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "render-markdown.nvim": {
-      "rev": "4ae2f2e8e8c66d070f33cfb53d1fc4179e1d",
+      "rev": "4ae2f2e8e8c66d070f33cfb57cb6f867e3baf5d9",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "schemastore.nvim": {
@@ -80,10 +80,6 @@
     "typst.vim": {
       "rev": "1d5436c0f55490893892441c0eca55e6cdf4916c",
       "src": "https://github.com/kaarmu/typst.vim"
-    },
-    "venv-selector.nvim": {
-      "rev": "bcb2f58533c59b01565285eba49693f00bc460f5",
-      "src": "https://github.com/linux-cultist/venv-selector.nvim"
     },
     "vim-slime": {
       "rev": "2cfdc3b24e7ebaa64f5a1a04b00555600c622b79",
