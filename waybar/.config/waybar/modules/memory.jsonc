@@ -1,6 +1,6 @@
 {
   "memory": {
-    "format": "{}%  ",
+    "format": "{}% ",
     "on-click": "pypr toggle btop",
     "tooltip": true,
     "interval": 2,

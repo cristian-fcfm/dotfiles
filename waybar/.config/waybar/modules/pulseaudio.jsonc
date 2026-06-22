@@ -3,7 +3,7 @@
     "format": "{format_source} {volume}% {icon}",
     "format-muted": "{format_source} {volume}% ",
     "format-source": "",
-    "format-source-muted": " ",
+    "format-source-muted": "",
     "format-icons": {
       "headphone": "",
       "hands-free": "",

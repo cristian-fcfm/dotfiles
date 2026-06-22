@@ -136,16 +136,12 @@ tooltip label {
 #network.disconnected,
 #network.disabled,
 #pulseaudio.muted,
-#memory.critical,
-#cpu.critical,
-#temperature.critical {
+#memory.critical {
   color: @critical;
 }
 
 #network.linked,
-#memory.warning,
-#cpu.warning,
-#temperature.warning {
+#memory.warning {
   color: @warning;
 }
 
