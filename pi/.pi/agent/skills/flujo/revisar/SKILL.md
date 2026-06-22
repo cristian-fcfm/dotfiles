@@ -23,6 +23,16 @@ Fase REVISAR. Revisa lo indicado; si no se especifica, revisa los cambios actual
 7. **Mantenibilidad**: simplicidad, nombres consistentes con el dominio,
    ¿lo entenderé en 3 meses? (`ddia-mantenibilidad-01`); busca módulos profundos
    (deep modules: interfaz simple, implementación rica).
+8. **Sobre-ingeniería (over-engineering)**: pasada de poda. Devuelve una
+   *delete-list* de lo que sobra (principio `simplicidad-escalera-01`):
+   abstracciones con una sola implementación, factories de un solo producto,
+   config para valores que nunca cambian, dependencias nuevas que unas líneas
+   cubrían, boilerplate "para después", código que nadie pidió. Para cada ítem:
+   `archivo:línea` y qué borrar o colapsar. No cuentes como sobra las salvaguardas
+   (`simplicidad-salvaguardas-01`).
+9. **Deuda marcada**: busca comentarios `ponytail:` (`rg ponytail:`). Cada uno es
+   un atajo con techo conocido; si alguno ya alcanzó su techo o es relevante para
+   esta tarea, recuérdame registrarlo como gap en `aprendizaje.yaml`.
 
 ## Cierre
 
