@@ -3,9 +3,9 @@
     "format": "{}",
     "interval": "once",
     "exec": "echo ''",
-    "tooltip": "false",
+    "tooltip": false,
     "exec-if": "pgrep 'wf-recorder'",
     "on-click": "exec $HOME/.config/hypr/scripts/rofi/recording",
-    "signal": 8,
+    "signal": 10,
   },
 }
