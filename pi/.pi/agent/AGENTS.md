@@ -85,6 +85,17 @@ puedes auto-cargarlas según su `description`. Cuando una esté activa, sigue su
 
 Reglas de uso: para features nuevas no triviales, usa `sdd`; para mejoras de código o infra aisladas, usa `kaizen`; ante un bug o regresión, usa `diagnose`; antes de un cambio grande o ambiguo, propón `alinear`.
 
+## Escalera de simplicidad (transversal)
+
+Antes de escribir código en cualquier fase, prefiere la solución más perezosa que
+*de verdad funciona*. Detente en el primer peldaño que aguante: (1) ¿necesita
+existir? (YAGNI) → (2) ¿stdlib? → (3) ¿feature nativa de la plataforma? → (4)
+¿dependencia ya instalada? → (5) ¿una línea? → (6) el mínimo que funciona. Es un
+reflejo, no una investigación. Lazy es eficiente, no descuidado: nunca recortes
+validación en límites de confianza, manejo de errores, seguridad, accesibilidad ni
+lo que pida explícitamente. La skill `disenar` la aplica como filtro previo y
+`revisar` la usa como pasada de poda. (Principios `simplicidad-*` en mi vault.)
+
 ## Convenciones generales
 
 - Idioma: español.
