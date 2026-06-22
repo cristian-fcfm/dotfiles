@@ -18,10 +18,10 @@ sobre archivos markdown, más datos estructurados en YAML.
 
 ## Fuentes clave (revisa primero estas)
 
-- `3-resources/principios.yaml` — reglas accionables destiladas (lo más directo).
-- `3-resources/aprendizaje.yaml` — temas que aún no domina (gaps).
-- `3-resources/*.md` — resúmenes de libros en prosa (ej.
-  `designing-data-intensive-applications.md`, `building-applications-with-ai-agents.md`).
+- `3-resources/zk/principios.yaml` — reglas accionables destiladas (lo más directo).
+- `3-resources/zk/aprendizaje.yaml` — temas que aún no domina (gaps).
+- `3-resources/libros/*.md` — resúmenes de libros en prosa (ej.
+  `3-resources/libros/designing-data-intensive-applications.md`, `3-resources/libros/building-applications-with-ai-agents.md`).
 
 ## Cómo buscar
 
@@ -49,9 +49,9 @@ rg -i "replicacion|consistencia" ~/Documents/notes --type md -l
 
 ```bash
 # Principios por dominio
-rg -A6 "aplica_a:.*backend" ~/Documents/notes/3-resources/principios.yaml
+rg -A6 "aplica_a:.*backend" ~/Documents/notes/3-resources/zk/principios.yaml
 # Un principio por id
-rg -A8 "id: ddia-idempotencia-01" ~/Documents/notes/3-resources/principios.yaml
+rg -A8 "id: ddia-idempotencia-01" ~/Documents/notes/3-resources/zk/principios.yaml
 ```
 
 ## Reglas

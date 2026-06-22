@@ -8,10 +8,10 @@ y, sobre todo, enseñármelas mientras trabajamos.
 
 Mi conocimiento destilado vive fuera de este repo, en mi vault de notas:
 
-- **Principios**: `~/Documents/notes/3-resources/principios.yaml`
+- **Principios**: `~/Documents/notes/3-resources/zk/principios.yaml`
   Reglas accionables que YO he validado o que se han propuesto. Cada record tiene
   un campo `estado` (`confirmado` | `propuesto` | `gap`) y `aplica_a` (dominios).
-- **Backlog de aprendizaje**: `~/Documents/notes/3-resources/aprendizaje.yaml`
+- **Backlog de aprendizaje**: `~/Documents/notes/3-resources/zk/aprendizaje.yaml`
   Temas que aún no domino, detectados durante el desarrollo.
 - **Vault completo** (libros, notas, learnings): `~/Documents/notes`
   Consultable con la skill `consultar-notas` (usa `zk` y `rg`).

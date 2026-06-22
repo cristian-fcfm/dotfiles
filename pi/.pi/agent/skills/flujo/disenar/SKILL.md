@@ -33,7 +33,7 @@ y la calibración que pide el hardware real nunca se simplifican
 ## Pasos
 
 1. Consulta mis principios con la skill `consultar-notas` (o lee
-   `~/Documents/notes/3-resources/principios.yaml`) y selecciona los que encajen
+   `~/Documents/notes/3-resources/zk/principios.yaml`) y selecciona los que encajen
    por `aplica_a`/`trigger`.
 2. Si el repo tiene `CONTEXT.md`/`docs/adr/`, respeta su glosario y decisiones.
 3. Aplica la REGLA DE PRECEDENCIA de AGENTS.md:
