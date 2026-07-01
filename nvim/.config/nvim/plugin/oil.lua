@@ -7,9 +7,13 @@ local function load_oil(float)
   if not oil_loaded then
     vim.pack.add({
       { src = "https://github.com/stevearc/oil.nvim" },
+      { src = "https://github.com/refractalize/oil-git-status.nvim" },
     })
 
     require("oil").setup({
+      win_options = {
+        signcolumn = "yes:1",
+      },
       view_options = { show_hidden = true },
       float = {
         padding = 2,
@@ -46,6 +50,9 @@ local function load_oil(float)
         },
       },
     })
+
+    require("oil-git-status").setup()
+
     oil_loaded = true
   end
 
