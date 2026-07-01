@@ -40,6 +40,9 @@ vim.schedule(function()
     },
     formatters = {
       shfmt = { prepend_args = { "-i", "2" } },
+      prettier = {
+        prepend_args = { "--prose-wrap", "always", "--print-width", "80" },
+      },
     },
   })
 end)
