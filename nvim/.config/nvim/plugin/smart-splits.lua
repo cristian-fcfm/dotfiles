@@ -27,8 +27,10 @@ vim.keymap.set("n", "<C-j>", ss.move_cursor_down, { desc = "Ir al split inferior
 vim.keymap.set("n", "<C-k>", ss.move_cursor_up, { desc = "Ir al split superior" })
 vim.keymap.set("n", "<C-l>", ss.move_cursor_right, { desc = "Ir al split derecho" })
 
--- Keymaps: swap de buffers entre splits (Ctrl+Shift+HJKL)
-vim.keymap.set("n", "<C-S-h>", ss.swap_buf_left, { desc = "Swap buffer izquierda" })
-vim.keymap.set("n", "<C-S-j>", ss.swap_buf_down, { desc = "Swap buffer abajo" })
-vim.keymap.set("n", "<C-S-k>", ss.swap_buf_up, { desc = "Swap buffer arriba" })
-vim.keymap.set("n", "<C-S-l>", ss.swap_buf_right, { desc = "Swap buffer derecha" })
+-- Keymaps: swap de buffers entre splits (<leader>w + HJKL)
+-- Nota: <C-S-hjkl> se reserva para mini.move (mover lineas/bloques),
+-- segun el esquema documentado en kitty/keybindings.conf
+vim.keymap.set("n", "<leader>wH", ss.swap_buf_left, { desc = "Swap buffer izquierda" })
+vim.keymap.set("n", "<leader>wJ", ss.swap_buf_down, { desc = "Swap buffer abajo" })
+vim.keymap.set("n", "<leader>wK", ss.swap_buf_up, { desc = "Swap buffer arriba" })
+vim.keymap.set("n", "<leader>wL", ss.swap_buf_right, { desc = "Swap buffer derecha" })

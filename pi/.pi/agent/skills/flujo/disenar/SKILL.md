@@ -46,7 +46,7 @@ y la calibración que pide el hardware real nunca se simplifican
    simple de la escalera salvo que un principio mío o una salvaguarda pidan más.
 5. Si recomiendas una simplificación deliberada con un techo conocido (un lock
    global, un scan O(n²), una heurística naíf), nómbrala con un comentario
-   `# ponytail:` que diga el techo y el camino de upgrade (principio
+   `# YAGNI:` que diga el techo y el camino de upgrade (principio
    `simplicidad-marcador-01`); así se lee como intención, no como descuido.
 6. Si la decisión es difícil de revertir y fue un trade-off real, sugiere
    registrar un ADR (lo gestiona la skill `alinear`).

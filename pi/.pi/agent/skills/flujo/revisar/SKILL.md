@@ -30,7 +30,7 @@ Fase REVISAR. Revisa lo indicado; si no se especifica, revisa los cambios actual
    cubrían, boilerplate "para después", código que nadie pidió. Para cada ítem:
    `archivo:línea` y qué borrar o colapsar. No cuentes como sobra las salvaguardas
    (`simplicidad-salvaguardas-01`).
-9. **Deuda marcada**: busca comentarios `ponytail:` (`rg ponytail:`). Cada uno es
+9. **Deuda marcada**: busca comentarios `YAGNI:` (`rg YAGNI:`). Cada uno es
    un atajo con techo conocido; si alguno ya alcanzó su techo o es relevante para
    esta tarea, recuérdame registrarlo como gap en `aprendizaje.yaml`.
 

@@ -47,6 +47,24 @@ require("snacks").setup({
   picker = {
     enabled = true,
     matcher = { frecency = true, history_bonus = true },
+    layouts = {
+      -- Preview grande arriba, lista pequeña abajo para recorrer archivos
+      preview_top = {
+        layout = {
+          backdrop = false,
+          width = 0.9,
+          min_width = 100,
+          height = 0.9,
+          box = "vertical",
+          border = "rounded",
+          title = "{title} {live} {flags}",
+          title_pos = "center",
+          { win = "preview", title = "{preview}", height = 0.7, border = "bottom" },
+          { win = "input", height = 1, border = "bottom" },
+          { win = "list", border = "none" },
+        },
+      },
+    },
   },
 
   lazygit = { enabled = true },
