@@ -8,9 +8,6 @@ vim.g.maplocalleader = ","
 
 local map = vim.keymap.set
 
--- Desactivar comportamiento por defecto de espacio
-map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-
 -- ─── Archivos ───────────────────────────────────────────────────────────────
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "Guardar archivo" })
 map("n", "<leader>S", "<cmd>noautocmd w<CR>", { desc = "Guardar sin autocmds" })
@@ -80,7 +77,7 @@ map("n", "<leader>gy", function() MiniDiff.do_hunks(0, "yank") end, { desc = "Co
 map("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
 map("n", "<leader>gl", function() Snacks.picker.git_log() end, { desc = "Log de git" })
 map("n", "<leader>gL", function() Snacks.picker.git_log_file() end, { desc = "Log de git (archivo)" })
-map("n", "<leader>gs", function() Snacks.picker.git_status() end, { desc = "Estado de git" })
+map("n", "<leader>gs", function() Snacks.picker.git_status({ layout = "preview_top" }) end, { desc = "Estado de git" })
 map("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Diff de git" })
 map("n", "<leader>gb", function() Snacks.git_blame_line() end, { desc = "Blame de linea" })
 

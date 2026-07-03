@@ -21,10 +21,10 @@ vim.schedule(function()
     map("gn", vim.lsp.buf.rename, "Renombrar")
     map("ga", vim.lsp.buf.code_action, "Acciones de codigo", { "n", "x" })
     map("K", vim.lsp.buf.hover, "Documentacion flotante")
-    map("gk", vim.lsp.buf.signature_help, "Ayuda de firma")
+    map("gK", vim.lsp.buf.signature_help, "Ayuda de firma")
 
     if client.server_capabilities.inlayHintProvider then
-      map("gh", function()
+      map("<leader>lh", function()
         vim.lsp.inlay_hint.enable(
           not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }),
           { bufnr = bufnr }
@@ -69,7 +69,6 @@ vim.schedule(function()
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       if client then
         on_attach(client, args.buf)
-        MiniClue.ensure_buf_triggers(args.buf)
       end
     end,
   })

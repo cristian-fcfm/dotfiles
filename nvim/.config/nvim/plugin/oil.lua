@@ -14,7 +14,16 @@ local function load_oil(float)
       win_options = {
         signcolumn = "yes:1",
       },
-      view_options = { show_hidden = true },
+      view_options = {
+        show_hidden = true,
+        is_always_hidden = function(name, bufnr)
+          return name == ".venv"
+            or name == ".ruff_cache"
+            or name == "__pycache__"
+            or name == ".pytest_cache"
+            or name == ".git"
+        end,
+      },
       float = {
         padding = 2,
         max_width = 0.9,
@@ -66,5 +75,9 @@ end
 -- ============================================================================
 -- Atajos de teclado
 -- ============================================================================
-vim.keymap.set("n", "-", function() load_oil(false) end, { desc = "Abrir Oil" })
-vim.keymap.set("n", "--", function() load_oil(true) end, { desc = "Abrir Oil (flotante)" })
+vim.keymap.set("n", "-", function()
+  load_oil(false)
+end, { desc = "Abrir Oil" })
+vim.keymap.set("n", "--", function()
+  load_oil(true)
+end, { desc = "Abrir Oil (flotante)" })

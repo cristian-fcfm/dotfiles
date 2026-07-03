@@ -92,6 +92,10 @@
     "vim-slime-cells": {
       "rev": "2252bc83fc0174c8e67bcf9a519edf2d328b8bc9",
       "src": "https://github.com/klafyvel/vim-slime-cells"
+    },
+    "which-key.nvim": {
+      "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
+      "src": "https://github.com/folke/which-key.nvim"
     }
   }
 }
