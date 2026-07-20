@@ -9,26 +9,10 @@ Fase DISEÑAR. **Aún no implementes.**
 
 ## Paso 0 — Escalera de simplicidad (filtro previo)
 
-Antes de proponer diseño, pasa la solución por esta escalera y **detente en el
-primer peldaño que aguante** (principio `simplicidad-escalera-01`):
-
-1. **¿Esto necesita existir?** Necesidad especulativa → no lo hagas, dilo en una
-   línea (YAGNI).
-2. **¿La librería estándar lo resuelve?** Úsala.
-3. **¿Una feature nativa de la plataforma lo cubre?** (`<input type="date">` en vez
-   de una lib, constraint de BD en vez de código, CSS en vez de JS). Úsala.
-4. **¿Una dependencia ya instalada lo resuelve?** Úsala. No añadas una nueva por
-   lo que unas líneas hacen.
-5. **¿Puede ser una línea?** Una línea.
-6. **Solo entonces:** el mínimo código que funciona.
-
-La escalera es un reflejo, no una investigación: si dos peldaños sirven, toma el
-más alto y sigue. Esto acota el espacio de diseño *antes* de comparar opciones.
-
-No apliques la escalera para recortar salvaguardas: validación en límites de
-confianza, manejo de errores que evita pérdida de datos, seguridad, accesibilidad
-y la calibración que pide el hardware real nunca se simplifican
-(principio `simplicidad-salvaguardas-01`).
+Antes de proponer diseño, pasa la solución por la escalera de simplicidad de
+`AGENTS.md` y **detente en el primer peldaño que aguante**. Aquí su trabajo es
+acotar el espacio de diseño *antes* de comparar opciones: lo que la escalera
+descarta no llega a ser una opción que discutamos.
 
 ## Pasos
 
@@ -41,17 +25,22 @@ y la calibración que pide el hardware real nunca se simplifican
    - `propuesto`  → aplícalo pero avísame que no lo he validado.
    - sin principio → usa el mejor default y **márcalo como gap** (propón entrada
      en `aprendizaje.yaml`, sin escribir hasta que confirme).
-4. Propón 1-2 opciones de diseño con trade-offs. Recomienda una y explica el
+4. Si el diseño toca terreno que no dominas (una librería, un patrón, una API) o
+   yo referencié un repo de ejemplo, investiga antes de proponer: `web_search`
+   para contrastar prácticas actuales (cita la fuente) y `fetch_content` para el
+   repo de referencia (los de GitHub se clonan localmente — explóralo como código
+   real). La investigación acota opciones; no la conviertas en un informe.
+5. Propón 1-2 opciones de diseño con trade-offs. Recomienda una y explica el
    porqué (estoy aprendiendo: enséñame el razonamiento). Prefiere la opción más
    simple de la escalera salvo que un principio mío o una salvaguarda pidan más.
-5. Si recomiendas una simplificación deliberada con un techo conocido (un lock
+6. Si recomiendas una simplificación deliberada con un techo conocido (un lock
    global, un scan O(n²), una heurística naíf), nómbrala con un comentario
    `# YAGNI:` que diga el techo y el camino de upgrade (principio
    `simplicidad-marcador-01`); así se lee como intención, no como descuido.
-6. Si la decisión es difícil de revertir y fue un trade-off real, sugiere
-   registrar un ADR (lo gestiona la skill `alinear`).
+7. Si la decisión es difícil de revertir y fue un trade-off real, sugiere
+   registrar un ADR (lo gestiona la skill `modelo-dominio`).
 
 ## Cierre
 
-Termina con un plan de implementación en pasos cortos y espera mi visto bueno
-antes de pasar a `/skill:implementar` (o a `/skill:tdd` si hay tests de por medio).
+Termina con un plan de implementación en pasos cortos y espera mi visto bueno antes
+de construir. Si hay tests de por medio, lo natural es seguir con `/skill:tdd`.

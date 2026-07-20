@@ -1,6 +1,7 @@
 ---
 name: sdd
-description: 'Desarrollo Dirigido por Software (SDD) estilo Uncle Bob para features complejas. Incluye spec conversada, contrato Gherkin, TDD estricto y review. Triggers: "feature nueva", "sdd", "uncle bob", "desarrollo dirigido por software", "contrato gherkin".'
+description: 'Construye una feature compleja con spec conversada, contrato Gherkin, puerta humana y TDD estricto.'
+disable-model-invocation: true
 ---
 
 # SDD (Desarrollo Dirigido por Software)
