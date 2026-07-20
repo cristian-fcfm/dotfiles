@@ -1,6 +1,7 @@
 ---
 name: destilar
-description: 'Convierte una nota o aprendizaje del vault de Cristian en prosa en principios accionables estructurados (principios.yaml) para que el agente los aplique. Úsala tras estudiar un libro/tema o cuando quieras cerrar un gap de aprendizaje. Triggers: "destilar", "convertir mi nota en principios", "actualizar principios.yaml", "cerrar un gap".'
+description: 'Convierte una nota o aprendizaje del vault en principios accionables en principios.yaml.'
+disable-model-invocation: true
 ---
 
 # Destilar
@@ -11,6 +12,12 @@ Conviertes conocimiento en prosa de mi vault en principios accionables para el a
 
 Una ruta a una nota en `~/Documents/notes`, o un tema. Si es un tema, usa la skill
 `consultar-notas` para encontrar la nota.
+
+Si el tema se estudió con `/skill:ensenar`, la fuente es su workspace en
+`3-resources/aprendizaje/<tema-slug>/`. Empieza por `registros/`: su sección "Qué sé
+ahora" ya está escrita en accionable, y `Confianza: probado en real` marca lo que
+sobrevivió a un proyecto de verdad — eso es material de `principio`, el resto
+todavía no.
 
 ## Pasos
 
