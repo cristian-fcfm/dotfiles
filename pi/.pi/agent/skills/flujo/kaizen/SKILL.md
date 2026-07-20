@@ -1,6 +1,7 @@
 ---
 name: kaizen
-description: 'Flujo ligero para cambios aislados de mejora de código o infra (deuda técnica, refactor pequeño, ajustes). Úsala cuando la tarea NO sea una feature nueva ni un bug complejo. Triggers: "refactorizar", "mejorar infra", "limpiar código", "deuda técnica", "micro-refactor".'
+description: 'Flujo ligero para un cambio aislado: deuda técnica, micro-refactor o ajuste de infra.'
+disable-model-invocation: true
 ---
 
 # Kaizen (Micro-Refactor)
