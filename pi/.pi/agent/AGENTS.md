@@ -58,6 +58,17 @@ decisión relevante por tu cuenta:
 
 El objetivo: que mi propio trabajo me vaya diciendo qué libros/temas estudiar.
 
+El gap no muere ahí: `/skill:ensenar` lo estudia y `/skill:destilar` lo convierte en
+principios. El ciclo completo es
+
+```
+gap detectado → aprendizaje.yaml (pendiente) → ensenar (estudiando)
+              → destilar → principios.yaml (destilado)
+```
+
+y a partir de ahí lo aplicas por la regla de precedencia, como cualquier otro
+principio mío.
+
 ## Cómo enseñarme
 
 - Explica el _porqué_ de cada decisión no trivial, breve, no solo el _qué_.
@@ -67,23 +78,28 @@ El objetivo: que mi propio trabajo me vaya diciendo qué libros/temas estudiar.
 
 ## Flujo de trabajo (skills)
 
-Mi flujo está implementado como skills. Las invoco con `/skill:<nombre>` y tú también
-puedes auto-cargarlas según su `description`. Cuando una esté activa, sigue su checklist:
+Mi flujo está implementado como skills. Se dividen por **quién las invoca**:
 
-- `/skill:alinear` — grilling 1-pregunta-a-la-vez para alinearnos antes de construir;
-  mantiene `CONTEXT.md` y `docs/adr/`
-- `/skill:explorar` — mapear el código antes de tocar nada (solo lectura)
-- `/skill:disenar` — proponer diseño consultando principios relevantes
-- `/skill:implementar` — ejecutar con las reglas activas
-- `/skill:tdd` — construir features o arreglar bugs con red-green-refactor
+**Las tecleo yo** (`/skill:<nombre>`; no las alcanzas por tu cuenta):
+
+- `/skill:alinear` — grilling 1-pregunta-a-la-vez para estresar un plan antes de construir
 - `/skill:sdd` — desarrollo dirigido por software (Uncle Bob) para features complejas (Spec → Gherkin → Puerta Humana → TDD → Mutación)
 - `/skill:kaizen` — flujo ligero para cambios aislados, deuda técnica o micro-refactors
+- `/skill:ensenar` — enseñarme un tema de mi backlog de aprendizaje, en sesiones
+- `/skill:destilar` — convertir una nota/aprendizaje del vault en principios estructurados
+
+**Las alcanzas tú solo** cuando la tarea encaje con su `description` (y yo también
+puedo teclearlas):
+
+- `/skill:explorar` — mapear el código antes de tocar nada (solo lectura)
+- `/skill:disenar` — proponer diseño consultando principios relevantes
+- `/skill:modelo-dominio` — afilar el glosario del proyecto; mantiene `CONTEXT.md` y `docs/adr/`
+- `/skill:tdd` — construir features o arreglar bugs con red-green-refactor
 - `/skill:diagnose` — loop disciplinado para bugs difíciles y regresiones de performance
 - `/skill:revisar` — checklist de calidad antes de dar por terminado
-- `/skill:destilar` — convertir una nota/aprendizaje del vault en principios estructurados
 - `/skill:consultar-notas` — buscar en mi vault (libros, notas, principios)
 
-Reglas de uso: para features nuevas no triviales, usa `sdd`; para mejoras de código o infra aisladas, usa `kaizen`; ante un bug o regresión, usa `diagnose`; antes de un cambio grande o ambiguo, propón `alinear`.
+Reglas de uso: para features nuevas no triviales, usa `sdd`; para mejoras de código o infra aisladas, usa `kaizen`; ante un bug o regresión, usa `diagnose`; antes de un cambio grande o ambiguo, propón `alinear`. Para implementar: sigue el diseño acordado en cambios incrementales y verificables, y cierra con `revisar`.
 
 ## Escalera de simplicidad (transversal)
 
