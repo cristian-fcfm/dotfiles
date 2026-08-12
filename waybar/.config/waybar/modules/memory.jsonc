@@ -1,7 +1,7 @@
 {
   "memory": {
-    "format": "{}% ",
-    "on-click": "pypr toggle btop",
+    "format": " {}%",
+    "on-click": "kitty --class center-float-mini -e btop",
     "tooltip": true,
     "interval": 2,
   },

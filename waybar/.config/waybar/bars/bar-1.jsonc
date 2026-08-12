@@ -5,35 +5,56 @@
     "~/.config/waybar/modules/custom-notifications.jsonc",
     "~/.config/waybar/modules/hyprland-workspaces.jsonc",
     "~/.config/waybar/modules/hyprland-window.jsonc",
-    "~/.config/waybar/modules/custom-arrow.jsonc",
     "~/.config/waybar/modules/hyprland-language.jsonc",
     "~/.config/waybar/modules/tray.jsonc",
     "~/.config/waybar/modules/network.jsonc",
-    "~/.config/waybar/modules/pulseaudio.jsonc",
+    "~/.config/waybar/modules/wireplumber.jsonc",
+    "~/.config/waybar/modules/privacy.jsonc",
+    "~/.config/waybar/modules/idle-inhibitor.jsonc",
+    "~/.config/waybar/modules/systemd-failed-units.jsonc",
+    "~/.config/waybar/modules/clock.jsonc",
   ],
 
-  "group/left": {
+  "group/nav": {
     "orientation": "horizontal",
-    "modules": ["custom/arch", "hyprland/workspaces", "custom/arrow", "hyprland/window"],
+    "modules": ["custom/arch", "hyprland/workspaces"],
   },
 
+  "group/title": {
+    "orientation": "horizontal",
+    "modules": ["hyprland/window"],
+  },
+
+  // No usar el módulo nativo `mpris` en waybar 0.15.0: crashea la barra
+  // entera con Firefox como reproductor (upstream #2065). Ver docs/adr.
   "group/center": {
     "orientation": "horizontal",
     "modules": ["custom/music"],
   },
 
-  "group/right": {
+  // group/alerts no lleva fondo: sus módulos se ocultan solos y una pastilla
+  // vacía quedaría flotando.
+  "group/alerts": {
     "orientation": "horizontal",
-    "modules": [
-      "tray",
-      "hyprland/language",
-      "network",
-      "pulseaudio",
-      "custom/notifications",
-    ],
+    "modules": ["privacy", "systemd-failed-units"],
   },
 
-  "modules-left": ["group/left"],
+  "group/session": {
+    "orientation": "horizontal",
+    "modules": ["tray", "hyprland/language", "idle_inhibitor"],
+  },
+
+  "group/io": {
+    "orientation": "horizontal",
+    "modules": ["network", "wireplumber"],
+  },
+
+  "group/time": {
+    "orientation": "horizontal",
+    "modules": ["custom/notifications", "clock#cl1"],
+  },
+
+  "modules-left": ["group/nav", "group/title"],
   "modules-center": ["group/center"],
-  "modules-right": ["group/right"],
+  "modules-right": ["group/alerts", "group/session", "group/io", "group/time"],
 }

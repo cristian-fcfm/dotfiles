@@ -1,0 +1,11 @@
+{
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": "",
+    },
+    "tooltip-format-activated": "Modo presentación: la pantalla no se apagará",
+    "tooltip-format-deactivated": "Bloqueo automático activo",
+  },
+}

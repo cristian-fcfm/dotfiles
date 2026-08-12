@@ -1,0 +1,14 @@
+{
+  "temperature": {
+    // Ruta del device PCI (0000:00:18.3 = k10temp), no del índice hwmonN:
+    // ese número lo asigna el kernel según el orden de carga de módulos.
+    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+    "input-filename": "temp1_input",
+    "interval": 2,
+    "critical-threshold": 80,
+    "format": "{icon} {temperatureC}°C",
+    "format-critical": " {temperatureC}°C",
+    "format-icons": ["", "", ""],
+    "tooltip": true,
+  },
+}
