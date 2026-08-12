@@ -15,8 +15,8 @@
         "today": "<span color='#ed8796'><b><u>{}</u></b></span>",
       },
     },
-    "interval": 1,
-    "format": "{:%H:%M:%OS} ",
+    "interval": 60,
+    "format": "{:%H:%M} ",
     "format-alt": "{:%A, %B %d, %Y} ",
     "actions": {
       "on-click-right": "mode",
