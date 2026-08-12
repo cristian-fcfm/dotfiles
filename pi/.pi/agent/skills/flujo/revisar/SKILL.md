@@ -10,6 +10,8 @@ Fase REVISAR. Revisa lo indicado; si no se especifica, revisa los cambios actual
 
 ## Checklist
 
+**GATE HUMANO - Revisión de Commit**: Antes de continuar con el checklist, usa `git diff --cached` para mostrar al usuario los cambios staged y solicita aprobación explícita para commit/proceder. Si el usuario cancela, detén la ejecución de la skill.
+
 1. **Correctitud**: ¿hace lo que debe? ¿casos borde (edge cases) cubiertos?
 2. **Errores y fallos**: manejo de errores, validación de entradas, idempotencia
    donde cruce red (ver `ddia-idempotencia-01`).
