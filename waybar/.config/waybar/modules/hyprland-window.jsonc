@@ -9,6 +9,7 @@
       "(.*)Spotify": "Spotify 󰓇",
       "(.*)Steam": "Steam 󰓓",
     },
-    "separate-outputs": false,
+    // Cada barra muestra la ventana activa de su propio monitor.
+    "separate-outputs": true,
   },
 }
