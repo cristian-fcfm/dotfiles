@@ -20,7 +20,9 @@
     "height": 30,
     "position": "bottom",
     "layer": "top",
-    "output": "HDMI-A-1",
+    // Identificado por make/model/serial (estilo sway): el número de
+    // HDMI-A-N cambia al renumerar los outputs.
+    "output": "LG Electronics LG HDR WFHD 0x00041906",
     "mode": "dock",
     "exclusive": true,
     "passthrough": false,
