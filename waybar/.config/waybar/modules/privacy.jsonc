@@ -1,0 +1,16 @@
+{
+  // Avisa cuando algo captura pantalla o micro. Solo visible mientras ocurre.
+  "privacy": {
+    "icon-spacing": 6,
+    "icon-size": 13,
+    "transition-duration": 250,
+    "modules": [
+      { "type": "screenshare", "tooltip": true, "tooltip-icon-size": 20 },
+      { "type": "audio-in", "tooltip": true, "tooltip-icon-size": 20 },
+    ],
+    // cava captura el monitor del sink de forma permanente para dibujar el
+    // espectro; sin ignorarlo el indicador estaría siempre encendido.
+    "ignore-monitor": true,
+    "ignore": [{ "type": "audio-in", "name": "cava" }],
+  },
+}

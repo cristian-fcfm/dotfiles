@@ -1,0 +1,14 @@
+{
+  "wireplumber": {
+    "format": "{volume}% {icon}",
+    "format-muted": "",
+    "format-icons": ["", "", ""],
+    "scroll-step": 5,
+    "tooltip-format": "{node_name} · {volume}%",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol",
+    // Este equipo no tiene source por defecto (`wpctl status` no marca
+    // ninguna con *): el mute de micro va explícito.
+    "on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+  },
+}

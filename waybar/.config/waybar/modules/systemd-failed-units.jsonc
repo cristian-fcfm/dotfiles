@@ -1,0 +1,9 @@
+{
+  "systemd-failed-units": {
+    "hide-on-ok": true,
+    "format": " {nr_failed}",
+    "system": true,
+    "user": true,
+    "on-click": "kitty --class center-float-mini -e systemctl --failed",
+  },
+}
