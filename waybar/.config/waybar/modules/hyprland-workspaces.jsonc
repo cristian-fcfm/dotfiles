@@ -33,8 +33,10 @@
       "discord": "",
       "telegram-desktop": ""
     },
-    "on-scroll-up": "hyprctl dispatch workspace r-1",
-    "on-scroll-down": "hyprctl dispatch workspace r+1",
+    // Hyprland 0.55 con config .lua interpreta el argumento de `dispatch`
+    // como Lua; la sintaxis clásica ya no parsea.
+    "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({workspace=\"r-1\"})'",
+    "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({workspace=\"r+1\"})'",
     "on-click": "activate",
     "sort-by-number": true
   }
