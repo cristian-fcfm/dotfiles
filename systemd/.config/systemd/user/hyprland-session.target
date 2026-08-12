@@ -1,0 +1,11 @@
+[Unit]
+Description=Sesion grafica de Hyprland
+BindsTo=graphical-session.target
+Before=graphical-session.target
+Wants=graphical-session-pre.target
+After=graphical-session-pre.target
+
+# Los daemons cuelgan de graphical-session.target (listarlos aqui crea un
+# ciclo de orden). Se enganchan una sola vez con:
+#   systemctl --user enable waybar.service swaync.service
+#   systemctl --user add-wants graphical-session.target xdg-desktop-portal-hyprland.service
