@@ -1,0 +1,17 @@
+{
+  "lastChangelogVersion": "0.84.1",
+  "theme": "dark",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "claude-opus-5",
+  "packages": [
+    "npm:pi-web-access"
+  ],
+  "enabledModels": [
+    "github-copilot/claude-opus-5",
+    "github-copilot/claude-sonnet-5",
+    "github-copilot/claude-haiku-4.5",
+    "opencode-go/deepseek-v4-flash"
+  ],
+  "defaultThinkingLevel": "high",
+  "hideThinkingBlock": false
+}
