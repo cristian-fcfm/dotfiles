@@ -19,6 +19,12 @@ Mi conocimiento destilado vive fuera de este repo, en mi vault de notas:
 Lee `principios.yaml` al inicio de cualquier tarea de diseño o implementación
 relevante. No hace falta leerlo para tareas triviales.
 
+**Requisito de máquina**: estas rutas asumen el vault clonado en
+`~/Documents/notes` (es un repo git propio, sincronizado por `notes-sync.timer`).
+Si en esta máquina no existe, **dímelo antes de seguir** en vez de continuar en
+silencio: trabaja como si yo no tuviera ningún principio (defaults + marcar gaps),
+pero nunca cites un `id` que no has podido leer.
+
 ## Dos capas de conocimiento (no las confundas)
 
 - **Global — `principios.yaml`**: buenas prácticas que aplican en *cualquier*
