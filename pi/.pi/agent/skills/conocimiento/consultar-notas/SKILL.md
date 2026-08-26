@@ -47,12 +47,16 @@ rg -i "replicacion|consistencia" ~/Documents/notes --type md -l
 
 ### Consultar principios estructurados
 
+La forma canónica es el script de esta skill, que devuelve records completos por
+ dominio (los `general` van siempre incluidos):
+
 ```bash
-# Principios por dominio
-rg -A6 "aplica_a:.*backend" ~/Documents/notes/3-resources/zk/principios.yaml
-# Un principio por id
-rg -A8 "id: ddia-idempotencia-01" ~/Documents/notes/3-resources/zk/principios.yaml
+./scripts/principios.sh dominios          # qué dominios existen
+./scripts/principios.sh backend agentes   # records de esos dominios
 ```
+
+No cargues el fichero entero: crece con el tiempo, y el agente solo necesita los
+dominios de la tarea en curso.
 
 ## Reglas
 

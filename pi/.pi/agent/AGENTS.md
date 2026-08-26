@@ -13,17 +13,21 @@ Mi conocimiento destilado vive fuera de este repo, en mi vault de notas:
   un campo `estado` (`confirmado` | `propuesto` | `gap`) y `aplica_a` (dominios).
 - **Backlog de aprendizaje**: `~/Documents/notes/3-resources/zk/aprendizaje.yaml`
   Temas que aún no domino, detectados durante el desarrollo.
-- **Vault completo** (libros, notas, learnings): `~/Documents/notes`
-  Consultable con la skill `consultar-notas` (usa `zk` y `rg`).
 
-Lee `principios.yaml` al inicio de cualquier tarea de diseño o implementación
-relevante. No hace falta leerlo para tareas triviales.
+Al empezar una tarea de diseño o implementación relevante, consulta mis principios
+**por dominio, en tiempo real** — no leas el fichero entero, crece con el tiempo:
 
-**Requisito de máquina**: estas rutas asumen el vault clonado en
-`~/Documents/notes` (es un repo git propio, sincronizado por `notes-sync.timer`).
-Si en esta máquina no existe, **dímelo antes de seguir** en vez de continuar en
-silencio: trabaja como si yo no tuviera ningún principio (defaults + marcar gaps),
-pero nunca cites un `id` que no has podido leer.
+```bash
+~/.pi/agent/skills/conocimiento/consultar-notas/scripts/principios.sh dominios  # qué existe
+~/.pi/agent/skills/conocimiento/consultar-notas/scripts/principios.sh backend agentes  # lo de esta tarea
+```
+
+Elige los dominios según la tarea (`dominios` te da la lista vigente; los
+transversales `general` van siempre incluidos) y carga solo esos records. No hace
+falta para tareas triviales.
+
+**Requisito de máquina**: si `~/Documents/notes` no existe en esta máquina, dímelo y
+trabaja con defaults + marcar gaps, pero nunca cites un `id` que no hayas leído.
 
 ## Dos capas de conocimiento (no las confundas)
 

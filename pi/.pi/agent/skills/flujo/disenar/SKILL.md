@@ -16,8 +16,9 @@ descarta no llega a ser una opción que discutamos.
 
 ## Pasos
 
-1. Consulta mis principios con la skill `consultar-notas` (o lee
-   `~/Documents/notes/3-resources/zk/principios.yaml`) y selecciona los que encajen
+1. Consulta mis principios por dominio con la skill `consultar-notas`
+   (`principios.sh <dominios de esta tarea>`: los `general` van siempre incluidos) y
+   selecciona los que encajen
    por `aplica_a`/`trigger`.
 2. Si el repo tiene `CONTEXT.md`/`docs/adr/`, respeta su glosario y decisiones.
 3. Aplica la REGLA DE PRECEDENCIA de AGENTS.md:
