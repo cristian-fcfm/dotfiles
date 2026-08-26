@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.84.1",
   "theme": "dark",
-  "defaultProvider": "github-copilot",
-  "defaultModel": "claude-opus-5",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "glm-5.3",
   "packages": [
     "npm:pi-web-access"
   ],
