@@ -10,7 +10,9 @@ Fase de construcción robusta para features no triviales. El código es secundar
 
 ## Pipeline
 
-1. **Spec conversada**: Debate casos límite y decisiones. Escribe/amplía `project-spec.md` (o ADRs).
+1. **Spec conversada**: Debate casos límite y decisiones. La salida es la propuesta
+   (`docs/proposals/<slug>.md`, skill `propuesta`) y ADRs si aplican — no un fichero
+   de spec aparte.
 2. **Contrato Gherkin**: Destila la spec en escenarios `.feature` ejecutables (`Given/When/Then`).
    - ⏸ **PUERTA HUMANA**: Espera mi aprobación explícita del contrato antes de escribir código.
 3. **TDD estricto**: Un test a la vez (Rojo → Verde → Refactor). Nada de código de producción sin un test rojo que lo pida.
@@ -18,10 +20,12 @@ Fase de construcción robusta para features no triviales. El código es secundar
 
 ## Reglas
 
-- Una sola feature a la vez.
-- Estado en disco, no en chat: usa archivos (`features/`, `progress/`) para que sobreviva a reinicios de contexto.
+- Una sola feature a la vez, en su propio worktree (`/worktree`).
+- Estado en disco, no en chat, para que sobreviva a reinicios de contexto: ese estado es el `PLAN.md` del worktree — su tabla de ciclos y su bitácora se actualizan al cerrar cada ciclo. No crees ficheros de estado paralelos (`progress/` y demás).
+- Distingue producto de andamiaje: la propuesta (`docs/proposals/`), los `.feature` y
+  los ADRs se commitean; el `PLAN.md` es andamiaje y muere con el worktree.
 - Respeta la REGLA DE PRECEDENCIA de `AGENTS.md`.
 
 ## Cierre
 
-Cuando el review esté aprobado y el TDD completado, lista los artefactos generados y sugiere `/skill:revisar` o el commit.
+Cuando el review esté aprobado y el TDD completado, lista los artefactos generados y encadena: `/skill:revisar` → `/commit` (un ciclo del plan = un commit atómico) → `/worktree-cerrar`.

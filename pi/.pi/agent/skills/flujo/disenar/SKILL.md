@@ -43,5 +43,32 @@ descarta no llega a ser una opción que discutamos.
 
 ## Cierre
 
-Termina con un plan de implementación en pasos cortos y espera mi visto bueno antes
-de construir. Si hay tests de por medio, lo natural es seguir con `/skill:tdd`.
+Antes del plan, aterriza el diseño en disco: `docs/proposals/<slug>.md` con el formato
+de la skill `propuesta` (problema, alternativas consideradas, alcance). Si llegaste
+aquí vía `/skill:propuesta`, ese fichero ya existe: amplíalo. El diseño no vive en el
+chat — es la regla del flujo entero, y aquí es donde más se pierde.
+
+Luego termina con un plan de implementación en pasos cortos y espera mi visto bueno
+antes de construir.
+
+Y no lo dejes en una lista plana: **clasifica cada paso**, porque de eso depende cuánto
+trabajo se puede paralelizar.
+
+- **Ciclo** — un comportamiento observable dentro de la misma funcionalidad. Va como
+  fila en el `PLAN.md` de un worktree.
+- **Funcionalidad propia** — tiene su motivo de cambio, su worktree y su plan. Señales:
+  se podría revertir sola, se entrega sola, o toca una zona del código sin relación con
+  el resto.
+
+Si sale más de una funcionalidad, dame el **orden por dependencias**: cuál desbloquea a
+cuál, y cuáles son independientes entre sí —esas son las que pueden ir en paralelo, un
+agente por worktree—. Marca también qué ficheros toca cada una, para poder detectar
+solapes antes de abrir dos worktrees que se pisen.
+
+Prefiere el primer paso más fino que ya cruce el sistema de punta a punta (*tracer
+bullet*) antes que uno grande que lo deje todo a medias.
+
+Con el plan aprobado, aterrízalo en disco antes de tocar código: `/worktree` abre el
+worktree de cada funcionalidad y transcribe ahí su parte ejecutable como `PLAN.md`,
+referenciando la propuesta. Ese fichero es desde entonces la fuente de verdad —no esta
+conversación—, y de él se construye, con `/skill:tdd` si hay tests de por medio.

@@ -8,9 +8,41 @@ description: 'Checklist de calidad antes de dar una tarea por terminada (correct
 Fase REVISAR. Revisa lo indicado; si no se especifica, revisa los cambios actuales
 (`git diff` / `git diff --cached`).
 
-## Checklist
+Revisas el árbol de trabajo, no el índice: aquí no se stagea, ni se commitea, ni se
+integra nada. De eso se encargan `/commit` y `/worktree-cerrar` **después**, con el
+checklist en verde. Esta skill produce hallazgos, no cambios en git.
 
-**GATE HUMANO - Revisión de Commit**: Antes de continuar con el checklist, usa `git diff --cached` para mostrar al usuario los cambios staged y solicita aprobación explícita para commit/proceder. Si el usuario cancela, detén la ejecución de la skill.
+## Dos ejes
+
+La revisión son dos preguntas distintas y **no se contaminan**: el eje Spec no opina
+sobre calidad, el eje Estándares no opina sobre alcance. Al ser independientes se
+pueden correr en paralelo, un agente por eje, y luego juntar los hallazgos.
+
+## Eje Spec — ¿es lo que se acordó?
+
+Contra el `PLAN.md` de la rama y, si el plan la referencia, la propuesta
+(`docs/proposals/<slug>.md`) — no contra tu criterio:
+
+1. **Cobertura del contrato**: cada comportamiento o escenario del contrato tiene su
+   test. Nombra los que no.
+2. **Nada de más**: código que ningún ciclo pidió. Aunque sea bueno, aquí sobra.
+3. **Fuera de alcance**: lo que el plan excluyó sigue sin tocarse.
+4. **Desvíos**: si el código se apartó del contrato, ¿está en la bitácora y lo aprobé?
+   Un desvío no registrado es un hallazgo, aunque el código sea correcto.
+5. **Tabla de ciclos**: lo marcado como `hecho` está de verdad hecho, y lo `pendiente`
+   no está a medio hacer.
+6. **Problema resuelto y criterios**: si hay propuesta, ¿lo construido ataca su
+   «Problema» y cumple sus «Criterios de aceptación» punto por punto? Cumplir el
+   contrato de un plan que no resuelve el problema de la propuesta es fallar
+   más fino.
+
+**Si no hay `PLAN.md`** —un kaizen sobre la rama base, un fix suelto— juzga contra
+la propuesta si existe; si tampoco la hay, este eje **no aplica**. Dilo y pasa al
+otro. No lo sustituyas por tu propia idea de qué debería hacer el cambio: juzgar
+contra un contrato que te acabas de inventar es exactamente lo que este eje existe
+para evitar.
+
+## Eje Estándares — ¿está bien hecho?
 
 1. **Correctitud**: ¿hace lo que debe? ¿casos borde (edge cases) cubiertos?
 2. **Errores y fallos**: manejo de errores, validación de entradas, idempotencia
@@ -38,5 +70,9 @@ Fase REVISAR. Revisa lo indicado; si no se especifica, revisa los cambios actual
 
 ## Cierre
 
-Para cada hallazgo: severidad, `archivo:línea` y arreglo propuesto. Si trabajaste
-en un área sin principios, recuérdame registrar el gap en `aprendizaje.yaml`.
+Para cada hallazgo: **eje**, severidad, `archivo:línea` y arreglo propuesto. Si el eje
+Spec no aplicó, dilo en una línea en vez de callártelo. Si trabajaste en un área sin
+principios, recuérdame registrar el gap en `aprendizaje.yaml`.
+
+Con los hallazgos resueltos, sigue `/commit`, y `/worktree-cerrar` si el trabajo vive
+en un worktree.

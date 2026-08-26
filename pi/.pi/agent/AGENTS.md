@@ -92,6 +92,9 @@ Mi flujo está implementado como skills. Se dividen por **quién las invoca**:
 
 **Las tecleo yo** (`/skill:<nombre>`; no las alcanzas por tu cuenta):
 
+- `/skill:propuesta` — abre la propuesta de diseño de una funcionalidad
+  (`docs/proposals/` del repo, versionada en git) y la enmienda en iteraciones:
+  es la entrada del flujo y su fuente de verdad
 - `/skill:alinear` — grilling 1-pregunta-a-la-vez para estresar un plan antes de construir
 - `/skill:sdd` — desarrollo dirigido por software (Uncle Bob) para features complejas (Spec → Gherkin → Puerta Humana → TDD → Mutación)
 - `/skill:kaizen` — flujo ligero para cambios aislados, deuda técnica o micro-refactors
@@ -109,7 +112,54 @@ puedo teclearlas):
 - `/skill:revisar` — checklist de calidad antes de dar por terminado
 - `/skill:consultar-notas` — buscar en mi vault (libros, notas, principios)
 
-Reglas de uso: para features nuevas no triviales, usa `sdd`; para mejoras de código o infra aisladas, usa `kaizen`; ante un bug o regresión, usa `diagnose`; antes de un cambio grande o ambiguo, propón `alinear`. Para implementar: sigue el diseño acordado en cambios incrementales y verificables, y cierra con `revisar`.
+Reglas de uso: todo trabajo no trivial nace como `propuesta` — venga de un backlog,
+de un ticket o de una idea. Para features nuevas no triviales, usa `sdd`; para mejoras de código o infra aisladas, usa `kaizen`; ante un bug o regresión, usa `diagnose`; antes de un cambio grande o ambiguo, propón `alinear`. Para implementar: sigue el diseño acordado en cambios incrementales y verificables, y cierra con `revisar`.
+
+Con el plan ya aprobado, decide el aislamiento antes de tocar código: si es una
+funcionalidad con varios ciclos, o si va a haber más de una cosa en vuelo a la vez,
+ábrela en su propio worktree con `/worktree`; si es un arreglo de un solo ciclo, se
+trabaja sobre la rama base y no montes worktree.
+
+## Aislamiento por funcionalidad (worktrees)
+
+Los comandos (`/…`) son las manos del flujo: donde las skills deciden *qué* hacer,
+ellos mueven git. Una funcionalidad = un worktree = una rama = un plan, y también
+= **una propuesta**.
+
+Dos capas de documento, cada una con su dueño y su ciclo de vida:
+
+- **Propuesta** (`docs/proposals/<slug>.md`, commiteada en la rama base) — el PORQUÉ:
+  problema, alternativas descartadas, alcance. **Nace, se enmienda y se cierra en el
+  flujo**; es la fuente de verdad del diseño y sobrevive al worktree para poder
+  iterar sobre la funcionalidad sin rediseñar desde cero.
+- **`PLAN.md`** (worktree) — el CÓMO ejecutable: contrato, ciclos, bitácora. Muere
+  con el worktree.
+
+Así el plan adelgaza (referencia la propuesta, no la copia) y el diseño no se pierde
+al integrar.
+
+- `/worktree` — abre `.worktrees/<slug>` con la rama `feat/<slug>` y escribe ahí el
+  `PLAN.md` destilado de `sdd`/`tdd`/`kaizen`, referenciando la propuesta si existe.
+- `/plan-ejecutar` — ejecuta **un** ciclo pendiente del `PLAN.md` y para.
+- `/commit` — reparte los cambios en commits atómicos, uno por motivo.
+- `/worktree-cerrar` — verifica el plan, integra en la rama base y limpia.
+
+El plan va en disco, no en el chat, y es autocontenido a propósito: así lo puede
+ejecutar un agente que no estuvo en la conversación de diseño (leyendo el plan,
+la propuesta que referencia y el repo), y así sobrevive a un reinicio de contexto.
+Cada ciclo del plan es un candidato a commit atómico. La consecuencia para ti: si al
+ejecutar un plan tienes que decidir algo de diseño a mitad de ciclo, el plan estaba
+incompleto — para y dilo, esa es la señal.
+
+La cadena completa es `propuesta` → `/worktree` → construir → `revisar` → `/commit`
+→ `/worktree-cerrar` (que marca la propuesta `construida`).
+
+Funcionalidades **independientes** pueden ir en paralelo, un worktree y un agente cada
+una. Antes de abrir la segunda, comprueba solapes de ficheros contra los planes vivos.
+
+El checkout principal se queda en la rama base, limpio. **Excepción**: en repos de
+configuración viva (estos dotfiles, con stow) no uses worktrees — los symlinks de `~`
+apuntan al checkout principal, así que ahí no se puede probar nada en vivo.
 
 ## Escalera de simplicidad (transversal)
 

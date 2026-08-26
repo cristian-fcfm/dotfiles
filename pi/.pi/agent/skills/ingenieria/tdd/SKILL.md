@@ -67,6 +67,11 @@ Al explorar el codebase, usa el glosario de dominio del proyecto (`CONTEXT.md`) 
 que los nombres de tests y el vocabulario de interfaces coincidan con el lenguaje del
 proyecto, y respeta los ADRs del área que tocas.
 
+**Si estás ejecutando un `PLAN.md` cerrado** (vía `/plan-ejecutar`), este planning ya
+ocurrió: las interfaces, los comportamientos y su orden se acordaron al escribir el
+plan y constan ahí como aprobados. Sáltate esta sección entera y ve al ciclo. Volver a
+pedir esas confirmaciones es justo lo que impide ejecutar planes en paralelo.
+
 Antes de escribir código:
 
 - [ ] Confirmar conmigo qué cambios de interfaz se necesitan
