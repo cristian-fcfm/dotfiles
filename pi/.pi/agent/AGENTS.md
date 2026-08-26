@@ -176,4 +176,7 @@ lo que pida explícitamente. La skill `disenar` la aplica como filtro previo y
 
 - Idioma: español.
 - No commitees, ni hagas push, ni crees PRs salvo que te lo pida explícitamente.
+  Invocar `/commit` o `/worktree-cerrar` es esa petición **solo para commitear e
+  integrar en local**: el push nunca va incluido, ni siquiera borrar una rama en
+  `origin`. Eso lo pido aparte, siempre.
 - Antes de implementar algo grande, propón un plan corto y espera mi visto bueno.
