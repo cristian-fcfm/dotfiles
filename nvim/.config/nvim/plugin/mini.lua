@@ -6,6 +6,8 @@ vim.pack.add({
   { src = "https://github.com/rafamadriz/friendly-snippets" },
 })
 
+local map = vim.keymap.set
+
 -- mini.icons primero: otros módulos pueden necesitar el mock de nvim-web-devicons
 package.preload["nvim-web-devicons"] = function()
   require("mini.icons").mock_nvim_web_devicons()
@@ -94,6 +96,20 @@ require("mini.snippets").setup({
     require("mini.snippets").gen_loader.from_lang(),
   },
 })
+
+-- ============================================================================
+-- Mini Sessions - Guardar/restaurar sesiones de trabajo por proyecto
+-- ============================================================================
+require("mini.sessions").setup({})
+
+-- Sesiones globales nombradas con el basename del cwd
+local function session_name()
+  return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+end
+
+map("n", "<leader>qs", function() MiniSessions.write(session_name()) end, { desc = "Sesión: guardar" })
+map("n", "<leader>ql", function() MiniSessions.read(session_name()) end, { desc = "Sesión: restaurar proyecto" })
+map("n", "<leader>qS", function() MiniSessions.select() end, { desc = "Sesión: elegir entre guardadas" })
 
 -- ============================================================================
 -- Mini Statusline - Barra de estado

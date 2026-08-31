@@ -34,6 +34,33 @@ require("snacks").setup({
     sections = {
       { section = "header" },
       { section = "keys", gap = 1, padding = 1 },
+      -- Sección custom: la builtin (sections.session) solo detecta plugins vía
+      -- lazy.nvim, así que con vim.pack nunca renderizaría. La función hijo
+      -- genera los items y, si no hay sesiones, el bloque no se pinta.
+      {
+        icon = "󰦛",
+        title = "Sesiones",
+        indent = 2,
+        padding = 1,
+        function()
+          local detected = MiniSessions and MiniSessions.detected or {}
+          local items = {}
+          for id in pairs(detected) do
+            items[#items + 1] = {
+              icon = "󰦛",
+              desc = id,
+              action = function()
+                MiniSessions.read(id)
+              end,
+              autokey = true,
+            }
+          end
+          table.sort(items, function(a, b)
+            return a.desc < b.desc
+          end)
+          return items
+        end,
+      },
       { section = "recent_files", icon = "󱋡", title = "Recent Files", indent = 2, padding = 1 },
     },
   },

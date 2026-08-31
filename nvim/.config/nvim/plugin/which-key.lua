@@ -24,6 +24,7 @@ wk.setup({
     { "<leader>f", group = "buscar" },
     { "<leader>g", group = "git" },
     { "<leader>l", group = "linea/diagnosticos" },
+    { "<leader>q", group = "sesiones" },
     { "<leader>s", group = "slime/repl" },
     { "<leader>t", group = "tabs" },
     { "<leader>w", group = "ventanas" },
