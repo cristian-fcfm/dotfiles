@@ -12,9 +12,9 @@ fi
 
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Google
-export GOOGLE_APPLICATION_CREDENTIALS="$HOME/Documents/development/work/falabella/service-account.json"
-export GOOGLE_CLOUD_PROJECT=flb-rtl-atenea-reg-dev
+# Contexto de trabajo (proyecto, credenciales): específico de cada máquina,
+# vive fuera del repo
+[[ -f "$HOME/.config/zsh/work.zsh" ]] && source "$HOME/.config/zsh/work.zsh"
 
 # Cargar paths del sistema (incluye /Library/TeX/texbin en macOS)
 if [[ -x "/usr/libexec/path_helper" ]]; then
@@ -110,16 +110,7 @@ alias yy='y .'                  # Abrir Yazi en directorio actual
 alias yc='y ~/.config'          # Abrir Yazi en config
 alias yn='y ~/.config/nvim'     # Abrir Yazi en config de Neovim
 
-# ─── Navegación ─────────────────────────────────────────────────────────────
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ~='cd ~'
-alias -- -='cd -'
-
-# ─── Listado de archivos (con colores) ─────────────────────────────────────
-alias ls='ls --color=auto'
+# ─── Listado de archivos ────────────────────────────────────────────────────
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -136,19 +127,21 @@ if command -v eza &> /dev/null; then
     alias tree='eza --tree --icons --level=3'
     alias tree2='eza --tree --icons --level=2'
     alias ltree='eza --tree --icons --long --level=2'
+else
+    # GNU ls y BSD ls no comparten el flag de color
+    case "$(uname -s)" in
+        Darwin*) alias ls='ls -G' ;;
+        *) alias ls='ls --color=auto' ;;
+    esac
 fi
 
-# ─── Git (adicionales a los de Oh My Zsh) ──────────────────────────────────
-alias gst='git status'
-alias gco='git checkout'
+# ─── Git ────────────────────────────────────────────────────────────────────
+# gst, gco, gp, gl y glog ya los define el plugin git de Oh My Zsh. gcm se
+# sobreescribe a propósito: OMZ lo define como checkout de la rama main.
 alias gcm='git commit -m'
-alias gp='git push'
-alias gl='git pull'
-alias glog='git log --oneline --graph --decorate'
 
 # ─── Lazygit ────────────────────────────────────────────────────────────────
 alias lg='lazygit'
-alias lazygit='lazygit'
 
 # ─── Tmux (for remote SSH sessions only) ─────────────────────────────────────
 alias t='tmux'
@@ -195,22 +188,6 @@ alias path='echo -e ${PATH//:/\\n}'
 alias reload='source ~/.zshrc'
 alias zshconfig='nvim ~/.zshrc'
 
-# ─── Directorios rápidos ────────────────────────────────────────────────────
-alias config='z ~/.config'
-alias downloads='z ~/Downloads'
-alias documents='z ~/Documents'
-alias projects='z ~/Documents/development/'
-alias dots='z ~/Documents/development/personal/dotfiles/'
-
-# ─── Navegación mejorada con zoxide ────────────────────────────────────────
-alias ..='z ..'
-alias ...='z ../..'
-alias home='z ~'
-
-# ─── Combinaciones útiles ───────────────────────────────────────────────────
-alias proj='z ~/Documents/development/ && ll'           # Ir a proyectos y listar
-alias dotslg='z ~/Documents/development/personal/dotfiles/ && lg'         # Ir a dotfiles y abrir lazygit
-
 # =============================================================================
 # Custom Functions
 # =============================================================================
@@ -224,17 +201,6 @@ mkcd() {
 fv() {
     local file
     file=$(fzf --preview 'bat --style=numbers --color=always {}') && nvim "$file"
-}
-
-# Buscar en el historial con fzf
-fh() {
-    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
-}
-
-# Cambiar a directorio con fzf
-fd() {
-    local dir
-    dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) && cd "$dir"
 }
 
 # Git branch con fzf
@@ -298,11 +264,24 @@ esac
 # =============================================================================
 
 # Zoxide (mejor cd) - navegación inteligente
+# Todos los aliases que dependen de `z` viven aquí: si zoxide falta,
+# desaparecen juntos en vez de quedarse apuntando a un comando inexistente.
 if command -v zoxide &> /dev/null; then
     eval "$(zoxide init zsh)"
     alias cd='z'
     alias zz='z -'        # Ir al directorio anterior
-    alias zi='zi'         # Buscar directorio interactivamente
+    alias ..='z ..'
+    alias ...='z ../..'
+    alias ....='z ../../..'
+    alias .....='z ../../../..'
+    alias home='z ~'
+    alias config='z ~/.config'
+    alias downloads='z ~/Downloads'
+    alias documents='z ~/Documents'
+    alias projects='z ~/Documents/development/'
+    alias dots='z ~/Documents/development/personal/dotfiles/'
+    alias proj='z ~/Documents/development/ && ll'
+    alias dotslg='z ~/Documents/development/personal/dotfiles/ && lg'
 fi
 
 # fzf keybindings y completion - si está instalado
