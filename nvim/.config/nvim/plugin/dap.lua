@@ -80,6 +80,8 @@ local function ensure_loaded()
 end
 
 local map = vim.keymap.set
+-- Exponer para otros plugins que usan estrategia dap (ej: neotest)
+vim.g.ensure_dap = ensure_loaded
 map("n", "<leader>db", function() ensure_loaded(); require("dap").toggle_breakpoint() end, { desc = "DAP: Toggle breakpoint" })
 map("n", "<leader>dB", function() ensure_loaded(); require("dap").set_breakpoint(vim.fn.input("Condition: ")) end, { desc = "DAP: Conditional breakpoint" })
 map("n", "<leader>dc", function() ensure_loaded(); require("dap").continue() end, { desc = "DAP: Continue" })

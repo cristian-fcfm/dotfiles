@@ -51,6 +51,18 @@ function M.check()
 
   vim.health.start("Herramientas del sistema")
 
+  -- debugpy no es un ejecutable sino un modulo de python (lo usa nvim-dap-python).
+  -- Se comprueba contra el python del sistema: si el proyecto usa venv,
+  -- instalalo tambien ahi (pip install debugpy)
+  if utils.executable("python3") then
+    vim.fn.system({ "python3", "-c", "import debugpy" })
+    if vim.v.shell_error == 0 then
+      vim.health.ok("debugpy - DAP Python")
+    else
+      vim.health.warn("debugpy - DAP Python (pip install debugpy)")
+    end
+  end
+
   for _, tool in ipairs(system_tools) do
     if utils.executable(tool.cmd) then
       vim.health.ok(string.format("%s - %s", tool.cmd, tool.desc))
