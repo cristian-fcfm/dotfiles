@@ -6,10 +6,13 @@ vim.pack.add({
   { src = "https://github.com/mrjones2014/smart-splits.nvim" },
 })
 
--- Instalar kittens si no existen
+-- Instalar kittens solo si no están ya en la config de kitty: el instalador
+-- es un fork de bash con 3 cp por arranque; si se actualiza el plugin,
+-- re-ejecutar el script a mano para refrescar los .py
 local plugin_path = vim.fn.stdpath("data") .. "/site/pack/core/opt/smart-splits.nvim"
 local kittens_script = plugin_path .. "/kitty/install-kittens.bash"
-if vim.fn.filereadable(kittens_script) == 1 then
+local kittens_installed = vim.fn.filereadable(vim.fn.expand("~/.config/kitty/neighboring_window.py")) == 1
+if vim.fn.filereadable(kittens_script) == 1 and not kittens_installed then
   vim.fn.system("cd " .. vim.fn.shellescape(plugin_path) .. " && bash ./kitty/install-kittens.bash")
 end
 
