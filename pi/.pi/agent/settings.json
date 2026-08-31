@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.84.1",
   "theme": "dark",
-  "defaultProvider": "opencode-go",
-  "defaultModel": "glm-5.3",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-sonnet-5",
   "packages": [
     "npm:pi-web-access"
   ],
