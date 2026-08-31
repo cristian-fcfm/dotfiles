@@ -133,3 +133,8 @@ map("n", "<leader>fr", function()
 end, { desc = "Reanudar ultimo picker" })
 map("n", "<C-t>", function() Snacks.terminal() end, { desc = "Terminal flotante" })
 map("t", "<C-t>", function() Snacks.terminal() end, { desc = "Cerrar terminal flotante" })
+
+-- Navegar referencias LSP de la palabra bajo el cursor (snacks.words).
+-- ]w/[w quedan para mini.bracketed (ventanas), por eso ]r/[r
+map("n", "]r", function() Snacks.words.jump(vim.v.count1, true) end, { desc = "Referencia LSP siguiente" })
+map("n", "[r", function() Snacks.words.jump(-vim.v.count1, true) end, { desc = "Referencia LSP anterior" })
