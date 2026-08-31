@@ -2,10 +2,10 @@
 -- LSP: configuracion central (on_attach, diagnosticos, enable)
 -- ============================================================================
 vim.schedule(function()
+  -- NOTA: no desactivar documentFormattingProvider aquí: conform con
+  -- lsp_format="fallback" (y typst con { "lsp_format" }) filtra los clientes
+  -- por esa capability, y anularla dejaba el formateo LSP sin efecto.
   local on_attach = function(client, bufnr)
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattingProvider = false
-
     local map = function(keys, func, desc, mode)
       mode = mode or "n"
       vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
