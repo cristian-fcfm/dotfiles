@@ -174,6 +174,12 @@ lo que pida explícitamente. La skill `disenar` la aplica como filtro previo y
 
 ## Convenciones generales
 
+- Comentarios en el código: solo los que aportan lo que el código no dice
+  (el porqué de una decisión, una trampa no evidente, una referencia externa).
+  Prohibidos los comentarios didácticos que explican lo obvio o narran el
+  cambio ("esta función hace X, primero..., luego..."). Si un bloque necesita
+  comentario para entenderse, renombra o extrae antes de comentar. Excepción:
+  los marcadores `YAGNI:` de `simplicidad-marcador-01`.
 - Idioma: español.
 - No commitees, ni hagas push, ni crees PRs salvo que te lo pida explícitamente.
   Invocar `/commit` o `/worktree-cerrar` es esa petición **solo para commitear e
