@@ -79,6 +79,16 @@ map("n", "<leader>gl", function() Snacks.picker.git_log() end, { desc = "Log de 
 map("n", "<leader>gL", function() Snacks.picker.git_log_file() end, { desc = "Log de git (archivo)" })
 map("n", "<leader>gs", function() Snacks.picker.git_status({ layout = "preview_top" }) end, { desc = "Estado de git" })
 map("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Diff de git" })
+map("n", "<leader>gD", function()
+  Snacks.picker.git_branches({
+    confirm = function(picker, item)
+      picker:close()
+      if item.branch then
+        Snacks.picker.git_diff({ base = item.branch, layout = "preview_top" })
+      end
+    end,
+  })
+end, { desc = "Diff contra rama elegida" })
 map("n", "<leader>gb", function() Snacks.git_blame_line() end, { desc = "Blame de linea" })
 
 -- ─── Quickfix / Loclist ─────────────────────────────────────────────────────
