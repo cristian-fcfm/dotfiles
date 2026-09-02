@@ -152,13 +152,20 @@ lo que pida explícitamente. La skill `disenar` la aplica como filtro previo y
 
 ## Convenciones generales
 
-- Comentarios en el código: solo los que aportan lo que el código no dice
-  (el porqué de una decisión, una trampa no evidente, una referencia externa).
-  Prohibidos los comentarios didácticos que explican lo obvio o narran el
-  cambio ("esta función hace X, primero..., luego..."). Si un bloque necesita
-  comentario para entenderse, renombra o extrae antes de comentar. Excepción:
-  los marcadores `YAGNI:` de `simplicidad-marcador-01`.
-- Idioma: español.
+- Cada explicación tiene un solo canal. En el código van el **qué** (docstring) y
+  las restricciones no evidentes que siguen vivas en runtime (comentario inline);
+  excepción, los marcadores `YAGNI:` de `simplicidad-marcador-01`. El porqué de un
+  **cambio** va al mensaje de commit; el de una **decisión**, a la propuesta o al
+  ADR. Prohibido narrar el diff en el código y explicar lo obvio. Si un bloque
+  necesita comentario para entenderse, renombra o extrae antes de comentar.
+- Idioma: identificadores en inglés; la prosa (docstrings, comentarios, commits,
+  docs, chat) en español. Un repo público o con colaboradores no hispanohablantes
+  lo declara en su propio `AGENTS.md`.
+- Docstrings: el formato idiomático del lenguaje (Python → Google §3.8.3, Go →
+  godoc, TS → TSDoc). Obligatorio salvo que la función cumpla **las tres**: no
+  visible fuera del módulo, muy corta y obvia. Criterio de suficiencia: permitir
+  escribir la llamada sin leer el cuerpo. Si nombre y firma bastan, una línea sin
+  secciones; no repitas tipos ya anotados ni `Returns:` que devuelva `None`.
 - No commitees, ni hagas push, ni crees PRs salvo que te lo pida explícitamente.
   Invocar `/commit` o `/rama-cerrar` es esa petición **solo para commitear e
   integrar en local**: el push nunca va incluido, ni siquiera borrar una rama en
