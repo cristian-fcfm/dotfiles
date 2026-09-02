@@ -7,8 +7,8 @@ Prepara los commits de los cambios actuales. Invocar este comando **es** la peti
 explícita de commitear que pide mi AGENTS.md, pero enséñame cada mensaje y espera mi OK
 antes de ejecutar `git commit`. No hagas push ni crees PRs. Aquí no se reescribe
 historia: nada de `amend`, `rebase`, `reset --hard` ni `restore`. (El único `rebase`
-que hacemos es el de una rama de feature propia y sin publicar, y vive en
-`/worktree-cerrar`.)
+que hacemos es el de una rama de funcionalidad propia y sin publicar, y vive en
+`/rama-cerrar`.)
 
 La regla no es cuántos commits salen, es que **cada commit sea atómico**. Cuántos hacen
 falta lo decide el análisis del paso 2 sobre el diff que tengas delante: uno si el

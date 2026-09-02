@@ -164,8 +164,8 @@ de que el fix esté, no antes — ahora tienes más información que al empezar.
 
 ## Cierre
 
-Encadena: `/skill:revisar` → `/commit`, y `/worktree-cerrar` si el fix vive en un
-worktree. El fix y su regression test son un commit (`fix`); la hipótesis que resultó
+Encadena: `/skill:revisar` → `/commit`, y `/rama-cerrar` si el fix vive en su propia
+rama. El fix y su regression test son un commit (`fix`); la hipótesis que resultó
 correcta va en su cuerpo. La limpieza de instrumentación no es un commit aparte: no
 debería quedar nada que limpiar. Cualquier refactor que el post-mortem sugiera es otro
-motivo de cambio y, por tanto, otro commit — o directamente otro worktree.
+motivo de cambio y, por tanto, otro commit — o directamente otra rama.

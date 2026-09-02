@@ -115,51 +115,29 @@ puedo teclearlas):
 Reglas de uso: todo trabajo no trivial nace como `propuesta` — venga de un backlog,
 de un ticket o de una idea. Para features nuevas no triviales, usa `sdd`; para mejoras de código o infra aisladas, usa `kaizen`; ante un bug o regresión, usa `diagnose`; antes de un cambio grande o ambiguo, propón `alinear`. Para implementar: sigue el diseño acordado en cambios incrementales y verificables, y cierra con `revisar`.
 
-Con el plan ya aprobado, decide el aislamiento antes de tocar código: si es una
-funcionalidad con varios ciclos, o si va a haber más de una cosa en vuelo a la vez,
-ábrela en su propio worktree con `/worktree`; si es un arreglo de un solo ciclo, se
-trabaja sobre la rama base y no montes worktree.
+Aislamiento: varios ciclos → rama propia con `/rama`; un solo ciclo → sobre la rama
+base, sin rama aparte.
 
-## Aislamiento por funcionalidad (worktrees)
+## Aislamiento por funcionalidad (ramas)
 
-Los comandos (`/…`) son las manos del flujo: donde las skills deciden *qué* hacer,
-ellos mueven git. Una funcionalidad = un worktree = una rama = un plan, y también
-= **una propuesta**.
+Una funcionalidad = una rama = un plan = una propuesta. Dos capas de documento:
 
-Dos capas de documento, cada una con su dueño y su ciclo de vida:
+- **Propuesta** (`docs/proposals/<slug>.md`, en git, rama base) — el PORQUÉ: problema,
+  alternativas descartadas, alcance. Fuente de verdad del diseño; sobrevive a la rama.
+- **`PLAN.md`** (raíz, ignorado por git) — el CÓMO ejecutable: contrato, ciclos,
+  bitácora. Referencia la propuesta en vez de copiarla. Se borra al integrar.
 
-- **Propuesta** (`docs/proposals/<slug>.md`, commiteada en la rama base) — el PORQUÉ:
-  problema, alternativas descartadas, alcance. **Nace, se enmienda y se cierra en el
-  flujo**; es la fuente de verdad del diseño y sobrevive al worktree para poder
-  iterar sobre la funcionalidad sin rediseñar desde cero.
-- **`PLAN.md`** (worktree) — el CÓMO ejecutable: contrato, ciclos, bitácora. Muere
-  con el worktree.
-
-Así el plan adelgaza (referencia la propuesta, no la copia) y el diseño no se pierde
-al integrar.
-
-- `/worktree` — abre `.worktrees/<slug>` con la rama `feat/<slug>` y escribe ahí el
-  `PLAN.md` destilado de `sdd`/`tdd`/`kaizen`, referenciando la propuesta si existe.
-- `/plan-ejecutar` — ejecuta **un** ciclo pendiente del `PLAN.md` y para.
+- `/rama` — abre la rama `<tipo>/<slug>` y escribe el `PLAN.md` destilado de
+  `sdd`/`tdd`/`kaizen`.
+- `/plan-ejecutar` — ejecuta **un** ciclo pendiente y para.
 - `/commit` — reparte los cambios en commits atómicos, uno por motivo.
-- `/worktree-cerrar` — verifica el plan, integra en la rama base y limpia.
+- `/rama-cerrar` — verifica el plan, integra en la rama base y limpia.
 
-El plan va en disco, no en el chat, y es autocontenido a propósito: así lo puede
-ejecutar un agente que no estuvo en la conversación de diseño (leyendo el plan,
-la propuesta que referencia y el repo), y así sobrevive a un reinicio de contexto.
-Cada ciclo del plan es un candidato a commit atómico. La consecuencia para ti: si al
-ejecutar un plan tienes que decidir algo de diseño a mitad de ciclo, el plan estaba
-incompleto — para y dilo, esa es la señal.
+Cadena completa: `propuesta` → `/rama` → construir → `revisar` → `/commit` →
+`/rama-cerrar` (que marca la propuesta `construida`).
 
-La cadena completa es `propuesta` → `/worktree` → construir → `revisar` → `/commit`
-→ `/worktree-cerrar` (que marca la propuesta `construida`).
-
-Funcionalidades **independientes** pueden ir en paralelo, un worktree y un agente cada
-una. Antes de abrir la segunda, comprueba solapes de ficheros contra los planes vivos.
-
-El checkout principal se queda en la rama base, limpio. **Excepción**: en repos de
-configuración viva (estos dotfiles, con stow) no uses worktrees — los symlinks de `~`
-apuntan al checkout principal, así que ahí no se puede probar nada en vivo.
+**Una funcionalidad en vuelo a la vez**: árbol limpio (commit o `stash`) antes de
+cambiar de rama, y nunca dos `PLAN.md` a medias.
 
 ## Escalera de simplicidad (transversal)
 
@@ -182,7 +160,7 @@ lo que pida explícitamente. La skill `disenar` la aplica como filtro previo y
   los marcadores `YAGNI:` de `simplicidad-marcador-01`.
 - Idioma: español.
 - No commitees, ni hagas push, ni crees PRs salvo que te lo pida explícitamente.
-  Invocar `/commit` o `/worktree-cerrar` es esa petición **solo para commitear e
+  Invocar `/commit` o `/rama-cerrar` es esa petición **solo para commitear e
   integrar en local**: el push nunca va incluido, ni siquiera borrar una rama en
   `origin`. Eso lo pido aparte, siempre.
 - Antes de implementar algo grande, propón un plan corto y espera mi visto bueno.

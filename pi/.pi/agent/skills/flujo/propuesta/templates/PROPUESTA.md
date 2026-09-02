@@ -41,7 +41,7 @@ Qué explícitamente no toca esta propuesta.
 
 ## Dependencias y preguntas abiertas
 
-Qué tiene que aterrizar antes (otra propuesta, un worktree en vuelo) y qué preguntas
+Qué tiene que aterrizar antes (otra propuesta, una rama en vuelo) y qué preguntas
 sin resolver bloquean decisiones. Lo que bloquea se escribe, no se descubre a mitad
 del build. Si no hay nada, «—».
 

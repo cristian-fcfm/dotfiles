@@ -19,4 +19,4 @@ Fase de mejora continua ligera. Para cambios aislados donde el flujo TDD/SDD com
 
 ## Cierre
 
-Lista qué cambiaste (con `archivo:línea`), confirma que la red de seguridad pasó, y encadena: `/skill:revisar` → `/commit`. Un kaizen es un cambio de un solo propósito, así que sale un único commit; si te salen dos, es que el paso 1 no aisló bien. Si el cambio vive en un worktree, cierra con `/worktree-cerrar`.
+Lista qué cambiaste (con `archivo:línea`), confirma que la red de seguridad pasó, y encadena: `/skill:revisar` → `/commit`. Un kaizen es un cambio de un solo propósito, así que sale un único commit; si te salen dos, es que el paso 1 no aisló bien. Si el cambio vive en su propia rama, cierra con `/rama-cerrar`.

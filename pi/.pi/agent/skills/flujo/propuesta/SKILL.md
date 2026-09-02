@@ -14,9 +14,9 @@ Dos capas, cada una con su dueño y su ciclo de vida:
 | Capa | Vive en | Contiene | Ciclo de vida |
 |---|---|---|---|
 | Propuesta | `docs/proposals/<slug>.md`, rama base | el PORQUÉ: problema, alternativas, alcance | **nace y se cierra en el flujo** |
-| `PLAN.md` | el worktree | el CÓMO: contrato, ciclos, bitácora | muere al integrar |
+| `PLAN.md` | la raíz del repo, ignorado por git | el CÓMO: contrato, ciclos, bitácora | muere al integrar |
 
-La propuesta es la **fuente de verdad del diseño**: sobrevive al worktree para poder
+La propuesta es la **fuente de verdad del diseño**: sobrevive a la rama para poder
 iterar sobre la funcionalidad sin rediseñar desde cero, y adelgaza el plan (que la
 referencia, no la copia).
 
@@ -49,14 +49,14 @@ Reglas:
 
 - El detalle sigue al riesgo y a la ambigüedad, no a la plantilla: una propuesta
   pequeña puede ser ocho líneas; lo que no puede ser es ambigua en lo que arriesga.
-- El slug, en kebab-case, es el que luego usará `/worktree`: una funcionalidad, un
+- El slug, en kebab-case, es el que luego usará `/rama`: una funcionalidad, un
   slug en ambas capas (propuesta, plan).
 - «Alternativas consideradas» es la sección más valiosa: incluye la opción de «no
   hacer nada». Lo que no está descrito, no está decidido.
 - «Criterios de aceptación» son comportamientos verificables — cada uno debe poder
   fallar. Sin ellos no hay contrato posible: no me muestres la propuesta sin ellos.
 - La propuesta es **producto, no andamiaje**: se commitea en la rama base (con
-  `/commit`, cuando yo lo pida) y debe existir antes de abrir el worktree.
+  `/commit`, cuando yo lo pida) y debe existir antes de abrir la rama.
 - Decisiones difíciles de revertir que salgan aquí no se duplican: su sitio es un ADR
   (skill `modelo-dominio`), y la propuesta lo enlaza.
 
@@ -81,10 +81,10 @@ autocontención que el `PLAN.md`, un escalón antes:
 Si algo no pasa, la propuesta está a medio cocer: lo ambiguo se resuelve con
 `alinear`, no se adivina. Enséñamela solo en verde.
 
-Con mi OK, su estado pasa a `aprobada` y el siguiente paso es `/worktree`, que la
+Con mi OK, su estado pasa a `aprobada` y el siguiente paso es `/rama`, que la
 referencia desde la cabecera del plan — **la referencia, no una copia**.
 
 ## 6. Cerrar
 
-El cierre de la propuesta vive en el flujo: `/worktree-cerrar` marca su estado como
+El cierre de la propuesta vive en el flujo: `/rama-cerrar` marca su estado como
 `construida` (o `descartada`, con motivo en «Revisiones»).

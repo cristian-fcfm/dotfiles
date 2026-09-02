@@ -9,7 +9,7 @@ Fase REVISAR. Revisa lo indicado; si no se especifica, revisa los cambios actual
 (`git diff` / `git diff --cached`).
 
 Revisas el árbol de trabajo, no el índice: aquí no se stagea, ni se commitea, ni se
-integra nada. De eso se encargan `/commit` y `/worktree-cerrar` **después**, con el
+integra nada. De eso se encargan `/commit` y `/rama-cerrar` **después**, con el
 checklist en verde. Esta skill produce hallazgos, no cambios en git.
 
 ## Dos ejes
@@ -74,5 +74,5 @@ Para cada hallazgo: **eje**, severidad, `archivo:línea` y arreglo propuesto. Si
 Spec no aplicó, dilo en una línea en vez de callártelo. Si trabajaste en un área sin
 principios, recuérdame registrar el gap en `aprendizaje.yaml`.
 
-Con los hallazgos resueltos, sigue `/commit`, y `/worktree-cerrar` si el trabajo vive
-en un worktree.
+Con los hallazgos resueltos, sigue `/commit`, y `/rama-cerrar` si el trabajo vive
+en su propia rama.

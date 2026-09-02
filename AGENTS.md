@@ -1,8 +1,9 @@
 # Dotfiles
 
-Repo de **configuración viva** gestionado con GNU stow: los symlinks de `~` apuntan
-al checkout principal, así que aquí no se usan worktrees (excepción ya recogida en mi
-AGENTS.md global). Se trabaja sobre la rama base y se prueba en vivo.
+Repo de **configuración viva** gestionado con GNU stow: los symlinks de `~` apuntan a
+este checkout, así que lo que esté en el árbol de trabajo es lo que el sistema ejecuta.
+Un `git switch` cambia la configuración activa de la máquina: no dejes ramas a medias
+en sitios donde luego no recuerdes por qué algo se comporta raro.
 
 ## Commits
 

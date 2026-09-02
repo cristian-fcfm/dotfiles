@@ -52,23 +52,22 @@ Luego termina con un plan de implementación en pasos cortos y espera mi visto b
 antes de construir.
 
 Y no lo dejes en una lista plana: **clasifica cada paso**, porque de eso depende cuánto
-trabajo se puede paralelizar.
+trabajo entra en una misma rama.
 
 - **Ciclo** — un comportamiento observable dentro de la misma funcionalidad. Va como
-  fila en el `PLAN.md` de un worktree.
-- **Funcionalidad propia** — tiene su motivo de cambio, su worktree y su plan. Señales:
+  fila en el `PLAN.md` de la rama.
+- **Funcionalidad propia** — tiene su motivo de cambio, su rama y su plan. Señales:
   se podría revertir sola, se entrega sola, o toca una zona del código sin relación con
   el resto.
 
 Si sale más de una funcionalidad, dame el **orden por dependencias**: cuál desbloquea a
-cuál, y cuáles son independientes entre sí —esas son las que pueden ir en paralelo, un
-agente por worktree—. Marca también qué ficheros toca cada una, para poder detectar
-solapes antes de abrir dos worktrees que se pisen.
+cuál y cuáles son independientes entre sí. No se construyen a la vez —una en vuelo
+cada vez—, pero ese orden decide cuál abre rama primero y cuál espera.
 
 Prefiere el primer paso más fino que ya cruce el sistema de punta a punta (*tracer
 bullet*) antes que uno grande que lo deje todo a medias.
 
-Con el plan aprobado, aterrízalo en disco antes de tocar código: `/worktree` abre el
-worktree de cada funcionalidad y transcribe ahí su parte ejecutable como `PLAN.md`,
+Con el plan aprobado, aterrízalo en disco antes de tocar código: `/rama` abre la rama
+de la funcionalidad y transcribe su parte ejecutable como `PLAN.md`,
 referenciando la propuesta. Ese fichero es desde entonces la fuente de verdad —no esta
 conversación—, y de él se construye, con `/skill:tdd` si hay tests de por medio.

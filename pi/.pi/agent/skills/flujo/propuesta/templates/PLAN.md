@@ -1,6 +1,6 @@
 # <tipo>/<slug>
 
-- **Worktree**: `.worktrees/<slug>`
+- **Rama**: `<tipo>/<slug>`
 - **Base**: `<base>` en `<sha corto>`
 - **Origen del plan**: propuesta | sdd | tdd | kaizen
 - **Propuesta**: `docs/proposals/<slug>.md` (si existe; si no, «—»)
@@ -17,7 +17,7 @@ Explícito: lo que NO se toca aquí.
 
 **Referencia la propuesta, no la copies**: si existe, un enlace basta y esta sección
 queda solo con lo que la propuesta no puede saber — ficheros concretos a tocar y qué
-falta instalar en el worktree para arrancar. Si no hay propuesta: ficheros a tocar,
+hace falta para arrancar. Si no hay propuesta: ficheros a tocar,
 términos de `CONTEXT.md`, ADRs que aplican, principios por `id`.
 
 ## Contrato

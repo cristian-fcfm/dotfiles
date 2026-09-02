@@ -1,5 +1,5 @@
 ---
-description: Ejecutar el siguiente ciclo pendiente del PLAN.md de este worktree
+description: Ejecutar el siguiente ciclo pendiente del PLAN.md de esta rama
 argument-hint: [nº de ciclo, si quiero uno concreto]
 ---
 
@@ -11,8 +11,12 @@ algo no está ahí, no lo adivines: es un fallo del plan y hay que decirlo.
 
 ## 1. Cargar el estado
 
-Lee `PLAN.md` desde la raíz del worktree. Si no existe, para: este comando no se usa
-fuera de un worktree abierto con `/worktree`.
+Lee `PLAN.md` desde la raíz del repo. Si no existe, para: este comando no se usa fuera
+de una rama abierta con `/rama`.
+
+Comprueba que la rama de la cabecera del plan es la actual (`git branch --show-current`).
+Si no coinciden, para y dímelo: `PLAN.md` no está rastreado, así que sobrevive a un
+`git switch` y ejecutar sus ciclos sobre otra rama mezcla dos funcionalidades.
 
 Léelo entero antes de tocar nada — «Fuera de alcance» y «Puertas humanas» son tan
 vinculantes como el contrato. Después, la **bitácora**: es lo que pasó en los ciclos
@@ -23,7 +27,7 @@ léela también del disco: es el porqué de lo que vas a ejecutar, y aclara los 
 que el plan da por sabidos. Leerla no es opcional; adivinar, sí lo es.
 
 El ciclo a ejecutar es el del argumento; si no lo doy, **el primero en estado
-`pendiente`**. Si no queda ninguno, dilo y sugiere `/worktree-cerrar`. No te adelantes
+`pendiente`**. Si no queda ninguno, dilo y sugiere `/rama-cerrar`. No te adelantes
 a ciclos posteriores aunque «se vea claro» cómo van: cada ciclo se diseñó para
 responder a lo aprendido en el anterior.
 
@@ -72,6 +76,6 @@ Para y dime, en vez de improvisar:
 - El plan no alcanza: falta contexto para ejecutar el ciclo sin inventarme decisiones.
 - El test no se deja escribir en un seam razonable.
 - Hay que tocar ficheros que «Contexto» no lista, o hacer algo de «Fuera de alcance».
-- La verificación falla por algo ajeno a este ciclo (el worktree ya venía en rojo).
+- La verificación falla por algo ajeno a este ciclo (la rama ya venía en rojo).
 - Dos ciclos seguidos revelan que el contrato estaba mal. Ahí el problema es el plan, y
   el plan se arregla conmigo, no sobre la marcha.

@@ -20,12 +20,12 @@ Fase de construcción robusta para features no triviales. El código es secundar
 
 ## Reglas
 
-- Una sola feature a la vez, en su propio worktree (`/worktree`).
-- Estado en disco, no en chat, para que sobreviva a reinicios de contexto: ese estado es el `PLAN.md` del worktree — su tabla de ciclos y su bitácora se actualizan al cerrar cada ciclo. No crees ficheros de estado paralelos (`progress/` y demás).
+- Una sola feature a la vez, en su propia rama (`/rama`).
+- Estado en disco, no en chat, para que sobreviva a reinicios de contexto: ese estado es el `PLAN.md` de la rama — su tabla de ciclos y su bitácora se actualizan al cerrar cada ciclo. No crees ficheros de estado paralelos (`progress/` y demás).
 - Distingue producto de andamiaje: la propuesta (`docs/proposals/`), los `.feature` y
-  los ADRs se commitean; el `PLAN.md` es andamiaje y muere con el worktree.
+  los ADRs se commitean; el `PLAN.md` es andamiaje y se borra al integrar la rama.
 - Respeta la REGLA DE PRECEDENCIA de `AGENTS.md`.
 
 ## Cierre
 
-Cuando el review esté aprobado y el TDD completado, lista los artefactos generados y encadena: `/skill:revisar` → `/commit` (un ciclo del plan = un commit atómico) → `/worktree-cerrar`.
+Cuando el review esté aprobado y el TDD completado, lista los artefactos generados y encadena: `/skill:revisar` → `/commit` (un ciclo del plan = un commit atómico) → `/rama-cerrar`.
