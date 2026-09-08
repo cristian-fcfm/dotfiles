@@ -9,31 +9,30 @@ vim.schedule(function()
   -- ===========================================================================
   -- Formateadores por tipo de archivo
   -- ===========================================================================
-  local utils = require("utils")
-  local formatters_by_ft = {}
-
-  utils.set_if_executable(formatters_by_ft, "python",   "ruff",     { "ruff_format", "ruff_organize_imports" })
-  utils.set_if_executable(formatters_by_ft, "json",     "prettier")
-  utils.set_if_executable(formatters_by_ft, "yaml",     "prettier")
-  utils.set_if_executable(formatters_by_ft, "markdown", "prettier")
-  utils.set_if_executable(formatters_by_ft, "zk",       "prettier")
-  utils.set_if_executable(formatters_by_ft, "html",     "prettier")
-  utils.set_if_executable(formatters_by_ft, "css",      "prettier")
-  utils.set_if_executable(formatters_by_ft, "scss",     "prettier")
-  utils.set_if_executable(formatters_by_ft, "less",     "prettier")
-  utils.set_if_executable(formatters_by_ft, "bash",     "shfmt")
-  utils.set_if_executable(formatters_by_ft, "sh",       "shfmt")
-  utils.set_if_executable(formatters_by_ft, "lua",      "stylua")
-  utils.set_if_executable(formatters_by_ft, "zig",      "zig",      { "zigfmt" })
-  utils.set_if_executable(formatters_by_ft, "rust",     "rustfmt")
-
-  formatters_by_ft.typst = { "lsp_format" }
+  local formatters_by_ft = {
+    python   = { "ruff_format", "ruff_organize_imports" },
+    json     = { "prettier" },
+    yaml     = { "prettier" },
+    markdown = { "prettier" },
+    zk       = { "prettier" },
+    html     = { "prettier" },
+    css      = { "prettier" },
+    scss     = { "prettier" },
+    less     = { "prettier" },
+    bash     = { "shfmt" },
+    sh       = { "shfmt" },
+    lua      = { "stylua" },
+    zig      = { "zigfmt" },
+    rust     = { "rustfmt" },
+    typst    = { "lsp_format" },
+  }
 
   -- ===========================================================================
   -- Configuracion de conform
   -- ===========================================================================
   require("conform").setup({
     formatters_by_ft = formatters_by_ft,
+    notify_no_formatters = false,
     format_on_save = {
       timeout_ms = 2000,
       lsp_format = "fallback",

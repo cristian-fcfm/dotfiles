@@ -11,18 +11,20 @@ vim.schedule(function()
   -- ===========================================================================
   local lint = require("lint")
   local utils = require("utils")
-  local linters_by_ft = {}
 
-  utils.set_if_executable(linters_by_ft, "python", "ruff")
-  utils.set_if_executable(linters_by_ft, "sh",     "shellcheck")
-  utils.set_if_executable(linters_by_ft, "bash",   "shellcheck")
-  utils.set_if_executable(linters_by_ft, "yaml",   "yamllint")
-  utils.set_if_executable(linters_by_ft, "markdown", "markdownlint")
-  utils.set_if_executable(linters_by_ft, "zk",     "markdownlint")
-  utils.set_if_executable(linters_by_ft, "dockerfile", "hadolint")
-  utils.set_if_executable(linters_by_ft, "css",    "stylelint")
-  utils.set_if_executable(linters_by_ft, "scss",   "stylelint")
-  utils.set_if_executable(linters_by_ft, "less",   "stylelint")
+  local linters_by_ft = {
+    python     = { "ruff" },
+    sh         = { "shellcheck" },
+    bash       = { "shellcheck" },
+    yaml       = { "yamllint" },
+    markdown   = { "markdownlint" },
+    zk         = { "markdownlint" },
+    dockerfile = { "hadolint" },
+    css        = { "stylelint" },
+    scss       = { "stylelint" },
+    less       = { "stylelint" },
+    zig        = { "zlint" },
+  }
 
   -- Lua: preferir selene, fallback a luacheck
   if utils.executable("selene") then
@@ -31,12 +33,29 @@ vim.schedule(function()
     linters_by_ft.lua = { "luacheck" }
   end
 
-  -- Zig usa zlint (incluido con zls)
-  if utils.executable("zig") then
-    linters_by_ft.zig = { "zlint" }
-  end
-
   lint.linters_by_ft = linters_by_ft
+
+  --- Devuelve los linters de un filetype que tienen su binario en PATH.
+  --- @param filetype string
+  --- @return string[] Vacio si no hay ninguno ejecutable
+  local function available_linters(filetype)
+    local names = lint.linters_by_ft[filetype]
+    if not names then
+      return {}
+    end
+
+    return vim.tbl_filter(function(name)
+      local ok, linter = pcall(function()
+        return lint.linters[name]
+      end)
+      local cmd = ok and type(linter) == "table" and linter.cmd or nil
+      if type(cmd) == "function" then
+        local resolved, value = pcall(cmd)
+        cmd = resolved and value or nil
+      end
+      return type(cmd) == "string" and utils.executable(cmd)
+    end, names)
+  end
 
   -- ===========================================================================
   -- Autocmd y comandos de usuario
@@ -47,8 +66,9 @@ vim.schedule(function()
     group = lint_augroup,
     desc = "Ejecutar linting automatico",
     callback = function()
-      if lint.linters_by_ft[vim.bo.filetype] then
-        lint.try_lint()
+      local linters = available_linters(vim.bo.filetype)
+      if #linters > 0 then
+        lint.try_lint(linters)
       end
     end,
   })
