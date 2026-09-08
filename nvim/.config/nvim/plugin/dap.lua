@@ -20,13 +20,7 @@ local function setup_dap()
   local dapui = require("dapui")
   local dap_python = require("dap-python")
 
-  -- Usa el python del venv del proyecto si existe, sino el del sistema
-  local python_path = vim.fn.getcwd() .. "/.venv/bin/python"
-  if vim.fn.executable(python_path) == 0 then
-    python_path = "python3"
-  end
-
-  dap_python.setup(python_path)
+  dap_python.setup("debugpy-adapter", { include_configs = false })
 
   -- Configuraciones para APIs (FastAPI + LangGraph)
   dap.configurations.python = {
