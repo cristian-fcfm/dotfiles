@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.84.1",
   "theme": "dark",
-  "defaultProvider": "anthropic",
-  "defaultModel": "claude-sonnet-5",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gemini-3.8-flash",
   "packages": [
     "npm:pi-web-access"
   ],
