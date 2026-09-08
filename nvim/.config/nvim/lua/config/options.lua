@@ -88,8 +88,7 @@ vim.opt.backup = true
 vim.opt.backupcopy = "yes"
 vim.opt.backupdir = vim.fn.stdpath("data") .. "/backup//"
 
-local utils = require("utils")
-utils.may_create_dir(vim.fn.stdpath("data") .. "/backup")
+vim.fn.mkdir(vim.fn.stdpath("data") .. "/backup", "p")
 
 -- Ventanas
 vim.opt.textwidth = 80
