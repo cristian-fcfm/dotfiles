@@ -49,8 +49,9 @@ Reglas:
 
 - El detalle sigue al riesgo y a la ambigüedad, no a la plantilla: una propuesta
   pequeña puede ser ocho líneas; lo que no puede ser es ambigua en lo que arriesga.
-- El slug, en kebab-case, es el que luego usará `/rama`: una funcionalidad, un
-  slug en ambas capas (propuesta, plan).
+- El slug, en kebab-case y en inglés (tradúcelo si la idea viene en español), es
+  el que luego usará `/rama`: una funcionalidad, un slug en ambas capas
+  (propuesta, plan).
 - «Alternativas consideradas» es la sección más valiosa: incluye la opción de «no
   hacer nada». Lo que no está descrito, no está decidido.
 - «Criterios de aceptación» son comportamientos verificables — cada uno debe poder

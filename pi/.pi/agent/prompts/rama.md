@@ -35,12 +35,13 @@ historia se entienda dentro de tres meses.
 
 ## 2. Nombre
 
-Del argumento sacas un slug corto en kebab-case, sin tildes: la funcionalidad, no el
-mecanismo (`toggle-monitores`, no `arreglar-script-bash`).
+Del argumento sacas un slug corto en inglés y en kebab-case (tradúcelo si te lo
+describo en español): la funcionalidad, no el mecanismo (`toggle-monitors`, no
+`fix-bash-script`).
 
-- **Rama**: `<tipo>/<slug>`, con el mismo `tipo` de Conventional Commits que usarás al
-  commitear: `feat/`, `fix/`, `refactor/`, `docs/`, `chore/`. Si no tienes claro cuál
-  es, es que la funcionalidad no está clara: pregúntame antes de crear.
+- **Rama**: `<tipo>/<slug>` (en inglés), con el mismo `tipo` de Conventional Commits que
+  usarás al commitear: `feat/`, `fix/`, `refactor/`, `docs/`, `chore/`. Si no tienes claro
+  cuál es, es que la funcionalidad no está clara: pregúntame antes de crear.
 - Si `PLAN.md` no está en `.gitignore`, añádelo y dímelo. Ese cambio es un `chore`
   suyo: no lo mezcles con la funcionalidad.
 

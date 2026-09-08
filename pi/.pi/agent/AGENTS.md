@@ -127,7 +127,7 @@ Una funcionalidad = una rama = un plan = una propuesta. Dos capas de documento:
 - **`PLAN.md`** (raíz, ignorado por git) — el CÓMO ejecutable: contrato, ciclos,
   bitácora. Referencia la propuesta en vez de copiarla. Se borra al integrar.
 
-- `/rama` — abre la rama `<tipo>/<slug>` y escribe el `PLAN.md` destilado de
+- `/rama` — abre la rama `<tipo>/<slug>` (en inglés) y escribe el `PLAN.md` destilado de
   `sdd`/`tdd`/`kaizen`.
 - `/plan-ejecutar` — ejecuta **un** ciclo pendiente y para.
 - `/commit` — reparte los cambios en commits atómicos, uno por motivo.
@@ -158,9 +158,9 @@ lo que pida explícitamente. La skill `disenar` la aplica como filtro previo y
   **cambio** va al mensaje de commit; el de una **decisión**, a la propuesta o al
   ADR. Prohibido narrar el diff en el código y explicar lo obvio. Si un bloque
   necesita comentario para entenderse, renombra o extrae antes de comentar.
-- Idioma: identificadores en inglés; la prosa (docstrings, comentarios, commits,
-  docs, chat) en español. Un repo público o con colaboradores no hispanohablantes
-  lo declara en su propio `AGENTS.md`.
+- Idioma: identificadores y ramas en inglés; la prosa (docstrings, comentarios,
+  commits, docs, chat) en español. Un repo público o con colaboradores no
+  hispanohablantes lo declara en su propio `AGENTS.md`.
 - Docstrings: el formato idiomático del lenguaje (Python → Google §3.8.3, Go →
   godoc, TS → TSDoc). Obligatorio salvo que la función cumpla **las tres**: no
   visible fuera del módulo, muy corta y obvia. Criterio de suficiencia: permitir
