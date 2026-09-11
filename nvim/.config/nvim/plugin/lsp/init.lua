@@ -5,7 +5,7 @@ vim.schedule(function()
   -- NOTA: no desactivar documentFormattingProvider aquí: conform con
   -- lsp_format="fallback" (y typst con { "lsp_format" }) filtra los clientes
   -- por esa capability, y anularla dejaba el formateo LSP sin efecto.
-  local on_attach = function(client, bufnr)
+  local on_attach = function(_, bufnr)
     local map = function(keys, func, desc, mode)
       mode = mode or "n"
       vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
@@ -22,15 +22,6 @@ vim.schedule(function()
     map("gra", vim.lsp.buf.code_action, "Acciones de codigo", { "n", "x" })
     map("K", vim.lsp.buf.hover, "Documentacion flotante")
     map("gK", vim.lsp.buf.signature_help, "Ayuda de firma")
-
-    if client.server_capabilities.inlayHintProvider then
-      map("<leader>lh", function()
-        vim.lsp.inlay_hint.enable(
-          not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }),
-          { bufnr = bufnr }
-        )
-      end, "Alternar inlay hints")
-    end
   end
 
   vim.diagnostic.config({
@@ -72,15 +63,4 @@ vim.schedule(function()
       end
     end,
   })
-
-  vim.api.nvim_create_user_command("DiagnosticsToggle", function()
-    vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-  end, { desc = "Alternar diagnosticos globales" })
-
-  vim.api.nvim_create_user_command("DiagnosticsToggleBuffer", function()
-    vim.diagnostic.enable(not vim.diagnostic.is_enabled({ bufnr = 0 }), { bufnr = 0 })
-  end, { desc = "Alternar diagnosticos del buffer" })
-
-  vim.keymap.set("n", "<leader>ld", "<cmd>DiagnosticsToggleBuffer<CR>", { desc = "Alternar diagnosticos (buffer)" })
-  vim.keymap.set("n", "<leader>lD", "<cmd>DiagnosticsToggle<CR>", { desc = "Alternar diagnosticos (global)" })
 end)

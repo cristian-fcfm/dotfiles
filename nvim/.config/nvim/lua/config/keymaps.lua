@@ -21,9 +21,6 @@ map("n", "<C-u>", "<C-u>zz", { desc = "Scroll arriba centrado" })
 map({ "n", "v" }, "H", "^", { desc = "Inicio de linea" })
 map({ "n", "v" }, "L", "$", { desc = "Fin de linea" })
 
--- ─── Line wrap ──────────────────────────────────────────────────────────────
-map("n", "<leader>lw", "<cmd>set wrap!<CR>", { desc = "Alternar ajuste de linea" })
-
 -- ─── Modo visual ────────────────────────────────────────────────────────────
 map("v", "<", "<gv", { desc = "Indentar izquierda y reseleccionar" })
 map("v", ">", ">gv", { desc = "Indentar derecha y reseleccionar" })
@@ -63,7 +60,6 @@ map("n", "<leader>wc", "<cmd>close<CR>", { desc = "Cerrar ventana" })
 map("n", "<leader>wo", "<C-w>o", { desc = "Cerrar otras ventanas" })
 
 -- ─── Ortografia ─────────────────────────────────────────────────────────────
-map("n", "<leader>zp", "<cmd>set spell!<CR>", { desc = "Alternar correccion ortografica" })
 map("n", "<leader>zs", "z=", { desc = "Ver sugerencias" })
 map("n", "<leader>za", "zg", { desc = "Agregar al diccionario" })
 

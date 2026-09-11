@@ -103,9 +103,8 @@ require("snacks").setup({
   quickfile = { enabled = true },
   scroll = { enabled = true },
   terminal = { enabled = true },
+  toggle = { enabled = true },
   words = { enabled = true },
-
-  styles = {},
 })
 
 -- ============================================================================
@@ -165,3 +164,23 @@ map("t", "<C-t>", function() Snacks.terminal() end, { desc = "Cerrar terminal fl
 -- ]w/[w quedan para mini.bracketed (ventanas), por eso ]r/[r
 map("n", "]r", function() Snacks.words.jump(vim.v.count1, true) end, { desc = "Referencia LSP siguiente" })
 map("n", "[r", function() Snacks.words.jump(-vim.v.count1, true) end, { desc = "Referencia LSP anterior" })
+
+-- ============================================================================
+-- Alternadores
+-- ============================================================================
+Snacks.toggle.option("wrap", { name = "Ajuste de linea" }):map("<leader>lw")
+Snacks.toggle.option("spell", { name = "Ortografia" }):map("<leader>zp")
+Snacks.toggle.inlay_hints({ name = "Inlay hints" }):map("<leader>lh")
+Snacks.toggle.diagnostics({ name = "Diagnosticos (global)" }):map("<leader>lD")
+Snacks.toggle
+  .new({
+    id = "diagnostics_buffer",
+    name = "Diagnosticos (buffer)",
+    get = function()
+      return vim.diagnostic.is_enabled({ bufnr = 0 })
+    end,
+    set = function(state)
+      vim.diagnostic.enable(state, { bufnr = 0 })
+    end,
+  })
+  :map("<leader>ld")
