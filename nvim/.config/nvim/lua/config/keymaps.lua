@@ -86,6 +86,7 @@ map("n", "<leader>gD", function()
   })
 end, { desc = "Diff contra rama elegida" })
 map("n", "<leader>gb", function() Snacks.git_blame_line() end, { desc = "Blame de linea" })
+map({ "n", "v" }, "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Abrir en el navegador" })
 
 -- ─── Quickfix / Loclist ─────────────────────────────────────────────────────
 local function toggle_win(type)

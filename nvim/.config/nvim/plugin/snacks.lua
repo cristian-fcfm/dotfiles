@@ -99,6 +99,7 @@ require("snacks").setup({
   image = { enabled = true },
 
   bigfile = { enabled = true },
+  gitbrowse = { enabled = true },
   input = { enabled = true },
   quickfile = { enabled = true },
   scratch = { enabled = true },
