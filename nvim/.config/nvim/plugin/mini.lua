@@ -20,13 +20,26 @@ require("mini.icons").tweak_lsp_kind()
 -- ============================================================================
 local ai = require("mini.ai")
 
+--- Spec de treesitter que no revienta donde no hay query `textobjects`.
+--- Sin esto, un `dif` en markdown o en texto plano lanza un error en vez de
+--- avisar de que no hay objeto; devolver una lista vacia es "no encontrado".
+--- @param captures table Capturas para `a` e `i`
+--- @return function
+local function ts_spec(captures)
+  local spec = ai.gen_spec.treesitter(captures)
+  return function(...)
+    local ok, regions = pcall(spec, ...)
+    return ok and regions or {}
+  end
+end
+
 ai.setup({
   n_lines = 500,
   custom_textobjects = {
     -- `a` (argumento) y `b` (alias de `)]}`) se dejan con el spec por defecto
-    f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
-    c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
-    o = ai.gen_spec.treesitter({
+    f = ts_spec({ a = "@function.outer", i = "@function.inner" }),
+    c = ts_spec({ a = "@class.outer", i = "@class.inner" }),
+    o = ts_spec({
       a = { "@conditional.outer", "@loop.outer" },
       i = { "@conditional.inner", "@loop.inner" },
     }),
