@@ -18,18 +18,19 @@ require("mini.icons").tweak_lsp_kind()
 -- ============================================================================
 -- Mini AI - Objetos de texto extendidos
 -- ============================================================================
-require("mini.ai").setup({
+local ai = require("mini.ai")
+
+ai.setup({
   n_lines = 500,
   custom_textobjects = {
-    f = require("mini.ai").gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
-    c = require("mini.ai").gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
-    o = require("mini.ai").gen_spec.treesitter({
+    -- `a` (argumento) y `b` (alias de `)]}`) se dejan con el spec por defecto
+    f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+    c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+    o = ai.gen_spec.treesitter({
       a = { "@conditional.outer", "@loop.outer" },
       i = { "@conditional.inner", "@loop.inner" },
     }),
-    a = require("mini.ai").gen_spec.argument({ separator = "," }),
-    b = require("mini.ai").gen_spec.treesitter({ a = "@block.outer", i = "@block.inner" }),
-    F = require("mini.ai").gen_spec.function_call(),
+    F = ai.gen_spec.function_call(),
   },
 })
 

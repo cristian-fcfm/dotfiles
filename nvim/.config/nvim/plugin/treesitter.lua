@@ -24,6 +24,9 @@ end })
 vim.schedule(function()
   vim.pack.add({
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", name = "nvim-treesitter" },
+    -- Solo aporta queries/<lang>/textobjects.scm: las necesita mini.ai para
+    -- gen_spec.treesitter (nvim-treesitter main no las distribuye)
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" },
   })
 
   vim.opt.rtp:append(vim.fn.stdpath("data") .. "/site/pack/core/opt/nvim-treesitter/runtime")
