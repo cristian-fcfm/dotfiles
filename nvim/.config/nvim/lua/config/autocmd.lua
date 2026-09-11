@@ -95,6 +95,16 @@ api.nvim_create_autocmd("FileType", {
     vim.opt_local.shiftwidth = 2
     vim.opt_local.softtabstop = 2
     vim.opt_local.expandtab = true
+
+    -- ci* / ci_ sobre negritas y cursivas. Greedy para que `**negrita**`
+    -- cuente como un solo delimitador en vez de dos asteriscos sueltos.
+    local pair = require("mini.ai").gen_spec.pair
+    vim.b.miniai_config = {
+      custom_textobjects = {
+        ["*"] = pair("*", "*", { type = "greedy" }),
+        ["_"] = pair("_", "_", { type = "greedy" }),
+      },
+    }
   end,
 })
 
