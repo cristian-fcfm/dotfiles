@@ -2,7 +2,7 @@
 -- Configuracion Snacks
 -- ============================================================================
 vim.pack.add({
-  "https://github.com/folke/snacks.nvim",
+  { src = "https://github.com/folke/snacks.nvim", version = vim.version.range("2") },
 })
 
 -- ============================================================================

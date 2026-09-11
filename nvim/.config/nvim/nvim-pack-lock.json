@@ -87,7 +87,8 @@
     },
     "snacks.nvim": {
       "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
-      "src": "https://github.com/folke/snacks.nvim"
+      "src": "https://github.com/folke/snacks.nvim",
+      "version": "2.0.0 - 3.0.0"
     },
     "typst-preview.nvim": {
       "rev": "1c2e19486397be1c580b560fc50ee36abe329c46",
