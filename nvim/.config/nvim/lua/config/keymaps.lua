@@ -37,8 +37,8 @@ map("v", "<leader>/", "gc", { remap = true, desc = "Comentar/descomentar selecci
 
 -- ─── Buffers ────────────────────────────────────────────────────────────────
 map("n", "<leader>bn", "<cmd>enew<CR>", { desc = "Nuevo buffer" })
-map("n", "<leader>bd", "<cmd>bdelete!<CR>", { desc = "Eliminar buffer" })
-map("n", "<leader>bo", "<cmd>%bd|e#|bd#<CR>", { desc = "Cerrar otros buffers" })
+map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Eliminar buffer" })
+map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Cerrar otros buffers" })
 map("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Buffer siguiente" })
 map("n", "<S-Tab>", "<cmd>bprevious<CR>", { desc = "Buffer anterior" })
 map("n", "<leader>bf", function()
