@@ -1,12 +1,13 @@
 #!/bin/bash
-# Captura el monitor enfocado.
+# Captura un monitor: el que se pasa como $1 (lo resuelve el keybind en Lua
+# con hl.get_active_monitor) o, si no hay argumento, el enfocado.
 
 set -euo pipefail
 
 DIR="$HOME/Images/Screenshots"
 mkdir -p "$DIR"
 
-OUTPUT=$(hyprctl monitors | awk '/^Monitor/ {name = $2} /focused: yes/ {print name; exit}')
+OUTPUT=${1:-$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')}
 
 if [ -z "$OUTPUT" ]; then
   notify-send "Error" "No se pudo determinar el monitor enfocado"

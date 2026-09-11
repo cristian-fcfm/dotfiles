@@ -83,7 +83,13 @@ for key, delta in pairs(resize) do
 end
 
 -- ─── Capturas ───────────────────────────────────────────────────────────────
-hl.bind("Print", hl.dsp.exec_cmd("~/.scripts/screenshot/screenshot_monitor.sh"))
+-- El monitor enfocado se resuelve aquí: el script no tiene que parsear hyprctl.
+hl.bind("Print", function()
+  local monitor = hl.get_active_monitor()
+  if monitor then
+    hl.dispatch(hl.dsp.exec_cmd("~/.scripts/screenshot/screenshot_monitor.sh " .. monitor.name))
+  end
+end)
 hl.bind(mod .. " + SHIFT + Print", hl.dsp.exec_cmd("~/.scripts/screenshot/screenshot_area.sh"))
 
 -- ─── Multimedia / hardware ──────────────────────────────────────────────────
