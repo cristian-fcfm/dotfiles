@@ -8,7 +8,6 @@ vim.pack.add({
 
 local map = vim.keymap.set
 
--- mini.icons primero: otros módulos pueden necesitar el mock de nvim-web-devicons
 package.preload["nvim-web-devicons"] = function()
   require("mini.icons").mock_nvim_web_devicons()
   return package.loaded["nvim-web-devicons"]

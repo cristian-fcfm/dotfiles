@@ -6,9 +6,6 @@ vim.pack.add({
   { src = "https://github.com/mrjones2014/smart-splits.nvim" },
 })
 
--- Instalar kittens solo si no están ya en la config de kitty: el instalador
--- es un fork de bash con 3 cp por arranque; si se actualiza el plugin,
--- re-ejecutar el script a mano para refrescar los .py
 local plugin_path = vim.fn.stdpath("data") .. "/site/pack/core/opt/smart-splits.nvim"
 local kittens_script = plugin_path .. "/kitty/install-kittens.bash"
 local kittens_installed = vim.fn.filereadable(vim.fn.expand("~/.config/kitty/neighboring_window.py")) == 1
@@ -31,8 +28,6 @@ vim.keymap.set("n", "<C-k>", ss.move_cursor_up, { desc = "Ir al split superior" 
 vim.keymap.set("n", "<C-l>", ss.move_cursor_right, { desc = "Ir al split derecho" })
 
 -- Keymaps: swap de buffers entre splits (<leader>w + HJKL)
--- Nota: <C-S-hjkl> se reserva para mini.move (mover lineas/bloques),
--- segun el esquema documentado en kitty/keybindings.conf
 vim.keymap.set("n", "<leader>wH", ss.swap_buf_left, { desc = "Swap buffer izquierda" })
 vim.keymap.set("n", "<leader>wJ", ss.swap_buf_down, { desc = "Swap buffer abajo" })
 vim.keymap.set("n", "<leader>wK", ss.swap_buf_up, { desc = "Swap buffer arriba" })

@@ -14,10 +14,8 @@ wk.setup({
     border = "rounded",
   },
   icons = {
-    -- Sin iconos en los mapeos (colapsa el espacio reservado)
     mappings = false,
   },
-  -- Los presets integrados ya cubren g, z, <C-w>, marcas y registros.
   spec = {
     { "<leader>b", group = "buffers" },
     { "<leader>d", group = "debug" },

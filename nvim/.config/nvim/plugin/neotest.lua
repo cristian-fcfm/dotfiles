@@ -36,7 +36,6 @@ end, { desc = "Test: ejecutar archivo" })
 
 map("n", "<leader>rd", function()
   load_neotest()
-  -- La estrategia dap de neotest necesita nvim-dap cargado y configurado
   if vim.g.ensure_dap then
     vim.g.ensure_dap()
   end
