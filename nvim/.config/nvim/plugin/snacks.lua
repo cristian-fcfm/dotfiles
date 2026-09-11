@@ -101,6 +101,7 @@ require("snacks").setup({
   bigfile = { enabled = true },
   input = { enabled = true },
   quickfile = { enabled = true },
+  scratch = { enabled = true },
   scroll = { enabled = true },
   terminal = { enabled = true },
   toggle = { enabled = true },
@@ -184,3 +185,6 @@ Snacks.toggle
     end,
   })
   :map("<leader>ld")
+
+map("n", "<leader>.", function() Snacks.scratch() end, { desc = "Buffer scratch" })
+map("n", "<leader>f.", function() Snacks.scratch.select() end, { desc = "Elegir buffer scratch" })
