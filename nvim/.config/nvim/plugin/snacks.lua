@@ -191,3 +191,17 @@ Snacks.toggle
 
 map("n", "<leader>.", function() Snacks.scratch() end, { desc = "Buffer scratch" })
 map("n", "<leader>f.", function() Snacks.scratch.select() end, { desc = "Elegir buffer scratch" })
+
+-- ============================================================================
+-- Depuracion
+-- ============================================================================
+_G.dd = function(...)
+  Snacks.debug.inspect(...)
+end
+_G.bt = function()
+  Snacks.debug.backtrace()
+end
+-- Redirige `:=` al inspector de snacks
+vim._print = function(_, ...)
+  dd(...)
+end

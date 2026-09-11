@@ -3,7 +3,7 @@
     "version": "LuaJIT"
   },
   "diagnostics": {
-    "globals": ["vim", "Snacks", "MiniDiff", "MiniSnippets", "MiniSessions"],
+    "globals": ["vim", "Snacks", "MiniDiff", "MiniSnippets", "MiniSessions", "dd", "bt"],
     "disable": ["missing-fields", "duplicate-set-field"]
   },
   "workspace": {
