@@ -1,5 +1,6 @@
--- Monitores y workspaces.
---
+-- ============================================================================
+-- Monitores y workspaces
+-- ============================================================================
 -- Layout: DP-1 en 0x0; el HDMI a su izquierda (x negativo), deshabilitado
 -- hasta que M.toggle() lo encienda.
 --
@@ -15,20 +16,19 @@ local M = {}
 
 local DP = "DP-1"
 local HDMI_DESC = "LG Electronics LG HDR WFHD 0x00041906"
+local HDMI_OUTPUT = "desc:" .. HDMI_DESC
 local HDMI_MODE = "2560x1080@74.99"
 local HDMI_POSITION = "-2560x0" -- a la izquierda de DP-1
 
 local FIXED = { 1, 2, 3, 4, 5 } -- siempre en DP-1
 local SHARED = { 6, 7, 8, 9, 10 } -- migran entre monitores
 
----------------------------------------------------------------------------
--- Configuración base (se aplica al cargar la config)
----------------------------------------------------------------------------
-
+-- ─── Outputs ────────────────────────────────────────────────────────────────
 hl.monitor({ output = DP, mode = "2560x1440@165", position = "0x0", scale = 1 })
-hl.monitor({ output = "desc:" .. HDMI_DESC, disabled = true })
+hl.monitor({ output = HDMI_OUTPUT, disabled = true })
 hl.monitor({ output = "", disabled = true }) -- fallback: cualquier otro monitor, apagado
 
+-- ─── Reglas de workspace ────────────────────────────────────────────────────
 for _, id in ipairs(FIXED) do
   hl.workspace_rule({
     workspace = tostring(id),
@@ -42,9 +42,7 @@ for _, id in ipairs(SHARED) do
   hl.workspace_rule({ workspace = tostring(id), monitor = DP })
 end
 
----------------------------------------------------------------------------
--- Toggle del HDMI
----------------------------------------------------------------------------
+-- ─── Estado del HDMI ────────────────────────────────────────────────────────
 
 --- true si el monitor es el HDMI (identificado por descripción).
 ---@param monitor HL.Monitor
@@ -80,17 +78,19 @@ local function notify(msg)
   hl.exec_cmd(string.format("notify-send 'Monitores' %q", msg))
 end
 
+-- ─── Encendido y apagado ────────────────────────────────────────────────────
+
 --- Enciende o apaga el monitor HDMI. La migración de workspaces la hacen
 --- los handlers de monitor.added / monitor.removed, que reciben el output
 --- ya dentro del layout (sin adivinar con timers).
 function M.toggle()
   if active_hdmi() then
-    hl.monitor({ output = "desc:" .. HDMI_DESC, disabled = true })
+    hl.monitor({ output = HDMI_OUTPUT, disabled = true })
     return
   end
 
   hl.monitor({
-    output = "desc:" .. HDMI_DESC,
+    output = HDMI_OUTPUT,
     mode = HDMI_MODE,
     position = HDMI_POSITION,
     scale = 1,
@@ -100,9 +100,7 @@ function M.toggle()
   })
 end
 
----------------------------------------------------------------------------
--- Reconciliación ante altas y bajas de monitores
----------------------------------------------------------------------------
+-- ─── Reconciliación ante altas y bajas ──────────────────────────────────────
 -- Cubre tanto M.toggle() como el hotplug físico del cable.
 
 hl.on("monitor.added", function(monitor)

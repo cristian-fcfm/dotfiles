@@ -1,5 +1,7 @@
--- Programas y recursos por defecto, compartidos por el autostart, los
--- keybinds y los monitores.
+-- ============================================================================
+-- Apps y recursos por defecto
+-- ============================================================================
+-- Compartidos por el autostart, los keybinds y los monitores.
 
 local M = {
   terminal = "kitty",

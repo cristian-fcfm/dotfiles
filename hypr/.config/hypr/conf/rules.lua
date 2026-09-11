@@ -1,11 +1,21 @@
--- Reglas de ventana y permisos.
---
+-- ============================================================================
+-- Reglas de ventana, capas y permisos
+-- ============================================================================
 -- Los permisos requieren `hyprland-guiutils` y un restart de Hyprland: no se
 -- aplican con `hyprctl reload`. Lo no permitido aquí dispara un popup.
 
----------------------------------------------------------------------------
--- Window rules
----------------------------------------------------------------------------
+-- Utilidades de sistema: ventanas de usar y tirar, siempre flotantes.
+local FLOATING_UTILS = {
+  "pavucontrol",
+  "org.pulseaudio.pavucontrol",
+  "com.saivert.pwvucontrol",
+  "easyeffects",
+  "qpwgraph",
+  "blueman-manager",
+  "nm-connection-editor",
+}
+
+-- ─── Correcciones de comportamiento ─────────────────────────────────────────
 
 hl.window_rule({
   name = "suppress-maximize-events",
@@ -19,6 +29,8 @@ hl.window_rule({
   no_focus = true,
 })
 
+-- ─── Ventanas flotantes ─────────────────────────────────────────────────────
+
 -- Terminal flotante que usan los on-click de waybar.
 hl.window_rule({
   name = "center-float-mini",
@@ -28,10 +40,9 @@ hl.window_rule({
   center = true,
 })
 
--- Utilidades de audio y diálogos del portal: ventanas de usar y tirar.
 hl.window_rule({
   name = "float-utils",
-  match = { class = "^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol|easyeffects|qpwgraph|blueman-manager|nm-connection-editor)$" },
+  match = { class = "^(" .. table.concat(FLOATING_UTILS, "|") .. ")$" },
   float = true,
   center = true,
 })
@@ -43,15 +54,19 @@ hl.window_rule({
   center = true,
 })
 
--- Video o juego a pantalla completa: hypridle no bloquea ni apaga el monitor.
+-- ─── Inhibición de idle ─────────────────────────────────────────────────────
+
+-- Vídeo o juego a pantalla completa: hypridle no bloquea ni apaga el monitor.
 hl.window_rule({
   name = "inhibit-idle-fullscreen",
   match = { fullscreen = true },
   idle_inhibit = "fullscreen",
 })
 
+-- ─── Capas ──────────────────────────────────────────────────────────────────
 -- decoration.blur solo alcanza a las capas que lo pidan. Namespaces según
 -- `hyprctl layers`; rofi y swaync aparecen cuando están abiertos.
+
 hl.layer_rule({
   name = "blur-shell",
   match = { namespace = "^(waybar|rofi|swaync-control-center|swaync-notification-window)$" },
@@ -59,9 +74,7 @@ hl.layer_rule({
   ignore_alpha = 0.3,
 })
 
----------------------------------------------------------------------------
--- Permisos (screencopy / plugins)
----------------------------------------------------------------------------
+-- ─── Permisos de screencopy y plugins ───────────────────────────────────────
 -- Solo estos binarios capturan pantalla sin preguntar.
 
 hl.config({ ecosystem = { enforce_permissions = true } })

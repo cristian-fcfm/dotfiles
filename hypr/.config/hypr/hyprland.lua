@@ -1,4 +1,7 @@
--- Hyprland config. https://wiki.hypr.land/Configuring/Start/
+-- ============================================================================
+-- Hyprland - punto de entrada
+-- ============================================================================
+-- Referencia: https://wiki.hypr.land/Configuring/Start/
 --
 -- `require` traduce los puntos a separadores de ruta: el directorio de
 -- módulos se llama "conf", no "conf.d".
@@ -8,9 +11,7 @@ local apps = require("conf/apps")
 require("conf/monitors")
 require("conf/rules")
 
----------------------------------------------------------------------------
--- AUTOSTART
----------------------------------------------------------------------------
+-- ─── Autostart ──────────────────────────────────────────────────────────────
 
 hl.on("hyprland.start", function()
   -- Arranca los daemons de la sesión (waybar, swaync, portal) vía systemd.
@@ -38,16 +39,12 @@ hl.on("hyprland.shutdown", function()
   hl.exec_cmd("systemctl --user stop hyprland-session.target")
 end)
 
----------------------------------------------------------------------------
--- VARIABLES DE ENTORNO
----------------------------------------------------------------------------
+-- ─── Variables de entorno ───────────────────────────────────────────────────
 
 hl.env("XCURSOR_THEME", "Nordzy-cursors")
 hl.env("XCURSOR_SIZE", "24")
 
----------------------------------------------------------------------------
--- LOOK AND FEEL
----------------------------------------------------------------------------
+-- ─── Apariencia ─────────────────────────────────────────────────────────────
 
 hl.config({
   general = {
@@ -106,9 +103,7 @@ hl.config({
   },
 })
 
----------------------------------------------------------------------------
--- ANIMACIONES
----------------------------------------------------------------------------
+-- ─── Animaciones ────────────────────────────────────────────────────────────
 
 hl.curve("wind", { type = "bezier", points = { { 0.05, 0.9 }, { 0.1, 1.05 } } })
 hl.curve("winIn", { type = "bezier", points = { { 0.1, 1.1 }, { 0.1, 1.1 } } })
@@ -126,8 +121,6 @@ hl.animation({ leaf = "borderangle", enabled = true, speed = 30, bezier = "liner
 hl.animation({ leaf = "fade", enabled = true, speed = 10, bezier = "default" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 5, bezier = "wind" })
 
----------------------------------------------------------------------------
--- KEYBINDINGS
----------------------------------------------------------------------------
+-- ─── Keybindings ────────────────────────────────────────────────────────────
 
 require("conf/keybinds")
