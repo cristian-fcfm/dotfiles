@@ -43,6 +43,13 @@ hl.window_rule({
   center = true,
 })
 
+-- Video o juego a pantalla completa: hypridle no bloquea ni apaga el monitor.
+hl.window_rule({
+  name = "inhibit-idle-fullscreen",
+  match = { fullscreen = true },
+  idle_inhibit = "fullscreen",
+})
+
 ---------------------------------------------------------------------------
 -- Permisos (screencopy / plugins)
 ---------------------------------------------------------------------------
