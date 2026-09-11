@@ -43,18 +43,15 @@ for _, id in ipairs(SHARED) do
 end
 
 ---------------------------------------------------------------------------
--- Reconciliación ante hotplug
----------------------------------------------------------------------------
-
--- Un output que aparece después del arranque nace sin wallpaper (awww lo
--- crea en negro), así que hay que reaplicarlo en cada alta de monitor.
-hl.on("monitor.added", function()
-  hl.exec_cmd(apps.wallpaper_cmd())
-end)
-
----------------------------------------------------------------------------
 -- Toggle del HDMI
 ---------------------------------------------------------------------------
+
+--- true si el monitor es el HDMI (identificado por descripción).
+---@param monitor HL.Monitor
+---@return boolean
+local function is_hdmi(monitor)
+  return monitor.description:find(HDMI_DESC, 1, true) ~= nil
+end
 
 --- Devuelve el monitor HDMI si está activo en el layout, o nil.
 --- El estado se lee del compositor, nunca se cachea: así el toggle es
@@ -62,7 +59,7 @@ end)
 ---@return HL.Monitor|nil
 local function active_hdmi()
   for _, monitor in ipairs(hl.get_monitors()) do
-    if monitor.description:find(HDMI_DESC, 1, true) then
+    if is_hdmi(monitor) then
       return monitor
     end
   end
@@ -83,13 +80,12 @@ local function notify(msg)
   hl.exec_cmd(string.format("notify-send 'Monitores' %q", msg))
 end
 
---- Enciende o apaga el monitor HDMI.
+--- Enciende o apaga el monitor HDMI. La migración de workspaces la hacen
+--- los handlers de monitor.added / monitor.removed, que reciben el output
+--- ya dentro del layout (sin adivinar con timers).
 function M.toggle()
   if active_hdmi() then
-    -- Activo -> devolver workspaces a DP-1 y apagarlo.
-    bind_shared_to(DP, false)
     hl.monitor({ output = "desc:" .. HDMI_DESC, disabled = true })
-    notify("Solo DP-1 activo")
     return
   end
 
@@ -102,21 +98,35 @@ function M.toggle()
     -- vigente el `disabled = true` de la config base.
     disabled = false,
   })
-
-  -- El monitor tarda en entrar al layout: esperamos un tick para resolver su
-  -- nombre real antes de mover workspaces.
-  hl.timer(function()
-    local hdmi = active_hdmi()
-    if not hdmi then
-      notify("No se pudo activar el HDMI")
-      return
-    end
-
-    bind_shared_to(hdmi.name, true)
-    hl.dispatch(hl.dsp.focus({ monitor = hdmi.name }))
-    hl.dispatch(hl.dsp.focus({ workspace = SHARED[1] }))
-    notify("Dual: DP-1 + " .. hdmi.name)
-  end, { timeout = 200, type = "oneshot" })
 end
+
+---------------------------------------------------------------------------
+-- Reconciliación ante altas y bajas de monitores
+---------------------------------------------------------------------------
+-- Cubre tanto M.toggle() como el hotplug físico del cable.
+
+hl.on("monitor.added", function(monitor)
+  -- Un output que aparece después del arranque nace sin wallpaper (awww lo
+  -- crea en negro), así que hay que reaplicarlo en cada alta de monitor.
+  hl.exec_cmd(apps.wallpaper_cmd())
+
+  if not is_hdmi(monitor) then
+    return
+  end
+
+  bind_shared_to(monitor.name, true)
+  hl.dispatch(hl.dsp.focus({ monitor = monitor.name }))
+  hl.dispatch(hl.dsp.focus({ workspace = SHARED[1] }))
+  notify("Dual: DP-1 + " .. monitor.name)
+end)
+
+hl.on("monitor.removed", function(monitor)
+  if not is_hdmi(monitor) then
+    return
+  end
+
+  bind_shared_to(DP, false)
+  notify("Solo DP-1 activo")
+end)
 
 return M
