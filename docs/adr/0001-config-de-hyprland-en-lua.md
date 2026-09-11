@@ -26,3 +26,7 @@ nueva: `hyprctl dispatch 'hl.dsp.focus({workspace=3})'`.
   workspaces no funciona hasta que llegue el fix de upstream (PR #5013).
 - A cambio: módulos con scope aislado, `hl.on` para eventos del compositor y
   lógica real (el toggle de monitores) en vez de duplicar reglas.
+- Hyprland ≥ 0.57 gestiona `hyprland-session.target` por sí solo
+  (hyprwm/Hyprland#15776, 2026-08-22). Al actualizar: quitar el `start`/`stop`
+  del target en `hyprland.lua` y hacer `systemctl --user revert
+  hyprland-session.target` para retirar el nuestro.

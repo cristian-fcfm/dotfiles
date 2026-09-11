@@ -8,4 +8,8 @@ After=graphical-session-pre.target
 # Los daemons cuelgan de graphical-session.target (listarlos aqui crea un
 # ciclo de orden). Se enganchan una sola vez con:
 #   systemctl --user enable waybar.service swaync.service
+#   systemctl --user enable hypridle.service hyprpolkitagent.service hyprsunset.service
 #   systemctl --user add-wants graphical-session.target xdg-desktop-portal-hyprland.service
+#
+# TODO 0.57: Hyprland trae su propio hyprland-session.target (hyprwm/Hyprland#15776).
+# Retirar este archivo con `systemctl --user revert hyprland-session.target`.

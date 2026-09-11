@@ -25,7 +25,6 @@ hl.on("hyprland.start", function()
 
   hl.exec_cmd("wl-paste --type text --watch cliphist store")
   hl.exec_cmd("wl-paste --type image --watch cliphist store")
-  hl.exec_cmd("wlsunset -t 5200 -S 9:00 -s 19:30")
 
   -- Espera (máx 5s) a que el daemon acepte conexiones antes de pedirle nada.
   hl.exec_cmd(
