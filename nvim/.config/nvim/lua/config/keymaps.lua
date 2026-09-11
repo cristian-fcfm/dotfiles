@@ -42,7 +42,7 @@ map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Cerrar
 map("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Buffer siguiente" })
 map("n", "<S-Tab>", "<cmd>bprevious<CR>", { desc = "Buffer anterior" })
 map("n", "<leader>bf", function()
-  Snacks.picker.buffers({ layout = "ivy" })
+  Snacks.picker.buffers()
 end, { desc = "Buscar buffers" })
 
 -- ─── Tabs ───────────────────────────────────────────────────────────────────

@@ -74,6 +74,14 @@ require("snacks").setup({
   picker = {
     enabled = true,
     matcher = { frecency = true, history_bonus = true },
+    sources = {
+      files = { hidden = true, layout = "ivy" },
+      grep = { hidden = true },
+      grep_word = { hidden = true },
+      buffers = { layout = "ivy" },
+      lines = { layout = "ivy" },
+      keymaps = { layout = "ivy" },
+    },
     layouts = {
       -- Preview grande arriba, lista pequeña abajo para recorrer archivos
       preview_top = {
@@ -117,16 +125,16 @@ require("snacks").setup({
 local map = vim.keymap.set
 
 map("n", "<leader>ff", function()
-  Snacks.picker.files({ hidden = true, layout = "ivy" })
+  Snacks.picker.files()
 end, { desc = "Buscar archivos en proyecto" })
 map("n", "<leader>fg", function()
-  Snacks.picker.grep({ hidden = true })
+  Snacks.picker.grep()
 end, { desc = "Grep en proyecto" })
 map("n", "<leader>fF", function()
-  Snacks.picker.files({ cwd = "~/Documents/development/", hidden = true, layout = "ivy" })
+  Snacks.picker.files({ cwd = "~/Documents/development/" })
 end, { desc = "Buscar archivos en todos los proyectos" })
 map("n", "<leader>fG", function()
-  Snacks.picker.grep({ cwd = "~/Documents/development/", hidden = true })
+  Snacks.picker.grep({ cwd = "~/Documents/development/" })
 end, { desc = "Grep en todos los proyectos" })
 map("n", "<leader>fc", function()
   Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
@@ -135,13 +143,13 @@ map("n", "<leader>fw", function()
   Snacks.picker.grep_word()
 end, { desc = "Buscar palabra actual" })
 map("n", "<leader>f/", function()
-  Snacks.picker.lines({ layout = "ivy" })
+  Snacks.picker.lines()
 end, { desc = "Buscar en buffer actual" })
 map("n", "<leader>fh", function()
   Snacks.picker.help()
 end, { desc = "Buscar ayuda" })
 map("n", "<leader>fk", function()
-  Snacks.picker.keymaps({ layout = "ivy" })
+  Snacks.picker.keymaps()
 end, { desc = "Buscar atajos" })
 map("n", "<leader>fd", function()
   Snacks.picker.diagnostics_buffer()
