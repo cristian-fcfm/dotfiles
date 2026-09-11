@@ -103,6 +103,7 @@ require("snacks").setup({
   gitbrowse = { enabled = true },
   input = { enabled = true },
   quickfile = { enabled = true },
+  rename = { enabled = true },
   scratch = { enabled = true },
   scroll = { enabled = true },
   terminal = { enabled = true },

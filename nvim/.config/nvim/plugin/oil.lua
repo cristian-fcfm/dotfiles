@@ -62,6 +62,16 @@ local function load_oil(float)
 
     require("oil-git-status").setup()
 
+    -- Renombrar/mover desde oil actualiza los imports via LSP (snacks.rename)
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "OilActionsPost",
+      callback = function(event)
+        if event.data.actions[1].type == "move" then
+          Snacks.rename.on_rename_file(event.data.actions[1].src_url, event.data.actions[1].dest_url)
+        end
+      end,
+    })
+
     oil_loaded = true
   end
 
