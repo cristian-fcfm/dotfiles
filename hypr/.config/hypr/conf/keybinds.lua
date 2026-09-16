@@ -42,6 +42,40 @@ hl.bind(mod .. " + C", hl.dsp.window.center(), { description = "Centrar ventana 
 hl.bind(mod .. " + P", hl.dsp.window.pseudo(), { description = "Pseudotile" })
 hl.bind(mod .. " + T", hl.dsp.layout("togglesplit"), { description = "Alternar split (dwindle)" })
 
+-- ─── Grupos de ventanas ─────────────────────────────────────────────
+-- Submap: cada acción vuelve a `reset` (submap por defecto) para no
+-- quedar atrapado tras pulsarla.
+
+hl.bind(mod .. " + G", hl.dsp.submap("groups"), { description = "Modo grupos de ventanas" })
+
+hl.define_submap("groups", function()
+  --- Ejecuta la acción y sale del submap.
+  ---@param key string
+  ---@param action any dispatcher ya construido
+  ---@param desc string
+  local function map(key, action, desc)
+    hl.bind(key, function()
+      hl.dispatch(action)
+      hl.dispatch(hl.dsp.submap("reset"))
+    end, { description = desc })
+  end
+
+  map("g", hl.dsp.group.toggle(), "Agrupar/desagrupar la ventana")
+
+  -- Absorbe la ventana vecina de esa dirección dentro del grupo.
+  map("h", hl.dsp.window.move({ into_group = "l" }), "Absorber la ventana de la izquierda")
+  map("j", hl.dsp.window.move({ into_group = "d" }), "Absorber la ventana de abajo")
+  map("k", hl.dsp.window.move({ into_group = "u" }), "Absorber la ventana de arriba")
+  map("l", hl.dsp.window.move({ into_group = "r" }), "Absorber la ventana de la derecha")
+
+  map("e", hl.dsp.window.move({ out_of_group = true }), "Sacar la ventana del grupo")
+  map("n", hl.dsp.group.next(), "Siguiente pestaña del grupo")
+
+  hl.bind("escape", function()
+    hl.dispatch(hl.dsp.submap("reset"))
+  end, { description = "Salir del modo grupos" })
+end)
+
 -- ─── Foco, movimiento y tamaño ──────────────────────────────────────────────
 -- Cada dirección se alcanza con la tecla vim y con su flecha; SHIFT mueve la
 -- ventana y CTRL la redimensiona (solo con las teclas vim: SHIFT + flecha ya
