@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd("FileType", {
     })
 
     vim.g.mkdp_auto_start = 0
-    vim.g.mkdp_browser = "Firefox"
+    vim.g.mkdp_browser = "firefox"
   end,
 })
 
