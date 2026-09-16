@@ -18,7 +18,6 @@ vim.schedule(function()
     bash       = { "shellcheck" },
     yaml       = { "yamllint" },
     markdown   = { "markdownlint-cli2" },
-    zk         = { "markdownlint" },
     dockerfile = { "hadolint" },
     css        = { "stylelint" },
     scss       = { "stylelint" },

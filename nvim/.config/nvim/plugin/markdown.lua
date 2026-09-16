@@ -6,7 +6,7 @@
 -- Markdown Plugins (render-markdown + markdown-preview)
 -- ============================================================================
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "zk" },
+  pattern = { "markdown" },
   once = true,
   callback = function()
     vim.pack.add({
@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("FileType", {
     })
 
     require("render-markdown").setup({
-      file_types = { "markdown", "zk" },
+      file_types = { "markdown" },
       completions = { lsp = { enabled = true } },
       code = { sign = false, width = "block", right_pad = 1 },
       heading = { sign = false, icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " } },

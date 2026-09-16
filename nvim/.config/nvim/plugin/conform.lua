@@ -14,7 +14,6 @@ vim.schedule(function()
     json     = { "prettier" },
     yaml     = { "prettier" },
     markdown = { "prettier" },
-    zk       = { "prettier" },
     html     = { "prettier" },
     css      = { "prettier" },
     scss     = { "prettier" },

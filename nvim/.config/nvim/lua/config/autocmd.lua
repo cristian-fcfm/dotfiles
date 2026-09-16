@@ -87,7 +87,7 @@ api.nvim_create_autocmd("InsertLeave", {
 
 api.nvim_create_autocmd("FileType", {
   group = api.nvim_create_augroup("writing_filetypes", { clear = true }),
-  pattern = { "markdown", "zk", "typst" },
+  pattern = { "markdown", "typst" },
   desc = "Activar spell e indentación de 2 espacios en filetypes de escritura",
   callback = function()
     vim.opt_local.spell = true
