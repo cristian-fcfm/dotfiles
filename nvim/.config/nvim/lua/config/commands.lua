@@ -1,8 +1,8 @@
 local utils = require("utils")
 
---- Exporta el buffer actual (markdown) a PDF usando pandoc.
+--- Exporta el buffer actual (markdown) a PDF usando pandoc con typst como motor.
 --- Ejecuta la conversion de forma asincrona y notifica el resultado.
---- Requiere: pandoc + motor LaTeX instalado.
+--- Requiere: pandoc + typst instalados.
 --- Uso: :MarkdownExportPDF
 vim.api.nvim_create_user_command("MarkdownExportPDF", function()
   if not utils.executable("pandoc") then
@@ -23,7 +23,7 @@ vim.api.nvim_create_user_command("MarkdownExportPDF", function()
   local output = vim.fn.fnamemodify(source, ":r") .. ".pdf"
 
   vim.notify("Exportando a PDF...", vim.log.levels.INFO)
-  vim.system({ "pandoc", source, "-o", output }, { text = true }, function(result)
+  vim.system({ "pandoc", source, "--pdf-engine=typst", "-o", output }, { text = true }, function(result)
     vim.schedule(function()
       if result.code == 0 then
         vim.notify("PDF creado: " .. output, vim.log.levels.INFO)
