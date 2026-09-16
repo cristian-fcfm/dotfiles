@@ -7,6 +7,7 @@ local system_tools = {
   { cmd = "rg", desc = "Ripgrep - busqueda rapida", required = true },
   { cmd = "lazygit", desc = "Git TUI" },
   { cmd = "pandoc", desc = "Exportar markdown a PDF vía typst (:MarkdownExportPDF)" },
+  { cmd = "prettier", desc = "Formateo markdown/json/css al guardar (conform)" },
   { cmd = "markdown-oxide", desc = "LSP markdown con backlinks (vault zk)" },
   { cmd = "zk", desc = "CLI de notas, la usan los comandos Zk*" },
   { cmd = "typst", desc = "Compilador Typst" },
