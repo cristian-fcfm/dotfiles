@@ -46,7 +46,7 @@ vim.schedule(function()
     "jsonls",
     "yamlls",
     "dockerls",
-    "marksman",
+    "markdown_oxide",
     "lua_ls",
     "tinymist",
     "zls",

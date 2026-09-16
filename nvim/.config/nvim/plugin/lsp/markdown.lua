@@ -1,8 +1,9 @@
 -- ============================================================================
--- LSP: Markdown (marksman)
+-- LSP: Markdown (markdown-oxide)
 -- ============================================================================
-vim.lsp.config.marksman = {
-  cmd = { "marksman", "server" },
-  filetypes = { "markdown", "markdown.mdx" },
-  root_markers = { ".marksman.toml", ".git" },
+-- Requiere el binario en PATH: ver health.lua
+vim.lsp.config.markdown_oxide = {
+  cmd = { "markdown-oxide" },
+  filetypes = { "markdown" },
+  root_markers = { ".zk", ".git" },
 }
