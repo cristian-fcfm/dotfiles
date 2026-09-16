@@ -17,6 +17,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
     require("render-markdown").setup({
       file_types = { "markdown", "zk" },
+      completions = { lsp = { enabled = true } },
       code = { sign = false, width = "block", right_pad = 1 },
       heading = { sign = false, icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " } },
       checkbox = {
