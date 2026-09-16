@@ -7,6 +7,7 @@ local system_tools = {
   { cmd = "rg", desc = "Ripgrep - busqueda rapida", required = true },
   { cmd = "lazygit", desc = "Git TUI" },
   { cmd = "pandoc", desc = "Exportar markdown a PDF (:MarkdownExportPDF)" },
+  { cmd = "zk", desc = "CLI de notas, la usan los comandos Zk*" },
   { cmd = "typst", desc = "Compilador Typst" },
   { cmd = "npm", desc = "Build de markdown-preview.nvim" },
   { cmd = "debugpy-adapter", desc = "DAP Python (uv tool install debugpy)" },
