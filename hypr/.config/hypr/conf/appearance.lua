@@ -22,6 +22,13 @@ hl.config({
     layout = "dwindle",
   },
 
+  -- Fullscreen se compone directo al scanout del monitor: menos trabajo de
+  -- GPU y menos latencia. Rompe la captura de ventanas fullscreen si el
+  -- compositor no puede caer a composición normal para el screencopy.
+  render = {
+    direct_scanout = true,
+  },
+
   dwindle = {
     preserve_split = true,
   },
