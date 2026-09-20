@@ -1,11 +1,10 @@
 {
   "custom/wf-recorder": {
     "format": "{}",
-    "interval": "once",
+    "interval": 5,
     "exec": "echo ''",
     "tooltip": false,
     "exec-if": "pgrep 'wf-recorder'",
-    "on-click": "exec $HOME/.config/hypr/scripts/rofi/recording",
-    "signal": 10,
+    "on-click": "pkill -SIGINT wf-recorder",
   },
 }
