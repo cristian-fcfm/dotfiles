@@ -34,7 +34,12 @@ require("mini.ai").setup({
 })
 
 -- ============================================================================
--- Mini Diff - Signs y blame en git
+-- Mini Git - Rama y estado de git del buffer (alimenta section_git)
+-- ============================================================================
+require("mini.git").setup({})
+
+-- ============================================================================
+-- Mini Diff - Signs y resumen de cambios
 -- ============================================================================
 require("mini.diff").setup({
   view = {
