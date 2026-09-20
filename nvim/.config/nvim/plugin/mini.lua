@@ -120,15 +120,17 @@ map("n", "<leader>qS", function() MiniSessions.select() end, { desc = "Sesión: 
 -- ============================================================================
 local Ministatus = require("mini.statusline")
 
-local function statusline_lsp()
-  local n = #vim.lsp.get_clients({ bufnr = 0 })
-  if n == 0 then return "" end
-  return "󰒋 " .. n
+local function statusline_spell()
+  if vim.wo.spell then
+    return "󰓆 " .. vim.bo.spelllang:upper()
+  end
+  return ""
 end
 
-local function statusline_spell()
-  if vim.o.spell then
-    return "󰓆 " .. vim.o.spelllang:upper()
+local function statusline_recording()
+  local reg = vim.fn.reg_recording()
+  if reg ~= "" then
+    return "⏺ " .. reg
   end
   return ""
 end
@@ -137,27 +139,29 @@ Ministatus.setup({
   content = {
     active = function()
       local mode, mode_hl = Ministatus.section_mode({ trunc_width = 120 })
-      local git = Ministatus.section_git({ trunc_width = 75 })
+      local git = Ministatus.section_git({ trunc_width = 40 })
       local diff = Ministatus.section_diff({ trunc_width = 75 })
       local diagnostics = Ministatus.section_diagnostics({ trunc_width = 75 })
+      local lsp = Ministatus.section_lsp({ trunc_width = 75 })
       local filename = (function()
         local name = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
         if name == "" then return "[Sin nombre]" end
         if vim.bo.readonly then name = name .. " 󰈡" end
-        if vim.bo.modified then name = name .. " " end
+        if vim.bo.modified then name = name .. " ●" end
         return name
       end)()
       local fileinfo = Ministatus.section_fileinfo({ trunc_width = 120 })
       local location = Ministatus.section_location({ trunc_width = 75 })
+      local search = Ministatus.section_searchcount({ trunc_width = 75 })
 
       return Ministatus.combine_groups({
         { hl = mode_hl,                 strings = { mode } },
-        { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics } },
+        { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
         "%<",
         { hl = "MiniStatuslineFilename", strings = { filename } },
         "%=",
-        { hl = "MiniStatuslineFileinfo", strings = { statusline_spell(), statusline_lsp(), fileinfo } },
-        { hl = mode_hl,                 strings = { location } },
+        { hl = "MiniStatuslineFileinfo", strings = { statusline_spell(), fileinfo } },
+        { hl = mode_hl,                 strings = { search, statusline_recording(), location } },
       })
     end,
   },
