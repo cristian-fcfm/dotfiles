@@ -2,8 +2,8 @@
   "network": {
     "format-wifi": "{ifname} ",
     "format-ethernet": "{ifname} 󰈀",
-    "tooltip-format-wifi": "{essid}\n──────────────\nSignal     {signaldBm}dBm ({signalStrength}%)\nFrequency  {frequency}MHz\nInterface  {ifname}\nIP         {ipaddr}/{cidr}\nGateway    {gwaddr}\nNetmask    {netmask}\n──────────────\n<span foreground='#eed49f'>↓ {bandwidthDownBytes}</span>   <span foreground='#b7bdf8'>↑ {bandwidthUpBytes}</span>",
-    "tooltip-format-ethernet": "{ifname}\n──────────────\nIP         {ipaddr}/{cidr}\nGateway    {gwaddr}\nNetmask    {netmask}\n──────────────\n<span foreground='#eed49f'>↓ {bandwidthDownBytes}</span>   <span foreground='#b7bdf8'>↑ {bandwidthUpBytes}</span>",
+    "tooltip-format-wifi": "{essid}\n──────────────\nSignal     {signaldBm}dBm ({signalStrength}%)\nFrequency  {frequency}MHz\nInterface  {ifname}\nIP         {ipaddr}/{cidr}\nGateway    {gwaddr}\nNetmask    {netmask}\n──────────────\n<span foreground='#C4B28A'>↓ {bandwidthDownBytes}</span>   <span foreground='#8BA4B0'>↑ {bandwidthUpBytes}</span>",
+    "tooltip-format-ethernet": "{ifname}\n──────────────\nIP         {ipaddr}/{cidr}\nGateway    {gwaddr}\nNetmask    {netmask}\n──────────────\n<span foreground='#C4B28A'>↓ {bandwidthDownBytes}</span>   <span foreground='#8BA4B0'>↑ {bandwidthUpBytes}</span>",
     "format-linked": "{ifname} (No IP)",
     "format-disconnected": "󰖪",
     "tooltip": true,
