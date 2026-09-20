@@ -4,5 +4,9 @@
     "on-click": "kitty --class center-float-mini -e btop",
     "tooltip": true,
     "interval": 5,
+    "states": {
+      "warning": 80,
+      "critical": 95,
+    },
   },
 }
