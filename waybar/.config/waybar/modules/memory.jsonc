@@ -3,6 +3,6 @@
     "format": " {}%",
     "on-click": "kitty --class center-float-mini -e btop",
     "tooltip": true,
-    "interval": 2,
+    "interval": 5,
   },
 }

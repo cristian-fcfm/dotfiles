@@ -1,6 +1,6 @@
 {
   "cpu": {
-    "interval": 2,
+    "interval": 5,
     "format": " {usage}%",
     "tooltip": true,
     "on-click": "pypr toggle btop",

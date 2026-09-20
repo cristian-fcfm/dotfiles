@@ -4,7 +4,7 @@
     // ese número lo asigna el kernel según el orden de carga de módulos.
     "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
     "input-filename": "temp1_input",
-    "interval": 2,
+    "interval": 5,
     "critical-threshold": 80,
     "format": "{icon} {temperatureC}°C",
     "format-critical": " {temperatureC}°C",

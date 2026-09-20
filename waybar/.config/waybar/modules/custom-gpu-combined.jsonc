@@ -2,7 +2,7 @@
   "custom/gpu-combined": {
     "exec": "~/.config/waybar/scripts/gpu-combined.sh",
     "return-type": "json",
-    "interval": 2,
+    "interval": 5,
     "tooltip": true,
     "on-click": "kitty --class center-float-mini -e nvidia-smi -l 1"
   }
