@@ -44,8 +44,9 @@ descarta no llega a ser una opción que discutamos.
 ## Cierre
 
 Antes del plan, aterriza el diseño en disco: `docs/proposals/<slug>.md` con el formato
-de la skill `propuesta` (problema, alternativas consideradas, alcance). Si llegaste
-aquí vía `/skill:propuesta`, ese fichero ya existe: amplíalo. El diseño no vive en el
+de la skill `propuesta` (problema, viaje del usuario, solución y patrón,
+alternativas, alcance). Si llegaste aquí vía `/skill:propuesta`, ese fichero ya
+existe: amplíalo. El diseño no vive en el
 chat — es la regla del flujo entero, y aquí es donde más se pierde.
 
 Luego termina con un plan de implementación en pasos cortos y espera mi visto bueno

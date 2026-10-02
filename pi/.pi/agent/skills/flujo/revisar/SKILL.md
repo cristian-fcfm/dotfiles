@@ -31,10 +31,11 @@ Contra el `PLAN.md` de la rama y, si el plan la referencia, la propuesta
    Un desvío no registrado es un hallazgo, aunque el código sea correcto.
 5. **Tabla de ciclos**: lo marcado como `hecho` está de verdad hecho, y lo `pendiente`
    no está a medio hacer.
-6. **Problema resuelto y criterios**: si hay propuesta, ¿lo construido ataca su
-   «Problema» y cumple sus «Criterios de aceptación» punto por punto? Cumplir el
-   contrato de un plan que no resuelve el problema de la propuesta es fallar
-   más fino.
+6. **Problema resuelto, criterios y patrón**: si hay propuesta, ¿lo construido
+   ataca su «Problema», cumple sus «Criterios de aceptación» punto por punto y
+   sigue el patrón que nombra en «Solución y patrón»? Cumplir el contrato de un
+   plan que no resuelve el problema de la propuesta es fallar más fino; y seguir
+   otro patrón que el nombrado es un desvío, aunque funcione.
 
 **Si no hay `PLAN.md`** —un kaizen sobre la rama base, un fix suelto— juzga contra
 la propuesta si existe; si tampoco la hay, este eje **no aplica**. Dilo y pasa al

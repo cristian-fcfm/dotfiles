@@ -49,13 +49,25 @@ Reglas:
 
 - El detalle sigue al riesgo y a la ambigüedad, no a la plantilla: una propuesta
   pequeña puede ser ocho líneas; lo que no puede ser es ambigua en lo que arriesga.
+- **La propuesta pesa como su viaje**: la evidencia (spikes, verificaciones, código,
+  esquemas) se **enlaza** (un ADR, un doc de spike), nunca se pega. Si para contarla
+  honestamente hacen falta cientos de líneas o más de un puñado de decisiones, el
+  viaje tiene dos tramos que se podrían revertir por separado: son dos propuestas.
+- **El viaje del usuario es el esqueleto**: la propuesta se cuenta como el flujo
+  que toca, paso a paso (actor hace → el sistema responde). Criterios, alcance y
+  patrón anclan a sus pasos; lo que no toca ningún paso, no entra.
+- **La solución viaja con su patrón**: nombre conocido o «ad hoc» explícito. Es lo
+  que hace el diseño auditable por una persona —el patrón es el molde contra el
+  que revisar la implementación— y lo que acota el espacio de soluciones.
 - El slug, en kebab-case y en inglés (tradúcelo si la idea viene en español), es
   el que luego usará `/rama`: una funcionalidad, un slug en ambas capas
   (propuesta, plan).
 - «Alternativas consideradas» es la sección más valiosa: incluye la opción de «no
   hacer nada». Lo que no está descrito, no está decidido.
-- «Criterios de aceptación» son comportamientos verificables — cada uno debe poder
-  fallar. Sin ellos no hay contrato posible: no me muestres la propuesta sin ellos.
+- «Criterios de aceptación» son comportamientos verificables, cada uno anclado a
+  un paso del viaje (V1, V2…) o al viaje completo si es una invariante — y cada uno
+  debe poder fallar. Sin ellos no hay contrato posible: no me muestres la
+  propuesta sin ellos.
 - La propuesta es **producto, no andamiaje**: se commitea en la rama base (con
   `/commit`, cuando yo lo pida) y debe existir antes de abrir la rama.
 - Decisiones difíciles de revertir que salgan aquí no se duplican: su sitio es un ADR
@@ -75,9 +87,14 @@ autocontención que el `PLAN.md`, un escalón antes:
 
 - ¿Otro agente, leyendo solo la propuesta y el repo, entendería qué construir sin
   preguntarme nada que afecte al alcance o a los criterios?
+- ¿Cada paso del viaje se cuenta como actor-hace → sistema-responde, y cada
+  criterio ancla a un paso (o al viaje completo)?
+- ¿El patrón de la solución está nombrado —o «ad hoc» explícito—, de modo que la
+  implementación se pueda contrastar contra él?
 - ¿Lo que queda fuera está tan explícito como lo que entra?
 - ¿Los criterios se pueden marcar uno a uno, no solo describir?
-- ¿Es un solo motivo de cambio, no tres disfrazados de uno?
+- ¿La puedo auditar yo de una sentada, con la evidencia enlazada y no pegada?
+- ¿Es un solo tramo del viaje, no tres disfrazados de uno?
 
 Si algo no pasa, la propuesta está a medio cocer: lo ambiguo se resuelve con
 `alinear`, no se adivina. Enséñamela solo en verde.

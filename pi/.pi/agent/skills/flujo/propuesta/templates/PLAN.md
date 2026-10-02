@@ -26,11 +26,12 @@ Gherkin en bloque de código, o lista de comportamientos observables.
 
 ## Ciclos
 
-Uno por comportamiento, en orden. Esta tabla es el estado en disco.
+Uno por criterio, en orden de viaje — a través del paso (V#) de la propuesta
+al que ancla. Esta tabla es el estado en disco.
 
-| # | Comportamiento | Test | Estado |
-|---|----------------|------|--------|
-| 1 | …              | `ruta::nombre` | pendiente |
+| # | Criterio (paso) | Test | Estado |
+|---|-----------------|------|--------|
+| 1 | … (V1)         | `ruta::nombre` | pendiente |
 
 ## Verificación
 
