@@ -6,31 +6,31 @@ show_hidden    = true
 
 [opener]
 edit = [
-  { run = 'nvim "$@"', desc = "Neovim", block = true },
+  { run = 'nvim %s', desc = "Neovim", block = true },
 ]
 reveal = [
-  { run = 'xdg-open "$(dirname "$0")"', desc = "Reveal in file manager", for = "linux" },
-  { run = 'open -R "$0"',               desc = "Reveal in Finder",       for = "macos" },
+  { run = 'xdg-open %d1', desc = "Reveal in file manager", for = "linux" },
+  { run = 'open -R %s1',  desc = "Reveal in Finder",       for = "macos" },
 ]
 open = [
-  { run = 'xdg-open "$@"', desc = "Open", for = "linux" },
-  { run = 'open "$@"',     desc = "Open", for = "macos" },
+  { run = 'xdg-open %s', desc = "Open", for = "linux" },
+  { run = 'open %s',     desc = "Open", for = "macos" },
 ]
 text = [
-  { run = 'nvim "$@"', desc = "Neovim", block = true },
+  { run = 'nvim %s', desc = "Neovim", block = true },
 ]
 image = [
-  { run = 'xdg-open "$@"', desc = "Open", for = "linux" },
-  { run = 'open "$@"',     desc = "Open", for = "macos" },
+  { run = 'xdg-open %s', desc = "Open", for = "linux" },
+  { run = 'open %s',     desc = "Open", for = "macos" },
 ]
 video = [
-  { run = 'mpv "$@"', desc = "mpv" },
+  { run = 'mpv %s', desc = "mpv" },
 ]
 pdf = [
-  { run = 'bookokrat "$@"', desc = "Bookokrat" },
+  { run = 'bookokrat %s', desc = "Bookokrat" },
 ]
 archive = [
-  { run = 'ouch decompress --yes "$@"', desc = "Extract archive (ouch)", block = true },
+  { run = 'ouch decompress --yes %s', desc = "Extract archive (ouch)", block = true },
 ]
 
 [open]

@@ -5,7 +5,7 @@
 [mgr]
 prepend_keymap = [
 	# --- CUSTOM: Extract archives (uses ouch) ------------------------------------
-	{ on = "e", run = "shell 'ouch decompress --yes \"$@\"' --confirm", desc = "Extract archive" },
+	{ on = "e", run = "shell -- ouch decompress --yes %s", desc = "Extract archive" },
 
 	# --- CUSTOM: Mount plugin ----------------------------------------------------
 	{ on = "M", run = "plugin mount", desc = "Mount/unmount drives" },
