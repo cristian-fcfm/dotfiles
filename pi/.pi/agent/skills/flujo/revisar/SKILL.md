@@ -20,8 +20,9 @@ pueden correr en paralelo, un agente por eje, y luego juntar los hallazgos.
 
 ## Eje Spec — ¿es lo que se acordó?
 
-Contra el `PLAN.md` de la rama y, si el plan la referencia, la propuesta
-(`docs/proposals/<slug>.md`) — no contra tu criterio:
+Contra el `PLAN.md` de la rama y, si el plan los referencia, la propuesta
+(`docs/proposals/<slug>.md`) y su diseño (`docs/design/<slug>.md`) — no contra tu
+criterio. Si chocan, manda la propuesta: es lo que aprobé.
 
 1. **Cobertura del contrato**: cada comportamiento o escenario del contrato tiene su
    test. Nombra los que no.

@@ -92,9 +92,10 @@ Mi flujo está implementado como skills. Se dividen por **quién las invoca**:
 
 **Las tecleo yo** (`/skill:<nombre>`; no las alcanzas por tu cuenta):
 
-- `/skill:propuesta` — abre la propuesta de diseño de una funcionalidad
-  (`docs/proposals/` del repo, versionada en git) y la enmienda en iteraciones:
-  es la entrada del flujo y su fuente de verdad
+- `/skill:propuesta` — abre la propuesta de una funcionalidad: un pitch corto que yo
+  audito (`docs/proposals/`) y, tras mi OK, su diseño detallado para el agente
+  (`docs/design/`), ambos versionados en git; los enmienda en iteraciones: es la
+  entrada del flujo y su fuente de verdad
 - `/skill:alinear` — grilling 1-pregunta-a-la-vez para estresar un plan antes de construir
 - `/skill:sdd` — desarrollo dirigido por software (Uncle Bob) para features complejas (Spec → Gherkin → Puerta Humana → TDD → Mutación)
 - `/skill:kaizen` — flujo ligero para cambios aislados, deuda técnica o micro-refactors
@@ -120,12 +121,17 @@ base, sin rama aparte.
 
 ## Aislamiento por funcionalidad (ramas)
 
-Una funcionalidad = una rama = un plan = una propuesta. Dos capas de documento:
+Una funcionalidad = una rama = un plan = una propuesta. Tres capas de documento, cada
+una con su lector, y cada una **referencia** a la anterior en vez de copiarla:
 
-- **Propuesta** (`docs/proposals/<slug>.md`, en git, rama base) — el PORQUÉ: problema,
-  alternativas descartadas, alcance. Fuente de verdad del diseño; sobrevive a la rama.
+- **Propuesta** (`docs/proposals/<slug>.md`, en git, rama base) — para mí: problema,
+  viaje, decisiones clave, riesgos, criterios. ≤ ~100 líneas, auditable de una
+  sentada; la evidencia se enlaza. Es lo que apruebo y la fuente de verdad.
+- **Diseño** (`docs/design/<slug>.md`, en git) — para el agente: el detalle derivado
+  de la propuesta aprobada, en secciones que se cargan por partes. No puede ampliar
+  alcance, criterios ni riesgos: si lo necesita, se enmienda antes la propuesta.
 - **`PLAN.md`** (raíz, ignorado por git) — el CÓMO ejecutable: contrato, ciclos,
-  bitácora. Referencia la propuesta en vez de copiarla. Se borra al integrar.
+  bitácora. Se borra al integrar.
 
 - `/rama` — abre la rama `<tipo>/<slug>` (en inglés) y escribe el `PLAN.md` destilado de
   `sdd`/`tdd`/`kaizen`.

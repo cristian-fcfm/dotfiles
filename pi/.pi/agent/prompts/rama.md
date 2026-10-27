@@ -58,9 +58,11 @@ Si la rama ya existe, no la recrees: `git switch <tipo>/<slug>`.
 En la raíz del repo escribe `PLAN.md` con el plan **ya acordado** de esta
 funcionalidad, destilado de donde venga:
 
-- de la skill `propuesta` (lo normal) — el diseño ya vive en `docs/proposals/<slug>.md`;
-  el plan transcribe el contrato y los ciclos, y **referencia** la propuesta en su
-  cabecera sin copiarla: «Contexto» es un enlace más lo que la propuesta no puede saber;
+- de la skill `propuesta` (lo normal) — el porqué vive en `docs/proposals/<slug>.md`
+  (aprobada) y el detalle en `docs/design/<slug>.md`; el plan transcribe el contrato
+  —desde los criterios de la propuesta— y los ciclos, y **referencia** ambos en su
+  cabecera sin copiarlos: «Contexto» son enlaces más lo que ninguno puede saber. Si la
+  propuesta no está `aprobada` o falta el diseño, para y dímelo;
 - de `/skill:sdd` — la spec conversada, los escenarios Gherkin y los ciclos TDD;
 - de `/skill:tdd` — la lista de comportamientos a testear, en orden;
 - de `/skill:kaizen` — el cambio en una frase y su red de seguridad.
@@ -70,7 +72,8 @@ primero (`propuesta` o `sdd` para features; `tdd` o `kaizen` para lo pequeño). 
 comando transcribe un plan, no lo diseña.
 
 **Prueba de aceptación del plan**: un agente que no estuvo en la conversación de
-diseño, y que solo lee `PLAN.md`, la propuesta que este referencia y el repo, ¿puede
+diseño, y que solo lee `PLAN.md`, la propuesta y el diseño que este referencia y el
+repo, ¿puede
 ejecutarlo entero sin preguntarme nada que no esté marcado como puerta humana? Si no,
 el plan está incompleto: le falta contexto, no formato.
 

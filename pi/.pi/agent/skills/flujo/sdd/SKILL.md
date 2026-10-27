@@ -11,8 +11,9 @@ Fase de construcción robusta para features no triviales. El código es secundar
 ## Pipeline
 
 1. **Spec conversada**: Debate casos límite y decisiones. La salida es la propuesta
-   (`docs/proposals/<slug>.md`, skill `propuesta`) y ADRs si aplican — no un fichero
-   de spec aparte.
+   (`docs/proposals/<slug>.md`, corta, la apruebo yo), su diseño
+   (`docs/design/<slug>.md`, el detalle para el agente; skill `propuesta`) y ADRs si
+   aplican — no un fichero de spec aparte.
 2. **Contrato Gherkin**: Destila la spec en escenarios `.feature` ejecutables (`Given/When/Then`).
    - ⏸ **PUERTA HUMANA**: Espera mi aprobación explícita del contrato antes de escribir código.
 3. **TDD estricto**: Un test a la vez (Rojo → Verde → Refactor). Nada de código de producción sin un test rojo que lo pida.
@@ -22,8 +23,8 @@ Fase de construcción robusta para features no triviales. El código es secundar
 
 - Una sola feature a la vez, en su propia rama (`/rama`).
 - Estado en disco, no en chat, para que sobreviva a reinicios de contexto: ese estado es el `PLAN.md` de la rama — su tabla de ciclos y su bitácora se actualizan al cerrar cada ciclo. No crees ficheros de estado paralelos (`progress/` y demás).
-- Distingue producto de andamiaje: la propuesta (`docs/proposals/`), los `.feature` y
-  los ADRs se commitean; el `PLAN.md` es andamiaje y se borra al integrar la rama.
+- Distingue producto de andamiaje: la propuesta (`docs/proposals/`), el diseño
+  (`docs/design/`), los `.feature` y los ADRs se commitean; el `PLAN.md` es andamiaje y se borra al integrar la rama.
 - Respeta la REGLA DE PRECEDENCIA de `AGENTS.md`.
 
 ## Cierre

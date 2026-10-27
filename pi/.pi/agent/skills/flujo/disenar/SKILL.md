@@ -43,11 +43,13 @@ descarta no llega a ser una opción que discutamos.
 
 ## Cierre
 
-Antes del plan, aterriza el diseño en disco: `docs/proposals/<slug>.md` con el formato
-de la skill `propuesta` (problema, viaje del usuario, solución y patrón,
-alternativas, alcance). Si llegaste aquí vía `/skill:propuesta`, ese fichero ya
-existe: amplíalo. El diseño no vive en el
-chat — es la regla del flujo entero, y aquí es donde más se pierde.
+Antes del plan, aterriza el diseño en disco con la skill `propuesta`, en sus dos
+capas: lo que yo tengo que aprobar (problema, viaje, solución y patrón, decisiones
+clave, riesgos, criterios) va a la propuesta `docs/proposals/<slug>.md`, corta y
+auditable; el detalle para el agente va a `docs/design/<slug>.md`, **solo después**
+de que apruebe la propuesta. Si llegaste aquí vía `/skill:propuesta`, la propuesta
+ya existe: no la engordes con detalle, enlázalo desde el diseño. El diseño no vive en
+el chat — es la regla del flujo entero, y aquí es donde más se pierde.
 
 Luego termina con un plan de implementación en pasos cortos y espera mi visto bueno
 antes de construir.

@@ -23,8 +23,9 @@ vinculantes como el contrato. Después, la **bitácora**: es lo que pasó en los
 anteriores y a menudo explica por qué el código no está como el contrato haría esperar.
 
 Si la cabecera del plan referencia una **propuesta** (`docs/proposals/<slug>.md`),
-léela también del disco: es el porqué de lo que vas a ejecutar, y aclara los trade-offs
-que el plan da por sabidos. Leerla no es opcional; adivinar, sí lo es.
+léela también del disco: es el porqué de lo que vas a ejecutar, y es corta. Leerla no
+es opcional; adivinar, sí lo es. Del **diseño** (`docs/design/<slug>.md`) lee el
+«Mapa» y solo las secciones que toca este ciclo: está hecho para cargarse por partes.
 
 El ciclo a ejecutar es el del argumento; si no lo doy, **el primero en estado
 `pendiente`**. Si no queda ninguno, dilo y sugiere `/rama-cerrar`. No te adelantes

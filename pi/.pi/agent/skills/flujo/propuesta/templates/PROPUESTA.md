@@ -2,82 +2,83 @@
 
 - **Estado**: borrador | aprobada | construida | descartada
 - **Fecha**: AAAA-MM-DD
+- **Diseño**: `docs/design/<slug>.md` (se genera tras aprobar; hasta entonces «—»)
+
+Presupuesto: ≤ ~100 líneas, tope duro 150; se audita de una sentada (~10 min). Si
+no cabe, no falta espacio: son dos propuestas, o hay detalle que pertenece al
+diseño. La evidencia se **enlaza**, nunca se pega.
 
 ## Problema
 
-Qué duele, para quién, y cómo se nota hoy. El lenguaje del negocio, sin jerga de
-implementación. Si no puedo explicarlo en un párrafo, todavía no lo entiendo.
+Qué duele, para quién, y cómo se nota hoy, en lenguaje de negocio. Mejor **una
+historia concreta** que muestre por qué el estado actual no funciona que una lista
+de síntomas. Un párrafo; si no cabe, todavía no lo entiendo.
+
+## Apetito
+
+Opcional. Cuánto vale la pena invertir (días, ciclos) y qué recorta de la solución.
+Si no aplica, «—».
 
 ## Viaje del usuario
 
-El flujo que esta propuesta toca, contado paso a paso. Es el **esqueleto de la
-propuesta**: criterios, alcance y patrón anclan a sus pasos. Un paso que no se
-puede contar como «actor hace → el sistema responde» todavía no está pensado.
+El esqueleto: criterios y alcance anclan a sus pasos. Marca qué pasos cambian (→)
+y cuáles son nuevos (+). Lo que no toca ningún paso, no entra.
 
 | # | Actor | Hace | El sistema responde |
 |---|-------|------|---------------------|
 | V1 | … | … | … |
 
-Si el viaje ya existe, marca qué pasos cambian (→) y cuáles son nuevos (+). Lo
-que no toca ningún paso del viaje, no entra en esta propuesta.
-
 ## Solución y patrón
 
-Una frase: el efecto buscado, no el mecanismo. Y **el patrón bajo el que se
-implementa**, con nombre: uno conocido (pipeline, event sourcing, repository,
-fail-closed, reemplazo atómico de datos derivados…) o «ad hoc» explícito con su
-por qué. El patrón es el molde contra el que una persona audita la
-implementación: sin patrón nombrado, auditar es leer neblina.
+Dos a cinco líneas: el efecto buscado, no el mecanismo. Y **el patrón** con nombre
+(fail-closed, reemplazo atómico de datos derivados, repository…) o «ad hoc»
+explícito con su porqué: es el molde contra el que se audita la implementación.
 
-## Alternativas consideradas
+## Decisiones clave
+
+Las que, si cambian, cambian el diseño. **Máximo 7**, una línea cada una:
+decisión — porqué. Más de 7 es la señal de que son dos propuestas.
+
+1. … — …
+
+## Alternativas descartadas
+
+Las 3–5 que de verdad compitieron, incluida «no hacer nada». Una línea de porqué.
+El resto, con su detalle, vive en el diseño.
 
 | Opción | Por qué no |
 |---|---|
-| no hacer nada | … |
-
-Incluye siempre «no hacer nada». Los patrones descartados van aquí, no sueltos
-en otra sección: lo que no está descrito aquí, no está decidido, y esta sección
-es lo que evita rediseñar lo mismo en un año.
-
-## Alcance
-
-Qué entra. El detalle técnico que no se ve en el viaje (esquemas, IaC,
-ficheros) en lista corta; el cómo vive en el `PLAN.md`, no aquí.
-
-Una propuesta, un tramo del viaje: si encierra dos cambios que se podrían
-revertir por separado, son dos propuestas.
-
-## Criterios de aceptación
-
-Cómo sé que está hecho: comportamientos verificables, cada uno **anclado a un
-paso del viaje (V1, V2…) o al viaje completo si es una invariante**, y redactado
-para poder fallar — «funciona» no es un criterio. Un criterio sin paso al que
-anclar es prosa disfrazada de contrato.
-
-- [ ] **V1**: …
-- [ ] **V3**: …responde en <200ms al p95…
-
-## Fuera de alcance
-
-Qué explícitamente no toca esta propuesta.
+| No hacer nada | … |
 
 ## Riesgos aceptados
 
-Lo que queda abierto **a sabiendas** y quién lo asume: cada riesgo es una
-decisión humana de aceptar, no un pendiente técnico. Si no hay, «—».
+Lo que queda abierto a sabiendas y **quién lo acepta**. Si no hay, «—».
 
-## Contexto y bloqueos
+## Fuera de alcance
 
-Qué tiene que aterrizar antes (otra propuesta, una rama en vuelo) y qué
-preguntas sin resolver bloquean decisiones — lo que bloquea se escribe, no se
-descubre a mitad del build. Zonas del código, términos de `CONTEXT.md`, ADRs
-(enlazados, no copiados), principios por `id`, y evidencia (spikes,
-verificaciones): **enlazada, nunca pegada**. Si no hay nada, «—».
+Lo que explícitamente no entra (*no-gos*), con condición de reapertura si la hay.
+
+## Criterios de aceptación
+
+Comportamientos verificables, cada uno anclado a un paso (V#) o al viaje completo
+si es una invariante, y redactado para poder fallar. Unos 10 como mucho: los
+técnicos finos los deriva el diseño de estos, no al revés.
+
+- [ ] **V1**: …
+
+## Preguntas abiertas
+
+Lo que bloquea decidir o construir (*rabbit holes*): con quién se resuelve y si
+bloquea el diseño o solo la entrega. Si no hay, «—».
+
+## Referencias
+
+Enlaces, no copias: ADRs, spikes, notas de verificación, `ruta:línea` del código,
+principios por `id`, términos de `CONTEXT.md`. Si no hay, «—».
 
 ## Revisiones
 
-Append-only. Cada iteración sobre esta funcionalidad (feedback, lo aprendido
-durante el build) añade una entrada y actualiza las secciones afectadas dejando
-rastro del cambio:
+Append-only, **una línea por iteración**: fecha — qué cambió. El porqué largo va al
+diseño o al mensaje de commit, no aquí.
 
-- **AAAA-MM-DD — <motivo>**: qué cambia del diseño original y por qué.
+- **AAAA-MM-DD** — nace.
