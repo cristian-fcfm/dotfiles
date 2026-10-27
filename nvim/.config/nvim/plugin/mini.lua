@@ -141,6 +141,17 @@ local function statusline_spell()
   return ""
 end
 
+--- Rama de git limpia: `section_git` muestra el summary de mini.git, que
+--- añade " (estado)" cuando hay cambios sin commitear; aquí solo interesa
+--- el nombre de la rama.
+local function statusline_branch(trunc_width)
+  if Ministatus.is_truncated(trunc_width) then return "" end
+  local summary = vim.b.minigit_summary
+  local head = summary and summary.head_name
+  if not head or head == "" then return "" end
+  return " " .. head
+end
+
 local function statusline_recording()
   local reg = vim.fn.reg_recording()
   if reg ~= "" then
@@ -153,7 +164,7 @@ Ministatus.setup({
   content = {
     active = function()
       local mode, mode_hl = Ministatus.section_mode({ trunc_width = 120 })
-      local git = Ministatus.section_git({ trunc_width = 40 })
+      local git = statusline_branch(40)
       local diff = Ministatus.section_diff({ trunc_width = 75 })
       local diagnostics = Ministatus.section_diagnostics({ trunc_width = 75 })
       local lsp = Ministatus.section_lsp({ trunc_width = 75 })
