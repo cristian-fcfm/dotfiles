@@ -26,8 +26,9 @@ image = [
 video = [
   { run = 'mpv %s', desc = "mpv" },
 ]
-pdf = [
-  { run = 'bookokrat %s', desc = "Bookokrat" },
+firefox = [
+  { run = 'open -b org.mozilla.firefox %s', desc = "Firefox", for = "macos" },
+  { run = 'firefox %s',                     desc = "Firefox", for = "linux" },
 ]
 archive = [
   { run = 'ouch decompress --yes %s', desc = "Extract archive (ouch)", block = true },
@@ -42,8 +43,8 @@ rules = [
   { mime = "image/*", use = ["image", "reveal"] },
   { mime = "video/*", use = ["video", "reveal"] },
 
-  # PDFs y eBooks
-  { url = "*.{pdf,epub}", use = ["pdf", "reveal"] },
+  # PDFs y HTML en el navegador
+  { url = "*.{pdf,html}", use = ["firefox", "reveal"] },
 
   # Archivos comprimidos
   { url = "*.{tar.gz,tar.xz,zip,7z,rar}", use = ["archive", "reveal"] },
