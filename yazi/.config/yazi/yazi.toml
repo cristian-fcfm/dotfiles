@@ -24,7 +24,7 @@ image = [
   { run = 'open %s',     desc = "Open", for = "macos" },
 ]
 video = [
-  { run = 'mpv %s', desc = "mpv" },
+  { run = 'mpv %s', desc = "mpv", orphan = true },
 ]
 firefox = [
   { run = 'open -b org.mozilla.firefox %s', desc = "Firefox", for = "macos" },
