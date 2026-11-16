@@ -8,6 +8,7 @@ local M = {
   file_manager = "yazi",
   browser = "firefox",
   menu = "rofi -show drun",
+  window_menu = "rofi -show window",
   lock = "loginctl lock-session", -- lo atiende hypridle (lock_cmd)
 
   wallpaper = "~/.wallpapers/berserk.png",

@@ -17,6 +17,7 @@ hl.bind(
   { description = "Explorador de archivos" }
 )
 hl.bind(mod .. " + D", hl.dsp.exec_cmd(apps.menu), { description = "Lanzador de apps" })
+hl.bind(mod .. " + TAB", hl.dsp.exec_cmd(apps.window_menu), { description = "Cambiar de ventana" })
 hl.bind(
   mod .. " + period",
   hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"),
