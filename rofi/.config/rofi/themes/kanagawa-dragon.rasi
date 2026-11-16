@@ -1,0 +1,37 @@
+/* Tema kanagawa-dragon — estructura del tema stock gruvbox-dark-hard
+ * recoloreada con la paleta de waybar/themes/kanagawa-dragon.css: si cambias
+ * una, cambia la otra.
+ * Restricción viva: esta build de rofi (2.0.0-dirty) pinta blanco los
+ * colores con canal alpha — solo colores sólidos aquí. */
+
+@import "gruvbox-dark-hard"
+
+* {
+  /* Paleta espejo de waybar */
+  gruvbox-dark-bg0-hard:     #181616;  /* fondo (waybar background) */
+  gruvbox-dark-bg0:          #181616;  /* filas alternas: lista plana */
+  gruvbox-dark-bg2:          #8BA4B0;  /* selección (waybar accent) */
+  gruvbox-dark-fg0:          #181616;  /* texto sobre selección */
+  gruvbox-dark-fg1:          #C5C9C5;  /* texto (waybar foreground) */
+  gruvbox-dark-gray:         #313333;  /* borde (waybar border 15% sobre bg, aplanado) */
+  gruvbox-dark-red-dark:     #C4746E;  /* urgent (waybar red) */
+  gruvbox-dark-red-light:    #C4746E;
+  gruvbox-dark-yellow-dark:  #C4B28A;  /* active (waybar yellow) */
+  gruvbox-dark-yellow-light: #C4B28A;
+
+  scrollbar: false;
+}
+
+window {
+  width: 560px;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+element-icon {
+  size: 20px;
+}
+
+entry {
+  placeholder: "Buscar…";
+}

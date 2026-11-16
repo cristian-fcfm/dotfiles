@@ -74,6 +74,13 @@ hl.layer_rule({
   ignore_alpha = 0.3,
 })
 
+-- Restricción viva: con animación rofi se percibe lento al abrir (rofi(1) §Hyprland).
+hl.layer_rule({
+  name = "rofi-no-anim",
+  match = { namespace = "^rofi$" },
+  no_anim = true,
+})
+
 -- ─── Permisos de screencopy y plugins ───────────────────────────────────────
 -- Solo estos binarios capturan pantalla sin preguntar.
 

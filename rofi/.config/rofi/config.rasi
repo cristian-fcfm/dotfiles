@@ -1,0 +1,25 @@
+/* Rofi 2.x — lanzador de apps (Super+D), cambiador de ventanas (Super+Tab)
+ * y dmenu para cliphist (Super+.).
+ * La paleta vive en themes/kanagawa-dragon.rasi, misma que usa waybar.
+ * Restricción viva: la build de rofi (2.0.0-dirty) no pinta la fila
+ * seleccionada si se activa hover-select o si la lista de modes tiene más
+ * de una entrada — Super+Tab funciona porque -show window añade el modo
+ * por CLI. */
+
+configuration {
+  modes: "drun";
+  matching: "fuzzy";
+  sorting-method: "fzf";
+  // Acentos: "musica" matchea "Música". Restricción viva: desactiva
+  // el resaltado de la parte coincidente.
+  normalize-match: true;
+  font: "JetBrainsMono Nerd Font 11";
+  show-icons: true;
+  icon-theme: "Nordzy";
+  drun-display-format: "{name}";
+  window-format: "{c}  {t}";
+  display-drun: " Apps";
+  display-window: "Ventanas";
+}
+
+@theme "themes/kanagawa-dragon"
