@@ -8,7 +8,7 @@ en sitios donde luego no recuerdes por qué algo se comporta raro.
 ## Commits
 
 - **scope** = el paquete stow tocado: `cava`, `fastfetch`, `hypr`, `kitty`, `nvim`,
-  `pi`, `scripts`, `starship`, `systemd`, `waybar`, `yazi`, `zsh`.
+  `pi`, `rofi`, `scripts`, `starship`, `systemd`, `waybar`, `wlogout`, `yazi`, `zsh`.
 - Señal para partir un commit: toca dos paquetes stow sin dependencia entre ellos
   (`waybar` y `zsh`).
 
