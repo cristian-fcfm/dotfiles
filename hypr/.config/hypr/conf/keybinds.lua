@@ -20,7 +20,7 @@ hl.bind(mod .. " + D", hl.dsp.exec_cmd(apps.menu), { description = "Lanzador de 
 hl.bind(mod .. " + TAB", hl.dsp.exec_cmd(apps.window_menu), { description = "Cambiar de ventana" })
 hl.bind(
   mod .. " + period",
-  hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"),
+  hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p ' ' | cliphist decode | wl-copy"),
   { description = "Historial del portapapeles" }
 )
 
