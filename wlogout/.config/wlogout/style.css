@@ -1,0 +1,28 @@
+/* Tema kanagawa-dragon — paleta espejo de waybar/themes/kanagawa-dragon.css
+ * y rofi/themes/kanagawa-dragon.rasi: si cambias una, cambia las demás. */
+
+window,
+button {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 26pt;
+}
+
+window {
+  background-color: rgba(24, 22, 22, 0.85);
+}
+
+button {
+  background-color: rgba(24, 22, 22, 0.94);
+  border: 1px solid rgba(197, 201, 197, 0.15);
+  border-radius: 10px;
+  color: #C5C9C5;
+  margin: 12px;
+  padding: 44px;
+}
+
+button:hover,
+button:focus {
+  background-color: #8BA4B0;
+  border-color: rgba(197, 201, 197, 0.25);
+  color: #181616;
+}

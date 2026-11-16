@@ -65,11 +65,11 @@ hl.window_rule({
 
 -- ─── Capas ──────────────────────────────────────────────────────────────────
 -- decoration.blur solo alcanza a las capas que lo pidan. Namespaces según
--- `hyprctl layers`; rofi y swaync aparecen cuando están abiertos.
+-- `hyprctl layers`; rofi, swaync y wlogout aparecen cuando están abiertos.
 
 hl.layer_rule({
   name = "blur-shell",
-  match = { namespace = "^(waybar|rofi|swaync-control-center|swaync-notification-window)$" },
+  match = { namespace = "^(waybar|rofi|swaync-control-center|swaync-notification-window|wlogout)$" },
   blur = true,
   ignore_alpha = 0.3,
 })

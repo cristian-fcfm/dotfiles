@@ -1,0 +1,32 @@
+[
+  {
+    "label": "lock",
+    "action": "loginctl lock-session",
+    "text": "",
+    "keybind": "b"
+  },
+  {
+    "label": "suspend",
+    "action": "loginctl suspend",
+    "text": "",
+    "keybind": "s"
+  },
+  {
+    "label": "logout",
+    "action": "hyprctl dispatch 'hl.dsp.exit()'",
+    "text": "",
+    "keybind": "q"
+  },
+  {
+    "label": "reboot",
+    "action": "systemctl reboot",
+    "text": "",
+    "keybind": "r"
+  },
+  {
+    "label": "shutdown",
+    "action": "systemctl poweroff",
+    "text": "",
+    "keybind": "a"
+  }
+]
