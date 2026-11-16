@@ -18,8 +18,7 @@ hl.on("hyprland.start", function()
   hl.exec_cmd(apps.browser)
   hl.exec_cmd(apps.terminal, { workspace = "2 silent" })
 
-  hl.exec_cmd("wl-paste --type text --watch cliphist store")
-  hl.exec_cmd("wl-paste --type image --watch cliphist store")
+  -- El historial de portapapeles lo atiende cliphist.service (systemd).
 
   -- Espera (máx 5s) a que el daemon acepte conexiones antes de pedirle nada.
   hl.exec_cmd(
