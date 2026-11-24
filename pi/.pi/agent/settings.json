@@ -7,10 +7,10 @@
     "npm:pi-web-access"
   ],
   "enabledModels": [
-    "github-copilot/claude-opus-5",
-    "github-copilot/claude-sonnet-5",
-    "github-copilot/claude-haiku-4.5",
-    "opencode-go/deepseek-v4-flash"
+    "github-copilot/claude-opus-5.5",
+    "github-copilot/claude-sonnet-5.5",
+    "github-copilot/claude-haiku-5.5",
+    "opencode-go/deepseek-v4.1-flash"
   ],
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
