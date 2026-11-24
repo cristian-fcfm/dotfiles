@@ -94,6 +94,11 @@ tooltip label {
   background: transparent;
 }
 
+/* La variante Mono mantiene cada glifo dentro de una celda. */
+#custom-updates {
+  font-family: "JetBrainsMono Nerd Font Mono";
+}
+
 /* ─── WORKSPACES ──────────────────────────────────────────────────── */
 
 #workspaces {

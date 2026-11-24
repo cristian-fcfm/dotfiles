@@ -1,11 +1,11 @@
 {
   "custom/updates": {
-    "format": "{} {icon}",
+    "format": "{text} {icon}",
     "return-type": "json",
     "tooltip": true,
     "format-icons": {
-      "pending-updates": " ",
-      "updated": " ",
+      "pending-updates": "",
+      "updated": "",
     },
     "exec-if": "which waybar-updates",
     "exec": "waybar-updates",
