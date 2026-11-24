@@ -16,6 +16,11 @@ Entender el código relacionado con la tarea antes de proponer cambios.
 1. Localiza los archivos y módulos relevantes (búscalos, no asumas).
 2. Si el repo tiene `CONTEXT.md` (glosario de dominio) o `docs/adr/`, léelos primero:
    te dan el lenguaje y las decisiones ya tomadas.
+   Si la tarea toca dos o más zonas independientes (módulos o paquetes sin
+   dependencia entre sí), lanza un `explorador` por zona en una sola llamada a la tool
+   `subagent` (máximo 4) y une sus resúmenes. Cada tarea es autocontenida: las rutas de
+   su zona y qué devolver, porque el explorador no ve esta conversación. Con una sola
+   zona, o si la tool `subagent` no existe, explora tú mismo.
 3. Explica en pocas líneas: qué hace, cómo está estructurado, puntos de entrada/salida
    (con referencias `archivo:línea`).
 4. Identifica riesgos, dependencias y zonas frágiles.
