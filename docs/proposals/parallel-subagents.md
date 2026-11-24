@@ -29,7 +29,7 @@ retocar dos skills. Si pasa de ~120 líneas, recortar funciones, no añadirlas.
 | V3 → | Agente | En `explorar`, la tarea toca zonas independientes | Lanza un `explorador` por zona en paralelo; cada uno devuelve un resumen acotado |
 | V4 + | Subagente | Intenta lanzar otro subagente | La tool no existe para él |
 | V5 + | Subagente | Intenta `write` o `edit` | La tool no existe para él |
-| V6 + | Yo | Pulso Ctrl+C mientras corren | Los procesos hijos terminan y la sesión principal sigue viva |
+| V6 + | Yo | Pulso Esc (abortar) mientras corren | Los procesos hijos terminan y la sesión principal sigue viva |
 | V7 + | Yo | Abro pi en Linux o en macOS tras `stow -R pi` | La tool `subagent` y los dos agentes están disponibles sin tocar `settings.json` |
 
 ## Solución y patrón
@@ -53,7 +53,7 @@ propia mínima que solo orquesta la CLI de pi (`pi -p`): no reimplementa nada.
 | Opción | Por qué no |
 |---|---|
 | No hacer nada | `revisar` sigue prometiendo algo que no ocurre y los ejes se contaminan |
-| `pi -p … &` desde bash | Sin límite de concurrencia, sin abortar con Ctrl+C, salida sin acotar (`agentes-resultados-acotados`) |
+| `pi -p … &` desde bash | Sin límite de concurrencia, sin abortar con Esc, salida sin acotar (`agentes-resultados-acotados`) |
 | Paquetes npm (`pi-subagents`, `@williamcr01/pi-subagents`, `chthub/pi-subagents`, `pi-subagent-extension`) | Todos traen async, recursión, sesiones residentes o rutas de modelos ajenas; de ~190 KB a 10.9 MB para lo que caben 80 líneas |
 | Vendorizar el ejemplo oficial `subagent` | ~1400 líneas ajenas (streaming, render TUI, modo cadena) que no voy a usar y que se rompen con la API de TUI |
 | Cargar el ejemplo por ruta desde la instalación de pi | La ruta difiere entre Linux (`/usr/lib/node_modules`) y macOS (Homebrew/nvm); no es portable |
@@ -88,7 +88,7 @@ propia mínima que solo orquesta la CLI de pi (`pi -p`): no reimplementa nada.
 - [ ] **V3**: una llamada con más de 4 tareas o con un agente inexistente falla antes de lanzar ningún hijo, con motivo.
 - [ ] **V4**: un `revisor` al que se le pide «lanza un subagente» no puede hacerlo: la tool no está en su lista.
 - [ ] **V5**: un `explorador` al que se le pide editar un fichero no puede: `write`/`edit` no están en su lista y el fichero queda intacto.
-- [ ] **V6**: Ctrl+C durante un fan-out no deja procesos `pi` hijos vivos (`pgrep`).
+- [ ] **V6**: Esc durante un fan-out no deja procesos `pi` hijos vivos (`pgrep -xa pi` solo lista la sesión) y la sesión principal sigue viva.
 - [ ] **V7**: en Linux y en macOS, tras `stow -R pi`, pi arranca sin errores de extensión y `subagent` aparece entre las tools.
 - [ ] **Invariante**: `settings.json` no cambia, no se añade ninguna dependencia npm y la extensión no pasa de ~120 líneas.
 
@@ -115,3 +115,5 @@ propia mínima que solo orquesta la CLI de pi (`pi -p`): no reimplementa nada.
 - **2026-11-24** — debe funcionar en Linux y macOS: el ejemplo se vendoriza en vez de cargarse por ruta (D1, V7, riesgos).
 - **2026-11-24** — vendorizar es demasiado: extensión propia mínima sobre `pi -p` (D1, apetito, alternativas, riesgos, V1, V3, invariante).
 - **2026-11-24** — aprobada.
+- **2026-11-24** — V6: en pi la tecla de abortar es Esc, no Ctrl+C (que solo limpia el editor); y los hijos se renombran a `pi`, así que `pgrep -f "pi -p"` no los ve: se comprueba con `pgrep -xa pi` (ciclo 6 de `PLAN.md`).
+- **2026-11-24** — invariante: el tope de ~120 líneas se mide sin blancos, comentarios ni docstrings, sobre `index.ts` + `core.ts` (revisión de `/skill:revisar`).

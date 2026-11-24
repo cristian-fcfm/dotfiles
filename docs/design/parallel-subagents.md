@@ -18,8 +18,12 @@ riesgos. Lo que ya dice la propuesta se enlaza, no se repite.
 
 ## Decisiones
 
-- **D1** (clave 1) — `pi/.pi/agent/extensions/subagent/index.ts`, un solo
-  fichero. Lanza hijos con `pi.exec("pi", args, { cwd, signal, timeout })`: sin
+- **D1** (clave 1) — `pi/.pi/agent/extensions/subagent/`: `index.ts` (registro
+  de la tool) + `core.ts` (lógica pura con `exec` inyectado) + `core.test.ts`
+  (`node:test`), como `extensions/guardrails/`; pi solo carga `index.ts` de un
+  subdirectorio. `core.ts` no importa paquetes de pi (no hay `node_modules` en el
+  repo): `index.ts` llama a `parseFrontmatter` y pasa el resultado a `core`. El tope
+  de ~120 líneas aplica a `index.ts` + `core.ts`, sin tests. Lanza hijos con `pi.exec("pi", args, { cwd, signal, timeout })`: sin
   shell (sin inyección por el texto de la tarea) y con aborto y SIGTERM→SIGKILL
   ya resueltos por pi (`docs/extensions.md` § `pi.exec`). Validado en
   `docs/design/parallel-subagents/spike-pi-print.md`.
@@ -50,7 +54,10 @@ riesgos. Lo que ya dice la propuesta se enlaza, no se repite.
 
 ```
 pi/.pi/agent/
-├── extensions/subagent/index.ts   # tool `subagent` (~80 líneas)
+├── extensions/subagent/
+│   ├── index.ts                   # registro de la tool `subagent`
+│   ├── core.ts                    # lógica pura (exec inyectado)
+│   └── core.test.ts
 └── agents/
     ├── explorador.md
     └── revisor.md
@@ -114,7 +121,7 @@ pi/.pi/agent/
   stderr; los demás hijos siguen. Ejemplo real: modelo inexistente → 400
   `model_not_supported` (spike).
 - `pi` no está en el `PATH` → error de spawn en cada bloque.
-- Ctrl+C → `signal` aborta todos los `pi.exec`; los bloques dicen «cancelado».
+- Esc (abortar) → `signal` aborta todos los `pi.exec`; los bloques dicen «cancelado».
 - Timeout (D9) → igual que exit ≠ 0, con motivo «timeout».
 - Bash peligroso dentro de un hijo → lo bloquea `agent-guardrails` (sin UI =
   bloqueo); el hijo lo cuenta en su salida.
@@ -129,18 +136,20 @@ pi/.pi/agent/
   tareas `explorador`.
 - **T4** (V3) — Una salida de más de 16 KB llega truncada con marca.
 - **T5** (V3) — 5 tareas → error de validación del esquema; `agent: "nope"` o
-  `"../x"` → error antes de lanzar ningún `pi` (`pgrep -f "pi -p"` vacío).
+  `"../x"` → error antes de lanzar ningún `pi` (test con `exec` espía: cero lanzamientos).
 - **T6** (V4) — Un agente cuyo `.md` declara `subagent` en `tools` es rechazado;
   un `revisor` al que se le pide lanzar un subagente responde que no tiene la
   tool.
 - **T7** (V5) — Un `explorador` al que se le pide editar un fichero no puede, y
   el fichero queda intacto (`git status` limpio).
-- **T8** (V6) — Ctrl+C durante un lote: `pgrep -f "pi -p"` vacío a los 6 s
-  (5 s de gracia de SIGTERM→SIGKILL).
+- **T8** (V6) — Esc durante un lote: `pgrep -xa pi` solo lista la sesión padre
+  a los 6 s (5 s de gracia de SIGTERM→SIGKILL); los hijos se renombran a `pi`, por
+  eso `pgrep -f "pi -p"` no sirve. Medido en el ciclo 6: a +1 s, sin hijos ni nietos.
 - **T9** (V7) — En Linux y macOS, tras `stow -R pi`, `~/.pi/agent/extensions/subagent`
   y `~/.pi/agent/agents` existen y la tool `subagent` aparece en una sesión.
 - **T10** (invariante) — `git diff pi/.pi/agent/settings.json` vacío por este
-  cambio, sin `package.json` en la extensión, y `wc -l index.ts` ≤ ~120.
+  cambio, sin `package.json` en la extensión, y `index.ts` + `core.ts` ≤ ~120 líneas de código (sin blancos, comentarios ni docstrings):
+  `cat core.ts index.ts | grep -vE '^\s*$|^\s*(/\*\*|\*|//)' | wc -l`.
 
 ## Alternativas (detalle)
 
@@ -161,7 +170,7 @@ pi/.pi/agent/
 
 ## Notas para el plan
 
-1. **Tracer bullet**: `index.ts` con una tarea y `explorador.md`; probar con una
+1. **Tracer bullet**: `index.ts` + `core.ts` con una tarea y `explorador.md`; probar con una
    pregunta sobre el repo (T7 de paso).
 2. Fan-out con `Promise.all` y el tope del esquema (T1, T5).
 3. Validación todo-o-nada y rechazo de tools prohibidas (T5, T6).
