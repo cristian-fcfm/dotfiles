@@ -44,8 +44,8 @@ Un ciclo es un red-green-refactor de la skill `tdd`, aplicado a **un** comportam
 4. Corre los comandos de «Verificación» del plan enteros, no solo el test nuevo.
 
 Las aprobaciones que la sección «Puertas humanas» marca como **ya aprobadas** no se
-vuelven a pedir — se concedieron al escribir el plan, y volver a preguntarlas es lo
-que hace inútil correr esto en paralelo. Las de la otra lista se respetan siempre.
+vuelven a pedir: se concedieron al escribir el plan. Las de la otra lista se
+respetan siempre.
 
 ## 3. Guardar el estado
 
