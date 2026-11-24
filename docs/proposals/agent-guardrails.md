@@ -1,6 +1,6 @@
 # agent-guardrails
 
-- **Estado**: aprobada
+- **Estado**: construida
 - **Fecha**: 2026-11-24
 - **Diseño**: `docs/design/agent-guardrails.md`
 
@@ -100,3 +100,4 @@ función pura, separada del hook, para poder probarlas sin modelo.
 
 - **2026-11-24** — nace.
 - **2026-11-24** — aprobada; `push --force` solo confirma, como cualquier push; V6 exige Linux y macOS.
+- **2026-11-24** — construida; V1–V6 verificados en Linux y macOS. `git branch` también confirma `-f`/`--force`.
