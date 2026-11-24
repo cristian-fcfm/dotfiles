@@ -145,16 +145,9 @@ tooltip label {
 /* ─── MUSIC ───────────────────────────────────────────────────────── */
 
 #custom-music {
-  background: linear-gradient(135deg, @gradient-1, @gradient-2);
-  color: @background;
+  background: transparent;
+  color: @foreground;
   font-weight: 700;
-  border-radius: 12px;
-}
-
-#custom-music.paused {
-  background: none;
-  color: alpha(@foreground, 0.6);
-  font-weight: 400;
 }
 
 /* ─── GPU ────────────────────────────────────────────────────────── */
