@@ -4,9 +4,7 @@
     "active-only": false,
     "all-outputs": false,
     "enable-bar-scroll": true,
-    "format": "{icon} {windows}",
-    "format-empty": "{icon}",
-    "format-window-separator": " 󰮍 ",
+    "format": "{icon}",
     "format-icons": {
       "1": "󰲡",
       "2": "󰲣",
@@ -18,20 +16,6 @@
       "8": "󰲯",
       "9": "󰲱",
       "10": "󰲳"
-    },
-    "window-rewrite-default": "",
-    "window-rewrite": {
-      "title<.*youtube.*>": "",
-      "class<firefox>": "",
-      "class<firefox> title<.*github.*>": "",
-      "class<kitty>": "",
-      "class<kitty> title<.*nvim*>": "",
-      "class<kitty> title<.*✳.*>": "󰚩",
-      "class<kitty> title<.*Yazi.*>": "",
-      "class<mpv>": "",
-      "spotify": "",
-      "discord": "",
-      "telegram-desktop": ""
     },
     // Hyprland 0.55 con config .lua interpreta el argumento de `dispatch`
     // como Lua; la sintaxis clásica ya no parsea.
