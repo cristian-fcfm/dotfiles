@@ -16,7 +16,18 @@ checklist en verde. Esta skill produce hallazgos, no cambios en git.
 
 La revisión son dos preguntas distintas y **no se contaminan**: el eje Spec no opina
 sobre calidad, el eje Estándares no opina sobre alcance. Al ser independientes se
-pueden correr en paralelo, un agente por eje, y luego juntar los hallazgos.
+corren en paralelo, un agente por eje, y luego se juntan los hallazgos.
+
+**Cómo**: una sola llamada a la tool `subagent` con dos tareas `revisor` (una por eje).
+Cada tarea lleva referencias, no copias: el comando del diff (`git diff`), la ruta de
+esta skill (`~/.pi/agent/skills/flujo/revisar/SKILL.md`) y qué sección aplicar. Para
+Spec, además las rutas de `PLAN.md`, la propuesta y el diseño. Si el eje Spec no aplica
+(ver abajo), una sola tarea. Los revisores no editan ni registran gaps: eso lo haces tú
+al cierre.
+
+Presenta los informes en dos secciones, **Spec** y **Estándares**, tal cual, sin
+mezclarlos en un ranking común ni reordenarlos. Si la tool `subagent` no existe, corre
+los ejes uno tras otro en esta misma sesión.
 
 ## Eje Spec — ¿es lo que se acordó?
 
