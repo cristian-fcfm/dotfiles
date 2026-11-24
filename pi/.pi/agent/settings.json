@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.84.1",
+  "lastChangelogVersion": "1.5.2",
   "theme": "dark",
   "defaultProvider": "github-copilot",
   "defaultModel": "gemini-3.8-flash",
@@ -13,5 +13,8 @@
     "opencode-go/deepseek-v4-flash"
   ],
   "defaultThinkingLevel": "high",
-  "hideThinkingBlock": false
+  "hideThinkingBlock": false,
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:pi-web-access\",\"scope\":\"user\"}": "0.48.0"
+  }
 }
