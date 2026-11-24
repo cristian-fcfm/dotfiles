@@ -1,8 +1,8 @@
 {
   "hyprland/language": {
     "format": "{}",
-    "format-en": "US  ",
-    "format-es": "LATAM  ",
+    "format-en": "US",
+    "format-es": "LATAM",
     "keyboard-name": "zsa-technology-labs-moonlander-mark-i",
     "on-click": "hyprctl switchxkblayout zsa-technology-labs-moonlander-mark-i next",
   },
