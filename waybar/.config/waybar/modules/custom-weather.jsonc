@@ -7,7 +7,6 @@
     "format": "{}°",
     "return-type": "json",
     "on-click": "kitty --hold --class center-float zsh -c 'curl wttr.in/Santiago'",
-    "on-click-right": "kitty --hold --class center-float zsh -c 'curl wttr.in/Santiago'",
     "on-click-middle": "xdg-open https://wttr.in/Santiago",
   },
 }
