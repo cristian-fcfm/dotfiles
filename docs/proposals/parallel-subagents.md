@@ -1,6 +1,6 @@
 # parallel-subagents
 
-- **Estado**: aprobada
+- **Estado**: construida
 - **Fecha**: 2026-11-24
 - **Diseño**: `docs/design/parallel-subagents.md`
 - **Depende de**: `agent-guardrails` (los subagentes corren sin UI y confían en su bloqueo)
@@ -117,3 +117,4 @@ propia mínima que solo orquesta la CLI de pi (`pi -p`): no reimplementa nada.
 - **2026-11-24** — aprobada.
 - **2026-11-24** — V6: en pi la tecla de abortar es Esc, no Ctrl+C (que solo limpia el editor); y los hijos se renombran a `pi`, así que `pgrep -f "pi -p"` no los ve: se comprueba con `pgrep -xa pi` (ciclo 6 de `PLAN.md`).
 - **2026-11-24** — invariante: el tope de ~120 líneas se mide sin blancos, comentarios ni docstrings, sobre `index.ts` + `core.ts` (revisión de `/skill:revisar`).
+- **2026-11-24** — construida. V7 solo verificada en Linux: la prueba en macOS queda pendiente como riesgo aceptado al cerrar.
