@@ -2,16 +2,6 @@
   "custom/cava": {
     "exec": "~/.config/waybar/scripts/cava.sh",
     "format": "{}",
-    "format-icons": [
-      "<span foreground='#A292A3'>▁</span>",
-      "<span foreground='#A292A3'>▂</span>",
-      "<span foreground='#A292A3'>▃</span>",
-      "<span foreground='#A292A3'>▄</span>",
-      "<span foreground='#8BA4B0'>▅</span>",
-      "<span foreground='#8BA4B0'>▆</span>",
-      "<span foreground='#8BA4B0'>▇</span>",
-      "<span foreground='#8BA4B0'>█</span>",
-    ],
     "on-click": "kitty --class center-float-mini cava",
     "on-click-right": "qpwgraph",
     "on-click-middle": "easyeffects",
