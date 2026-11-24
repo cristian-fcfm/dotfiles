@@ -4,11 +4,12 @@ argument-hint: [contexto o matiz que deba tener en cuenta]
 ---
 
 Prepara los commits de los cambios actuales. Invocar este comando **es** la
-petición explícita de commitear que pide mi AGENTS.md, pero enséñame cada
-mensaje y espera mi OK antes de ejecutar `git commit`. No hagas push ni crees
-PRs. Aquí no se reescribe historia: nada de `amend`, `rebase`, `reset --hard` ni
-`restore`. (El único `rebase` que hacemos es el de una rama de funcionalidad
-propia y sin publicar, y vive en `/rama-cerrar`.)
+petición explícita de commitear que pide mi AGENTS.md, pero enséñame el plan
+con todos los mensajes de una vez y espera un único OK antes de ejecutar
+`git commit`. No hagas push ni crees PRs. Aquí no se reescribe historia: nada
+de `amend`, `rebase`, `reset --hard` ni `restore`. (El único `rebase` que
+hacemos es el de una rama de funcionalidad propia y sin publicar, y vive en
+`/rama-cerrar`.)
 
 La regla no es cuántos commits salen, es que **cada commit sea atómico**.
 Cuántos hacen falta lo decide el análisis del paso 2 sobre el diff que tengas
@@ -59,14 +60,16 @@ la base que otros necesitan (el refactor, el fichero nuevo), después lo que se
 apoya en ella. Si no existe ningún orden que lo cumpla, la partición estaba mal:
 junta esas unidades y dilo en el cuerpo en una línea.
 
-## 3. Enséñame el plan
+## 3. Enséñame el plan y los mensajes
 
-Antes de tocar el índice, dame la lista completa: por cada unidad, el asunto
-propuesto y los ficheros (o hunks) que entran. Una línea por unidad, en el orden
-en que las vas a commitear. Repasa la lista contra el paso 2 antes de
-enseñármela: si alguna unidad sigue haciendo dos cosas, vuelve a partirla.
+Antes de tocar el índice, dame la lista completa, en el orden en que las vas a
+commitear: por cada unidad, los ficheros (o hunks) que entran y su mensaje
+entero (asunto y cuerpo) en un bloque de código. Repasa la lista contra el paso
+2 antes de enseñármela: si alguna unidad sigue haciendo dos cosas, vuelve a
+partirla.
 
-Espera mi OK al plan antes de seguir.
+Espera mi OK al plan y a los mensajes antes de seguir. Si te pido cambiar un
+mensaje, cámbialo y sigue: no hace falta otra ronda salvo que cambie el reparto.
 
 ## 4. Commitear una a una
 
@@ -78,8 +81,8 @@ Por cada unidad, en orden:
    `git diff -- <fichero> > <tmp>.patch` → recorta →
    `git apply --cached <tmp>.patch`.
 2. Verifica con `git diff --cached` que está lo que dijiste y nada más.
-3. Muéstrame el mensaje en un bloque de código y espera confirmación.
-4. `git commit`, y luego `git status --short` antes de pasar a la siguiente.
+3. `git commit` con el mensaje aprobado, y luego `git status --short` antes de
+   pasar a la siguiente.
 
 Si a mitad algo se desvía del plan (un hunk que no se deja separar, un cambio
 que no compila suelto), párate y dímelo en vez de improvisar un reparto nuevo.
