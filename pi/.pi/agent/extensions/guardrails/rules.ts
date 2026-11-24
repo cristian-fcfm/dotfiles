@@ -25,7 +25,7 @@ const BASH_RULES: Array<[RegExp, string]> = [
 	[/\bgh\s+pr\s+(?:create|merge)\b/, "publica fuera de la máquina (gh pr)"],
 	[git(String.raw`reset\b${SAME_CMD}\s--hard\b`), "descarta cambios (git reset --hard)"],
 	[git(String.raw`clean\b${SAME_CMD}\s(?:-[a-zA-Z]*f|--force\b)`), "borra ficheros no rastreados (git clean -f)"],
-	[git(String.raw`branch\b${SAME_CMD}\s-[a-zA-Z]*D\b`), "borra una rama sin comprobar si está integrada (git branch -D)"],
+	[git(String.raw`branch\b${SAME_CMD}\s(?:-[a-zA-Z]*[Df]|--force\b)`), "borra o mueve una rama a la fuerza (git branch -D/--force)"],
 	[git(String.raw`(?:checkout|restore)(?:\s+--)?\s+\.(?=\s|$|[;&|])`), "descarta cambios del árbol de trabajo"],
 	[/\bsudo\b/, "ejecuta con privilegios de root (sudo)"],
 	[new RegExp(String.raw`\brm\s+(?:${SAME_CMD}\s)?(?:-[a-zA-Z]*[rR][a-zA-Z]*|--recursive)\b`), "borrado recursivo (rm -r)"],

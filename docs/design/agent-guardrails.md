@@ -76,7 +76,7 @@ Reglas:
 | `bash` | `gh pr create` / `gh pr merge` | confirm |
 | `bash` | `git … reset … --hard` | confirm |
 | `bash` | `git … clean` con `-f` en sus flags | confirm |
-| `bash` | `git … branch … -D` | confirm |
+| `bash` | `git … branch …` con `-D`, `-f` o `--force` (borrar o mover a la fuerza) | confirm |
 | `bash` | `git … checkout .` / `git … restore .` (con o sin `--`) | confirm |
 | `bash` | `sudo` como palabra | confirm |
 | `bash` | `rm` recursivo (D8) | confirm |
