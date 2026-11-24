@@ -114,13 +114,15 @@ tooltip label {
   transition: all 0.2s ease;
 }
 
-#workspaces button.active {
-  color: @accent;
-  font-weight: 700;
-}
-
 #workspaces button:hover {
   color: @accent;
+}
+
+#workspaces button.active {
+  background: @accent;
+  color: @background;
+  border-radius: 6px;
+  font-weight: 700;
 }
 
 #workspaces button.urgent {
